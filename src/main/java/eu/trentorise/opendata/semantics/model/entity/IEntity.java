@@ -75,7 +75,7 @@ public interface IEntity {
     /**
      * Sets the external identifier of the entity
      * 
-     * @param externalId a string representing the external identifier of the entity
+     * @param externalID a string representing the external identifier of the entity
      */
     void setExternalID(String externalID);
 

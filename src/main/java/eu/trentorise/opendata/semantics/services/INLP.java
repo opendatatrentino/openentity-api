@@ -74,7 +74,7 @@ public interface INLP {
 
     /**
      * Disambiguates the column header names of a resource that typically comes from a catalog. 
-     * @param IResourceContext the metadata of the resource, typically found in the catalog
+     * @param context the metadata of the resource, typically found in the catalog
      * @param sourceColumns the names of the resource columns
      * @return the column names enriched with the meaning, ranked by confidence
      */
