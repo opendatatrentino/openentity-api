@@ -1,4 +1,4 @@
-Open Data API For Open Data in Trentino project
+Open Data Trentino API 
 ====
 
 Java interface for Open Data in Trentino project
@@ -7,20 +7,9 @@ Java interface for Open Data in Trentino project
 
 **Roadmap**: see [project issues](https://github.com/opendatatrentino/open-data-api/issues)
 
-**Documentation**: see [the wiki](https://github.com/opendatatrentino/open-data-api/wiki)
 
 
-Credits:
-
-* Juan Pane - DISI at University of Trento - pane@disi.unitn.it
-* Moaz Reyad - DISI at University of Trento - moaz.reyad@unitn.it
-* David Leoni - Trento Rise - david.leoni@trentorise.eu 
-* Alberto Zanella - Trento Rise - alberto.zanella@trentorise.eu
-
-
-### Usage
-
-#### SNAPSHOTS
+#### Usage - snapshots
 
 WARNING: THIS IS A DEVELOPMENT VERSION THAT CAN CHANGE AT ANY TIME, DO NOT USE IT IN PRODUCTION
 
@@ -47,3 +36,9 @@ in the _dependencies_ section, add:
 ```
 
 
+Credits:
+
+* Juan Pane - DISI at University of Trento - pane@disi.unitn.it
+* Moaz Reyad - DISI at University of Trento - moaz.reyad@unitn.it
+* David Leoni - Trento Rise - david.leoni@trentorise.eu 
+* Alberto Zanella - Trento Rise - alberto.zanella@trentorise.eu
