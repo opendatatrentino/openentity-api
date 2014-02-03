@@ -16,31 +16,35 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IWord;
+import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import java.util.List;
 
 /**
- * Knowledge services are used to read words from the a knowledge base.
- *
+ * Interface for entity search services
+ * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
+ *
  */
-public interface IKnowledgeService {
+public interface ISearch {
 
     /**
-     * Reading words by lemma
-     * @param wordLemma the word's lemma
-     * @return the list of words that have this lemma
+     * Performs a search for entities using EQL syntax
+     *
+     * @param eqlQuery A string query using EQL syntax to be executed
+     * @return the list of entities that match the query
      */
-    List<IWord> readByWordLemma(String wordLemma);
-
+    List<IEntity> searchEQL(String eqlQuery);
+    
     /**
-     * Reading a word by a prefix
-     * @param prefix the prefix of the words to be found
-     * @return the list of words that starts with the given prefix
+     * Performs a concept search for entities 
+     *
+     * @param conceptSearchQuery A string query using concept search syntax to be executed
+     * @return the list of entities that match the query
      */
-    List<IWord> readByWordPrefix(String prefix);
+    List<IEntity> conceptSearch(String conceptSearchQuery);
 }

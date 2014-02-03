@@ -16,9 +16,9 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.model.entity.IEntity;
 
 /**
  * Identity management services that handles the creation of IDs for entities

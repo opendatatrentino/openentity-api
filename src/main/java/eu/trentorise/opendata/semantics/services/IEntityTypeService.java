@@ -16,11 +16,11 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttributeDef;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IUniqueIndex;
+import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
+import eu.trentorise.opendata.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
 import java.util.List;
 
 /**

@@ -16,9 +16,9 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.model.entity;
+package eu.trentorise.opendata.semantics.model.entity;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import java.util.List;
 import java.util.Locale;
 

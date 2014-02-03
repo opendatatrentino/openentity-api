@@ -16,11 +16,11 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttribute;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IValue;
+import eu.trentorise.opendata.semantics.model.entity.IAttribute;
+import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.model.entity.IValue;
 
 /**
  * Entity services allow CRUD on entities and attributes

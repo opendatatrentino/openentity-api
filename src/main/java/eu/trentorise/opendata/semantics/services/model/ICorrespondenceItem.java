@@ -16,35 +16,40 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.model.entity;
+package eu.trentorise.opendata.semantics.services.model;
+
+import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 
 /**
- * Represents an attribute value
+ * <i>ICorrespondenceItem</i> represents an item in the <i>ICorrespondence</i>.
+ * It is a tuple of Source, Relation and Target. The target is an attribute definition.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Jan 24, 2014
  */
-public interface IValue {
+public interface ICorrespondenceItem {
 
     /**
-     * Gets the GUID of the value
+     * Gets the source string in the Correspondence item
      *
-     * @return the GUID
+     * @return the source string
      */
-    Long getGUID();
+    String getSource();
 
     /**
-     * Gets the value
+     * Gets the target string in the Correspondence item
      *
-     * @return the value as an Object
+     * @return the target attribute definition
      */
-    Object getValue();
+    IAttributeDef getTarget();
 
     /**
-     * Sets the value
+     * Gets the relation character in the Correspondence item. It can be one of
+     * the following characters: =<>!LMX?
      *
-     * @param value the value to be set
+     * @return the relation character
      */
-    void setValue(Object value);
+    char getRelation();
 }

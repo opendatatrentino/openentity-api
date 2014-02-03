@@ -15,10 +15,10 @@
  *
  *******************************************************************************
  */
-package eu.trentorise.opendata.opendatarise.semantics.services;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.opendatarise.semantics.services.model.ICorrespondence;
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.services.model.ICorrespondence;
 import java.util.List;
 
 /**

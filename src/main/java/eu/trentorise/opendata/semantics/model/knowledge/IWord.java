@@ -16,7 +16,7 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
+package eu.trentorise.opendata.semantics.model.knowledge;
 
 import java.util.List;
 

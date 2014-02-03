@@ -16,9 +16,9 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services.model;
+package eu.trentorise.opendata.semantics.services.model;
 
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import java.util.List;
 
 /**

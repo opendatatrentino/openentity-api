@@ -16,18 +16,31 @@
  *******************************************************************************
  */
 
-/*
- * TODO Finalize
- */
-package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
+package eu.trentorise.opendata.semantics.services;
+
+import eu.trentorise.opendata.semantics.model.knowledge.IWord;
+import java.util.List;
 
 /**
- * The Natural Language Processing Text is a data structure that hold the
- * natural language text and its annotations while using the NLP services
+ * Knowledge services are used to read words from the a knowledge base.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
-public interface INLPText {
+public interface IKnowledgeService {
+
+    /**
+     * Reading words by lemma
+     * @param wordLemma the word's lemma
+     * @return the list of words that have this lemma
+     */
+    List<IWord> readByWordLemma(String wordLemma);
+
+    /**
+     * Reading a word by a prefix
+     * @param prefix the prefix of the words to be found
+     * @return the list of words that starts with the given prefix
+     */
+    List<IWord> readByWordPrefix(String prefix);
 }

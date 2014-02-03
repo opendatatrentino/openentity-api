@@ -16,35 +16,18 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services;
-
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
-import java.util.List;
+/*
+ * TODO Finalize
+ */
+package eu.trentorise.opendata.semantics.model.knowledge;
 
 /**
- * Interface for entity search services
- * 
+ * The Natural Language Processing Text is a data structure that hold the
+ * natural language text and its annotations while using the NLP services
+ *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
- *
+ * @date Jul 24, 2013
  */
-public interface ISearch {
-
-    /**
-     * Performs a search for entities using EQL syntax
-     *
-     * @param eqlQuery A string query using EQL syntax to be executed
-     * @return the list of entities that match the query
-     */
-    List<IEntity> searchEQL(String eqlQuery);
-    
-    /**
-     * Performs a concept search for entities 
-     *
-     * @param conceptSearchQuery A string query using concept search syntax to be executed
-     * @return the list of entities that match the query
-     */
-    List<IEntity> conceptSearch(String conceptSearchQuery);
+public interface INLPText {
 }
