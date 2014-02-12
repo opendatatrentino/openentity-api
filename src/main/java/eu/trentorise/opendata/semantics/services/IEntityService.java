@@ -15,19 +15,22 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
+import java.io.Writer;
+import java.util.List;
 
 /**
- * Entity services allow CRUD on entities and attributes
+ * Entity services allow CRUD on entities and attributes, and also exporting in
+ * various formats.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Feb 12, 2014
  */
 public interface IEntityService {
 
@@ -87,4 +90,30 @@ public interface IEntityService {
      */
     void updateAttributeValue(IEntity entity, IAttribute attribute,
             IValue newValue);
+
+    /**
+     * Writes the given entities in rdf format into the provided writer.
+     *
+     * @param entityIds the ids of the entities to export
+     * @param writer A writer to store the generated rdf
+     */
+    void exportToRdf(List<Long> entityIds, Writer writer);
+
+    /**
+     * Writes the given entities in rdf format into the provided writer.
+     *
+     * @param entityIds the ids of the entities to export
+     * @param writer A writer to store the generated jsonld
+     */
+    void exportToJsonLd(List<Long> entityIds, Writer writer);
+
+    /**
+     * Writes the given entities in rdf format into the provided writer.
+     *
+     * @param entityIds the ids of the entities to export
+     * @param writer A writer to store the generated csv
+     * 
+     */
+    void exportToCsv(List<Long> entityIds, Writer writer);
+
 }

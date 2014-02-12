@@ -17,7 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.INLPText;
+import eu.trentorise.opendata.semantics.model.knowledge.INLText;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import java.util.List;
 
@@ -28,9 +28,9 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Jan 27, 2014
+ * @date Feb 12, 2014
  */
-public interface INLP {
+public interface INLPService {
 
     /**
      * Takes a natural language string and returns concepts and entities
@@ -40,7 +40,7 @@ public interface INLP {
      * @return the natural language text object with all the entities and
      * concepts found and disambiguated
      */
-    INLPText runNLP(String nlText);
+    INLText runNLP(String nlText);
 
     /**
      * Takes a natural language name of an entity as a string and finds the
@@ -51,7 +51,7 @@ public interface INLP {
      * it will have also the disambiguated Entity added to the object with their
      * locations.
      */
-    void namedEntityDisambiguate(INLPText nlText);
+    void namedEntityDisambiguate(INLText nlText);
 
     /**
      * Takes a natural language text and finds the concepts and entities in the
@@ -61,7 +61,7 @@ public interface INLP {
      * function it will have also the concept and entities found in the text.
      * They will be added to the object with their locations.
      */
-    void namedEntityRecognition(INLPText nlText);
+    void namedEntityRecognition(INLText nlText);
 
     /**
      * Takes a natural language text that has been processed by NER and
@@ -70,7 +70,7 @@ public interface INLP {
      * @param nlText the input natural language string. After calling the
      * function it will have also the concepts disambiguated.
      */
-    void wordSenseDisambiguate(INLPText nlText);
+    void wordSenseDisambiguate(INLText nlText);
 
     /**
      * Disambiguates the column header names of a resource that typically comes from a catalog. 
@@ -78,7 +78,7 @@ public interface INLP {
      * @param sourceColumns the names of the resource columns
      * @return the column names enriched with the meaning, ranked by confidence
      */
-    List<INLPText> disambiguateColumns(IResourceContext context, List<String> sourceColumns);
+    List<INLText> disambiguateColumns(IResourceContext context, List<String> sourceColumns);
 
     /**
      * Guesses the datatype common to a list of strings passed as input. Todo

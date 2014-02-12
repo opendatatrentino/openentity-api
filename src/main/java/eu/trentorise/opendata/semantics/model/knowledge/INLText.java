@@ -27,7 +27,9 @@ package eu.trentorise.opendata.semantics.model.knowledge;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Feb 12, 2014
+
  */
-public interface INLPText {
+public interface INLText {
 }
