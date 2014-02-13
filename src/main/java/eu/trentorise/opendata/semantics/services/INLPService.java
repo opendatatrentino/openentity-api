@@ -19,6 +19,7 @@ package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.INLText;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
+import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
 import java.util.List;
 
 /**
@@ -74,11 +75,11 @@ public interface INLPService {
 
     /**
      * Disambiguates the column header names of a resource that typically comes from a catalog. 
-     * @param context the metadata of the resource, typically found in the catalog
-     * @param sourceColumns the names of the resource columns
+     * @param table the content of the resource
+     * @param context the metadata of the resource, typically found in the catalog     
      * @return the column names enriched with the meaning, ranked by confidence
      */
-    List<INLText> disambiguateColumns(IResourceContext context, List<String> sourceColumns);
+    List<INLText> disambiguateColumns(ITableResource table, IResourceContext context);
 
     /**
      * Guesses the datatype common to a list of strings passed as input. Todo
