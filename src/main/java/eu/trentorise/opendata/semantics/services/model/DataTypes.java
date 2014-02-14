@@ -40,7 +40,7 @@ import java.util.Map;
  * NLSTRING : INLString <br/>
  * COMPLEX_TYPE : IEntity <br/>
  *
- * @author Ivan Tankoyeu tankoyeu@disi.unitn.it
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
  * @date Feb 14, 2014
  *

@@ -42,3 +42,4 @@ Credits:
 * Moaz Reyad - DISI at University of Trento - moaz.reyad@unitn.it
 * David Leoni - Trento Rise - david.leoni@trentorise.eu 
 * Alberto Zanella - Trento Rise - alberto.zanella@trentorise.eu
+* Ivan Tankoyeu - DISI at University of Trento - tankoyeu@disi.unitn.it
