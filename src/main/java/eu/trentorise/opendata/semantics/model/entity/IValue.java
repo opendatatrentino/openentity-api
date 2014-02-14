@@ -15,15 +15,17 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.model.entity;
 
 /**
- * Represents an attribute value
+ * Represents an attribute value. Java objects that can be stored in an IValue
+ * are reported in
+ * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
+ *
  */
 public interface IValue {
 
@@ -35,16 +37,20 @@ public interface IValue {
     Long getGUID();
 
     /**
-     * Gets the value
+     * Gets the value.
      *
-     * @return the value as an Object
+     * @return the value as an Object. Java objects that can be returned are
+     * reported in
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
      */
     Object getValue();
 
     /**
      * Sets the value
      *
-     * @param value the value to be set
+     * @param value the value to be set. Java objects that can be used are
+     * reported in
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
      */
     void setValue(Object value);
 }

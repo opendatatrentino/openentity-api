@@ -15,7 +15,6 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
@@ -44,8 +43,8 @@ public interface IAttributeDef {
      *
      * @return a string that holds the URL of the attribute definition
      */
-    String getURL();    
-    
+    String getURL();
+
     /**
      * Gets the URI of the attribute definition
      *
@@ -62,11 +61,19 @@ public interface IAttributeDef {
     String getName(Locale locale);
 
     /**
-     * Gets the data type of the attribute definition
+     * Gets the data type of the attribute definition. Possible values for the
+     * datatypes are listed in
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
      *
      * @return the data type as string
      */
     String getDataType();
+
+    /**
+     *
+     * @return the entity type if the data type is COMPLEX_TYPE, null otherwise
+     */
+    IEntityType getRangeEType();
 
     /**
      * Gets the concept of the attribute definition
@@ -97,7 +104,7 @@ public interface IAttributeDef {
      * @param regularExpression the regular expression as string
      */
     void setRegularExpression(String regularExpression);
-    
+
     /**
      * Gets the IsMandatory flag that tells if the attribute is mandatory or not
      *
