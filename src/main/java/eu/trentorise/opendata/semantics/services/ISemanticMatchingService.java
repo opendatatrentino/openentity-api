@@ -27,7 +27,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Feb 03, 2014
+ * @date Feb 25, 2014
  */
 public interface ISemanticMatchingService {
 
@@ -37,9 +37,9 @@ public interface ISemanticMatchingService {
      * attributes of the target entity type. Todo for now types are expressed as
      * String, maybe we can do an enum.
      *
-     * @param sourceConcepts the names of the resource columns
+     * @param sourceHeaderConcepts the names of the resource columns
      * @param sourceTypes a list of source types to aid the matcher
-     * @return - the correspondence 
+     * @return - a list of scored correspondences ordered in decreasing order of scoring.
      */
-    ICorrespondence matchSchemas(List<IConcept> sourceConcepts, List<String> sourceTypes);
+    List<ICorrespondence> matchSchemas(List<IConcept> sourceHeaderConcepts, List<String> sourceTypes);
 }

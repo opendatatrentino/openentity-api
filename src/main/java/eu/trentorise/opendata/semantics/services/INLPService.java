@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.INLText;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
@@ -29,19 +30,19 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Feb 12, 2014
+ * @date Feb 25, 2014
  */
 public interface INLPService {
 
     /**
-     * Takes a natural language string and returns concepts and entities
-     * disambiguated
+     * Takes a natural language text and finds the concepts and entities in the
+     * text.
      *
-     * @param nlText an input natural language string
-     * @return the natural language text object with all the entities and
-     * concepts found and disambiguated
+     * @param nlText the input natural language string. After calling the
+     * function it will have also the concept and entities found in the text.
+     * They will be added to the object with their locations.
      */
-    INLText runNLP(String nlText);
+    void namedEntityRecognition(INLText nlText);
 
     /**
      * Takes a natural language name of an entity as a string and finds the
@@ -55,28 +56,23 @@ public interface INLPService {
     void namedEntityDisambiguate(INLText nlText);
 
     /**
-     * Takes a natural language text and finds the concepts and entities in the
-     * text.
-     *
-     * @param nlText the input natural language string. After calling the
-     * function it will have also the concept and entities found in the text.
-     * They will be added to the object with their locations.
-     */
-    void namedEntityRecognition(INLText nlText);
-
-    /**
      * Takes a natural language text that has been processed by NER and
      * disambiguates the concepts
      *
      * @param nlText the input natural language string. After calling the
-     * function it will have also the concepts disambiguated.
+     * function it will have also the concepts disambiguated. Each tagged word
+     * may have more than one candidate for the concept representing it
+     * @param context a list of concepts
      */
-    void wordSenseDisambiguate(INLText nlText);
+    void wordSenseDisambiguate(INLText nlText, List<IConcept> context);
 
     /**
-     * Disambiguates the column header names of a resource that typically comes from a catalog. 
+     * Disambiguates the column header names of a resource that typically comes
+     * from a catalog.
+     *
      * @param table the content of the resource
-     * @param context the metadata of the resource, typically found in the catalog     
+     * @param context the metadata of the resource, typically found in the
+     * catalog
      * @return the column names enriched with the meaning, ranked by confidence
      */
     List<INLText> disambiguateColumns(ITableResource table, IResourceContext context);
@@ -89,5 +85,15 @@ public interface INLPService {
      * @param cellList a list of strings
      */
     String guessType(List<String> cellList);
+
+    /**
+     * Takes a natural language string and returns concepts and entities
+     * disambiguated
+     *
+     * @param nlText an input natural language string
+     * @return the natural language text object with all the entities and
+     * concepts found and disambiguated
+     */
+    INLText runNLP(String nlText);
 
 }

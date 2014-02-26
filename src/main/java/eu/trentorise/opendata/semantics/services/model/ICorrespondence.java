@@ -57,4 +57,5 @@ public interface ICorrespondence {
      * @return the list of correspondence items
      */
     List<ICorrespondenceItem> getCorrespondenceItems();
+    
 }
