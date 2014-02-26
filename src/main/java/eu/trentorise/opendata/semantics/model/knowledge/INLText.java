@@ -21,6 +21,8 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import java.io.Serializable;
+
 /**
  * The Natural Language Processing Text is a data structure that hold the
  * natural language text and its annotations while using the NLP services
@@ -31,5 +33,5 @@ package eu.trentorise.opendata.semantics.model.knowledge;
  * @date Feb 12, 2014
 
  */
-public interface INLText {
+public interface INLText extends Serializable {
 }
