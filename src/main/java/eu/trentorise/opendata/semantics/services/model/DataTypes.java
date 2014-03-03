@@ -20,7 +20,7 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.INLString;
-import eu.trentorise.opendata.semantics.model.knowledge.INLText;
+import it.unitn.disi.sweb.core.nlp.model.NLText;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,13 +36,13 @@ import java.util.Map;
  * FLOAT : Float <br/>
  * LONG : Long <br/>
  * CONCEPT : IConcept <br/>
- * SSTRING : INLText <br/>
+ * SSTRING : NLText <br/>
  * NLSTRING : INLString <br/>
  * COMPLEX_TYPE : IEntity <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Feb 26, 2014
+ * @date Mar 3, 2014
  *
  */
 public class DataTypes {
@@ -74,7 +74,7 @@ public class DataTypes {
         ret.put(FLOAT, Float.class);
         ret.put(LONG, Long.class);
         ret.put(CONCEPT, IConcept.class);
-        ret.put(SSTRING, INLText.class);
+        ret.put(SSTRING, NLText.class);
         ret.put(NLSTRING, INLString.class);
         ret.put(COMPLEX_TYPE, IEntity.class);
         return ret;

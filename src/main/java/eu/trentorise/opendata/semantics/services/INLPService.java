@@ -18,9 +18,9 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.INLText;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
+import it.unitn.disi.sweb.core.nlp.model.NLText;
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public interface INLPService {
      * function it will have also the concept and entities found in the text.
      * They will be added to the object with their locations.
      */
-    void namedEntityRecognition(INLText nlText);
+    void namedEntityRecognition(NLText nlText);
 
     /**
      * Takes a natural language name of an entity as a string and finds the
@@ -53,7 +53,7 @@ public interface INLPService {
      * it will have also the disambiguated Entity added to the object with their
      * locations.
      */
-    void namedEntityDisambiguate(INLText nlText);
+    void namedEntityDisambiguate(NLText nlText);
 
     /**
      * Takes a natural language text that has been processed by NER and
@@ -64,7 +64,7 @@ public interface INLPService {
      * may have more than one candidate for the concept representing it
      * @param context a list of concepts
      */
-    void wordSenseDisambiguate(INLText nlText, List<IConcept> context);
+    void wordSenseDisambiguate(NLText nlText, List<IConcept> context);
 
     /**
      * Disambiguates the column header names of a resource that typically comes
@@ -75,7 +75,7 @@ public interface INLPService {
      * catalog
      * @return the column names enriched with the meaning, ranked by confidence
      */
-    List<INLText> disambiguateColumns(ITableResource table, IResourceContext context);
+    List<NLText> disambiguateColumns(ITableResource table, IResourceContext context);
 
     /**
      * Guesses the datatype common to a list of strings passed as input. Todo
@@ -94,6 +94,6 @@ public interface INLPService {
      * @return the natural language text object with all the entities and
      * concepts found and disambiguated
      */
-    INLText runNLP(String nlText);
+    NLText runNLP(String nlText);
 
 }
