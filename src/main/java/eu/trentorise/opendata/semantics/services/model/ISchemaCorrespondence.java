@@ -22,40 +22,30 @@ import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import java.util.List;
 
 /**
- * <i>ICorrespondence</i> represents the output of the semantic matching. It is 
- * a list of <i>ICorrespondenceItem</i>s.
  *
- * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Jan 24, 2014
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
+ * @date Mar 09, 2014
  */
-public interface ICorrespondence {
+public interface ISchemaCorrespondence {
 
     /**
-     * gets the target entity type
+     * Gets a list of attribute correspondences
+     * @return the list of correspondences
+     * 
+    */
+    List<IAttributeCorrespondence> getAttributeCorrespondence();
+
+    /**
+     * Gets the target entity type
      * @return the target entity type
-     */
-    IEntityType getEntityType();
-    
-    /**
-     * sets the target entity type
-     * @param entityType the target entity type
-     */
-    void setEntityType(IEntityType entityType);
-    
-    /**
-     * Sets the list of correspondence items
-     *
-     * @param correspondenceItems the list of correspondence items
-     */
-    void setCorrespondenceItems(List<ICorrespondenceItem> correspondenceItems);
+     */    
+    IEntityType getEtype();
 
     /**
-     * Gets the list of correspondence items
-     *
-     * @return the list of correspondence items
-     */
-    List<ICorrespondenceItem> getCorrespondenceItems();
+     * Gets the score assigned to the correspondence. todo range?
+     * @return the target entity type
+     */    
+    Float getScore();
     
 }

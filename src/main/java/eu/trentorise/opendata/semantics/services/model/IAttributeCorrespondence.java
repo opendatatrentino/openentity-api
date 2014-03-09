@@ -15,41 +15,48 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.services.model;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
+import java.util.HashMap;
 
 /**
- * <i>ICorrespondenceItem</i> represents an item in the <i>ICorrespondence</i>.
- * It is a tuple of Source, Relation and Target. The target is an attribute definition.
- *
- * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Jan 24, 2014
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
+ * @date Mar 09, 2014
  */
-public interface ICorrespondenceItem {
+public interface IAttributeCorrespondence {
 
     /**
-     * Gets the source string in the Correspondence item
-     *
-     * @return the source string
+     * Gets the target attribute definition
+     * @return The target attribute def
      */
-    String getSource();
+    IAttributeDef getAttrDef();
+
+    /** 
+     * todo put score range
+     * Gets the map of candidate attributes associated to their score
+     * @return the map of candidate attributes associated to their score
+     */
+    HashMap<IAttributeDef, Float> getAttrMap();
 
     /**
-     * Gets the target string in the Correspondence item
-     *
-     * @return the target attribute definition
+     * Gets the source column index
+     * @return the source column index
      */
-    IAttributeDef getTarget();
+    int getColumnIndex();
 
     /**
-     * Gets the relation character in the Correspondence item. It can be one of
-     * the following characters: =<>!LMX?
-     *
-     * @return the relation character
+     * Gets the concept associated to the column header
+     * @return 
      */
-    char getRelation();
+    long getHeaderConceptID();
+
+    /**
+     * todo range?
+     * Gets the score associated to the attribute
+     * @return the score associated to the attribute
+     */
+    float getScore();
+    
 }

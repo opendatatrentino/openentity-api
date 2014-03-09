@@ -17,8 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.services.model.ICorrespondence;
+import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
+import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
 import java.util.List;
 
 /**
@@ -27,19 +27,18 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Feb 25, 2014
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
+ * @date Mar 09, 2014
  */
 public interface ISemanticMatchingService {
 
     /**
-     * Given a list of disambiguated column header names guesses a target
+     * Given a resource in tabular format guesses a target
      * entitytype and returns a matching between the source headers and the
-     * attributes of the target entity type. Todo for now types are expressed as
-     * String, maybe we can do an enum.
+     * attributes of the target entity type. 
      *
-     * @param sourceHeaderConcepts the names of the resource columns
-     * @param sourceTypes a list of source types to aid the matcher
+     * @param tableResource the names of the resource columns     
      * @return - a list of scored correspondences ordered in decreasing order of scoring.
-     */
-    List<ICorrespondence> matchSchemas(List<IConcept> sourceHeaderConcepts, List<String> sourceTypes);
+     */   
+    List<ISchemaCorrespondence> matchSchemas(ITableResource tableResource);
 }
