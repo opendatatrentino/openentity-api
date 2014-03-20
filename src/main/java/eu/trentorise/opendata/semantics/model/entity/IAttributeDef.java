@@ -70,7 +70,7 @@ public interface IAttributeDef {
     String getDataType();
 
     /**
-     *
+     * Return the entity type for the range, when the datatype is COMPLEX_TYPE
      * @return the entity type if the data type is COMPLEX_TYPE, null otherwise
      */
     IEntityType getRangeEType();

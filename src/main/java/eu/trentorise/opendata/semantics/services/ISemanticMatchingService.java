@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
 import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
 import java.util.List;
@@ -37,8 +38,9 @@ public interface ISemanticMatchingService {
      * entitytype and returns a matching between the source headers and the
      * attributes of the target entity type. 
      *
+     * @param resourceContext the context of the resource as found in the catalog of provenance
      * @param tableResource the names of the resource columns     
      * @return - a list of scored correspondences ordered in decreasing order of scoring.
      */   
-    List<ISchemaCorrespondence> matchSchemas(ITableResource tableResource);
+    List<ISchemaCorrespondence> matchSchemas(IResourceContext resourceContext, ITableResource tableResource);
 }

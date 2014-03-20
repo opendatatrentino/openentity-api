@@ -20,40 +20,29 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 import java.util.Map;
 
 /**
- *
- * Holds the context of a resource, divided in primary and secondary. Typically
- * the context is metadata from the catalog where the resource was found.
- *
+ * The context of a resource coming from a catalog such as i.e. Ckan.
+ * 
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Jan 27, 2014
+ * @date Mar 20, 2014
  */
 public interface IResourceContext {
 
     /**
-     * Returns the primary context of the resource
-     *
-     * @return The primary context of the resource.
+     * Gets the name of the resource as found in the catalog.
+     * @return the name of the resource
      */
-    Map<String, String> getPrimaryContext();
-
+    String getResourceName();
+    
     /**
-     * Sets the primary context of the resource
-     *
-     * @param context The primary ocntext of the resource to set
+     * Gets the resource filename. Notice sometimes it can be meaningless, like 'g83_f3.dat' 
+     * @return the resource filename
      */
-    void setPrimaryContext(Map<String, String> context);
-
+    String getResourceFilename();
+    
     /**
-     * Returns the primary context of the resource
-     *
-     * @return The primary context of the resource.
+     * Gets the name of the dataset which contains the resource.
+     * @return the dataset name
      */
-    Map<String, String> getSecondaryContext();
-
-    /**
-     * Sets the secondary context of the resource
-     *
-     * @param context The secondary ocntext of the resource to set
-     */
-    void setSecondaryContext(Map<String, String> context);
+    String getDatasetName();
+    
 }
