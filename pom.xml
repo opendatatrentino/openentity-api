@@ -81,6 +81,36 @@
         </profile>
     </profiles>    
 
+
+    <repositories>   
+                
+        <repository>
+            <id>sweb-internal</id>
+            <layout>default</layout>
+            <name>Archiva Managed Internal Repository</name>
+            <url>https://sweb.science.unitn.it/archiva/repository/internal</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sweb-snapshots</id>
+            <name>Archiva Managed Snapshot Repository</name>
+            <url>https://sweb.science.unitn.it/archiva/repository/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>                
+    </repositories>
+    
     <build>
         <plugins>
             <plugin>
