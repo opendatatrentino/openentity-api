@@ -84,14 +84,14 @@ public interface IEntity {
      * 
      * @return the list of attributes in this entity
      */
-    List<IAttribute> getAttributes();
+    List<IAttribute> getEntityAttributes();
 
     /**
      * Sets the list of attributes in this entity
      * 
      * @param attributes the list of attributes to be set in the entity
      */
-    void setAttributes(List<IAttribute> attributes);
+    void setEntityAttributes(List<IAttribute> attributes);
 
     /**
      * Adds an attribute to the list of attributes in this entity
