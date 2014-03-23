@@ -42,7 +42,7 @@ public interface IConcept {
      *
      * @return the concept global id
      */    
-    Long getGlobalGUID();
+    Long getGUID();
     
 
     /**

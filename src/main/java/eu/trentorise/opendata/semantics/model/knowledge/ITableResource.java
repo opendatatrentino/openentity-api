@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * A model for a resource in a tabular format. 
- * @author David Leoni
+ * @author David Leoni <david.leoni@trentorise.eu>
  * @date 13 Feb 2014
  */
 public interface ITableResource {
