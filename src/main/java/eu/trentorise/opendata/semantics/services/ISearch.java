@@ -36,6 +36,19 @@ public interface ISearch {
     /**
      * Performs a search for entities using EQL syntax
      *
+     * EQL syntax is an extended version from HQL
+     * (http://docs.jboss.org/hibernate/core/3.3/reference/en/html/queryhql.html).
+     *
+     * Examples:
+     *
+     * 1. EQL Query : "from locations location1" <br/>
+     * Description: returns all entities, where the entity type is Location
+     *
+     * 2. EQL Query : "from locations[description:administrative division]
+     * location1" <br/>
+     * Description : returns all entities, where the entity type is location and
+     * the description attribute contains "administrative division".
+     *
      * @param eqlQuery A string query using EQL syntax to be executed
      * @return the list of entities that match the query
      */
