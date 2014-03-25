@@ -39,7 +39,7 @@ public interface IEntityService {
      *
      * @param entity the entity to be created
      */
-    void createEntity(IEntity entity);
+    Long createEntity(IEntity entity);
 
     /**
      * Updates an entity

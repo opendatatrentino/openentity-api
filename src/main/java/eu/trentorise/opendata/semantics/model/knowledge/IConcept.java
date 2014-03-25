@@ -30,11 +30,20 @@ import java.util.Locale;
 public interface IConcept {
 
     /**
-     * Gets the URI of the concept's Synset
+     * Gets the URL of the concept
      *
-     * @return the Synset's URI as string
+     * @return the concept URL as string
      */
-    String getSynsetURI();
+    String getURL();
+    
+    
+    /**
+     * Gets the global id of the concept
+     *
+     * @return the concept global id
+     */    
+    Long getGUID();
+    
 
     /**
      * Gets the common name for the concept in the given language

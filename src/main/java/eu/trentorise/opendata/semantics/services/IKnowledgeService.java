@@ -18,13 +18,16 @@
 
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import java.util.List;
+
 /**
  * Knowledge services are used to read words from the a knowledge base.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * david Leoni
- * @date Mar 03, 2014
+ * @author David Leoni
+ * @date Mar 23, 2014
  */
 public interface IKnowledgeService {
 
@@ -41,4 +44,11 @@ public interface IKnowledgeService {
      * @return the list of words that starts with the given prefix
      *
     List<IWord> readByWordPrefix(String prefix); */
+    
+    /**
+     * Returns the concepts with the given GUIDs
+     * @param GUIDs a list of global ids for concepts
+     * @return the concepts
+    */
+    List<IConcept> getConcepts(List<Long> GUIDs);
 }
