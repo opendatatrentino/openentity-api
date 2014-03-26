@@ -50,9 +50,12 @@ public interface ISearch {
      * the description attribute contains "administrative division".
      *
      * @param eqlQuery A string query using EQL syntax to be executed
-     * @return the list of entities that match the query
+     * @return a string table which contains the search results. Each column in
+     * the table corresponds to an (ordered) item in the 'select' clause in the
+     * query; and each row in the table corresponds to a set of values for these
+     * columns.
      */
-    List<IEntity> searchEQL(String eqlQuery);
+    String[][] searchEQL(String eqlQuery);
 
     /**
      * Performs a search for entities belonging to <i>entityType</>. For each
