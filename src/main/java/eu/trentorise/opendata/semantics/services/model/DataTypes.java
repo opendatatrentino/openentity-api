@@ -79,7 +79,7 @@ public class DataTypes {
         ret.put(SSTRING, NLText.class);
         ret.put(NLSTRING, INLString.class);
         ret.put(ENTITY, IEntity.class);
-        ret.put(STRUCTURE, ISTRUCTURE.class);
+        ret.put(STRUCTURE, IStructure.class);
         return ret;
     }
 
