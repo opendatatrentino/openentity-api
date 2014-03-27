@@ -31,11 +31,11 @@ import java.util.List;
 public interface IAttribute {
 
     /**
-     * Gets the Globally Unique Identifier (GUID) for the attribute
+     * Gets the Local identifier for the attribute
      *
-     * @return the Globally Unique Identifier (GUID) represented as Long
+     * @return the local identifier represented as Long
      */
-    Long getGUID();
+    Long getLocalID();
 
     /**
      * Gets the attribute definition of the attribute

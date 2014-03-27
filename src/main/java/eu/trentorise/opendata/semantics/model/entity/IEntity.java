@@ -19,6 +19,7 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * An entity is a representation of real world object.
@@ -26,17 +27,42 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
+ * @date Mar 27, 2014
  */
-public interface IEntity {
+public interface IEntity extends IStructure {
 
     /**
-     * Gets the local identifier for the entity
+     * Gets the name of the entity in the given language
      *
-     * @return the local identifier as Long
+     * @param locale the language used to return the entity name
+     * @return the name of the entity if translation is present, null otherwise.
      */
-    Long getLocalID();
+    String getName(Locale locale);
+    
+    /**
+     * Sets the name in the given locale
+     * @param locale language in which the name is expressed
+     * @param name the provided name
+     */
+    void setName(Locale locale, String name);
 
+    /**
+     * Gets the description on the entity in the given language
+     *
+     * @param language the natural language
+     * @return the description of the entity in the given language if translation is present, null otherwise.
+     */
+    String getDescription(Locale language);    
+    
+    
+    /**
+     * Sets the description on the entity in the given language
+     *
+     * @param language the language of the description
+     * @param description the description of the entity in the given language      
+     */
+    String setDescription(Locale language, String description);    
+    
     /**
      * Gets the Globally Unique Identifier (GUID) for the entity
      *
@@ -65,52 +91,5 @@ public interface IEntity {
      */
     void setURL(String url);
 
-    /**
-     * Gets the external identifier of the entity
-     * 
-     * @return a string representing the external identifier of the entity
-     */
-    String getExternalID();
 
-    /**
-     * Sets the external identifier of the entity
-     * 
-     * @param externalID a string representing the external identifier of the entity
-     */
-    void setExternalID(String externalID);
-
-    /**
-     * Gets the list of attributes in this entity
-     * 
-     * @return the list of attributes in this entity
-     */
-    List<IAttribute> getEntityAttributes();
-
-    /**
-     * Sets the list of attributes in this entity
-     * 
-     * @param attributes the list of attributes to be set in the entity
-     */
-    void setEntityAttributes(List<IAttribute> attributes);
-
-    /**
-     * Adds an attribute to the list of attributes in this entity
-     * 
-     * @param attribute the attribute to be added
-     */
-    void addAttribute(IAttribute attribute);
-
-    /**
-     * Gets the entity type
-     * 
-     * @return the entity type
-     */
-    IEntityType getEtype();
-
-    /**
-     * Sets the entity type
-     * 
-     * @param type the entity type
-     */
-    void setEtype(IEntityType type);
 }

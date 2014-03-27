@@ -24,17 +24,18 @@ package eu.trentorise.opendata.semantics.model.entity;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * 
+ * @date Mar 27, 2014
  *
  */
 public interface IValue {
 
     /**
-     * Gets the GUID of the value
+     * Gets the local ID of the value. 
      *
-     * @return the GUID
+     * @return the ID of the value
      */
-    Long getGUID();
+    Long getLocalID();
 
     /**
      * Gets the value.

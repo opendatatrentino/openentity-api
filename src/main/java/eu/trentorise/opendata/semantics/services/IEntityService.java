@@ -32,8 +32,7 @@ import java.util.List;
  * @author David Leoni <david.leoni@trentorise.eu>
  * @date Feb 12, 2014
  */
-public interface IEntityService {
-
+public interface IEntityService {    
     /**
      * Creates an entity
      *

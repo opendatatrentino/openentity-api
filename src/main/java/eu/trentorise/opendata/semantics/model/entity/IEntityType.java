@@ -27,8 +27,9 @@ import java.util.Locale;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
+ * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
+ * @date Mar 27, 2014
  */
 public interface IEntityType {
 
@@ -57,7 +58,7 @@ public interface IEntityType {
      * Gets the name of the entity type in the given language
      *
      * @param locale the language used to return the entity type name
-     * @return the name of the entity type
+     * @return the name of the entity type if translation is present, null otherwise.
      */
     String getName(Locale locale);
 

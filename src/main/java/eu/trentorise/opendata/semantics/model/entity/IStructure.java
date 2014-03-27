@@ -25,72 +25,46 @@ import java.util.List;
  * A complex structure that is represented by the set of attribute.
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
- * @date Mar 25, 2014
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Mar 27, 2014
  */
 public interface IStructure {
 
-    /**
+     /**
      * Gets the local identifier for the entity
      *
      * @return the local identifier as Long
      */
     Long getLocalID();
 
+    
     /**
-     * Gets the Globally Unique Identifier (GUID) for the entity
-     *
-     * @return the Globally Unique Identifier (GUID) represented as Long
-     */
-    Long getGUID();
-   
-    /**
-     * Gets the URI of the entity
-     *
-     * @return a string that holds the URI of the entity
-     */
-  
-    String getURL();
-
-    /**
-     * Sets the URL of the entity
-     *
-     * @param url a string that holds the URL of the entity
-     */
-    void setURL(String url);
-
-    /**
-     * Gets the external identifier of the entity
+     * Gets the external identifier of the structure
      * 
-     * @return a string representing the external identifier of the entity
+     * @return a string representing the external identifier of the structure
      */
    
-    List<IAttribute> getEntityAttributes();
+    List<IAttribute> getStructureAttributes();
 
     /**
-     * Sets the list of attributes in this entity
+     * Sets the list of attributes in this structure
      * 
-     * @param attributes the list of attributes to be set in the entity
+     * @param attributes the list of attributes to be set in the structure
      */
-    void setEntityAttributes(List<IAttribute> attributes);
+    void setStructureAttributes(List<IAttribute> attributes);
 
+ 
     /**
-     * Adds an attribute to the list of attributes in this entity
+     * Gets the structure type
      * 
-     * @param attribute the attribute to be added
-     */
-    void addAttribute(IAttribute attribute);
-
-    /**
-     * Gets the entity type
-     * 
-     * @return the entity type
+     * @return the structure type
      */
     IEntityType getEtype();
 
     /**
-     * Sets the entity type
+     * Sets the structure type
      * 
-     * @param type the entity type
+     * @param type the structure type
      */
     void setEtype(IEntityType type);
 }

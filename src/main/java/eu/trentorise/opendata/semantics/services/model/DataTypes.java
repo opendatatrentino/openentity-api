@@ -61,6 +61,9 @@ public class DataTypes {
     public static final String NLSTRING = "NLSTRING";
     public static final String STRUCTURE = "STRUCTURE";
     public static final String ENTITY = "ENTITY";
+    /**
+        @deprecated
+    */
     public static final String COMPLEX_TYPE="COMPLEX_TYPE";
 
     /**

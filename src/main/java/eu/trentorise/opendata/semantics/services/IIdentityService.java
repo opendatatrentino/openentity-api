@@ -19,21 +19,32 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
+import eu.trentorise.opendata.semantics.services.model.IIDResult;
+import java.util.List;
+import java.util.Set;
+
+
+
 
 /**
  * Identity management services that handles the creation of IDs for entities
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Mar 27, 2014
+
  */
 public interface IIdentityService {
 
-    /**
-     * Creates a Globally Unique Identifier (GUID) for the given entity
-     *
-     * @param entity
-     * @return the created GUID of the entity
+    /**     
+     * Reconciliates the given list of entities against existing ones. 
+     * 
+     * @param entities a list of entities to reconciliate
+     * @param numCandidates maximum number of candidates to return for each entity to match
+     * @return a list of reconciliation results, one for each input entity.
      */
-    Long createGUID(IEntity entity);
+     List<IIDResult> assignGUID(List<IEntity> entities, int numCandidates);
 }

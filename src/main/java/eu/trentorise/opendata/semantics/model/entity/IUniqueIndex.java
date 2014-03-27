@@ -26,17 +26,18 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
+ * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
+ * @date Mar 27, 2014 
  */
 public interface IUniqueIndex {
 
     /**
-     * Gets the Globally Unique Identifier (GUID) for the unique indexes
+     * Gets the local id for the unique index
      *
-     * @return the Globally Unique Identifier (GUID) represented as Long
+     * @return the local id represented as Long
      */
-    Long getGUID();
+    Long getLocalID();
 
     /**
      * Gets the URL of the attribute definition
