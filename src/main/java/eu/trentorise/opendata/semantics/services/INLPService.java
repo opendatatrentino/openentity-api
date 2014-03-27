@@ -95,5 +95,6 @@ public interface INLPService {
      * concepts found and disambiguated
      */
     NLText runNLP(String nlText);
+    
 
 }

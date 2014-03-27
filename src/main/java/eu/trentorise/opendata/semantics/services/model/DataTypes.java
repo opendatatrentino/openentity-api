@@ -18,9 +18,11 @@
 package eu.trentorise.opendata.semantics.services.model;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.INLString;
 import it.unitn.disi.sweb.core.nlp.model.NLText;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +61,7 @@ public class DataTypes {
     public static final String NLSTRING = "NLSTRING";
     public static final String STRUCTURE = "STRUCTURE";
     public static final String ENTITY = "ENTITY";
+    public static final String COMPLEX_TYPE="COMPLEX_TYPE";
 
     /**
      * Provides a map of the supported datatypes. Each datatype name is mapped
