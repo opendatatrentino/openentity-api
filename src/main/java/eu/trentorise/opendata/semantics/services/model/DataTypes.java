@@ -38,7 +38,8 @@ import java.util.Map;
  * CONCEPT : IConcept <br/>
  * SSTRING : NLText <br/>
  * NLSTRING : INLString <br/>
- * COMPLEX_TYPE : IEntity <br/>
+ * ENTITY : IEntity <br/>
+ * STRUCTURE : ISTRUCUTRE <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
@@ -56,7 +57,8 @@ public class DataTypes {
     public static final String CONCEPT = "CONCEPT";
     public static final String SSTRING = "SSTRING";
     public static final String NLSTRING = "NLSTRING";
-    public static final String COMPLEX_TYPE = "COMPLEX_TYPE";
+    public static final String STRUCTURE = "STRUCTURE";
+    public static final String ENTITY = "ENTITY";
 
     /**
      * Provides a map of the supported datatypes. Each datatype name is mapped
@@ -76,7 +78,8 @@ public class DataTypes {
         ret.put(CONCEPT, IConcept.class);
         ret.put(SSTRING, NLText.class);
         ret.put(NLSTRING, INLString.class);
-        ret.put(COMPLEX_TYPE, IEntity.class);
+        ret.put(ENTITY, IEntity.class);
+        ret.put(STRUCTURE, ISTRUCTURE.class);
         return ret;
     }
 
