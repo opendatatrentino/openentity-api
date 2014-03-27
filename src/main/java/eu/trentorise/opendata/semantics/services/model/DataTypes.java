@@ -39,7 +39,7 @@ import java.util.Map;
  * SSTRING : NLText <br/>
  * NLSTRING : INLString <br/>
  * ENTITY : IEntity <br/>
- * STRUCTURE : ISTRUCUTRE <br/>
+ * STRUCTURE : IStructure<br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
