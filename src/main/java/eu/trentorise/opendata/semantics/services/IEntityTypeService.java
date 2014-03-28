@@ -54,4 +54,10 @@ public interface IEntityTypeService {
      * @param uniqueIndex the unique index to be added
      */
     void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndex uniqueIndex);
+    
+    /** Return the entity type by the given ID
+     * @param id of the entity type
+     * @return entity type 
+     */
+    IEntityType getEntityType(long id);
 }

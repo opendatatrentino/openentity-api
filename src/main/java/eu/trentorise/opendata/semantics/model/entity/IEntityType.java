@@ -19,6 +19,7 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -117,4 +118,5 @@ public interface IEntityType {
      * @param uniqueIndex the unique indexes to be added
      */
     void addUniqueIndex(IUniqueIndex uniqueIndex);
+    
 }

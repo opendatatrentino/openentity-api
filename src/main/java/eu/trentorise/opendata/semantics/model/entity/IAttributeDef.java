@@ -112,4 +112,13 @@ public interface IAttributeDef {
      * mandatory
      */
     boolean isMandatory();
+    
+    /**
+     * Returns the entity type for attribute defintion 
+     * 
+     * @return entity type
+     */
+     Long getEType();  	
+    	
+    
 }
