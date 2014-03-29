@@ -26,7 +26,7 @@ public interface IIDResult {
      * @return an entity if getAssignmentResult is different than MISSING, null
      * otherwise.
      */
-    IEntity getEntity();
+    IEntity getResultEntity();
 
     /**
      * Gets a set of possible suggested entities.
