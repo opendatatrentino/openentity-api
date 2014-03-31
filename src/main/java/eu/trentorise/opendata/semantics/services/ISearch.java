@@ -73,5 +73,5 @@ public interface ISearch {
      *
      * @param entityBaseID the identifier of the default entity base
      */
-    void setDefaultEntityBase(Long entityBaseID);
+    // void setDefaultEntityBase(Long entityBaseID);
 }
