@@ -35,5 +35,10 @@ public interface IIDResult {
      * REUSE, an empty set otherwiose.
      */
     Set<IEntity> getEntities();
+    
+    /** Gets a global ID of the matched entity
+     * @return global identifier of the entity
+     */
+    Long getGUID();
 
 }
