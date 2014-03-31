@@ -66,4 +66,12 @@ public interface ISearch {
      * @return the list of entities that match the query
      */
     List<IEntity> conceptSearch(String conceptSearchQuery);
+    
+    /**
+     * Sets the default entity base which will be used with search if no other
+     * entity base is specified.
+     *
+     * @param entityBaseID the identifier of the default entity base
+     */
+    void setDefaultEntityBase(Long entityBaseID);
 }
