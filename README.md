@@ -1,11 +1,11 @@
-Open Data Trentino API 
+Open Entity API 
 ====
 
-Java interface for Open Data in Trentino project
+Java interface for entity management
 
 **Project status**: developing [milestone 1.0](https://github.com/opendatatrentino/open-data-api/issues?milestone=1&state=open)
 
-**Roadmap**: see [project issues](https://github.com/opendatatrentino/open-data-api/issues)
+**Roadmap**: see [project issues](https://github.com/opendatatrentino/openentity-api/issues)
 
 
 
@@ -30,7 +30,7 @@ in the _dependencies_ section, add:
 ```        
     <dependency>
       <groupId>eu.trentorise.opendata</groupId>
-      <artifactId>api</artifactId>
+      <artifactId>openentity-api</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
 ```
@@ -40,6 +40,6 @@ Credits:
 
 * Juan Pane - DISI at University of Trento - pane@disi.unitn.it
 * Moaz Reyad - DISI at University of Trento - moaz.reyad@unitn.it
-* David Leoni - Trento Rise - david.leoni@trentorise.eu 
+* David Leoni - Trento Rise - david.leoni@unitn.it
 * Alberto Zanella - Trento Rise - alberto.zanella@trentorise.eu
 * Ivan Tankoyeu - DISI at University of Trento - tankoyeu@disi.unitn.it
