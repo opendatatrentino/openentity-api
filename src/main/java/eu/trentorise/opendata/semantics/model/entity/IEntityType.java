@@ -98,4 +98,10 @@ public interface IEntityType {
      */
     void addUniqueIndex(IUniqueIndex uniqueIndex);
     
+    /**
+     * Gets the URL of the entity type
+     * @return the URL of the entity type
+     */
+    String getURL();
+    
 }
