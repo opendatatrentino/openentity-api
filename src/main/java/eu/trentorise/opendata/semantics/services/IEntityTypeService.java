@@ -20,7 +20,6 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import java.util.List;
 
 /**
@@ -45,13 +44,6 @@ public interface IEntityTypeService {
      * @return the entity types
     */
     List<IEntityType> getEntityTypes(List<String> URLs);
-    
-    /**
-     * Returns the entity types with the given URLs
-     * @param URL the URL of a entity type
-     * @return the entity type
-    */
-    IEntityType getEntityType(List<String> URL);
     
 
     /**
