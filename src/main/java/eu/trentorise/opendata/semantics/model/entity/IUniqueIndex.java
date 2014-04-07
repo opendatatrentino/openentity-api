@@ -28,35 +28,35 @@ import java.util.List;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Mar 27, 2014 
+ * @date Apr 7, 2014 
  */
 public interface IUniqueIndex {
 
     /**
-     * Gets the URL of the attribute definition
+     * Gets the URL of the unique index
      *
-     * @return a string that holds the URL of the attribute definition
+     * @return a string that holds the URL of the unique index
      */
     String getURL();        
     
     /**
-     * Gets the attribute definitions for the unique indexes
+     * Gets the attribute definitions for the unique index
      *
      * @return the attribute definitions for the unique indexes
      */
     List<IAttributeDef> getAttributeDefs();
 
     /**
-     * Adds an attribute definition to the unique indexes
+     * Adds an attribute definition to the unique index
      *
      * @param attrDef the attribute definition to be added
      */
     void addAttributeDef(IAttributeDef attrDef);
 
     /**
-     * Removes an attribute definition from the unique indexes
+     * Removes an attribute definition from the unique index
      *
-     * @param attrDefID the local ID of the attribute definition to be removed
+     * @param attrURL the URL of the attribute definition to be removed
      */
-    void removeAttributeDef(long attrDefID);
+    void removeAttributeDef(String attrURL);
 }
