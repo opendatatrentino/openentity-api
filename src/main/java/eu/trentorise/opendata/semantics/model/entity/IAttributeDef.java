@@ -57,9 +57,9 @@ public interface IAttributeDef {
 
     /**
      * Return the entity type for the range, when the datatype is COMPLEX_TYPE
-     * @return the entity type if the data type is COMPLEX_TYPE, null otherwise
+     * @return the entity type URL if the data type is COMPLEX_TYPE, null otherwise
      */
-    IEntityType getRangeEType();
+    String getRangeETypeURL();
 
     /**
      * Gets the concept of the attribute definition
@@ -102,9 +102,9 @@ public interface IAttributeDef {
     /**
      * Returns the entity type for attribute defintion 
      * 
-     * @return entity type
+     * @return entity type URL
      */
-     Long getEType();  	
+     String getETypeURL();  	
     	
     
 }

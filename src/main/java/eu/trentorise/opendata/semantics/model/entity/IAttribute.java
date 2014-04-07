@@ -26,7 +26,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Sep 23, 2013
+ * @date Apr 7, 2014
  */
 public interface IAttribute {
 
@@ -40,9 +40,9 @@ public interface IAttribute {
     /**
      * Gets the attribute definition of the attribute
      *
-     * @return the attribute definition of the attribute
+     * @return the attribute definition URL of the attribute
      */
-    IAttributeDef getAttributeDefinition();
+    String getAttributeDefURL();
 
     /**
      * Sets the attribute definition of the attribute
