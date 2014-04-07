@@ -17,12 +17,10 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
-import java.util.Map;
-
 /**
  * The context of a resource coming from a catalog such as i.e. Ckan.
  * 
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @date Mar 20, 2014
  */
 public interface IResourceContext {

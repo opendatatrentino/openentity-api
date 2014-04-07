@@ -18,7 +18,6 @@
 
 package eu.trentorise.opendata.semantics.model.entity;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -26,8 +25,8 @@ import java.util.Locale;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Mar 27, 2014
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IEntity extends IStructure {
 
@@ -61,33 +60,6 @@ public interface IEntity extends IStructure {
 	 * @param language the language of the description
 	 * @param description the description of the entity in the given language      
 	 */
-	String setDescription(Locale language, String description);    
+	void setDescription(Locale language, String description);    
 
-	/**
-	 * Gets the Globally Unique Identifier (GUID) for the entity
-	 *
-	 * @return the Globally Unique Identifier (GUID) represented as Long
-	 */
-	Long getGUID();
-
-	/**
-	 * Gets the URI of the entity
-	 *
-	 * @return a string that holds the URI of the entity
-	 */
-	String getURI();
-
-	/**
-	 * Gets the URL of the entity
-	 *
-	 * @return a string that holds the URL of the entity
-	 */
-	String getURL();
-
-	/**
-	 * Sets the URL of the entity
-	 *
-	 * @param url a string that holds the URL of the entity
-	 */
-	void setURL(String url);
 }

@@ -26,17 +26,10 @@ import java.util.Locale;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IAttributeDef {
-
-    /**
-     * Gets the Globally Unique Identifier (GUID) for the attribute definition
-     *
-     * @return the Globally Unique Identifier (GUID) represented as Long
-     */
-    Long getGUID();
 
     /**
      * Gets the URL of the attribute definition
@@ -44,13 +37,6 @@ public interface IAttributeDef {
      * @return a string that holds the URL of the attribute definition
      */
     String getURL();
-
-    /**
-     * Gets the URI of the attribute definition
-     *
-     * @return a string that holds the URI of the attribute definition
-     */
-    String getURI();
 
     /**
      * Gets the attribute name in the given language

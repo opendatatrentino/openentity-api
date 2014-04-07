@@ -21,7 +21,7 @@ import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import java.util.HashMap;
 
 /**
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @date Mar 09, 2014
  */

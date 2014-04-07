@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @date Feb 25, 2014
  */
 public interface INLPService {

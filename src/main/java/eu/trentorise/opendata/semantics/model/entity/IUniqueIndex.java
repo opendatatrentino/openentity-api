@@ -27,17 +27,10 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @date Mar 27, 2014 
  */
 public interface IUniqueIndex {
-
-    /**
-     * Gets the local id for the unique index
-     *
-     * @return the local id represented as Long
-     */
-    Long getLocalID();
 
     /**
      * Gets the URL of the attribute definition
@@ -46,13 +39,6 @@ public interface IUniqueIndex {
      */
     String getURL();        
     
-    /**
-     * Gets the URI of the unique indexes
-     *
-     * @return a string that holds the URI of the unique indexes
-     */
-    String getURI();
-
     /**
      * Gets the attribute definitions for the unique indexes
      *

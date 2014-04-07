@@ -25,7 +25,8 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IConcept {
 
@@ -35,14 +36,6 @@ public interface IConcept {
      * @return the concept URL as string
      */
     String getURL();
-    
-    
-    /**
-     * Gets the global id of the concept
-     *
-     * @return the concept global id
-     */    
-    Long getGUID();
     
 
     /**

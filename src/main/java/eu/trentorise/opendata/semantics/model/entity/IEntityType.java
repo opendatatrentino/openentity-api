@@ -29,31 +29,10 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Mar 27, 2014
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IEntityType {
-
-    /**
-     * Gets the Globally Unique Identifier (GUID) for the entity type
-     *
-     * @return the Globally Unique Identifier (GUID) represented as Long
-     */
-    Long getGUID();
-
-    /**
-     * Gets the URL of the attribute definition
-     *
-     * @return a string that holds the URL of the attribute definition
-     */
-    String getURL();    
-    
-    /**
-     * Gets the URI of the entity type
-     *
-     * @return a string that holds the URI of the entity type
-     */
-    String getURI();
 
     /**
      * Gets the name of the entity type in the given language

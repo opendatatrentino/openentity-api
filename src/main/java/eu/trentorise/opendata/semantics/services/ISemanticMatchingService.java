@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @date Mar 09, 2014
  */

@@ -25,16 +25,16 @@ import java.util.Date;
  */
 public class Evidence {
 
-    // The date of the import process
+    /** The date of the import process */
     private Date modificationDate;
-    // The user who executes the import process
+    /** The user who executes the import process */
     private String userName;
-    // The URL of the dataset which was used during the import
-    private String url;
-    // The name of the idenifier property in the dataset, e.g. "Codice Fiscale"
-    private String idPropertyName;
-    // The value of the identifier property in the dataset, e.g. "MHM34389C10"
-    private String idPropertyValue;
+    /** The URL of the dataset which was used during the import  */
+    private String URL;
+    /** The name of the identifier property in the dataset, e.g. "Codice Fiscale" */
+    private String propertyNameID;
+    /** The value of the identifier property in the dataset, e.g. "MHM34389C10" */
+    private String propertyValueID;
 
     /**
      * @return the modificationDate
@@ -65,44 +65,44 @@ public class Evidence {
     }
 
     /**
-     * @return the url
+     * @return the URL
      */
-    public String getUrl() {
-        return url;
+    public String getURL() {
+        return URL;
     }
 
     /**
-     * @param url the url to set
+     * @param URL the URL to set
      */
-    public void setUrl(String url) {
-        this.url = url;
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     /**
-     * @return the idPropertyName
+     * @return the PropertyNameID
      */
-    public String getIdPropertyName() {
-        return idPropertyName;
+    public String getPropertyNameID() {
+        return propertyNameID;
     }
 
     /**
-     * @param idPropertyName the idPropertyName to set
+     * @param PropertyNameID the PropertyNameID to set
      */
-    public void setIdPropertyName(String idPropertyName) {
-        this.idPropertyName = idPropertyName;
+    public void setPropertyNameID(String PropertyNameID) {
+        this.propertyNameID = PropertyNameID;
     }
 
     /**
-     * @return the idPropertyValue
+     * @return the propertyValueID
      */
-    public String getIdPropertyValue() {
-        return idPropertyValue;
+    public String getPropertyValueID() {
+        return propertyValueID;
     }
 
     /**
-     * @param idPropertyValue the idPropertyValue to set
+     * @param propertyValueID the propertyValueID to set
      */
-    public void setIdPropertyValue(String idPropertyValue) {
-        this.idPropertyValue = idPropertyValue;
+    public void setPropertyValueID(String propertyValueID) {
+        this.propertyValueID = propertyValueID;
     }
 }

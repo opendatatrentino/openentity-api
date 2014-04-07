@@ -15,55 +15,58 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.model.entity;
 
 import java.util.List;
 
 /**
- * 
+ *
  * A complex structure that is represented by the set of attribute.
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Mar 27, 2014
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IStructure {
 
-     /**
-     * Gets the local identifier for the entity
+    /**
+     * Gets the URL of the object
      *
-     * @return the local identifier as Long
+     * @return a string that holds the URL of the object
      */
-    Long getLocalID();
+    String getURL();
 
-    
+    /**
+     * Sets the URL of the object
+     *
+     * @param url a string that holds the URL of the object
+     */
+    void setURL(String url);
+
     /**
      * Gets the external identifier of the structure
-     * 
+     *
      * @return a string representing the external identifier of the structure
      */
-   
     List<IAttribute> getStructureAttributes();
 
     /**
      * Sets the list of attributes in this structure
-     * 
+     *
      * @param attributes the list of attributes to be set in the structure
      */
     void setStructureAttributes(List<IAttribute> attributes);
 
- 
     /**
      * Gets the structure type
-     * 
+     *
      * @return the structure type
      */
     IEntityType getEtype();
 
     /**
      * Sets the structure type
-     * 
+     *
      * @param type the structure type
      */
     void setEtype(IEntityType type);

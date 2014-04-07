@@ -26,8 +26,8 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni
- * @date Mar 23, 2014
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IKnowledgeService {
 
@@ -46,9 +46,17 @@ public interface IKnowledgeService {
     List<IWord> readByWordPrefix(String prefix); */
     
     /**
-     * Returns the concepts with the given GUIDs
-     * @param GUIDs a list of global ids for concepts
+     * Returns the concepts with the given URLs
+     * @param URLs a list of URLs for concepts
      * @return the concepts
     */
-    List<IConcept> getConcepts(List<Long> GUIDs);
+    List<IConcept> getConcepts(List<String> URLs);
+    
+    /**
+     * Returns the concepts with the given URLs
+     * @param URL the URL of a concept
+     * @return the concept
+    */
+    IConcept getConcept(List<String> URL);
+    
 }

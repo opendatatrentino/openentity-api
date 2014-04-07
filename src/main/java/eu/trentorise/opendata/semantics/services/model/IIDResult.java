@@ -8,7 +8,7 @@ import java.util.Set;
  * one if none was found during the matching.
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @date Mar 27, 2014
  */
 public interface IIDResult {

@@ -44,7 +44,7 @@ import java.util.Map;
  * STRUCTURE : IStructure<br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
+ * @author David Leoni <david.leoni@unitn.it>
  * @date Mar 3, 2014
  *
  */

@@ -23,7 +23,9 @@ import eu.trentorise.opendata.semantics.model.provenance.Provenance;
 /**
  * Interface for service related to provenance and evidence
  *
- * @author Moaz
+ * @author Moaz Reyad <reyad@disi.unitn.it>
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IProvenance {
 
@@ -35,13 +37,13 @@ public interface IProvenance {
      *
      * @return the provenance of the attribute value
      */
-    Provenance readProvenace(Long attributeID, Long attributeValueID);
+    Provenance readProvenance(Long attributeID, Long attributeValueID);
 
     /**
      * Returns the evidence of the given entity
      *
-     * @param entityID the ID of the entity
+     * @param entityURL the URL of the entity
      * @return the evidence of the given entity
      */
-    Evidence readEvidence(Long entityID);
+    Evidence readEvidence(String entityURL);
 }

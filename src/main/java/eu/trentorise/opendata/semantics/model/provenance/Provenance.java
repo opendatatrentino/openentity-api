@@ -30,7 +30,7 @@ public class Provenance {
     // The user who executes the import process
     private String userName;
     // The URL of the dataset which was used during the import
-    private String url;
+    private String URL;
     // The accuracy of this attribute value
     private float accuracy;
     // A general note about this attribute value
@@ -67,17 +67,17 @@ public class Provenance {
     }
 
     /**
-     * @return the url
+     * @return the URL
      */
-    public String getUrl() {
-        return url;
+    public String getURL() {
+        return URL;
     }
 
     /**
-     * @param url the url to set
+     * @param URL the URL to set
      */
-    public void setUrl(String url) {
-        this.url = url;
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     /**

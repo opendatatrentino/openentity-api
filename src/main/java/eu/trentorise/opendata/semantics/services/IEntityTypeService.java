@@ -15,12 +15,12 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import java.util.List;
 
 /**
@@ -38,6 +38,21 @@ public interface IEntityTypeService {
      * @return list of all entity types in the system
      */
     List<IEntityType> getAllEntityTypes();
+    
+    /**
+     * Returns the entity types with the given URLs
+     * @param URLs a list of URLs for entity types
+     * @return the entity types
+    */
+    List<IEntityType> getEntityTypes(List<String> URLs);
+    
+    /**
+     * Returns the entity types with the given URLs
+     * @param URL the URL of a entity type
+     * @return the entity type
+    */
+    IEntityType getEntityType(List<String> URL);
+    
 
     /**
      * Adds an attribute definition to an entity type
@@ -54,10 +69,12 @@ public interface IEntityTypeService {
      * @param uniqueIndex the unique index to be added
      */
     void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndex uniqueIndex);
-    
-    /** Return the entity type by the given ID
-     * @param id of the entity type
-     * @return entity type 
+
+    /**
+     * Return the entity type by the given URL
+     *
+     * @param URL The URL of the entity type
+     * @return entity type
      */
-    IEntityType getEntityType(long id);
+    IEntityType getEntityType(String URL);
 }

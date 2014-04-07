@@ -29,16 +29,17 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@trentorise.eu>
- * @date Feb 12, 2014
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface IEntityService {    
     /**
      * Creates an entity
      *
      * @param entity the entity to be created
+     * @return the URL of the newly created entity
      */
-    Long createEntity(IEntity entity);
+    String createEntity(IEntity entity);
 
     /**
      * Updates an entity
@@ -50,17 +51,17 @@ public interface IEntityService {
     /**
      * Deletes an entity
      *
-     * @param entityID the local ID of the entity to be deleted
+     * @param the URL of the entity to delete
      */
-    void deleteEntity(long entityID);
+    void deleteEntity(String URL);
 
     /**
-     * Reads an entity given its local entity ID
+     * Reads an entity given its URL
      *
-     * @param entityID the local ID of the entity
+     * @param entityURL the URL of the entity to read
      * @return the entity which has this ID, or null if not found
      */
-    IEntity readEntity(long entityID);
+    IEntity readEntity(String entityURL);
 
     /**
      * Adds an attribute to an entity
