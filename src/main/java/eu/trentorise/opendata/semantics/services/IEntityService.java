@@ -51,7 +51,7 @@ public interface IEntityService {
     /**
      * Deletes an entity
      *
-     * @param the URL of the entity to delete
+     * @param URL the URL of the entity to delete
      */
     void deleteEntity(String URL);
 
@@ -59,7 +59,7 @@ public interface IEntityService {
      * Reads an entity given its URL
      *
      * @param entityURL the URL of the entity to read
-     * @return the entity which has this ID, or null if not found
+     * @return the entity identified by this URL, or null if not found
      */
     IEntity readEntity(String entityURL);
 

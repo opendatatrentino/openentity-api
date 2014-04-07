@@ -44,5 +44,5 @@ public interface IIdentityService {
      * @param numCandidates maximum number of candidates to return for each entity to match
      * @return a list of reconciliation results, one for each input entity.
      */
-     List<IIDResult> assignGUID(List<IEntity> entities, int numCandidates);
+     List<IIDResult> assignURL(List<IEntity> entities, int numCandidates);
 }

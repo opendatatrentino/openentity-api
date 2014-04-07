@@ -48,9 +48,9 @@ public interface IAttributeCorrespondence {
 
     /**
      * Gets the concept associated to the column header
-     * @return 
+     * @return the URL of the concept
      */
-    long getHeaderConceptID();
+    String getHeaderConceptURL();
 
     /**
      * todo range?

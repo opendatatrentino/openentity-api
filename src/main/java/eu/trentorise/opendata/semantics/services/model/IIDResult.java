@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Mar 27, 2014
+ * @date Apr 7, 2014
  */
 public interface IIDResult {
 
@@ -36,9 +36,9 @@ public interface IIDResult {
      */
     Set<IEntity> getEntities();
     
-    /** Gets a global ID of the matched entity
-     * @return global identifier of the entity
+    /** Gets the URL of the matched entity
+     * @return URL of the entity
      */
-    Long getGUID();
+    String getURL();
 
 }

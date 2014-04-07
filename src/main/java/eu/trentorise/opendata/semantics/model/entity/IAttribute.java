@@ -47,7 +47,7 @@ public interface IAttribute {
     /**
      * Sets the attribute definition of the attribute
      *
-     * @param ad the attribute definition URL of the attribute
+     * @param URL the attribute definition URL of the attribute
      */
     void setAttributeDefURL(String URL);
 

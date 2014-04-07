@@ -73,9 +73,9 @@ public interface IEntityType {
     /**
      * Removes an attribute definition from the entity type
      *
-     * @param attrDefID the local ID of the attribute definition to be removed
+     * @param attrDefURL the URL of the attribute definition to be removed
      */
-    void removeAttributeDef(long attrDefID);
+    void removeAttributeDef(String attrDefURL);
 
     /**
      * Gets the unique indexes
@@ -87,9 +87,9 @@ public interface IEntityType {
     /**
      * Removes Unique Indexes
      *
-     * @param uniqueIndexID the local ID of the unique indexes to be removed
+     * @param uniqueIndexURL the URL of the unique indexes to be removed
      */
-    void removeUniqueIndex(long uniqueIndexID);
+    void removeUniqueIndex(String uniqueIndexURL);
 
     /**
      * Adds Unique Indexes
