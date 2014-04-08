@@ -25,9 +25,9 @@ import eu.trentorise.opendata.semantics.model.provenance.Provenance;
  *
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 8, 2014
  */
-public interface IProvenance {
+public interface IProvenanceService {
 
     /**
      * Returns the provenance of the given attribute

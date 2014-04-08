@@ -1,7 +1,7 @@
 Open Entity API 
 ====
 
-Java interface for entity management
+Java interface for entity management. 
 
 **Project status**: developing [milestone 1.0](https://github.com/opendatatrentino/open-data-api/issues?milestone=1&state=open)
 
@@ -34,6 +34,20 @@ in the _dependencies_ section, add:
       <version>1.0-SNAPSHOT</version>
     </dependency>
 ```
+
+#### Versioning
+
+1) For 0.MINOR.PATCH series, we will increase the MINOR at each change to the api, no matter how small it is.  If we only change the javadoc without changing the api we increase the PATCH.
+
+2) When we reach 1.0.0 we will follow semver.org rules:
+
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+    MAJOR version when you make incompatible API changes,
+    MINOR version when you add functionality in a backwards-compatible manner, and
+    PATCH version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
 
 Credits:

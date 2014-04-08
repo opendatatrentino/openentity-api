@@ -19,7 +19,7 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-
+import eu.trentorise.opendata.semantics.model.knowledge.INLString;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,11 +36,10 @@ public interface IEntityType {
 
     /**
      * Gets the name of the entity type in the given language
-     *
-     * @param locale the language used to return the entity type name
-     * @return the name of the entity type if translation is present, null otherwise.
+     *  
+     * @return the name of the entity type in the default languages if available
      */
-    String getName(Locale locale);
+    INLString getName();
 
     /**
      * Gets the concept of the entity type

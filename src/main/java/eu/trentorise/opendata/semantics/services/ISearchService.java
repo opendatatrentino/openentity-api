@@ -26,10 +26,10 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Mar 27, 2014
+ * @date Apr 8, 2014
  *
  */
-public interface ISearch {
+public interface ISearchService {
 
     /**
      * Performs a search for entities using EQL syntax

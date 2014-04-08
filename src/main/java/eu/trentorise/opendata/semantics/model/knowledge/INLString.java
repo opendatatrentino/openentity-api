@@ -17,9 +17,27 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import java.util.Locale;
+
 /**
- * todo
+ * Represents a dictionary of a string that may have translations in several
+ * languages.
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 7, 2014
  */
 public interface INLString {
 
+    /**
+     * Gets the translation in the given locale.     
+     * @param locale the language of the desired translation
+     * @return the string in the given locale if present, null otherwise. 
+     */
+    String getString(Locale locale);
+
+    /**
+     * Sets the translation in the provided locale to string.
+     * @param locale the language of the provided string
+     * @param string the text in the given locale
+     */
+    void putString(Locale locale, String string);
 }

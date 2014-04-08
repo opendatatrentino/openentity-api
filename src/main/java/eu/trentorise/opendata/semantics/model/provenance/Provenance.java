@@ -20,8 +20,9 @@ package eu.trentorise.opendata.semantics.model.provenance;
 import java.util.Date;
 
 /**
- *
- * @author Moaz
+ * @author Moaz Reyad <reyad@disi.unitn.it>
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 8, 2014
  */
 public class Provenance {
     
@@ -67,13 +68,16 @@ public class Provenance {
     }
 
     /**
-     * @return the URL
+     * todo url to phsical file? url to description like http://dati.trentino.it/dataset/elenco-progetti-co-finanziati-dall-unione-europea/resource/6d8dec15-c149-4ced-9426-898afdcf46c5 ?
+     * @return the URL of the dataset which was used during the import
+     * 
      */
     public String getURL() {
         return URL;
     }
 
     /**
+     * todo meaning unclear see {@link #getURL}
      * @param URL the URL to set
      */
     public void setURL(String URL) {

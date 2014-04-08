@@ -22,15 +22,23 @@ import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.INLString;
 import it.unitn.disi.sweb.core.nlp.model.NLText;
-
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * Class to model Entitypedia data types. They are mapped to Java objects
- * according to the following sheme:
- *
+ * Class to model data types. <br/>
+ * <br/>
+ * Primitive datatypes are a subset of <a
+ * target="_blank" href="http://www.w3.org/TR/2004/REC-rdf-mt-20040210/">
+ * RDF Semantics, XSD datatypes section</a>. Complex types such as <i>oe:structure</i>
+ * and <i>oe:entity</i> are newly defined. <br/>
+ * <br/>
+ * Datatypes are mapped to Java objects according to the following scheme: <br/>
+ * <br/>
  * STRING : String <br/>
  * BOOLEAN : Boolean <br/>
  * DATE : Date <br/>
@@ -38,55 +46,116 @@ import java.util.Map;
  * FLOAT : Float <br/>
  * LONG : Long <br/>
  * CONCEPT : IConcept <br/>
- * SSTRING : NLText <br/>
+ * NLTEXT : NLText <br/>
  * NLSTRING : INLString <br/>
  * ENTITY : IEntity <br/>
  * STRUCTURE : IStructure<br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Mar 3, 2014
+ * @date Apr 7, 2014
  *
  */
 public class DataTypes {
 
-    public static final String STRING = "STRING";
-    public static final String BOOLEAN = "BOOLEAN";
-    public static final String DATE = "DATE";
-    public static final String INTEGER = "INTEGER";
-    public static final String FLOAT = "FLOAT";
-    public static final String LONG = "LONG";
-    public static final String CONCEPT = "CONCEPT";
-    public static final String SSTRING = "SSTRING";
-    public static final String NLSTRING = "NLSTRING";
-    public static final String STRUCTURE = "STRUCTURE";
-    public static final String ENTITY = "ENTITY";
-    /**
-        @deprecated
-    */
-    public static final String COMPLEX_TYPE="COMPLEX_TYPE";
+    public static final String OPEN_ENTITY_PREFIX = "oe";
+    public static final String OPEN_ENTITY_EXPANDED_PREFIX = "https://github.com/opendatatrentino/openentity-api/1.0/";
+
+    public static final String STRING = "xsd:string";
+    public static final String BOOLEAN = "xsd:boolean";
+    public static final String DATE = "xsd:dateTime";
+    public static final String INTEGER = "xsd:int";
+    public static final String FLOAT = "xsd:float";
+    public static final String LONG = "xsd:long";
+    public static final String CONCEPT = "oe:concept";
+    public static final String NLTEXT = "nlt:nltext";
+    public static final String NLSTRING = "oe:nlstring";
+    public static final String STRUCTURE = "oe:structure";
+    public static final String ENTITY = "oe:entity";
+
+    private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap<String, String>();
+    private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap<String, String>();
+    private static final Map<Locale, Map<String, String>> DATATYPE_PRETTY_NAMES_MAP = new HashMap<Locale, Map<String, String>>();
+    private static final Map JAVA_DATATYPES = new HashMap<String, Class>();
+
+    static {
+
+        DATATYPE_PRETTY_NAMES_EN.put(STRING, "String");
+        DATATYPE_PRETTY_NAMES_EN.put(BOOLEAN, "Boolean");
+        DATATYPE_PRETTY_NAMES_EN.put(DATE, "Date");
+        DATATYPE_PRETTY_NAMES_EN.put(INTEGER, "Integer");
+        DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Floating point number");
+        DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
+        DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
+        DATATYPE_PRETTY_NAMES_EN.put(NLTEXT, "Natural language text");
+        DATATYPE_PRETTY_NAMES_EN.put(NLSTRING, "Text with translations");
+        DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
+        DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
+        DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);
+
+        DATATYPE_PRETTY_NAMES_IT.put(STRING, "Stringa");
+        DATATYPE_PRETTY_NAMES_IT.put(BOOLEAN, "Booleano");
+        DATATYPE_PRETTY_NAMES_IT.put(DATE, "Data");
+        DATATYPE_PRETTY_NAMES_IT.put(INTEGER, "Intero");
+        DATATYPE_PRETTY_NAMES_IT.put(FLOAT, "Numero in virgola mobile");
+        DATATYPE_PRETTY_NAMES_IT.put(LONG, "Intero grande");
+        DATATYPE_PRETTY_NAMES_IT.put(CONCEPT, "Concetto");
+        DATATYPE_PRETTY_NAMES_IT.put(NLTEXT, "Testo semantico");
+        DATATYPE_PRETTY_NAMES_IT.put(NLSTRING, "Testo con traduzioni");
+        DATATYPE_PRETTY_NAMES_IT.put(STRUCTURE, "Struttura");
+        DATATYPE_PRETTY_NAMES_IT.put(ENTITY, "Entità");
+        DATATYPE_PRETTY_NAMES_MAP.put(Locale.ITALIAN, DATATYPE_PRETTY_NAMES_IT);
+
+        JAVA_DATATYPES.put(STRING, String.class);
+        JAVA_DATATYPES.put(BOOLEAN, Boolean.class);
+        JAVA_DATATYPES.put(DATE, Date.class);
+        JAVA_DATATYPES.put(INTEGER, Integer.class);
+        JAVA_DATATYPES.put(FLOAT, Float.class);
+        JAVA_DATATYPES.put(LONG, Long.class);
+        JAVA_DATATYPES.put(CONCEPT, IConcept.class);
+        JAVA_DATATYPES.put(NLTEXT, NLText.class);
+        JAVA_DATATYPES.put(NLSTRING, INLString.class);
+        JAVA_DATATYPES.put(ENTITY, IEntity.class);
+        JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
+
+    }
 
     /**
      * Provides a map of the supported datatypes. Each datatype name is mapped
      * to the java class or interface that represents it.
      *
-     * @return a set of the supported data types
+     * @return an unmodifiable map of the supported data types
      */
     public static Map<String, Class> getDataTypes() {
+        return Collections.unmodifiableMap(JAVA_DATATYPES);
+    }
 
-        Map ret = new HashMap<String, Class>();
-        ret.put(STRING, String.class);
-        ret.put(BOOLEAN, Boolean.class);
-        ret.put(DATE, Date.class);
-        ret.put(INTEGER, Integer.class);
-        ret.put(FLOAT, Float.class);
-        ret.put(LONG, Long.class);
-        ret.put(CONCEPT, IConcept.class);
-        ret.put(SSTRING, NLText.class);
-        ret.put(NLSTRING, INLString.class);
-        ret.put(ENTITY, IEntity.class);
-        ret.put(STRUCTURE, IStructure.class);
-        return ret;
+    /**
+     * Returns human-readable name of a datatype in the provided locale
+     *
+     * @param datatype the given datatype
+     * @param locale the language of the desired translation
+     * @return the datatype in a human-readable form in the provided locale if
+     * the translation is present and the datatype is supported, returns null
+     * otherwise.
+     */
+    public static String prettyDataType(String datatype, Locale locale) {
+
+        Map map = DATATYPE_PRETTY_NAMES_MAP.get(locale);
+        if (map == null) {
+            return null;
+        } else {
+            return DATATYPE_PRETTY_NAMES_MAP.get(locale).get(datatype);
+        }
+
+    }
+
+    /**
+     *
+     * @return a set of the supported locales
+     */
+    public static Set<Locale> supportedLocales() {
+        return Collections.unmodifiableSet(DATATYPE_PRETTY_NAMES_MAP.keySet());
     }
 
 }

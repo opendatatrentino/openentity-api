@@ -18,6 +18,7 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
+import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import java.io.Writer;
@@ -30,9 +31,11 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>* 
+ * @date Apr 8, 2014
  */
-public interface IEntityService {    
+public interface IEntityService {
+
     /**
      * Creates an entity
      *
@@ -42,7 +45,9 @@ public interface IEntityService {
     String createEntity(IEntity entity);
 
     /**
-     * Updates an entity
+     * Updates an entity. For values of type INLString, translations provided in
+     * this entity are going to be merged with translations already present in
+     * the Ekb
      *
      * @param entity the entity to be updated
      */
@@ -62,6 +67,30 @@ public interface IEntityService {
      * @return the entity identified by this URL, or null if not found
      */
     IEntity readEntity(String entityURL);
+
+    /**
+     * Creates an attribute of the specified attribute definition kind and fills
+     * it with provided values.
+     *
+     * @param attrDef the attribute definition of the attribute to create
+     * @param values the values to set in the attribute. They must belong to
+     * supported types in
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes}
+     * @return the attribute with the provided values
+     */
+    IAttribute createAttribute(IAttributeDef attrDef, List<Object> values);
+
+    /**
+     * Creates an attribute of the specified attribute definition kind and fills
+     * it with the provided value.
+     *
+     * @param attrDef the attribute definition of the attribute to create
+     * @param value the value to set in the attribute. It must belong to
+     * supported types in
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes}
+     * @return the attribute with the provided values
+     */
+    IAttribute createAttribute(IAttributeDef attrDef, Object value);
 
     /**
      * Adds an attribute to an entity
@@ -112,7 +141,7 @@ public interface IEntityService {
      *
      * @param entityIds the ids of the entities to export
      * @param writer A writer to store the generated csv
-     * 
+     *
      */
     void exportToCsv(List<Long> entityIds, Writer writer);
 

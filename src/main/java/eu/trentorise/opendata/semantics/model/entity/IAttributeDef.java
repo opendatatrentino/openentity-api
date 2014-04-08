@@ -18,6 +18,7 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.model.knowledge.INLString;
 import java.util.Locale;
 
 /**
@@ -41,10 +42,9 @@ public interface IAttributeDef {
     /**
      * Gets the attribute name in the given language
      *
-     * @param locale the language used to return the attribute name
-     * @return the attribute name as string
+     * @return the attribute name in the default languages if available
      */
-    String getName(Locale locale);
+    INLString getName();
 
     /**
      * Gets the data type of the attribute definition. Possible values for the

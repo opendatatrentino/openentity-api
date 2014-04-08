@@ -26,7 +26,7 @@ import java.util.Locale;
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 8, 2014
  */
 public interface IConcept {
 
@@ -40,33 +40,26 @@ public interface IConcept {
 
     /**
      * Gets the common name for the concept in the given language
-     *
-     * @param language the natural language
-     * @return the common name for the concept in the given language
+     * @return the common name for the concept in the default languages if available
      */
-    String getCommonlyReferredAs(Locale language);
+    INLString getCommonlyReferredAs();
 
     /**
-     * Gets the summary of the concept in the given language
+     * Gets the summary of the concept 
      *
-     * @param language the natural language
-     * @return the summary of the concept in the given language
+     * @return the summary of the concept in the default languages if available
      */
-    String getSummary(Locale language);
+    INLString getSummary();
 
     /**
-     * Gets the description on the concept in the given language
-     *
-     * @param language the natural language
-     * @return the description on the concept in the given language
+     * Gets the description on the concept
+     * @return the description on the concept in the default languages if available
      */
-    String getDescription(Locale language);
+    INLString getDescription();
 
     /**
-     * Gets the Part of Speech (POS) of the concept in the given language
-     *
-     * @param language the natural language
-     * @return the Part of Speech (POS) of the concept in the given language
+     * Gets the Part of Speech (POS) of the concept 
+     * @return the Part of Speech (POS) of the concept in the default languages if available
      */
-    String getPartOfSpeech(Locale language);
+    INLString getPartOfSpeech();
 }
