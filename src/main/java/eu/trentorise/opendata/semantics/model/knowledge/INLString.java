@@ -17,8 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Represents a dictionary of a string that may have translations in several
@@ -46,5 +46,5 @@ public interface INLString {
      * Gets the locales for which translations are present in the INLString
      * @return the available locales 
      */
-    List<Locale> getLocales();    
+    Set<Locale> getLocales();    
 }
