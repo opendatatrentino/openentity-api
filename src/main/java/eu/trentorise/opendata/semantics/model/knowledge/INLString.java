@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -40,4 +41,10 @@ public interface INLString {
      * @param string the text in the given locale
      */
     void putString(Locale locale, String string);
+    
+    /**
+     * Gets the locales for which translations are present in the INLString
+     * @return the available locales 
+     */
+    List<Locale> getLocales();    
 }
