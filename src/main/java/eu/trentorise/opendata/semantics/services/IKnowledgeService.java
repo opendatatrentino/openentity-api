@@ -57,6 +57,6 @@ public interface IKnowledgeService {
      * @param URL the URL of a concept
      * @return the concept
     */
-    IConcept getConcept(List<String> URL);
+    IConcept getConcept(String URL);
     
 }

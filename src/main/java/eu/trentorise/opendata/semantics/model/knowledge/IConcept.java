@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * Copyright 2012-2013 Trento Rise (www.trentorise.eu/)
+ * Copyright 2012-2014 Trento Rise (www.trentorise.eu/)
  *
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the GNU Lesser General Public License (LGPL)
@@ -16,8 +16,6 @@
  *******************************************************************************
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
-
-import java.util.Locale;
 
 /**
  * A concept is a language independent element that gives meaning
@@ -37,29 +35,10 @@ public interface IConcept {
      */
     String getURL();
     
-
-    /**
-     * Gets the common name for the concept in the given language
-     * @return the common name for the concept in the default languages if available
-     */
-    INLString getCommonlyReferredAs();
-
-    /**
-     * Gets the summary of the concept 
-     *
-     * @return the summary of the concept in the default languages if available
-     */
-    INLString getSummary();
-
     /**
      * Gets the description on the concept
      * @return the description on the concept in the default languages if available
      */
     INLString getDescription();
 
-    /**
-     * Gets the Part of Speech (POS) of the concept 
-     * @return the Part of Speech (POS) of the concept in the default languages if available
-     */
-    INLString getPartOfSpeech();
 }
