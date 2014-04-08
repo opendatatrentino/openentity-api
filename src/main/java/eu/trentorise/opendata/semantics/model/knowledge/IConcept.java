@@ -34,6 +34,12 @@ public interface IConcept {
      * @return the concept URL as string
      */
     String getURL();
+
+    /**
+     * Gets the label of the concept
+     * @return the label of the concept
+     */
+    INLString getLabel();
     
     /**
      * Gets the description on the concept
