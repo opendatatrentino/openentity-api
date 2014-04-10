@@ -19,6 +19,7 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -27,10 +28,18 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 10, 2014
  */
 public interface IEntity extends IStructure {
 
+	/**
+	 * Gets the Globally Unique Identifier (GUID) for the entity
+	 * @deprecated use getURL instead
+	 * @return the Globally Unique Identifier (GUID) represented as Long
+	 */
+	Long getGUID();
+    
+    
 	/**
 	 * Gets the name of the entity.
 	 *	 
@@ -45,6 +54,13 @@ public interface IEntity extends IStructure {
 	 */
 	void setName(Locale locale, String name);
 
+	/**
+	 * Sets names for the entity in the given locale
+	 * @param locale language in which the name is expressed
+	 * @param names the provided names
+	 */
+	void setName(Locale locale, List<String> names);        
+        
 	/**
 	 * Gets the description on the entity in the given language
 	 *	 

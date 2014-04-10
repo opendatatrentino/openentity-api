@@ -35,14 +35,22 @@ import java.util.List;
  * @date Apr 8, 2014
  */
 public interface IEntityService {
+    
+    /**
+     * Creates an entity
+     *
+     * @param entity the entity to be created. Will not be changed by the method.
+     * @return the GUID of the newly created entity
+     */
+    Long createEntity(IEntity entity);
 
     /**
      * Creates an entity
      *
-     * @param entity the entity to be created
+     * @param entity the entity to be created. Will not be changed by the method. 
      * @return the URL of the newly created entity
      */
-    String createEntity(IEntity entity);
+    String createEntityURL(IEntity entity);
 
     /**
      * Updates an entity. For values of type INLString, translations provided in
@@ -53,6 +61,13 @@ public interface IEntityService {
      */
     void updateEntity(IEntity entity);
 
+    /**
+     * Deletes an entity
+     * @deprecated use deleteEntity(String) instead
+     * @param entityID the local ID of the entity to be deleted
+     */
+    void deleteEntity(long entityID);    
+    
     /**
      * Deletes an entity
      *

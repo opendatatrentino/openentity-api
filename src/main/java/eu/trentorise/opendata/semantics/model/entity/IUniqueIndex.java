@@ -34,8 +34,15 @@ public interface IUniqueIndex {
 
     /**
      * Gets the URL of the unique index
+     * @deprecated use getURL instead
+     * @return ID of the URL of the unique index
+     */
+    Long getLocalID();
+
+    /**
+     * Gets the URL of the attribute definition
      *
-     * @return a string that holds the URL of the unique index
+     * @return a string that holds the URL of the attribute definition
      */
     String getURL();        
     
@@ -53,6 +60,13 @@ public interface IUniqueIndex {
      */
     void addAttributeDef(IAttributeDef attrDef);
 
+    /**
+     * Removes an attribute definition from the unique indexes
+     * @deprecated use removeAttributeDef by URL instead
+     * @param attrDefID the local ID of the attribute definition to be removed
+     */    
+    void removeAttributeDef(long attrDefID);  
+    
     /**
      * Removes an attribute definition from the unique index
      *

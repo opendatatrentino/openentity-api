@@ -30,7 +30,7 @@ import java.util.Locale;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 10, 2014
  */
 public interface IEntityType {
 
@@ -71,6 +71,13 @@ public interface IEntityType {
 
     /**
      * Removes an attribute definition from the entity type
+     * @deprecated use  removeAttributeDef by url
+     * @param attrDefID the local ID of the attribute definition to be removed
+     */
+    void removeAttributeDef(long attrDefID);    
+    
+    /**
+     * Removes an attribute definition from the entity type
      *
      * @param attrDefURL the URL of the attribute definition to be removed
      */
@@ -83,6 +90,13 @@ public interface IEntityType {
      */
     List<IUniqueIndex> getUniqueIndexes();
 
+    /**
+     * Removes Unique Indexes
+     * @deprecated use removeUniqueIndex by URL instead
+     * @param uniqueIndexID the local ID of the unique indexes to be removed
+     */
+    void removeUniqueIndex(long uniqueIndexID);    
+    
     /**
      * Removes Unique Indexes
      *

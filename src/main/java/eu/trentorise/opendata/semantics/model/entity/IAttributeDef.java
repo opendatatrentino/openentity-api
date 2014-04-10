@@ -28,16 +28,24 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 10, 2014
  */
 public interface IAttributeDef {
 
+    /**
+     * Gets the Globally Unique Identifier (GUID) for the attribute definition
+     * @deprecated use getURL insteag
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
+ 
     /**
      * Gets the URL of the attribute definition
      *
      * @return a string that holds the URL of the attribute definition
      */
     String getURL();
+
 
     /**
      * Gets the attribute name in the given language
@@ -57,10 +65,10 @@ public interface IAttributeDef {
 
     /**
      * Return the entity type for the range, when the datatype is COMPLEX_TYPE
-     * @return the entity type URL if the data type is COMPLEX_TYPE, null otherwise
+     * @return the entity type if the data type is COMPLEX_TYPE, null otherwise
      */
-    String getRangeETypeURL();
-
+    IEntityType getRangeEType();    
+    
     /**
      * Gets the concept of the attribute definition
      *
@@ -100,11 +108,17 @@ public interface IAttributeDef {
     boolean isMandatory();
     
     /**
+     * Returns the entity type for the attribute definition 
+     * @deprecated use getETypeURL instead
+     * @return entity type
+     */
+     Long getEType();
+    
+    /**
      * Returns the entity type for attribute defintion 
      * 
      * @return entity type URL
      */
      String getETypeURL();  	
     	
-    
 }

@@ -69,4 +69,11 @@ public interface IEntityTypeService {
      * @return entity type
      */
     IEntityType getEntityType(String URL);
+    
+    /** Return the entity type by the given ID
+     * @deprecated use getEntityType by URL instead
+     * @param id of the entity type
+     * @return entity type 
+     */
+    IEntityType getEntityType(long id);    
 }

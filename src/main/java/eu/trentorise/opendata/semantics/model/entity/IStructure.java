@@ -25,10 +25,17 @@ import java.util.List;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date Apr 10, 2014
  */
 public interface IStructure {
 
+     /**
+     * Gets the local identifier for the entity
+     * @deprecated use getURL() instead
+     * @return the local identifier as Long
+     */
+    Long getLocalID();    
+    
     /**
      * Gets the URL of the object
      *

@@ -53,6 +53,12 @@ public interface IAttributeCorrespondence {
     String getHeaderConceptURL();
 
     /**
+     * Gets the concept associated to the column header
+     * @deprecated use getHeaderConceptURL instead
+     * @return 
+     */
+    long getHeaderConceptID();    
+    /**
      * todo range?
      * Gets the score associated to the attribute
      * @return the score associated to the attribute
