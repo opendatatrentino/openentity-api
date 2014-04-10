@@ -27,7 +27,7 @@ import java.util.Locale;
  * @date 8 Apr, 2014
  */
 public interface IEkb {
-
+    
     /**
      * Sets the locales in which strings will be returned during subsequent
      * service api calls, if they are available.

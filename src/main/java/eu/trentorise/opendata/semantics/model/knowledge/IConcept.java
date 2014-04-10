@@ -39,12 +39,12 @@ public interface IConcept {
      * Gets the label of the concept
      * @return the label of the concept
      */
-    INLString getLabel();
+    IDict getLabel();
     
     /**
      * Gets the description on the concept
      * @return the description on the concept in the default languages if available
      */
-    INLString getDescription();
+    IDict getDescription();
 
 }

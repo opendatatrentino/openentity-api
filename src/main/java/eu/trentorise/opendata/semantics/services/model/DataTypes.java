@@ -20,7 +20,7 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.INLString;
+import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import it.unitn.disi.sweb.core.nlp.model.NLText;
 import java.util.Collections;
 import java.util.Date;
@@ -88,7 +88,7 @@ public class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
         DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
         DATATYPE_PRETTY_NAMES_EN.put(NLTEXT, "Natural language text");
-        DATATYPE_PRETTY_NAMES_EN.put(NLSTRING, "Text with translations");
+        DATATYPE_PRETTY_NAMES_EN.put(NLSTRING, "Natural language string");
         DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);
@@ -101,7 +101,7 @@ public class DataTypes {
         DATATYPE_PRETTY_NAMES_IT.put(LONG, "Intero grande");
         DATATYPE_PRETTY_NAMES_IT.put(CONCEPT, "Concetto");
         DATATYPE_PRETTY_NAMES_IT.put(NLTEXT, "Testo semantico");
-        DATATYPE_PRETTY_NAMES_IT.put(NLSTRING, "Testo con traduzioni");
+        DATATYPE_PRETTY_NAMES_IT.put(NLSTRING, "Stringa in linguaggio naturale");
         DATATYPE_PRETTY_NAMES_IT.put(STRUCTURE, "Struttura");
         DATATYPE_PRETTY_NAMES_IT.put(ENTITY, "Entità");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ITALIAN, DATATYPE_PRETTY_NAMES_IT);
@@ -114,7 +114,7 @@ public class DataTypes {
         JAVA_DATATYPES.put(LONG, Long.class);
         JAVA_DATATYPES.put(CONCEPT, IConcept.class);
         JAVA_DATATYPES.put(NLTEXT, NLText.class);
-        JAVA_DATATYPES.put(NLSTRING, INLString.class);
+        JAVA_DATATYPES.put(NLSTRING, IDict.class);
         JAVA_DATATYPES.put(ENTITY, IEntity.class);
         JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
 

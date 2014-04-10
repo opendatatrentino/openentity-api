@@ -18,7 +18,7 @@
 
 package eu.trentorise.opendata.semantics.model.entity;
 
-import eu.trentorise.opendata.semantics.model.knowledge.INLString;
+import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import java.util.Locale;
 
 /**
@@ -36,7 +36,7 @@ public interface IEntity extends IStructure {
 	 *	 
 	 * @return the name of the entity in the default languages if available
 	 */
-	INLString getName();
+	IDict getName();
 
 	/**
 	 * Sets the name in the given locale
@@ -50,7 +50,7 @@ public interface IEntity extends IStructure {
 	 *	 
 	 * @return the description of the entity in the default languages if available
 	 */
-	INLString getDescription();    
+	IDict getDescription();    
 
 
 	/**

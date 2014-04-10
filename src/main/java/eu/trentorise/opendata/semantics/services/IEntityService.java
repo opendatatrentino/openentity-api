@@ -63,10 +63,10 @@ public interface IEntityService {
     /**
      * Reads an entity given its URL
      *
-     * @param entityURL the URL of the entity to read
+     * @param URL the URL of the entity to read
      * @return the entity identified by this URL, or null if not found
      */
-    IEntity readEntity(String entityURL);
+    IEntity readEntity(String URL);
 
     /**
      * Creates an attribute of the specified attribute definition kind and fills
