@@ -55,7 +55,7 @@ public interface IAttributeCorrespondence {
     /**
      * Gets the concept associated to the column header
      * @deprecated use getHeaderConceptURL instead
-     * @return 
+     * @return the conceptID of the comlumn header
      */
     long getHeaderConceptID();    
     /**

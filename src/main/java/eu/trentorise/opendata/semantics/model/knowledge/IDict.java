@@ -20,13 +20,14 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 /**
  * Represents a dictionary of a string that may have translations in several
  * languages.
  *
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date Apr 11, 2014
  */
 public interface IDict {
 
@@ -38,7 +39,18 @@ public interface IDict {
      * present an empty list is returned.
      */
     List<String> getStrings(Locale locale);
-
+    
+    /**
+     * Gets the first translation in the given locale.
+     *
+     * @param locale the language of the desired translation
+     * @return the string in the given locale if present. If no string is
+     * present null is returned.
+     */
+    @Nullable
+    String getString(Locale locale);    
+        
+    
     /**
      * Gets the locales for which translations are present in the IDict
      *

@@ -24,9 +24,15 @@ import java.util.Locale;
  * Interface for representing an entity knowledge base.
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date 8 Apr, 2014
+ * @date 14 Apr, 2014
  */
 public interface IEkb {
+    
+    /**
+     * Returns the locales supported by the ekb.
+     * @return the supported locales.
+     */
+    List<Locale> getSupportedLocales();
     
     /**
      * Sets the locales in which strings will be returned during subsequent

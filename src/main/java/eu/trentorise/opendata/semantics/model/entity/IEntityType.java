@@ -21,7 +21,7 @@ package eu.trentorise.opendata.semantics.model.entity;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import java.util.List;
-import java.util.Locale;
+
 
 /**
  * The entity type defines the attributes that the entity can have
@@ -30,12 +30,12 @@ import java.util.Locale;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date Apr 15, 2014
  */
 public interface IEntityType {
 
     /**
-     * Gets the name of the entity type in the given language
+     * Gets the name of the entity type 
      *  
      * @return the name of the entity type in the default languages if available
      */

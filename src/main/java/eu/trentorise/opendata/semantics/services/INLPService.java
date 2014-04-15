@@ -17,10 +17,9 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
+import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
-import it.unitn.disi.sweb.core.nlp.model.NLText;
 import java.util.List;
 
 /**
@@ -35,38 +34,6 @@ import java.util.List;
 public interface INLPService {
 
     /**
-     * Takes a natural language text and finds the concepts and entities in the
-     * text.
-     *
-     * @param nlText the input natural language string. After calling the
-     * function it will have also the concept and entities found in the text.
-     * They will be added to the object with their locations.
-     */
-    void namedEntityRecognition(NLText nlText);
-
-    /**
-     * Takes a natural language name of an entity as a string and finds the
-     * disambiguated entity.
-     *
-     * @param nlText the natural language name of an entity which has been
-     * processed before by Named Entity Recognition. After calling the function
-     * it will have also the disambiguated Entity added to the object with their
-     * locations.
-     */
-    void namedEntityDisambiguate(NLText nlText);
-
-    /**
-     * Takes a natural language text that has been processed by NER and
-     * disambiguates the concepts
-     *
-     * @param nlText the input natural language string. After calling the
-     * function it will have also the concepts disambiguated. Each tagged word
-     * may have more than one candidate for the concept representing it
-     * @param context a list of concepts
-     */
-    void wordSenseDisambiguate(NLText nlText, List<IConcept> context);
-
-    /**
      * Disambiguates the column header names of a resource that typically comes
      * from a catalog.
      *
@@ -75,7 +42,7 @@ public interface INLPService {
      * catalog
      * @return the column names enriched with the meaning, ranked by confidence
      */
-    List<NLText> disambiguateColumns(ITableResource table, IResourceContext context);
+    List<ISemanticText> disambiguateColumns(ITableResource table, IResourceContext context);
 
     /**
      * Guesses the datatype common to a list of strings passed as input. Todo
@@ -90,11 +57,21 @@ public interface INLPService {
      * Takes a natural language string and returns concepts and entities
      * disambiguated
      *
-     * @param nlText an input natural language string
+     * @param text an input natural language string
      * @return the natural language text object with all the entities and
      * concepts found and disambiguated
      */
-    NLText runNLP(String nlText);
+    ISemanticText runNLP(String text);
     
-
+    /**
+     * Takes natural language strings and returns concepts and entities
+     * disambiguated
+     *
+     * @param texts an input natural language string
+     * @return the texts enriched with all the entities and
+     * concepts found and disambiguated when there is sufficient confidence
+     */
+    List<ISemanticText> runNLP(List<String> texts);
+    
+    
 }

@@ -1,7 +1,24 @@
+/**
+ * *****************************************************************************
+ * Copyright 2012-2013 Trento Rise (www.trentorise.eu/)
+ *
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Lesser General Public License (LGPL)
+ * version 2.1 which accompanies this distribution, and is available at
+ *
+ * http://www.gnu.org/licenses/lgpl-2.1.html
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ *******************************************************************************
+ */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
-import eu.trentorise.opendata.semantics.model.knowledge.ISemanticToken;
+import eu.trentorise.opendata.semantics.model.knowledge.IWord;
 import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,10 +29,10 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
- * @date 10 Apr 2014
+ * @date 11 Apr 2014
  */
 @Immutable
-public class SemanticToken implements ISemanticToken {
+public class Word implements IWord {
 
     private int startOffset;
     private int endOffset;
@@ -30,20 +47,21 @@ public class SemanticToken implements ISemanticToken {
      *
      * @param startOffset
      * @param endOffset the position of the character immediately *after* the
-     * token itself. Position is absolute with respect to the
+     * word itself. Position is absolute with respect to the
      * text stored in the SemanticText container.
      * @param meaningStatus
      * @param selectedMeaning
      * @param meanings a new collection is created internally to store the
      * meanings.
      */
-    public SemanticToken(int startOffset,
+    public Word(int startOffset,
             int endOffset,
             MeaningStatus meaningStatus,
             IMeaning selectedMeaning,
             Collection<IMeaning> meanings) {
+        
         if (meanings.isEmpty()) {
-            throw new RuntimeException("OdrToken must have at least one meaning!");
+            throw new RuntimeException("Word must have at least one meaning!");
         }
         List<IMeaning> mgs = new ArrayList<IMeaning>();
 
@@ -51,11 +69,15 @@ public class SemanticToken implements ISemanticToken {
         for (IMeaning m : meanings) {
             total += m.getProbability();
         }
+        if (total <= 0){
+            total = meanings.size();
+        }
+        
         for (IMeaning m : meanings) {
-            mgs.add(new Meaning(m.getURL(), m.getProbability() / total, m.getKind()));
+            mgs.add(new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName()));
         }
 
-        Collections.sort(mgs);
+        Collections.sort(mgs, Collections.reverseOrder());
         this.meanings = Collections.unmodifiableList(mgs);
         this.startOffset = startOffset;
         this.endOffset = endOffset;

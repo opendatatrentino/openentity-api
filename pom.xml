@@ -83,7 +83,7 @@
 
 
     <repositories>   
-                
+        <!--        
         <repository>
             <id>sweb-internal</id>
             <layout>default</layout>
@@ -108,7 +108,9 @@
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
             </snapshots>
-        </repository>                
+        </repository>           
+        
+        -->     
     </repositories>
     
     <build>
@@ -233,23 +235,24 @@
     </developers>
     
     <dependencies>
-        <dependency>
-            <groupId>it.unitn.disi.sweb</groupId>
-            <artifactId>sweb-nlp-model</artifactId>    
-            <version>2.5.0-SNAPSHOT</version>
-        </dependency>
         
-    <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>2.0.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>annotations</artifactId>
-        <version>2.0.1</version>
-    </dependency> 
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>2.0.1</version>
+        </dependency> 
             
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
    

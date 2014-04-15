@@ -24,9 +24,15 @@ package eu.trentorise.opendata.semantics.model.knowledge;
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 8, 2014
+ * @date Apr 11, 2014
  */
 public interface IConcept {
+    
+    /**
+     * Gets the name of the concept
+     * @return the name of the concept in the default languages if available
+     */    
+    IDict getName();
 
     /**
      * Gets the URL of the concept
@@ -43,8 +49,8 @@ public interface IConcept {
     Long getGUID();
     
     /**
-     * Gets the description on the concept
-     * @return the description on the concept in the default languages if available
+     * Gets the description of the concept
+     * @return the description of the concept in the default languages if available
      */
     IDict getDescription();
 
