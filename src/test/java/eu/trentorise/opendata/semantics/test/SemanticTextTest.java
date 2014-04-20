@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.Locale;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertTrue;
@@ -67,5 +73,17 @@ public class SemanticTextTest {
         assertEquals("ciao", dict_3.getString(Locale.ITALIAN));
         assertEquals("ciao", dict_3.getStrings(Locale.ITALIAN).get(0));
         assertEquals("buongiorno", dict_3.getStrings(Locale.ITALIAN).get(1));
-    }     
+    }   
+    
+    @Test
+    public void testDictContains(){
+        assertFalse(new Dict().contains(""));
+        assertTrue(new Dict().putTranslation(Locale.ENGLISH, "Hello").contains("h"));
+        
+        IDict dict = new Dict().putTranslation(Locale.ENGLISH, "Hello")
+                             .putTranslation(Locale.ITALIAN, new ArrayList(){{add("Ciao"); add("MONDO");}});
+        assertTrue(dict.contains("ndo"));
+        assertTrue(dict.contains(""));        
+        assertFalse(dict.contains("123"));
+    }
 }

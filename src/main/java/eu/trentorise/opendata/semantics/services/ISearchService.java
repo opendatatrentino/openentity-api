@@ -23,10 +23,12 @@ import java.util.List;
 /**
  * Interface for entity search services
  *
+ * @deprecated we have enoug interfaces, this one also contains useless methods
+ * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 8, 2014
+ * @date Apr 20, 2014
  *
  */
 public interface ISearchService {
@@ -52,6 +54,7 @@ public interface ISearchService {
      * the table corresponds to an (ordered) item in the 'select' clause in the
      * query; and each row in the table corresponds to a set of values for these
      * columns.
+     * @deprecated Don't want EQL in openentity api
      */
     String[][] searchEQL(String eqlQuery);
 
@@ -59,17 +62,12 @@ public interface ISearchService {
     /**
      * Performs a concept search for entities
      *
+     * @deprecated What's the purpose? What's "concept search syntax"?
+     * 
      * @param conceptSearchQuery A string query using concept search syntax to
      * be executed
      * @return the list of entities that match the query
      */
     List<IEntity> conceptSearch(String conceptSearchQuery);
     
-    /**
-     * Sets the default entity base which will be used with search if no other
-     * entity base is specified.
-     *
-     * @param entityBaseID the identifier of the default entity base
-     */
-    // void setDefaultEntityBase(Long entityBaseID);
 }

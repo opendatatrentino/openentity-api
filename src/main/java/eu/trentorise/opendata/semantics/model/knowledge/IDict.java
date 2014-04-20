@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * languages.
  *
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 11, 2014
+ * @date Apr 17, 2014
  */
 public interface IDict {
 
@@ -57,4 +57,12 @@ public interface IDict {
      * @return the available locales
      */
     Set<Locale> getLocales();
+
+    /**
+     * Checks if provided text is contained in any of the provided translations. Both
+     * text and translations to check are lowercased according to theit locale.
+     * @param text the text to search for
+     * @return true if text is contained in any of the translations, false otherwise
+     */
+    boolean contains(String text);
 }

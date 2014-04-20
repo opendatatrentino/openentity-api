@@ -80,6 +80,20 @@ public class Dict implements IDict {
         return translations.keySet();
     }
 
+
+    public boolean contains(String text) {
+        
+        for (Locale loc : getLocales()) {
+            String lowText = text.toLowerCase(loc);
+            for (String t : translations.get(loc)){
+                if (t.toLowerCase(loc).contains(lowText)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      *
      * @return a new dictionary. The original one is not mutated.
@@ -91,8 +105,8 @@ public class Dict implements IDict {
         for (String s : strings) {
             lst.add(s);
         }
-        for (Locale loc : translations.keySet()) {            
-            newTranslations.put(loc, translations.get(loc));            
+        for (Locale loc : translations.keySet()) {
+            newTranslations.put(loc, translations.get(loc));
         }
         newTranslations.put(locale, Collections.unmodifiableList(lst));
 
@@ -110,8 +124,8 @@ public class Dict implements IDict {
 
         lst.add(string);
 
-        for (Locale loc : translations.keySet()) {            
-            newTranslations.put(loc, translations.get(loc));            
+        for (Locale loc : translations.keySet()) {
+            newTranslations.put(loc, translations.get(loc));
         }
         newTranslations.put(locale, Collections.unmodifiableList(lst));
 
@@ -121,7 +135,7 @@ public class Dict implements IDict {
     @Nullable
     public String getString(Locale locale) {
         List<String> as = translations.get(locale);
-        if (as == null){
+        if (as == null) {
             return null;
         }
         if (as.isEmpty()) {
@@ -133,8 +147,10 @@ public class Dict implements IDict {
 
     /**
      * Checks if there is at least one translation in the given locale
+     *
      * @param locale
-     * @return true if there is at least one translation in the given locale, false otherwise.
+     * @return true if there is at least one translation in the given locale,
+     * false otherwise.
      */
     public boolean hasTranslation(Locale locale) {
         if (translations.containsKey(locale)) {
@@ -155,43 +171,44 @@ public class Dict implements IDict {
 
     /**
      * Checks if there is at least one non-empty translation
-    */
-    public boolean isEmpty(){
-        for (Locale locale : getLocales()){
-            if (!translations.get(locale).isEmpty()){
+     */
+    public boolean isEmpty() {
+        for (Locale locale : getLocales()) {
+            if (!translations.get(locale).isEmpty()) {
                 return true;
-            }                        
+            }
         }
         return false;
     }
-    
-   /**
-    * Pads white spaces until maxLength is reached
-    * @param msg the message to pad with spaces
-    * @param maxLength length after which msg is truncated
-    * @return the padded msg
-    */
-    private static String padLeft(String msg, int maxLength){
-    
+
+    /**
+     * Pads white spaces until maxLength is reached
+     *
+     * @param msg the message to pad with spaces
+     * @param maxLength length after which msg is truncated
+     * @return the padded msg
+     */
+    private static String padLeft(String msg, int maxLength) {
+
         String nmot;
         if (msg.length() > maxLength) {
             nmot = msg.substring(0, msg.length() - 3) + "...";
         } else {
-            nmot = String.format("%"+maxLength+"s", msg);
+            nmot = String.format("%" + maxLength + "s", msg);
         }
-        return nmot;        
+        return nmot;
     }
-    
-    public String toString(){        
-        
+
+    public String toString() {
+
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
-        for (Locale loc : translations.keySet()){
+        for (Locale loc : translations.keySet()) {
             sb.append(padLeft(loc.toString(), 10))
-              .append(": [");
+                    .append(": [");
             boolean first = true;
-            for (String t : translations.get(loc)){
-                if (first){
+            for (String t : translations.get(loc)) {
+                if (first) {
                     first = false;
                 } else {
                     sb.append(", ");
@@ -199,7 +216,7 @@ public class Dict implements IDict {
                 sb.append(t);
             }
             sb.append("]\n");
-              
+
         }
         return sb.toString();
     }

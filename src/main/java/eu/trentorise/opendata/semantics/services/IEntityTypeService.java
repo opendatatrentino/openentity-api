@@ -20,6 +20,7 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
+import eu.trentorise.opendata.semantics.services.model.IEtypeSearchResult;
 import java.util.List;
 
 /**
@@ -27,7 +28,8 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@unitn.it>
+ * @date Apr 20, 2014
  */
 public interface IEntityTypeService {
 
@@ -44,7 +46,13 @@ public interface IEntityTypeService {
      * @return the entity types
     */
     List<IEntityType> getEntityTypes(List<String> URLs);
-    
+        
+    /**
+     * Returns a list of possible entity types with name similar to provided partial name.
+     * @param partialName a partial entity type name. It is assumed to be in one of the default locales of the ekb.
+     * @return a list of candidate entity types, ordered by probability. The first one is the most probable.
+     */
+    List<IEtypeSearchResult> searchEntityTypes(String partialName);
 
     /**
      * Adds an attribute definition to an entity type
