@@ -10,7 +10,7 @@
  *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * FOR A PARTICULAR PURPOSE. See  the GNU Lesser General Public License for more
  * details.
  *
  *******************************************************************************
@@ -25,17 +25,29 @@ import java.util.List;
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date Mar 09, 2014
+ * @date Apr 24, 2014
  */
 public interface ISchemaCorrespondence {
+   
 
     /**
      * Gets a list of attribute correspondences
-     * @return the list of correspondences
      * 
+     * @deprecated use getAttributeCorrespondences() instead
+     * 
+     * @return the list of correspondences      
     */
     List<IAttributeCorrespondence> getAttributeCorrespondence();
+    
+    
+    /**
+     * Gets a list of attribute correspondences
+     * @return the list of correspondences      
+    */
+    List<IAttributeCorrespondence> getAttributeCorrespondences();
 
+    
+    
     /**
      * Gets the target entity type
      * @return the target entity type
@@ -44,8 +56,8 @@ public interface ISchemaCorrespondence {
 
     /**
      * Gets the score assigned to the correspondence. todo range?
-     * @return the target entity type
+     * @return the score. It ranges from 0.0 (worst score) to 1.0 (best score)
      */    
-    Float getScore();
+    float getScore();
     
 }

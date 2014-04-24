@@ -1,20 +1,13 @@
 package eu.trentorise.opendata.semantics.test;
 
+import eu.trentorise.opendata.semantics.IntegrityChecker;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import eu.trentorise.opendata.semantics.model.knowledge.impl.Dict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
 
@@ -27,7 +20,8 @@ public class SemanticTextTest {
     @Test
     public void testDict_0(){
         IDict dict = new Dict();
-        assertTrue(dict.getLocales().isEmpty());        
+        assertTrue(dict.getLocales().isEmpty());
+        IntegrityChecker.checkDict(dict);
     }
     
     @Test
@@ -35,6 +29,7 @@ public class SemanticTextTest {
         String text = "hello";
         IDict dict = new Dict(text);
         assertEquals(dict.getString(Locale.ENGLISH), text);   
+        IntegrityChecker.checkDict(dict);
     }
     
     @Test
@@ -48,6 +43,9 @@ public class SemanticTextTest {
         
         assertEquals("hello", dict_2.getString(Locale.ENGLISH));
         assertEquals("ciao", dict_2.getString(Locale.ITALIAN));        
+        
+        IntegrityChecker.checkDict(dict_1);
+        IntegrityChecker.checkDict(dict_2);
     }    
     
     
@@ -73,6 +71,10 @@ public class SemanticTextTest {
         assertEquals("ciao", dict_3.getString(Locale.ITALIAN));
         assertEquals("ciao", dict_3.getStrings(Locale.ITALIAN).get(0));
         assertEquals("buongiorno", dict_3.getStrings(Locale.ITALIAN).get(1));
+        
+        IntegrityChecker.checkDict(dict_1);
+        IntegrityChecker.checkDict(dict_2);
+        IntegrityChecker.checkDict(dict_3);
     }   
     
     @Test
@@ -85,5 +87,8 @@ public class SemanticTextTest {
         assertTrue(dict.contains("ndo"));
         assertTrue(dict.contains(""));        
         assertFalse(dict.contains("123"));
+        
+        IntegrityChecker.checkDict(dict);
+        
     }
 }

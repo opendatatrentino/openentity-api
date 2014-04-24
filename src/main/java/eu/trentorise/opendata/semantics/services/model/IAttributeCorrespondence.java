@@ -19,6 +19,8 @@ package eu.trentorise.opendata.semantics.services.model;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import java.util.HashMap;
+import java.util.List;
+import java.util.SortedMap;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
@@ -34,12 +36,12 @@ public interface IAttributeCorrespondence {
     IAttributeDef getAttrDef();
 
     /** 
-     * todo put score range
-     * Gets the map of candidate attributes associated to their score
+     * Score range is within 0.0 - 1.0 range
+     * Gets the map of candidate attributes associated to their score     
      * @return the map of candidate attributes associated to their score
      */
     HashMap<IAttributeDef, Float> getAttrMap();
-
+    
     /**
      * Gets the source column index
      * @return the source column index

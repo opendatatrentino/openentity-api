@@ -19,7 +19,6 @@ package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
-import java.util.Locale;
 
 /**
  * The attribute definition stores information about the attributes, such as the
@@ -28,13 +27,13 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date Apr 24, 2014
  */
 public interface IAttributeDef {
 
     /**
      * Gets the Globally Unique Identifier (GUID) for the attribute definition
-     * @deprecated use getURL insteag
+     * @deprecated use getURL instead
      * @return the Globally Unique Identifier (GUID) represented as Long
      */
     Long getGUID();
@@ -64,8 +63,9 @@ public interface IAttributeDef {
     String getDataType();
 
     /**
-     * Return the entity type for the range, when the datatype is COMPLEX_TYPE
-     * @return the entity type if the data type is COMPLEX_TYPE, null otherwise
+     * Return the entity type for the range, when the datatype is oe:structure or oe:entity
+     * @deprecated we only provide the URL with getRangeETypeURL()
+     * @return the entity type if the data type is oe:structure or oe:entity, null otherwise
      */
     IEntityType getRangeEType();    
     
@@ -87,13 +87,15 @@ public interface IAttributeDef {
 
     /**
      * Gets the regular expression that all the attribute values should follow
-     *
+     * @deprecated Doesn't make much sense
+     * 
      * @return the regular expression as string
      */
     String getRegularExpression();
 
     /**
      * Set the regular expression that all the attribute values should follow
+     * @deprecated Doesn't make much sense
      *
      * @param regularExpression the regular expression as string
      */
@@ -106,7 +108,8 @@ public interface IAttributeDef {
      * mandatory
      */
     boolean isMandatory();
-    
+
+       
     /**
      * Returns the entity type for the attribute definition 
      * @deprecated use getETypeURL instead
@@ -115,10 +118,16 @@ public interface IAttributeDef {
      Long getEType();
     
     /**
-     * Returns the entity type for attribute defintion 
+     * Returns the owner entity type for this attribute definition 
      * 
      * @return entity type URL
      */
-     String getETypeURL();  	
+     String getEtypeURL();  	
+
+    /**
+     * Return the entity type for the range, when the datatype is oe:structure or oe:entity     
+     * @return the entity type URL if the data type is oe:structure or oe:entity, null otherwise
+     */     
+     String getRangeEtypeURL();
     	
 }

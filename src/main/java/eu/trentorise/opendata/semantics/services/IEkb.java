@@ -19,12 +19,13 @@ package eu.trentorise.opendata.semantics.services;
 
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.Nullable;
 
 /**
  * Interface for representing an entity knowledge base.
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date 14 Apr, 2014
+ * @date 23 Apr, 2014
  */
 public interface IEkb {
     
@@ -52,44 +53,50 @@ public interface IEkb {
     /**
      * Gets the service for Natural Language Processing
      * 
-     * @return the NLP service 
+     * @return the NLP service if supported, null otherwise.
      */
+    @Nullable
     INLPService getNLPService();
 
     /**
      * Gets the knowledge service 
-     * @return the knowledge service
+     * @return the knowledge service if supported, null otherwise.
      */
+    @Nullable
     IKnowledgeService getKnowledgeService();
 
     /**
      * Gets the service for schema matching
-     * @return the schema matching service
+     * @return the schema matching service if supported, null otherwise.
      */
+    @Nullable
     ISemanticMatchingService getSemanticMatchingService();
 
     /**
      * Gets the identity management service
-     * @return the identity service
+     * @return the identity service if supported, null otherwise.
      */
+    @Nullable
     IIdentityService getIdentityService();
 
     /**
      * Gets the entity type management service
-     * @return the entity type service
+     * @return the entity type service if supported, null otherwise.
      */
+    @Nullable
     IEntityTypeService getEntityTypeService();
 
     /**
      * Gets the entity management service
-     * @return the entity service
+     * @return the entity service if supported, null otherwise.
      */
+    @Nullable
     IEntityService getEntityService();
     
     /**
      * Gets the search service
+     * @deprecated don't use it anymore
      * @return the search service
-     */
-    
+     */    
     ISearchService getSearchService();
 }
