@@ -166,10 +166,12 @@ public class IntegrityChecker {
         if (etype.getConcept() == null){
             throw new IntegrityException("Found null concept for etype " + etype.getURL());
         }         
-
+        
+        /** not supported for now
         if (etype.getUniqueIndexes() == null){
             throw new IntegrityException("Found null unique indexes for etype " + etype.getURL());
         }
+        */
                                       
         for (IAttributeDef attrDef : etype.getAttributeDefs()){            
             try {
