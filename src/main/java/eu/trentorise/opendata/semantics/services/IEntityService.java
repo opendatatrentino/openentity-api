@@ -53,7 +53,7 @@ public interface IEntityService {
     String createEntityURL(IEntity entity);
 
     /**
-     * Updates an entity. For values of type INLString, translations provided in
+     * Updates an entity. For values of type IDict, translations provided in
      * this entity are going to be merged with translations already present in
      * the Ekb
      *

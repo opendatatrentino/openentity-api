@@ -22,6 +22,7 @@ import java.util.Locale;
 /**
  * Represents a string in the given locale
  * 
+ * @deprecated use {link eu.trentorise.opendata.semantics.model.knowledge.IDict} instead
  * @author David Leoni <david.leoni@unitn.it>
  * @date Apr 10, 2014
  */

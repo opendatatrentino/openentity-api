@@ -65,15 +65,25 @@ public class Dict implements IDict {
 
     /**
      * Sets english translation to provided text
+     * @param text the given text
      */
     public Dict(final String text) {
+        this(text, Locale.ENGLISH);
+    }
+    
+    /**
+     * Sets english translation to provided text
+     * @param text the given text in the fiven locale
+     * @param locale the locale of the provided text
+     */
+    public Dict(final String text, Locale locale) {
         this();
-        translations.put(Locale.ENGLISH, new ArrayList() {
+        translations.put(locale, new ArrayList() {
             {
                 add(text);
             }
         });
-    }
+    }    
 
     @Override
     public Set<Locale> getLocales() {

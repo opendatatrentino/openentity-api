@@ -70,5 +70,5 @@ public interface ISemanticText {
      * @return the text of the word, without annotations
      */
     String getText(IWord word);
-
+    
 }

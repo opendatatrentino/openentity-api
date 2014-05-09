@@ -47,13 +47,13 @@ import java.util.Set;
  * LONG : Long <br/>
  * CONCEPT : IConcept <br/>
  SEMANTIC_TEXT : ISemanticText <br/>
- * NLSTRING : INLString <br/>
+ * NLSTRING : IDict <br/>
  * ENTITY : IEntity <br/>
  * STRUCTURE : IStructure<br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date May 5, 2014
  *
  */
 public class DataTypes {
@@ -84,7 +84,7 @@ public class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(BOOLEAN, "Boolean");
         DATATYPE_PRETTY_NAMES_EN.put(DATE, "Date");
         DATATYPE_PRETTY_NAMES_EN.put(INTEGER, "Integer");
-        DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Floating point number");
+        DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Single precision Number");
         DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
         DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
         DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Natural language text");
@@ -97,7 +97,7 @@ public class DataTypes {
         DATATYPE_PRETTY_NAMES_IT.put(BOOLEAN, "Booleano");
         DATATYPE_PRETTY_NAMES_IT.put(DATE, "Data");
         DATATYPE_PRETTY_NAMES_IT.put(INTEGER, "Intero");
-        DATATYPE_PRETTY_NAMES_IT.put(FLOAT, "Numero in virgola mobile");
+        DATATYPE_PRETTY_NAMES_IT.put(FLOAT, "Numero a precisione singola");
         DATATYPE_PRETTY_NAMES_IT.put(LONG, "Intero grande");
         DATATYPE_PRETTY_NAMES_IT.put(CONCEPT, "Concetto");
         DATATYPE_PRETTY_NAMES_IT.put(SEMANTIC_TEXT, "Testo semantico");

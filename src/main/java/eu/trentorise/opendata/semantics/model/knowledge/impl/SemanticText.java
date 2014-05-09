@@ -56,23 +56,34 @@ public class SemanticText implements Serializable, ISemanticText {
      * @param text
      */
     public SemanticText(String text) {
+        this(text, Locale.ENGLISH);
+    }
+    
+    /**
+     * Creates SemanticText with the provided string. Locale is set to english
+     * and the string is not enriched.
+     *
+     * @param text
+     * @param locale
+     */
+    public SemanticText(String text, Locale locale) {
         this();
         if (text == null) {
             throw new RuntimeException("Text in SemnaticText must not be null!");
         }
         this.text = text;
         this.locale = Locale.ENGLISH;
+        this.locale = locale;
     }
-
     
+
     /**
      * @param sentences a list of sentences. Internally, a new copy of it is
      * created.
      */
     public SemanticText(String text, @Nullable Locale locale, List<ISentence> sentences) {
-        this(text);
+        this(text, locale);
         
-        this.locale = locale;
 
         List<ISentence> lst = new ArrayList<ISentence>();
         for (ISentence ss : sentences) {
@@ -86,16 +97,24 @@ public class SemanticText implements Serializable, ISemanticText {
      * created.
      */
     public SemanticText(String text, Locale locale, final ISentence sentence) {
-        this(text, locale, new ArrayList<ISentence>(){{add(sentence);}});
+        this(text, locale, new ArrayList<ISentence>() {
+            {
+                add(sentence);
+            }
+        });
     }
-    
+
+    public SemanticText(ISemanticText semText) {
+        this(semText.getText(), semText.getLocale(), semText.getSentences());
+    }
+
     @Override
     public List<ISentence> getSentences() {
         return sentences;
     }
 
     @Override
-    @Nullable 
+    @Nullable
     public Locale getLocale() {
         return locale;
     }
@@ -104,15 +123,20 @@ public class SemanticText implements Serializable, ISemanticText {
     public String getText() {
         return text;
     }
-    
+
     @Override
     public String getText(ISentence sentence) {
         return text.substring(sentence.getStartOffset(), sentence.getEndOffset());
     }
 
-    @Override    
+    @Override
     public String getText(IWord word) {
         return text.substring(word.getStartOffset(), word.getEndOffset());
+    }
+    
+    @Override
+    public String toString(){
+        return text;
     }
 
 }
