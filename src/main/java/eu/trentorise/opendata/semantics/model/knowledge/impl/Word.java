@@ -43,12 +43,13 @@ public class Word implements IWord {
     private MeaningStatus meaningStatus;
 
     /**
-     * Meaning probabilities are normalized
+     * Constructor for a Word. Meaning probabilities are normalized so total sum
+     * is 1.0
      *
      * @param startOffset
      * @param endOffset the position of the character immediately *after* the
-     * word itself. Position is absolute with respect to the
-     * text stored in the SemanticText container.
+     * word itself. Position is absolute with respect to the text stored in the
+     * SemanticText container.
      * @param meaningStatus
      * @param selectedMeaning
      * @param meanings a new collection is created internally to store the
@@ -59,7 +60,7 @@ public class Word implements IWord {
             MeaningStatus meaningStatus,
             IMeaning selectedMeaning,
             Collection<IMeaning> meanings) {
-        
+
         if (meanings.isEmpty()) {
             throw new RuntimeException("Word must have at least one meaning!");
         }
@@ -69,10 +70,10 @@ public class Word implements IWord {
         for (IMeaning m : meanings) {
             total += m.getProbability();
         }
-        if (total <= 0){
+        if (total <= 0) {
             total = meanings.size();
         }
-        
+
         for (IMeaning m : meanings) {
             mgs.add(new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName()));
         }

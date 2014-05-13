@@ -17,11 +17,14 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
+import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ISentence;
 import eu.trentorise.opendata.semantics.model.knowledge.IWord;
+import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -42,13 +45,17 @@ public class SemanticText implements Serializable, ISemanticText {
     private Locale locale;
 
     private List<ISentence> sentences;
-
+        
     public SemanticText() {
         this.text = "";
         this.locale = Locale.ENGLISH;
         this.sentences = new ArrayList<ISentence>();
     }
 
+    public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, IMeaning selectedMeaning, Collection<IMeaning> meanings){
+        this(text,locale,new Sentence(0, text.length(), new Word(0,text.length(),meaningStatus,selectedMeaning, meanings)));
+    }    
+    
     /**
      * Creates SemanticText with the provided string. Locale is set to english
      * and the string is not enriched.

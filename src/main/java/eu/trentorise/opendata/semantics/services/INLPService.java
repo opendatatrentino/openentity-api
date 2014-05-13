@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
@@ -62,16 +63,30 @@ public interface INLPService {
      * concepts found and disambiguated
      */
     ISemanticText runNLP(String text);
-    
+
     /**
      * Takes natural language strings and returns concepts and entities
      * disambiguated
      *
      * @param texts an input natural language string
-     * @return the texts enriched with all the entities and
-     * concepts found and disambiguated when there is sufficient confidence
+     * @return the texts enriched with all the entities and concepts found and
+     * disambiguated when there is sufficient confidence
      */
     List<ISemanticText> runNLP(List<String> texts);
-    
-    
+
+    /**
+     * Takes natural language strings and assigns to each string candidate
+     * concepts meanings. All the candidate concepts will descend from the
+     * provided parent concept.
+     *
+     * @param texts an input natural language string
+     * @param parentConcept the concept from which all the resulting concepts
+     * will descend from.
+     * @return the list of enriched strings, one for each of the provided texts.
+     * Each enriched string will be a semantic text of only one sentence and one
+     * word. All the candidate meanings will be concepts descending from
+     * parentConcept.
+     */
+    List<ISemanticText> runNLP(List<String> texts, IConcept parentConcept);
+
 }

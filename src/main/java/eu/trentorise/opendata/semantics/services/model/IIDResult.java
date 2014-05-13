@@ -2,6 +2,7 @@ package eu.trentorise.opendata.semantics.services.model;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 /**
  * A reconciliation result, expressed as a set of candidate entities or a new
@@ -9,7 +10,7 @@ import java.util.Set;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date May 12, 2014
  */
 public interface IIDResult {
 
@@ -23,16 +24,16 @@ public interface IIDResult {
     /**
      * Gets the selected entity.
      *
-     * @return an entity if getAssignmentResult is different than MISSING, null
+     * @return an entity if getAssignmentResult is NEW or REUSE, null
      * otherwise.
      */
-    IEntity getResultEntity();
+    @Nullable IEntity getResultEntity();
 
     /**
      * Gets a set of possible suggested entities.
      *
      * @return a set of possible suggested entities if getAssignmentResult is
-     * REUSE, an empty set otherwiose.
+     * REUSE, an empty set otherwise.
      */
     Set<IEntity> getEntities();
     
@@ -44,8 +45,9 @@ public interface IIDResult {
     
     
     /** Gets the URL of the matched entity
-     * @return URL of the entity
+     * @return the URL of the matched entity if getAssignmentResult is NEW or REUSE, null
+     * otherwise.
      */
-    String getURL();
+    @Nullable String getURL();
 
 }

@@ -32,7 +32,7 @@ import java.util.List;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>* 
- * @date Apr 8, 2014
+ * @date May 12, 2014
  */
 public interface IEntityService {
     
@@ -40,6 +40,7 @@ public interface IEntityService {
      * Creates an entity
      *
      * @param entity the entity to be created. Will not be changed by the method.
+     * @deprecated use {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)} instead
      * @return the GUID of the newly created entity
      */
     Long createEntity(IEntity entity);

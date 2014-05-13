@@ -19,13 +19,34 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
- * @date 10 Apr 
+ * @date 12 May 
  * 
  */
 public enum MeaningStatus {
+
+    /**
+     * Either the system found no meaning or the user explicitly declares the
+     * sense is missing
+     */
     MISSING,
+    /**
+     * Only entities can be declared as new.
+     */
+    NEW,
+    /**
+     * The user can declare he is unsure about a concept meaning. Only available
+     * for concepts.
+     */
     NOT_SURE,
+    /**
+     * A meaning has been selected.
+     */
     SELECTED,
+    /**
+     * System is unsure about the meaning but offers a set of candidates to
+     * choose from.
+     */
     TO_DISAMBIGUATE
+
 }
 
