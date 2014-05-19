@@ -98,5 +98,5 @@ public interface IEkb {
      * @deprecated don't use it anymore
      * @return the search service
      */    
-    ISearchService getSearchService();
+    ISearchService getSearchService();    
 }

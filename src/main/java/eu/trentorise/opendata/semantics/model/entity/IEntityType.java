@@ -15,13 +15,12 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import java.util.List;
-
+import javax.annotation.Nullable;
 
 /**
  * The entity type defines the attributes that the entity can have
@@ -30,13 +29,13 @@ import java.util.List;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 15, 2014
+ * @date May 17, 2014
  */
 public interface IEntityType {
 
     /**
-     * Gets the name of the entity type 
-     *  
+     * Gets the name of the entity type
+     *
      * @return the name of the entity type in the default languages if available
      */
     IDict getName();
@@ -71,11 +70,12 @@ public interface IEntityType {
 
     /**
      * Removes an attribute definition from the entity type
-     * @deprecated use  removeAttributeDef by url
+     *
+     * @deprecated use removeAttributeDef by url
      * @param attrDefID the local ID of the attribute definition to be removed
      */
-    void removeAttributeDef(long attrDefID);    
-    
+    void removeAttributeDef(long attrDefID);
+
     /**
      * Removes an attribute definition from the entity type
      *
@@ -92,11 +92,12 @@ public interface IEntityType {
 
     /**
      * Removes Unique Indexes
+     *
      * @deprecated use removeUniqueIndex by URL instead
      * @param uniqueIndexID the local ID of the unique indexes to be removed
      */
-    void removeUniqueIndex(long uniqueIndexID);    
-    
+    void removeUniqueIndex(long uniqueIndexID);
+
     /**
      * Removes Unique Indexes
      *
@@ -110,11 +111,29 @@ public interface IEntityType {
      * @param uniqueIndex the unique indexes to be added
      */
     void addUniqueIndex(IUniqueIndex uniqueIndex);
-    
+
     /**
      * Gets the URL of the entity type
+     *
      * @return the URL of the entity type
      */
     String getURL();
-    
+
+    /**
+     * Returns the attribute def used for name.
+     *
+     * @return the attribute def used for name if the entitytype represents an
+     * entity. If it represents a structure, returns null.
+     */
+    @Nullable
+    IAttributeDef getNameAttrDef();
+
+    /**
+     * Returns the attribute def used for description.
+     *
+     * @return the attribute def used for description if the entitytype represents an
+     * entity. If it represents a structure, returns null.
+     */
+    @Nullable
+    IAttributeDef getDescriptionAttrDef();
 }

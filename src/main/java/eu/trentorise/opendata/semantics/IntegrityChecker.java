@@ -23,6 +23,7 @@ import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
+import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
@@ -251,8 +252,7 @@ public class IntegrityChecker {
         if (ekb == null) {
             throw new IntegrityException("Found null ekb!");
         }
-        
-        
+
         if (ekb.getDefaultLocales() == null) {
             throw new IntegrityException("Found null locales list in ekb " + ekb.getClass().getCanonicalName());
         }
@@ -263,12 +263,11 @@ public class IntegrityChecker {
     }
 
     public static void checkIDResult(IIDResult idResult) {
-        
+
         if (idResult == null) {
             throw new IntegrityException("Found null idResult!");
         }
-        
-        
+
         if (idResult.getAssignmentResult() == null) {
             throw new IntegrityException("Found null assignment result in idResult: " + idResult);
         }
@@ -278,8 +277,7 @@ public class IntegrityChecker {
 
             try {
                 checkURL(idResult.getURL());
-            }
-            catch(IntegrityException ex){
+            } catch (IntegrityException ex) {
                 throw new IntegrityException("Found invalid URL in idResult with REUSE! idResult is " + idResult, ex);
             }
 
@@ -299,11 +297,11 @@ public class IntegrityChecker {
             if (idResult.getEntities() == null) {
                 throw new IntegrityException("Found null result entities in idResult with REUSE!  idResult is " + idResult);
             }
-            
-            if (idResult.getEntities().isEmpty()){
-               throw new IntegrityException("Found empty entities in idResult with REUSE. idResult is " + idResult);
+
+            if (idResult.getEntities().isEmpty()) {
+                throw new IntegrityException("Found empty entities in idResult with REUSE. idResult is " + idResult);
             }
-            
+
             for (IEntity entity : idResult.getEntities()) {
                 try {
                     checkEntity(entity);
@@ -316,20 +314,19 @@ public class IntegrityChecker {
 
     }
 
-    
     /**
      * Checks if provided entity complies with open entity specs.
      *
      * @param entity to check
-     * @throws IntegrityException if provided entity is not conformant
-     * to OpenEntity specs.
+     * @throws IntegrityException if provided entity is not conformant to
+     * OpenEntity specs.
      */
     public static void checkEntity(IEntity entity) {
-                
+
         if (entity == null) {
             throw new IntegrityException("Found null entity!");
         }
-        
+
         try {
             checkStructure(entity);
         } catch (Exception ex) {
@@ -354,107 +351,132 @@ public class IntegrityChecker {
      * Checks if provided structure complies with open entity specs.
      *
      * @param structure to check
-     * @throws IntegrityException if provided structure is not conformant
-     * to OpenEntity specs.
-     */    
+     * @throws IntegrityException if provided structure is not conformant to
+     * OpenEntity specs.
+     */
     public static void checkStructure(IStructure structure) {
-    
-            if (structure == null) {
-                throw new IntegrityException("Found null structure!");
-            }
-        
-        
+
+        if (structure == null) {
+            throw new IntegrityException("Found null structure!");
+        }
+
+        try {
+            checkURL(structure.getURL());
+        } catch (Exception ex) {
+            throw new IntegrityException("Found invalid URL in structure " + structure, ex);
+        }
+
+        try {
+            checkEntityType(structure.getEtype());
+        } catch (Exception ex) {
+            throw new IntegrityException("Found invalid entity type in structure " + structure.getURL(), ex);
+        }
+
+        if (structure.getStructureAttributes() == null) {
+            throw new IntegrityException("Found null attributes in structure " + structure.getURL());
+        }
+
+        for (IAttribute attr : structure.getStructureAttributes()) {
             try {
-                checkURL(structure.getURL());
+                checkAttribute(attr);
+            } catch (Exception ex) {
+                throw new IntegrityException("Found invalid attribute in structure " + structure.getURL(), ex);
             }
-            catch(Exception ex){
-                throw new IntegrityException("Found invalid URL in structure " + structure, ex);
-            }
-            
-            try {
-                checkEntityType(structure.getEtype());
-            } catch (Exception ex){
-                throw new IntegrityException("Found invalid entity type in structure " + structure.getURL(), ex);
-            }
-        
-            
-            if (structure.getStructureAttributes() == null){
-                throw new IntegrityException("Found null attributes in structure " + structure.getURL());
-            }
-            
-            for (IAttribute attr : structure.getStructureAttributes()){
-                try {
-                    checkAttribute(attr);
-                } catch (Exception ex){
-                  throw new IntegrityException("Found invalid attribute in structure " + structure.getURL(), ex)  ;
-                }
-            }
-            
+        }
+
     }
 
     /**
      * Checks if provided attribute complies with open entity specs.
      *
      * @param attribute to check
-     * @throws IntegrityException if provided attribute is not conformant
-     * to OpenEntity specs.
-     */        
+     * @throws IntegrityException if provided attribute is not conformant to
+     * OpenEntity specs.
+     */
     public static void checkAttribute(IAttribute attribute) {
 
         if (attribute == null) {
             throw new IntegrityException("Found null attribute!");
         }
 
-        if (attribute.getLocalID() == null){
-             throw new IntegrityException("Found null local ID in attribute " + attribute);
-        }
-        
-        if (attribute.getAttributeDefinition() == null){
-             throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
-        }
-        
-
-                
-        if (attribute.getValues() == null){
-             throw new IntegrityException("Found null values list in attribute " + attribute.getLocalID());
+        if (attribute.getLocalID() == null) {
+            throw new IntegrityException("Found null local ID in attribute " + attribute);
         }
 
-        if (attribute.getValuesCount() != attribute.getValues().size()){
-            throw new IntegrityException("Found inconsistent values count in attribute " + attribute.getLocalID() + ". ValuesCount = " + attribute.getValuesCount() + ". attr.getValues.().size() = " + attribute.getValues().size());            
-        }        
-        
-        for (IValue val : attribute.getValues()){
+        if (attribute.getAttributeDefinition() == null) {
+            throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
+        }
+
+        if (attribute.getValues() == null) {
+            throw new IntegrityException("Found null values list in attribute " + attribute.getLocalID());
+        }
+
+        if (attribute.getValuesCount() != attribute.getValues().size()) {
+            throw new IntegrityException("Found inconsistent values count in attribute " + attribute.getLocalID() + ". ValuesCount = " + attribute.getValuesCount() + ". attr.getValues.().size() = " + attribute.getValues().size());
+        }
+
+        for (IValue val : attribute.getValues()) {
             try {
                 checkValue(val);
-            } catch(Exception ex){
+            } catch (Exception ex) {
                 throw new IntegrityException("Found invalid value in attribute " + attribute.getLocalID(), ex);
             }
         }
-        
-            
+
     }
 
     /**
      * Checks if provided value complies with open entity specs.
      *
      * @param value to check
-     * @throws IntegrityException if provided value is not conformant
-     * to OpenEntity specs.
-     */        
+     * @throws IntegrityException if provided value is not conformant to
+     * OpenEntity specs.
+     */
     public static void checkValue(IValue value) {
         if (value == null) {
             throw new IntegrityException("Found null value!");
         }
-        
-        if (value.getLocalID() == null){
-             throw new IntegrityException("Found null local ID in value " + value);
+
+        if (value.getLocalID() == null) {
+            throw new IntegrityException("Found null local ID in value " + value);
         }
 
-        if ( value.getValue() == null){
-             throw new IntegrityException("Found null object in value " + value.getLocalID());
+        if (value.getValue() == null) {
+            throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
 
-        
     }
 
+    /**
+     * Checks if provided concept complies with open entity specs.
+     *
+     * @param concept to check
+     * @throws IntegrityException if provided concept is not conformant to
+     * OpenEntity specs.
+     */    
+    public static void checkConcept(IConcept concept) {
+        if (concept == null) {
+            throw new IntegrityException("Found null concept!");
+        }       
+        
+        try {
+            checkURL(concept.getURL());
+        } catch(Exception ex){
+            throw new IntegrityException("Found invalid URL in concept " + concept, ex);
+        }
+        
+        try {
+            checkDict(concept.getDescription());
+        } catch (Exception ex){
+            throw new IntegrityException("Found invalid description in concept " + concept.getURL());
+        }
+        
+        try {
+            checkDict(concept.getName());
+        } catch (Exception ex){
+            throw new IntegrityException("Found invalid name in concept " + concept.getURL(), ex);
+        }                
+        
+        
+    }
 }

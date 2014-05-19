@@ -27,7 +27,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 7, 2014
+ * @date May 17, 2014
  */
 public interface IKnowledgeService {
 
@@ -58,5 +58,11 @@ public interface IKnowledgeService {
      * @return the concept
     */
     IConcept getConcept(String URL);
+    
+    /**
+     * Returns the parent of all concepts
+     * @return the parent of all concepts
+     */
+    IConcept getRootConcept();
     
 }

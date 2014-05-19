@@ -29,7 +29,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 20, 2014
+ * @date May 17, 2014
  */
 public interface IEntityTypeService {
 
@@ -84,4 +84,19 @@ public interface IEntityTypeService {
      * @return entity type 
      */
     IEntityType getEntityType(long id);    
+
+    /**
+     * Returns the parent of all structures
+     * @return the parent of all structures
+     * @see {@link #getRootEtype()}
+     */
+    IEntityType getRootStructure();
+    
+    /**
+     * Returns the parent of all etypes. 
+     * @return the parent of all etypes. Must inherit from value returned by {@link #getRootStructure()}
+     * @see {@link #getRootStructure()}
+     */
+    IEntityType getRootEtype();
+
 }
