@@ -85,7 +85,6 @@ public class Dict implements IDict {
         });
     }    
 
-    @Override
     public Set<Locale> getLocales() {
         return translations.keySet();
     }
@@ -170,7 +169,6 @@ public class Dict implements IDict {
         }
     }
 
-    @Override
     public List<String> getStrings(Locale locale) {
         if (translations.containsKey(locale)) {
             return translations.get(locale);
