@@ -25,6 +25,7 @@ import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
 import eu.trentorise.opendata.semantics.services.model.DataTypes;
@@ -479,4 +480,34 @@ public class IntegrityChecker {
         
         
     }
+    
+    
+    /**
+     * Checks if provided semantic text complies with open entity specs.
+     *
+     * @param semanticText to check
+     * @throws IntegrityException if provided semantic text is not conformant to
+     * OpenEntity specs.
+     */    
+    public static void checkSemanticText(ISemanticText semanticText) {
+        if (semanticText == null) {
+            throw new IntegrityException("Found null semantic text!");
+        }          
+        
+        if (semanticText.getText() == null){
+            throw new IntegrityException("Found semantic text containing null text!");
+        }
+        
+        if (semanticText.getLocale() == null){
+            throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
+        }
+
+        if (semanticText.getSentences() == null){
+            throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
+        }
+        
+        // todo write the rest...
+        
+    }
+    
 }

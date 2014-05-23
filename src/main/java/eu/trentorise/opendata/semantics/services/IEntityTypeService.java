@@ -88,14 +88,14 @@ public interface IEntityTypeService {
     /**
      * Returns the parent of all structures
      * @return the parent of all structures
-     * @see {@link #getRootEtype()}
+     * @see #getRootEtype() 
      */
     IEntityType getRootStructure();
     
     /**
      * Returns the parent of all etypes. 
      * @return the parent of all etypes. Must inherit from value returned by {@link #getRootStructure()}
-     * @see {@link #getRootStructure()}
+     * @see #getRootStructure()
      */
     IEntityType getRootEtype();
 

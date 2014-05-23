@@ -84,6 +84,18 @@ public class Dict implements IDict {
             }
         });
     }    
+    
+    /**
+     * Sets translations to provided locale
+    */
+    public Dict(final List<String> texts, Locale locale) {        
+        this.translations = new HashMap();
+        List<String> ts = new ArrayList();
+        for (String s : texts){
+            ts.add(s);            
+        }
+        this.translations.put(locale, texts);        
+    }    
 
     @Override
     public Set<Locale> getLocales() {
@@ -209,10 +221,30 @@ public class Dict implements IDict {
         return nmot;
     }
 
+
+
+    @Override
+    public IDict merge(IDict dict){
+        Dict ret = new Dict(this);
+        for (Locale locale : dict.getLocales()){
+             if (ret.translations.containsKey(locale)){
+                 for (String t : dict.getStrings(locale)){
+                     if (!ret.translations.get(locale).contains(t)){
+                         ret.translations.get(locale).add(t);
+                     }
+                 }
+             } else {                 
+                 ret.translations.put(locale, dict.getStrings(locale));
+             }
+        }
+        return ret;
+    }
+    
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
+        sb.append("{\n");
         for (Locale loc : translations.keySet()) {
             sb.append(padLeft(loc.toString(), 10))
                     .append(": [");
@@ -228,6 +260,18 @@ public class Dict implements IDict {
             sb.append("]\n");
 
         }
+        sb.append("}\n");
+        sb.append("\n");
         return sb.toString();
     }
+    
+    @Override
+    public int translationsCount(){
+        int count = 0;
+        for (Locale loc : translations.keySet()){
+            count += translations.get(loc).size();
+        }
+        return count;
+    }
+    
 }

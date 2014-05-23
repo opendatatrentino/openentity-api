@@ -65,4 +65,20 @@ public interface IDict {
      * @return true if text is contained in any of the translations, false otherwise
      */
     boolean contains(String text);
+
+    /**
+     * Merges dictionary with provided one to create a new dictionary.
+     * @param dict
+     * @return a new dictionary resulting from the merge.
+     */    
+    public IDict merge(IDict dict);
+    
+    
+    /**
+     * @return the number of translations present in the dictionary
+     */
+    public int translationsCount();
+    
+    
+    
 }

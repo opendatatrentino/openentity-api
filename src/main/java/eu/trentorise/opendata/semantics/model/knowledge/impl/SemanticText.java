@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nullable;
@@ -114,10 +115,18 @@ public class SemanticText implements Serializable, ISemanticText {
     public SemanticText(ISemanticText semText) {
         this(semText.getText(), semText.getLocale(), semText.getSentences());
     }
-
+    
     @Override
     public List<ISentence> getSentences() {
         return sentences;
+    }
+    
+    
+    Enumeration<IWord> getWords(){
+        throw new UnsupportedOperationException("todo implement me");
+        /*for (ISentence sentence : sentences){
+            
+        }*/
     }
 
     @Override
