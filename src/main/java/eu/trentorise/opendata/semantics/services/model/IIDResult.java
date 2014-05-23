@@ -22,7 +22,7 @@ public interface IIDResult {
     AssignmentResult getAssignmentResult();
 
     /**
-     * Gets the selected entity.
+     * Gets the selected entity. 
      *
      * @return an entity if getAssignmentResult is NEW or REUSE, null
      * otherwise.

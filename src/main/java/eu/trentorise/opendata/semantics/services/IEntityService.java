@@ -136,29 +136,30 @@ public interface IEntityService {
     void updateAttributeValue(IEntity entity, IAttribute attribute,
             IValue newValue);
 
+    
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityIds the ids of the entities to export
+     * @param entityURLs the URLs of the entities to export
      * @param writer A writer to store the generated rdf
      */
-    void exportToRdf(List<Long> entityIds, Writer writer);
+    void exportToRdf(List<String> entityURLs, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityIds the ids of the entities to export
+     * @param entityURLs the URLs of the entities to export
      * @param writer A writer to store the generated jsonld
      */
-    void exportToJsonLd(List<Long> entityIds, Writer writer);
+    void exportToJsonLd(List<String> entityURLs, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityIds the ids of the entities to export
+     * @param entityURLs the URLs of the entities to export
      * @param writer A writer to store the generated csv
      *
      */
-    void exportToCsv(List<Long> entityIds, Writer writer);
-
+    void exportToCsv(List<String> entityURLs, Writer writer);    
+    
 }
