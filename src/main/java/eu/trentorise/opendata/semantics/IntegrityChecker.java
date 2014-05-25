@@ -198,13 +198,13 @@ public class IntegrityChecker {
         try {
             etype.getNameAttrDef();
         } catch (Exception ex){
-            throw new IntegrityException("Found problem in getNameAttrDef()", ex);
+            throw new IntegrityException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
         }
         
         try {
             etype.getDescriptionAttrDef();
         } catch (Exception ex){
-            throw new IntegrityException("Found problem in getNameAttrDef()", ex);
+            throw new IntegrityException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
         }
         
 
