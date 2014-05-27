@@ -331,9 +331,10 @@ public class IntegrityChecker {
 
         }
         
-        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
+        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())
+                || AssignmentResult.MISSING.equals(idResult.getAssignmentResult())) {
             if (idResult.getResultEntity() != null){
-                throw new IntegrityException("getResultEntity is non-null in assignment result NEW!");
+                throw new IntegrityException("getResultEntity is non-null in assignment result " + idResult.getAssignmentResult() + "!");
             }
         }
 
