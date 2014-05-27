@@ -330,6 +330,12 @@ public class IntegrityChecker {
             }
 
         }
+        
+        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
+            if (idResult.getResultEntity() != null){
+                throw new IntegrityException("getResultEntity is non-null in assignment result NEW!");
+            }
+        }
 
     }
 
