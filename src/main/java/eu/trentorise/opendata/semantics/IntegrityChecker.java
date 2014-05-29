@@ -302,24 +302,18 @@ public class IntegrityChecker {
             } catch (IntegrityException ex) {
                 throw new IntegrityException("Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult, ex);
             }
-        }
-
-        if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())) {
-
+            
             if (idResult.getResultEntity() == null) {
                 throw new IntegrityException("Found null result entity in idResult with REUSE! idResult is " + idResult);
             }
-
+            
             IEntity resEntity = idResult.getResultEntity();
             try {
                 checkEntity(resEntity);
             } catch (IntegrityException ex) {
                 throw new IntegrityException("Failed integrity check on entity " + resEntity + " in idResult " + idResult, ex);
             }
-
-            if (idResult.getEntities().isEmpty()) {
-                throw new IntegrityException("Found empty entities in idResult with REUSE. idResult is " + idResult);
-            }
+            
 
             for (IEntity entity : idResult.getEntities()) {
                 try {
@@ -328,16 +322,22 @@ public class IntegrityChecker {
                     throw new IntegrityException("Failed integrity check on entity " + entity + " in idResult " + idResult, ex);
                 }
             }
-
-        }
+            
+            
+        }        
         
-        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())
-                || AssignmentResult.MISSING.equals(idResult.getAssignmentResult())) {
-            if (idResult.getResultEntity() != null){
-                throw new IntegrityException("getResultEntity is non-null in assignment result " + idResult.getAssignmentResult() + "!");
+        if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())) {
+            if (idResult.getEntities().isEmpty()) {
+                throw new IntegrityException("Found empty entities in idResult with REUSE. idResult is " + idResult);
             }
         }
-
+        
+        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
+            if (!idResult.getEntities().isEmpty()) {
+                throw new IntegrityException("Found non-empty entities in idResult with NEW. idResult is " + idResult);
+            }
+        }
+        
     }
 
     /**

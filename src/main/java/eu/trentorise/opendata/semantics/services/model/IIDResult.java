@@ -24,7 +24,7 @@ public interface IIDResult {
     /**
      * Gets the selected entity.
      *
-     * @return an entity if getAssignmentResult is REUSE, null otherwise.
+     * @return an entity if getAssignmentResult is REUSE or NEW, null otherwise. If getAssignmentResult is REUSE, returns the 'best' candidate among the possible matching entities. If the assignment result is NEW, a deep copy of the original entity is returned containing an assigned URL. This new entity will not be stored on the server, though. In order to store it, call {@link eu.trentorise.opendata.semantics.services.IEntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity) } with the new entity.
      */
     @Nullable
     IEntity getResultEntity();
@@ -33,7 +33,7 @@ public interface IIDResult {
      * Gets a set of possible suggested entities.
      *
      * @return a set of possible suggested entities if getAssignmentResult is
-     * REUSE, an empty set otherwise.
+     * REUSE. If assignment result is NEW, returns a set containing only one new entity with newly assigned url. Otherwise, returns an empty set.
      */
     Set<IEntity> getEntities();
 
@@ -49,7 +49,7 @@ public interface IIDResult {
      * Gets the URL of the matched entity
      *
      * @return the URL of the matched entity if getAssignmentResult is NEW or
-     * REUSE, null otherwise. 
+     * REUSE, null otherwise. Notice that if the assignment result is NEW the entity is not stored on the server.
      */
     @Nullable
     String getURL();
