@@ -27,8 +27,8 @@ package eu.trentorise.opendata.semantics.services.model;
 public enum AssignmentResult {
     /** Entity to reconcile was not found in the database and has sufficient attributes to get assigned an id */
     NEW,
-    /** Entity to reconcile doesn't have attributes that allow to uniquely identify it  with sufficient certainty */
+    /** Entity to reconcile doesn't have attributes that allow to uniquely identify it with sufficient certainty */
     MISSING,
-    /** Entity to reconcile can be matched against one or more entieis in the ekb */
+    /** Entity to reconcile can be matched against one or more entities in the ekb */
     REUSE
 }

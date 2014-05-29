@@ -177,8 +177,10 @@ public class IntegrityChecker {
             throw new IntegrityException("Invalid etype name!", ex);
         }
 
-        if (etype.getConcept() == null) {
-            throw new IntegrityException("Found null concept for etype " + etype.getURL());
+        try {
+            checkConcept(etype.getConcept());
+        } catch (Exception ex) {
+            throw new IntegrityException("Found invalid concept for etype " + etype.getURL(), ex);
         }
 
         /**
@@ -193,20 +195,18 @@ public class IntegrityChecker {
                 throw new IntegrityException("Found invalid attr def in etype " + etype.getURL(), ex);
             }
         }
-        
-        
+
         try {
             etype.getNameAttrDef();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new IntegrityException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
         }
-        
+
         try {
             etype.getDescriptionAttrDef();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new IntegrityException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
         }
-        
 
     }
 
@@ -249,8 +249,11 @@ public class IntegrityChecker {
 
             }
         }
-        if (attrDef.getConcept() == null) {
-            throw new IntegrityException("Found null concept for attribute def " + attrDef.getURL());
+
+        try {
+            checkConcept(attrDef.getConcept());
+        } catch (Exception ex) {
+            throw new IntegrityException("Found invalid concept for attr def " + attrDef.getURL(), ex);
         }
 
     }
@@ -287,14 +290,21 @@ public class IntegrityChecker {
             throw new IntegrityException("Found null assignment result in idResult: " + idResult);
         }
 
+        if (idResult.getEntities() == null) {
+            throw new IntegrityException("Found null result entities!  idResult is " + idResult);
+        }
+
         if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())
                 || AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
 
             try {
                 checkURL(idResult.getURL());
             } catch (IntegrityException ex) {
-                throw new IntegrityException("Found invalid URL in idResult with REUSE! idResult is " + idResult, ex);
+                throw new IntegrityException("Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult, ex);
             }
+        }
+
+        if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())) {
 
             if (idResult.getResultEntity() == null) {
                 throw new IntegrityException("Found null result entity in idResult with REUSE! idResult is " + idResult);
@@ -305,12 +315,6 @@ public class IntegrityChecker {
                 checkEntity(resEntity);
             } catch (IntegrityException ex) {
                 throw new IntegrityException("Failed integrity check on entity " + resEntity + " in idResult " + idResult, ex);
-            }
-        }
-
-        if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())) {
-            if (idResult.getEntities() == null) {
-                throw new IntegrityException("Found null result entities in idResult with REUSE!  idResult is " + idResult);
             }
 
             if (idResult.getEntities().isEmpty()) {
@@ -325,6 +329,13 @@ public class IntegrityChecker {
                 }
             }
 
+        }
+        
+        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())
+                || AssignmentResult.MISSING.equals(idResult.getAssignmentResult())) {
+            if (idResult.getResultEntity() != null){
+                throw new IntegrityException("getResultEntity is non-null in assignment result " + idResult.getAssignmentResult() + "!");
+            }
         }
 
     }
@@ -468,60 +479,57 @@ public class IntegrityChecker {
      * @param concept to check
      * @throws IntegrityException if provided concept is not conformant to
      * OpenEntity specs.
-     */    
+     */
     public static void checkConcept(IConcept concept) {
         if (concept == null) {
             throw new IntegrityException("Found null concept!");
-        }       
-        
+        }
+
         try {
             checkURL(concept.getURL());
-        } catch(Exception ex){
+        } catch (Exception ex) {
             throw new IntegrityException("Found invalid URL in concept " + concept, ex);
         }
-        
+
         try {
             checkDict(concept.getDescription());
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new IntegrityException("Found invalid description in concept " + concept.getURL());
         }
-        
+
         try {
             checkDict(concept.getName());
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new IntegrityException("Found invalid name in concept " + concept.getURL(), ex);
-        }                
-        
-        
+        }
+
     }
-    
-    
+
     /**
      * Checks if provided semantic text complies with open entity specs.
      *
      * @param semanticText to check
      * @throws IntegrityException if provided semantic text is not conformant to
      * OpenEntity specs.
-     */    
+     */
     public static void checkSemanticText(ISemanticText semanticText) {
         if (semanticText == null) {
             throw new IntegrityException("Found null semantic text!");
-        }          
-        
-        if (semanticText.getText() == null){
+        }
+
+        if (semanticText.getText() == null) {
             throw new IntegrityException("Found semantic text containing null text!");
         }
-        
-        if (semanticText.getLocale() == null){
+
+        if (semanticText.getLocale() == null) {
             throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
         }
 
-        if (semanticText.getSentences() == null){
+        if (semanticText.getSentences() == null) {
             throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
         }
-        
+
         // todo write the rest...
-        
     }
-    
+
 }

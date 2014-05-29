@@ -28,10 +28,10 @@ public class OpenEntityException extends RuntimeException {
     }
 
     public OpenEntityException(String s, Exception ex) {        
-        super(s + " - " + ex.getMessage(), ex);        
+        super(s, ex);        
     }
 
     OpenEntityException(Exception ex) {
-        this(ex.getMessage(), ex); 
+        super(ex); 
     }
 }

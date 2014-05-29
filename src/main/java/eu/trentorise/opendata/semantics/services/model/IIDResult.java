@@ -22,12 +22,12 @@ public interface IIDResult {
     AssignmentResult getAssignmentResult();
 
     /**
-     * Gets the selected entity. 
+     * Gets the selected entity.
      *
-     * @return an entity if getAssignmentResult is NEW or REUSE, null
-     * otherwise.
+     * @return an entity if getAssignmentResult is REUSE, null otherwise.
      */
-    @Nullable IEntity getResultEntity();
+    @Nullable
+    IEntity getResultEntity();
 
     /**
      * Gets a set of possible suggested entities.
@@ -36,18 +36,22 @@ public interface IIDResult {
      * REUSE, an empty set otherwise.
      */
     Set<IEntity> getEntities();
-    
-    /** Gets a global ID of the matched entity
+
+    /**
+     * Gets a global ID of the matched entity
+     *
      * @deprecated use getURL instead
      * @return global identifier of the entity
      */
     Long getGUID();
-    
-    
-    /** Gets the URL of the matched entity
-     * @return the URL of the matched entity if getAssignmentResult is NEW or REUSE, null
-     * otherwise.
+
+    /**
+     * Gets the URL of the matched entity
+     *
+     * @return the URL of the matched entity if getAssignmentResult is NEW or
+     * REUSE, null otherwise. 
      */
-    @Nullable String getURL();
+    @Nullable
+    String getURL();
 
 }
