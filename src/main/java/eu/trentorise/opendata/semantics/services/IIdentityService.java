@@ -15,15 +15,11 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.services.model.IIDResult;
 import java.util.List;
-
-
-
 
 /**
  * Identity management services that handles the creation of IDs for entities
@@ -33,16 +29,18 @@ import java.util.List;
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
  * @date Mar 27, 2014
-
+ *
  */
 public interface IIdentityService {
 
-    /**     
-     * Reconciliates the given list of entities against existing ones. 
-     * 
-     * @param entities a list of entities to reconciliate
-     * @param numCandidates maximum number of candidates to return for each entity to match
+    /**
+     * Reconciliates the given list of entities against existing ones.
+     *
+     * @param entities a list of entities to reconciliate. They will not be
+     * modified by the function.
+     * @param numCandidates maximum number of candidates to return for each
+     * entity to match
      * @return a list of reconciliation results, one for each input entity.
      */
-     List<IIDResult> assignURL(List<IEntity> entities, int numCandidates);
+    List<IIDResult> assignURL(List<IEntity> entities, int numCandidates);
 }
