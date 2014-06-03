@@ -421,6 +421,8 @@ public class IntegrityChecker {
      */
     public static void checkAttribute(IAttribute attribute) {
 
+        IAttributeDef attrDef = attribute.getAttributeDefinition();
+
         if (attribute == null) {
             throw new IntegrityException("Found null attribute!");
         }
@@ -429,7 +431,7 @@ public class IntegrityChecker {
 //            throw new IntegrityException("Found null local ID in attribute " + attribute);
 //        }
 
-        if (attribute.getAttributeDefinition() == null) {
+        if (attrDef == null) {
             throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
         }
 
@@ -443,7 +445,7 @@ public class IntegrityChecker {
 
         for (IValue val : attribute.getValues()) {
             try {
-                checkValue(val);
+                checkValue(val, attrDef);
             } catch (Exception ex) {
                 throw new IntegrityException("Found invalid value in attribute " + attribute.getLocalID(), ex);
             }
@@ -458,7 +460,10 @@ public class IntegrityChecker {
      * @throws IntegrityException if provided value is not conformant to
      * OpenEntity specs.
      */
-    public static void checkValue(IValue value) {
+    public static void checkValue(IValue value, IAttributeDef attrDef) {
+
+        String datatype = attrDef.getDataType();
+
         if (value == null) {
             throw new IntegrityException("Found null value!");
         }
@@ -470,6 +475,16 @@ public class IntegrityChecker {
         if (value.getValue() == null) {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
+
+
+        if (value.getValue() == null) {
+            throw new IntegrityException("Found null object in value " + value.getLocalID());
+        }
+
+        if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))){
+            throw new IntegrityException("Found value not corresponding to its datatype "+datatype+". Value is "+ value.getValue());
+        }
+
 
     }
 

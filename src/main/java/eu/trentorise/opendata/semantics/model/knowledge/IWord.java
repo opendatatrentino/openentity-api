@@ -49,6 +49,10 @@ public interface IWord {
      */
     List<IMeaning> getMeanings();
 
+    /**
+     * 
+     * @return the selected meaning. Returns null if there is no meaning was selected.
+     */
     @Nullable
     IMeaning getSelectedMeaning();
 
