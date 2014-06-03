@@ -332,11 +332,11 @@ public class IntegrityChecker {
             }
         }
         
-        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
-            if (!idResult.getEntities().isEmpty()) {
-                throw new IntegrityException("Found non-empty entities in idResult with NEW. idResult is " + idResult);
-            }
-        }
+//        if (AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
+//            if (!idResult.getEntities().isEmpty()) {
+//                throw new IntegrityException("Found non-empty entities in idResult with NEW. idResult is " + idResult);
+//            }
+//        }
         
     }
 
@@ -425,9 +425,9 @@ public class IntegrityChecker {
             throw new IntegrityException("Found null attribute!");
         }
 
-        if (attribute.getLocalID() == null) {
-            throw new IntegrityException("Found null local ID in attribute " + attribute);
-        }
+//        if (attribute.getLocalID() == null) {
+//            throw new IntegrityException("Found null local ID in attribute " + attribute);
+//        }
 
         if (attribute.getAttributeDefinition() == null) {
             throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
@@ -463,9 +463,9 @@ public class IntegrityChecker {
             throw new IntegrityException("Found null value!");
         }
 
-        if (value.getLocalID() == null) {
-            throw new IntegrityException("Found null local ID in value " + value);
-        }
+//        if (value.getLocalID() == null) {
+//            throw new IntegrityException("Found null local ID in value " + value);
+//        }
 
         if (value.getValue() == null) {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
