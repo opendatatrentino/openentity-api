@@ -45,10 +45,10 @@ import java.util.Set;
  * INTEGER : {@link java.lang.Integer} <br/>
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
- * CONCEPT : {@link java.lang.String} (as concept URL). The complete object is represented as an {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
+ * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
  * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.model.knowledge.ISemanticText} <br/>
  * NLSTRING : {@link eu.trentorise.opendata.semantics.model.knowledge.IDict} <br/>
- * ENTITY : {@link java.lang.String} The complete object is represented as an {@link eu.trentorise.opendata.semantics.model.entity.IEntity} <br/>
+ * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} <br/>
  * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure} <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
@@ -112,10 +112,10 @@ public class DataTypes {
         JAVA_DATATYPES.put(INTEGER, Integer.class);
         JAVA_DATATYPES.put(FLOAT, Float.class);
         JAVA_DATATYPES.put(LONG, Long.class);
-        JAVA_DATATYPES.put(CONCEPT, String.class); // in values we store just the URL, for the entire object, use IConcept
+        JAVA_DATATYPES.put(CONCEPT, IConcept.class);
         JAVA_DATATYPES.put(SEMANTIC_TEXT, ISemanticText.class);
         JAVA_DATATYPES.put(NLSTRING, IDict.class);
-        JAVA_DATATYPES.put(ENTITY, String.class); // in values we store just the URL, for the entire object, use IEntity
+        JAVA_DATATYPES.put(ENTITY, IEntity.class);
         JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
 
     }

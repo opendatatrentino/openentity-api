@@ -340,8 +340,9 @@ public class IntegrityChecker {
         
     }
 
+
     /**
-     * Checks if provided entity complies with open entity specs.
+     * Checks if provided entity complies with open entity specs. URL must be present for check to pass.
      *
      * @param entity to check
      * @throws IntegrityException if provided entity is not conformant to
@@ -349,12 +350,27 @@ public class IntegrityChecker {
      */
     public static void checkEntity(IEntity entity) {
 
+        checkEntity(entity);
+    }
+
+
+
+    /**
+     * Checks if provided entity complies with open entity specs.
+     *
+     * @param entity to check
+     * @param checkURL If true URL will be checked
+     * @throws IntegrityException if provided entity is not conformant to
+     * OpenEntity specs.
+     */
+    public static void checkEntity(IEntity entity, boolean checkURL) {
+
         if (entity == null) {
             throw new IntegrityException("Found null entity!");
         }
 
         try {
-            checkStructure(entity);
+            checkStructure(entity, checkURL);
         } catch (Exception ex) {
             throw new IntegrityException("Found invalid structural properties of entity " + entity.getURL(), ex);
         }
@@ -374,7 +390,7 @@ public class IntegrityChecker {
     }
 
     /**
-     * Checks if provided structure complies with open entity specs.
+     * Checks if provided structure complies with open entity specs. URL must be present for check to pass.
      *
      * @param structure to check
      * @throws IntegrityException if provided structure is not conformant to
@@ -382,14 +398,26 @@ public class IntegrityChecker {
      */
     public static void checkStructure(IStructure structure) {
 
+        checkStructure(structure, true);
+
+    }
+
+    /**
+     *
+     * @param structure the structure to check
+     * @param checkURL true if URL has to be checked as well
+     */
+    public static void checkStructure(IStructure structure, boolean checkURL) {
         if (structure == null) {
             throw new IntegrityException("Found null structure!");
         }
 
-        try {
-            checkURL(structure.getURL());
-        } catch (Exception ex) {
-            throw new IntegrityException("Found invalid URL in structure " + structure, ex);
+        if (checkURL) {
+            try {
+                checkURL(structure.getURL());
+            } catch (Exception ex) {
+                throw new IntegrityException("Found invalid URL in structure " + structure, ex);
+            }
         }
 
         try {
@@ -409,7 +437,6 @@ public class IntegrityChecker {
                 throw new IntegrityException("Found invalid attribute in structure " + structure.getURL(), ex);
             }
         }
-
     }
 
     /**
@@ -421,15 +448,20 @@ public class IntegrityChecker {
      */
     public static void checkAttribute(IAttribute attribute) {
 
-        IAttributeDef attrDef = attribute.getAttributeDefinition();
-
         if (attribute == null) {
             throw new IntegrityException("Found null attribute!");
         }
 
+
 //        if (attribute.getLocalID() == null) {
 //            throw new IntegrityException("Found null local ID in attribute " + attribute);
 //        }
+        IAttributeDef attrDef = attribute.getAttributeDefinition();
+
+
+        if (attribute.getLocalID() == null) {
+            throw new IntegrityException("Found null local ID in attribute " + attribute);
+        }
 
         if (attrDef == null) {
             throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
@@ -476,10 +508,6 @@ public class IntegrityChecker {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
 
-
-        if (value.getValue() == null) {
-            throw new IntegrityException("Found null object in value " + value.getLocalID());
-        }
 
         if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))){
         	System.out.println(value.getValue().getClass());
