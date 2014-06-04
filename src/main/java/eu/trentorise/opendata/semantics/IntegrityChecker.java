@@ -350,7 +350,7 @@ public class IntegrityChecker {
      */
     public static void checkEntity(IEntity entity) {
 
-        checkEntity(entity);
+        checkEntity(entity, true);
     }
 
 
