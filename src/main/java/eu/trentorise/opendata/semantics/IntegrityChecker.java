@@ -496,9 +496,10 @@ public class IntegrityChecker {
             throw new IntegrityException("Found null value!");
         }
 
+        /* todo reenable it
         if (value.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in value " + value);
-        }
+        }*/
 
         if (value.getValue() == null) {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
