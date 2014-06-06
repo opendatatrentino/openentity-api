@@ -75,17 +75,14 @@ public class Sentence implements ISentence {
         this.words = Collections.unmodifiableList(lst);
     }
 
-    @Override
     public List<IWord> getWords() {
         return words;
     }
 
-    @Override
     public int getStartOffset() {
         return startOffset;
     }
 
-    @Override
     public int getEndOffset() {
         return endOffset;
     }

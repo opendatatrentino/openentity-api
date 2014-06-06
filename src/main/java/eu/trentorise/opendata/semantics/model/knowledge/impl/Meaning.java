@@ -96,7 +96,6 @@ public class Meaning implements IMeaning {
     /**
      * Sorting is done based on the probability values
      */
-    @Override
     public int compareTo(IMeaning om) {
         double diff = this.getProbability() - om.getProbability();
         if (diff > 0) {
@@ -133,22 +132,18 @@ public class Meaning implements IMeaning {
 
     }
 
-    @Override
     public double getProbability() {
         return probability;
     }
 
-    @Override
     public String getURL() {
         return URL;
     }
 
-    @Override
     public MeaningKind getKind() {
         return meaningKind;
     }
 
-    @Override
     public IDict getName() {
         return name;
     }

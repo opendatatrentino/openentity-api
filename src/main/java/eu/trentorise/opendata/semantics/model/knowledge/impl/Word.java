@@ -88,12 +88,10 @@ public class Word implements IWord {
 
     }
 
-    @Override
     public int getStartOffset() {
         return startOffset;
     }
 
-    @Override
     public int getEndOffset() {
         return endOffset;
     }
@@ -102,18 +100,15 @@ public class Word implements IWord {
      *
      * @return the meanings sorted, the first having the highest probability
      */
-    @Override
     public List<IMeaning> getMeanings() {
         return meanings;
     }
 
     @Nullable
-    @Override
     public IMeaning getSelectedMeaning() {
         return selectedMeaning;
     }
 
-    @Override
     public MeaningStatus getMeaningStatus() {
         return meaningStatus;
     }

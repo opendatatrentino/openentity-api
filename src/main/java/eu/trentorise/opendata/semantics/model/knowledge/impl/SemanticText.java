@@ -115,8 +115,7 @@ public class SemanticText implements Serializable, ISemanticText {
     public SemanticText(ISemanticText semText) {
         this(semText.getText(), semText.getLocale(), semText.getSentences());
     }
-    
-    @Override
+
     public List<ISentence> getSentences() {
         return sentences;
     }
@@ -129,28 +128,23 @@ public class SemanticText implements Serializable, ISemanticText {
         }*/
     }
 
-    @Override
     @Nullable
     public Locale getLocale() {
         return locale;
     }
 
-    @Override
     public String getText() {
         return text;
     }
 
-    @Override
     public String getText(ISentence sentence) {
         return text.substring(sentence.getStartOffset(), sentence.getEndOffset());
     }
 
-    @Override
     public String getText(IWord word) {
         return text.substring(word.getStartOffset(), word.getEndOffset());
     }
     
-    @Override
     public String toString(){
         return text;
     }

@@ -97,7 +97,6 @@ public class Dict implements IDict {
         this.translations.put(locale, texts);        
     }    
 
-    @Override
     public Set<Locale> getLocales() {
         return translations.keySet();
     }
@@ -182,7 +181,6 @@ public class Dict implements IDict {
         }
     }
 
-    @Override
     public List<String> getStrings(Locale locale) {
         if (translations.containsKey(locale)) {
             return translations.get(locale);
@@ -223,7 +221,6 @@ public class Dict implements IDict {
 
 
 
-    @Override
     public IDict merge(IDict dict){
         Dict ret = new Dict(this);
         for (Locale locale : dict.getLocales()){
@@ -265,7 +262,6 @@ public class Dict implements IDict {
         return sb.toString();
     }
     
-    @Override
     public int translationsCount(){
         int count = 0;
         for (Locale loc : translations.keySet()){
