@@ -454,10 +454,10 @@ public class IntegrityChecker {
 
         IAttributeDef attrDef = attribute.getAttributeDefinition();
 
-
+        /* todo renable it
         if (attribute.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in attribute " + attribute);
-        }
+        }*/
 
         if (attrDef == null) {
             throw new IntegrityException("Found null attribute definition in attribute " + attribute.getLocalID());
