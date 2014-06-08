@@ -28,7 +28,7 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date June 8, 2014
  */
 public interface IEntity extends IStructure {
 
@@ -43,7 +43,7 @@ public interface IEntity extends IStructure {
 	/**
 	 * Gets the name of the entity.
 	 *	 
-	 * @return the name of the entity in the default languages if available
+	 * @return the name of the entity in the default languages if available. Returned dict can be empty.
 	 */
 	IDict getName();
 
@@ -64,7 +64,7 @@ public interface IEntity extends IStructure {
 	/**
 	 * Gets the description on the entity in the given language
 	 *	 
-	 * @return the description of the entity in the default languages if available
+	 * @return the description of the entity in the default languages if available. Returned dict can be empty.
 	 */
 	IDict getDescription();    
 

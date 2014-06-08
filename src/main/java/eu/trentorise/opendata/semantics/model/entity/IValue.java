@@ -17,6 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
+import javax.annotation.Nullable;
+
 /**
  * Represents an attribute value. Java objects that can be stored in an IValue
  * are reported in
@@ -24,8 +26,9 @@ package eu.trentorise.opendata.semantics.model.entity;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
+ * @author David Leoni <david.leoni@unitn.it>
  * 
- * @date Mar 27, 2014
+ * @date June 8, 2014
  *
  */
 public interface IValue {
@@ -33,14 +36,15 @@ public interface IValue {
     /**
      * Gets the local ID of the value. 
      *
-     * @return the ID of the value
+     * @return the ID of the value. It is null for synthetic values
      */
+    @Nullable
     Long getLocalID();
 
     /**
      * Gets the value.
      *
-     * @return the value as an Object. Java objects that can be returned are
+     * @return the value as an Object. Can't be null. Java objects that can be returned are
      * reported in
      * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
      */
@@ -49,7 +53,7 @@ public interface IValue {
     /**
      * Sets the value
      *
-     * @param value the value to be set. Java objects that can be used are
+     * @param value the value to be set. Can't be null. Java objects that can be used are
      * reported in
      * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
      */

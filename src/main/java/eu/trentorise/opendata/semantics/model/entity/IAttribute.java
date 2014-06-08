@@ -18,6 +18,7 @@
 
 package eu.trentorise.opendata.semantics.model.entity;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -26,15 +27,16 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date June 8, 2014
  */
 public interface IAttribute {
 
     /**
      * Gets the Local identifier for the attribute
      *
-     * @return the local identifier represented as Long
+     * @return the local identifier represented as Long. May be null for synthetic attributes.
      */
+    @Nullable
     Long getLocalID();
 
     /**
@@ -68,19 +70,20 @@ public interface IAttribute {
     /**
      * Returns all the value of the attribute
      *
-     * @return list of all values of the attribute
+     * @return immutable list of all values of the attribute. It can be empty.
      */
     List<IValue> getValues();
 
     /**
      * Gets the first value of the attribute
-     *
      * @return the first value of the attribute
+     *
+     * @throws java.util.NoSuchElementException if no value is present
      */
     IValue getFirstValue();
 
     /**
-     * Gets the number of values in the attribute
+     * Gets the number of values in the attribute. Can be zero.
      *
      * @return the number of values in the attribute
      */

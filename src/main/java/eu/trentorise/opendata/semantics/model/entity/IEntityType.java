@@ -36,7 +36,7 @@ public interface IEntityType {
     /**
      * Gets the name of the entity type
      *
-     * @return the name of the entity type in the default languages if available
+     * @return the name of the entity type in the default languages if available. Returned dict can be empty.
      */
     IDict getName();
 
@@ -122,7 +122,7 @@ public interface IEntityType {
     /**
      * Returns the attribute def used for name.
      *
-     * @return the attribute def used for name if the entitytype represents an
+     * @return the attribute def used for name if the entity type represents an
      * entity. If it represents a structure, returns null.
      */
     @Nullable
@@ -131,7 +131,7 @@ public interface IEntityType {
     /**
      * Returns the attribute def used for description.
      *
-     * @return the attribute def used for description if the entitytype represents an
+     * @return the attribute def used for description if the entity type represents an
      * entity. If it represents a structure, returns null.
      */
     @Nullable

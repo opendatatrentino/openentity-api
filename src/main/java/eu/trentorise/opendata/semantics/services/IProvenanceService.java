@@ -25,11 +25,12 @@ import eu.trentorise.opendata.semantics.model.provenance.Provenance;
  *
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 8, 2014
+ * @date June 8, 2014
  */
 public interface IProvenanceService {
 
     /**
+     * TODO Why IDs are 'Long' and not 'long'?
      * Returns the provenance of the given attribute
      *
      * @param attributeID the ID of the attribute which has the value
@@ -40,6 +41,8 @@ public interface IProvenanceService {
     Provenance readProvenance(Long attributeID, Long attributeValueID);
 
     /**
+     * TODO What happens if entity is not existing?
+     *      What if we have no evidence for a given entity?
      * Returns the evidence of the given entity
      *
      * @param entityURL the URL of the entity

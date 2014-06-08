@@ -19,6 +19,8 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date May 17, 2014
+ * @date June 8, 2014
  */
 public interface IKnowledgeService {
 
@@ -44,25 +46,30 @@ public interface IKnowledgeService {
      * @return the list of words that starts with the given prefix
      *
     List<IWord> readByWordPrefix(String prefix); */
-    
+
     /**
      * Returns the concepts with the given URLs
+     *
      * @param URLs a list of URLs for concepts
-     * @return the concepts
-    */
+     * @return the list of concepts. If a given concept is not found, null is returned at the corresponding position in
+     * the list.
+     */
     List<IConcept> getConcepts(List<String> URLs);
-    
+
     /**
      * Returns the concepts with the given URLs
+     *
      * @param URL the URL of a concept
-     * @return the concept
-    */
+     * @return The concept. If not found, null is returned instead,
+     */
+    @Nullable
     IConcept getConcept(String URL);
-    
+
     /**
      * Returns the parent of all concepts
+     *
      * @return the parent of all concepts
      */
     IConcept getRootConcept();
-    
+
 }
