@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -77,4 +78,13 @@ public interface IStructure {
      * @param type the structure type
      */
     void setEtype(IEntityType type);
+
+    /**
+     * Gets an attribute from the structure.
+     *
+     * @param attrDefURL the URL of the attribute definition corresponding to the desired attribute.
+     * @return the attribute corresponding to the given attribute def, if present. Returns null otherwise.
+     */
+    @Nullable
+    IAttribute getAttribute(String attrDefURL);
 }
