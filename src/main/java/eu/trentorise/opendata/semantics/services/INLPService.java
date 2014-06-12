@@ -30,7 +30,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Feb 25, 2014
+ * @date June 12, 2014
  */
 public interface INLPService {
 
@@ -73,6 +73,18 @@ public interface INLPService {
      * disambiguated when there is sufficient confidence
      */
     List<ISemanticText> runNLP(List<String> texts);
+
+
+    /**
+     * Takes natural language strings and returns entities disambiguated
+     *
+     * @param texts an input natural language string
+     * @return the texts enriched with all the entities found and
+     * disambiguated when there is sufficient confidence.
+     */
+    List<ISemanticText> runNER(List<String> texts);
+
+
 
     /**
      * Takes natural language strings and assigns to each string candidate
