@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 10, 2014
+ * @date June 13, 2014
  */
 public interface IStructure {
 
@@ -46,7 +46,7 @@ public interface IStructure {
 
     /**
      * Sets the URL of the object
-     *
+     * @deprecated we don't need methods to change objects
      * @param url a string that holds the URL of the object
      */
     void setURL(String url);
@@ -67,14 +67,22 @@ public interface IStructure {
 
     /**
      * Gets the structure type
-     *
+     * @deprecated Use {@link #getEtypeURL()} or  {@link eu.trentorise.opendata.semantics.services.IEntityTypeService#getEntityType(String)} instead.
      * @return the structure type
      */
     IEntityType getEtype();
 
+
+    /**
+     * Gets the structure type
+     * @return the structure type URL
+     *
+    */
+    String getEtypeURL();
+
     /**
      * Sets the structure type
-     *
+     * @deprecated we don't need methods to change objects
      * @param type the structure type
      */
     void setEtype(IEntityType type);

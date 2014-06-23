@@ -67,23 +67,39 @@ public interface IAttributeDef {
      * @deprecated we only provide the URL with getRangeETypeURL()
      * @return the entity type if the data type is oe:structure or oe:entity, null otherwise
      */
-    IEntityType getRangeEType();    
-    
+    IEntityType getRangeEType();
+
     /**
      * Gets the concept of the attribute definition
-     *
-     * @return the concept of the attribute definition
+     * @deprecated Use {@link #getConceptURL()}} or {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)} instead.
+     * @return the concept of attribute definition
      */
     IConcept getConcept();
 
     /**
+     * Gets the concept URL of the entity type
+     * @return the concept URL of the entity type
+     */
+    IConcept getConceptURL();
+
+    /**
      * Gets the IsSet flag that tells if the attribute can hold a set of values
-     * or it can hole only one value.
+     * or it can hold only one value.
      *
+     * @deprecated use {@link #isList()} instead
      * @return true if the attribute can hold a set or false if it can hold only
      * one value.
      */
     boolean isSet();
+
+    /**
+     * Tells if the attribute can hold a set of values.
+     *
+     * @return true if the attribute can hold a list of values
+     */
+    boolean isList();
+
+
 
     /**
      * Gets the regular expression that all the attribute values should follow

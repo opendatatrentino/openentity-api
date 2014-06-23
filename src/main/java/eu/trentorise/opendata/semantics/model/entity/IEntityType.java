@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date May 17, 2014
+ * @date June 13, 2014
  */
 public interface IEntityType {
 
@@ -42,14 +42,22 @@ public interface IEntityType {
 
     /**
      * Gets the concept of the entity type
-     *
+     * @deprecated Use {@link #getConceptURL()}} or {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)} instead.
      * @return the concept of the entity type
      */
     IConcept getConcept();
 
     /**
+     * Gets the concept URL of the entity type
+     * @return the concept URL of the entity type
+     */
+    IConcept getConceptURL();
+
+
+    /**
      * Sets the concept of the entity type
      *
+     * @deprecated we don't need methods to change objects
      * @param concept the concept of the entity type
      */
     void setConcept(IConcept concept);
@@ -63,7 +71,7 @@ public interface IEntityType {
 
     /**
      * Adds an attribute definition to the entity type
-     *
+     * @deprecated we don't need methods to change objects
      * @param attrDef the attribute definition to be added
      */
     void addAttributeDef(IAttributeDef attrDef);
@@ -78,7 +86,7 @@ public interface IEntityType {
 
     /**
      * Removes an attribute definition from the entity type
-     *
+     * @deprecated we don't need methods to change objects
      * @param attrDefURL the URL of the attribute definition to be removed
      */
     void removeAttributeDef(String attrDefURL);
@@ -93,21 +101,21 @@ public interface IEntityType {
     /**
      * Removes Unique Indexes
      *
-     * @deprecated use removeUniqueIndex by URL instead
+     *      * @deprecated we don't need methods to change objects
      * @param uniqueIndexID the local ID of the unique indexes to be removed
      */
     void removeUniqueIndex(long uniqueIndexID);
 
     /**
      * Removes Unique Indexes
-     *
+     * @deprecated we don't need methods to change objects
      * @param uniqueIndexURL the URL of the unique indexes to be removed
      */
     void removeUniqueIndex(String uniqueIndexURL);
 
     /**
      * Adds Unique Indexes
-     *
+     * @deprecated we don't need methods to change objects
      * @param uniqueIndex the unique indexes to be added
      */
     void addUniqueIndex(IUniqueIndex uniqueIndex);
@@ -136,4 +144,13 @@ public interface IEntityType {
      */
     @Nullable
     IAttributeDef getDescriptionAttrDef();
+
+
+    /**
+     * Returns the attribute def indicated by the provided URL.
+     *
+     * @return Returns the attribute def indicated by the provided URL if it exists, null otherwise.
+     */
+    @Nullable
+    IAttributeDef getAttrDef(String URL);
 }

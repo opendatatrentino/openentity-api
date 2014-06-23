@@ -52,6 +52,7 @@ public interface IValue {
 
     /**
      * Sets the value
+     * @deprecated we don't need methods to change objects
      *
      * @param value the value to be set. Can't be null. Java objects that can be used are
      * reported in
