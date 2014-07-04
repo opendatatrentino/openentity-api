@@ -80,7 +80,7 @@ public interface IAttributeDef {
      * Gets the concept URL of the entity type
      * @return the concept URL of the entity type
      */
-    IConcept getConceptURL();
+    String getConceptURL();
 
     /**
      * Gets the IsSet flag that tells if the attribute can hold a set of values
