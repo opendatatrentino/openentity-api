@@ -51,7 +51,7 @@ public interface IEntityType {
      * Gets the concept URL of the entity type
      * @return the concept URL of the entity type
      */
-    IConcept getConceptURL();
+    String getConceptURL();
 
 
     /**
