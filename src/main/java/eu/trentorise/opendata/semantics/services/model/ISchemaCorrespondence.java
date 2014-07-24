@@ -28,7 +28,10 @@ import java.util.List;
  * @date Apr 24, 2014
  */
 public interface ISchemaCorrespondence {
-   
+
+    /** Scores are considered equals up to this margin */
+    static public final float SCORE_TOLERANCE = 0.01f;
+
     
     /**
      * Gets a list of attribute correspondences
@@ -55,8 +58,9 @@ public interface ISchemaCorrespondence {
     IEntityType getEtype();
 
     /**
-     * Gets the score assigned to the correspondence. todo range?
-     * @return the score. It ranges from 0.0 (worst score) to 1.0 (best score)
+     * Gets the score assigned to the correspondence. 
+     * @return the score. It ranges from 0.0 (worst score) to 1.0 (best score).
+     * @see #SCORE_TOLERANCE
      */    
     float getScore();
     

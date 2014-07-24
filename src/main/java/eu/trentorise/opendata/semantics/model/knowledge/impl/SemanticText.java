@@ -77,7 +77,7 @@ public class SemanticText implements Serializable, ISemanticText {
     public SemanticText(String text, Locale locale) {
         this();
         if (text == null) {
-            throw new RuntimeException("Text in SemnaticText must not be null!");
+            throw new IllegalArgumentException("Text in SemnaticText must not be null!");
         }
         this.text = text;
         this.locale = Locale.ENGLISH;
@@ -119,14 +119,7 @@ public class SemanticText implements Serializable, ISemanticText {
     public List<ISentence> getSentences() {
         return sentences;
     }
-    
-    
-    Enumeration<IWord> getWords(){
-        throw new UnsupportedOperationException("todo implement me");
-        /*for (ISentence sentence : sentences){
-            
-        }*/
-    }
+        
 
     @Nullable
     public Locale getLocale() {

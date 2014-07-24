@@ -158,4 +158,7 @@ public class DataTypes {
         return Collections.unmodifiableSet(DATATYPE_PRETTY_NAMES_MAP.keySet());
     }
 
+    private DataTypes(){
+        
+    }
 }

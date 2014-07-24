@@ -39,7 +39,7 @@ public class Sentence implements ISentence {
 
     public Sentence(int startOffset, int endOffset) {
         if (endOffset < startOffset) {
-            throw new RuntimeException("endOffset should be greater or equal startOffset! Found instead [" + startOffset + ", " + endOffset + "]");
+            throw new IllegalArgumentException("endOffset should be greater or equal startOffset! Found instead [" + startOffset + ", " + endOffset + "]");
         }
         this.startOffset = startOffset;
         this.endOffset = endOffset;
@@ -54,7 +54,7 @@ public class Sentence implements ISentence {
             int upperBound = words.get(words.size() - 1).getEndOffset();
             if (lowerBound < startOffset
                     || upperBound > endOffset) {
-                throw new RuntimeException("Tried to create a sentence, but word offsets exceed sentence bounds!Expected: [" + startOffset + "," + endOffset + "] - Found: [" + lowerBound + "," + upperBound + "]");
+                throw new IllegalArgumentException("Tried to create a sentence, but word offsets exceed sentence bounds!Expected: [" + startOffset + "," + endOffset + "] - Found: [" + lowerBound + "," + upperBound + "]");
             }
         }
 

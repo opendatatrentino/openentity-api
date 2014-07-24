@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -39,7 +40,7 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public class Dict implements IDict {
 
-    private HashMap<Locale, List<String>> translations;
+    private Map<Locale, List<String>> translations;
 
     public Dict() {
         translations = new HashMap<Locale, List<String>>();
@@ -58,7 +59,7 @@ public class Dict implements IDict {
         }
     }
 
-    private Dict(HashMap<Locale, List<String>> inputMap) {
+    private Dict(Map<Locale, List<String>> inputMap) {
         this();
         this.translations = inputMap;
     }

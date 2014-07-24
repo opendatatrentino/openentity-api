@@ -87,7 +87,7 @@ public class Meaning implements IMeaning {
      */
     public Meaning(String URL, double probability, MeaningKind meaningKind, IDict name) {
         if (probability < 0){
-            throw new RuntimeException("Probability must be greater or equal than 0, found instead: " + probability);
+            throw new IllegalArgumentException("Probability must be greater or equal than 0, found instead: " + probability);
         }
         this.URL = URL;
         this.probability = probability;

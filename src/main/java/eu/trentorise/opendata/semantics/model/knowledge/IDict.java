@@ -71,13 +71,13 @@ public interface IDict {
      * @param dict
      * @return a new dictionary resulting from the merge.
      */    
-    public IDict merge(IDict dict);
+    IDict merge(IDict dict);
     
     
     /**
      * @return the number of translations present in the dictionary
      */
-    public int translationsCount();
+    int translationsCount();
     
     
     

@@ -17,13 +17,13 @@ public interface IMeaning extends Comparable<IMeaning> {
      * Equality must only check the URL
     */
     @Override
-    public boolean equals(Object o);
+    boolean equals(Object o);
 
     /**
      * Equality must only check the URL
     */
     @Override
-    public int hashCode();
+    int hashCode();
 
     
     

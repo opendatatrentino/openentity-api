@@ -38,7 +38,7 @@ public interface IEntityTypeService {
     /**
      * Reads all entity types available in the system
      *
-     * @deprecated use {@link #readAllEntityTypes(java.lang.String)}  instead
+     * @deprecated use {@link #readAllEntityTypes()}  instead
      * @return list of all entity types in the system
      */
     List<IEntityType> getAllEntityTypes();
@@ -129,7 +129,7 @@ public interface IEntityTypeService {
     /**
      * Returns the parent of all structures
      *
-     * @deprecated use {@link #readRootStructure(java.lang.String)}  instead
+     * @deprecated use {@link #readRootStructure()}  instead
      * @return the parent of all structures
      * @see #getRootEtype()
      */
@@ -145,7 +145,7 @@ public interface IEntityTypeService {
 
     /**
      * Returns the parent of all etypes.     
-     * @deprecated use {@link #readRootEtype(java.lang.String)}  instead
+     * @deprecated use {@link #readRootEtype()}  instead
      * @return the parent of all etypes. Must inherit from value returned by {@link #getRootStructure()}
      * @see #getRootStructure()
      */

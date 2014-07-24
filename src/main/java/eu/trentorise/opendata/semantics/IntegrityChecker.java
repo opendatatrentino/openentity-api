@@ -43,13 +43,16 @@ import java.util.Locale;
  */
 public class IntegrityChecker {
 
+    private IntegrityChecker(){        
+    }
+    
     private static void checkScore(Float score) {
         if (score == null) {
             throw new IntegrityException("Found null score!");
         }
-        float prec = 0.01f;
+        float prec = ISchemaCorrespondence.SCORE_TOLERANCE;
         if (score < -prec || score > 1.0f + prec) {
-            throw new IntegrityException("Score " + score + " exceeds bounds [-1.01, 1.01].");
+            throw new IntegrityException("Score " + score + " exceeds bounds ["+(-prec)+", 1.0" + prec + "].");
         }
     }
 
@@ -542,7 +545,7 @@ public class IntegrityChecker {
         try {
             checkDict(concept.getDescription());
         } catch (Exception ex) {
-            throw new IntegrityException("Found invalid description in concept " + concept.getURL());
+            throw new IntegrityException("Found invalid description in concept " + concept.getURL(), ex);
         }
 
         try {

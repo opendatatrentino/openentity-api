@@ -18,9 +18,7 @@
 package eu.trentorise.opendata.semantics.services.model;
 
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
-import java.util.HashMap;
-import java.util.List;
-import java.util.SortedMap;
+import java.util.Map;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
@@ -28,7 +26,7 @@ import java.util.SortedMap;
  * @date Mar 09, 2014
  */
 public interface IAttributeCorrespondence {
-
+    
     /**
      * Gets the target attribute definition
      * @return The target attribute def
@@ -40,7 +38,7 @@ public interface IAttributeCorrespondence {
      * Gets the map of candidate attributes associated to their score     
      * @return the map of candidate attributes associated to their score
      */
-    HashMap<IAttributeDef, Float> getAttrMap();
+    Map<IAttributeDef, Float> getAttrMap();
     
     /**
      * Gets the source column index
@@ -60,9 +58,9 @@ public interface IAttributeCorrespondence {
      * @return the conceptID of the comlumn header
      */
     long getHeaderConceptID();    
+    
     /**
-     * todo range?
-     * Gets the score associated to the attribute
+     * Gets the score associated to the attribute. It ranges from 0.0 (worst score) to 1.0 (best score).
      * @return the score associated to the attribute
      */
     float getScore();
