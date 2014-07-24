@@ -41,7 +41,7 @@ import java.util.Locale;
  *
  * @author David Leoni
  */
-public class IntegrityChecker {
+public final class IntegrityChecker {
 
     private IntegrityChecker(){        
     }

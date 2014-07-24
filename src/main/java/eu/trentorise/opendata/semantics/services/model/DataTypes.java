@@ -56,7 +56,7 @@ import java.util.Set;
  * @date May 30, 2014
  *
  */
-public class DataTypes {
+public final class DataTypes {
 
     public static final String OPEN_ENTITY_PREFIX = "oe";
     public static final String OPEN_ENTITY_EXPANDED_PREFIX = "https://github.com/opendatatrentino/openentity-api/1.0/";
