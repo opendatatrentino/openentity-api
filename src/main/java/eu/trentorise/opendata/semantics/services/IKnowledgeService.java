@@ -50,6 +50,7 @@ public interface IKnowledgeService {
     /**
      * Returns the concepts with the given URLs
      *
+     * @deprecated Use {@link #readConcepts(java.util.List) } instead
      * @param URLs a list of URLs for concepts
      * @return the list of concepts. If a given concept is not found, null is returned at the corresponding position in
      * the list.
@@ -58,7 +59,17 @@ public interface IKnowledgeService {
 
     /**
      * Returns the concepts with the given URLs
+     *     
+     * @param URLs a list of URLs for concepts
+     * @return the list of concepts. If a given concept is not found, null is returned at the corresponding position in
+     * the list.
+     */
+    List<IConcept> readConcepts(List<String> URLs);    
+    
+    /**
+     * Returns the concepts with the given URLs
      *
+     *  @deprecated Use {@link #readConcept(java.lang.String)} instead
      * @param URL the URL of a concept
      * @return The concept. If not found, null is returned instead,
      */
@@ -66,10 +77,28 @@ public interface IKnowledgeService {
     IConcept getConcept(String URL);
 
     /**
+     * Returns the concepts with the given URLs
+     *
+     * @param URL the URL of a concept
+     * @return The concept. If not found, null is returned instead,
+     */
+    @Nullable
+    IConcept readConcept(String URL);    
+    
+    /**
+     * Returns the parent of all concepts
+     *
+     * @deprecated Use {@link #readConcept(java.lang.String) } instead
+     * @return the parent of all concepts
+     */
+    IConcept getRootConcept();
+    
+    /**
      * Returns the parent of all concepts
      *
      * @return the parent of all concepts
      */
-    IConcept getRootConcept();
+    IConcept readRootConcept();
+    
 
 }

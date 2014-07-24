@@ -23,8 +23,8 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * Represents a basic unit of text. Can contain multiwords, that is, sequences
- * of words separated by spaces like "hot dog". Implementations of this
- * interface must be immutable.
+ * of words separated by spaces like "hot dog". Implementations of this interface must be
+ * immutable and implement equals() and hashCode() methods.
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @date 11 Apr 2014

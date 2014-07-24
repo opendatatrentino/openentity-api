@@ -87,4 +87,40 @@ public class Sentence implements ISentence {
         return endOffset;
     }
 
+    /** so serialization libraries don't complain */
+    private Sentence(){
+        
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.startOffset;
+        hash = 37 * hash + this.endOffset;
+        hash = 37 * hash + (this.words != null ? this.words.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sentence other = (Sentence) obj;
+        if (this.startOffset != other.startOffset) {
+            return false;
+        }
+        if (this.endOffset != other.endOffset) {
+            return false;
+        }
+        if (this.words != other.words && (this.words == null || !this.words.equals(other.words))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

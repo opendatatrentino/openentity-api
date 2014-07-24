@@ -29,7 +29,7 @@ import java.util.List;
  */
 public interface ISchemaCorrespondence {
    
-
+    
     /**
      * Gets a list of attribute correspondences
      * 

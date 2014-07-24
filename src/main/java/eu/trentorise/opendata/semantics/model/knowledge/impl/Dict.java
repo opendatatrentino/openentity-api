@@ -269,5 +269,28 @@ public class Dict implements IDict {
         }
         return count;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (this.translations != null ? this.translations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dict other = (Dict) obj;
+        if (this.translations != other.translations && (this.translations == null || !this.translations.equals(other.translations))) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

@@ -61,9 +61,7 @@ public class Word implements IWord {
             IMeaning selectedMeaning,
             Collection<IMeaning> meanings) {
 
-        if (meanings.isEmpty()) {
-            throw new RuntimeException("Word must have at least one meaning!");
-        }
+        
         List<IMeaning> mgs = new ArrayList<IMeaning>();
 
         float total = 0;
@@ -113,4 +111,47 @@ public class Word implements IWord {
         return meaningStatus;
     }
 
+    /** so serialization libraries don't complain */
+    private Word(){
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.startOffset;
+        hash = 67 * hash + this.endOffset;
+        hash = 67 * hash + (this.meanings != null ? this.meanings.hashCode() : 0);
+        hash = 67 * hash + (this.selectedMeaning != null ? this.selectedMeaning.hashCode() : 0);
+        hash = 67 * hash + (this.meaningStatus != null ? this.meaningStatus.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Word other = (Word) obj;
+        if (this.startOffset != other.startOffset) {
+            return false;
+        }
+        if (this.endOffset != other.endOffset) {
+            return false;
+        }
+        if (this.meanings != other.meanings && (this.meanings == null || !this.meanings.equals(other.meanings))) {
+            return false;
+        }
+        if (this.selectedMeaning != other.selectedMeaning && (this.selectedMeaning == null || !this.selectedMeaning.equals(other.selectedMeaning))) {
+            return false;
+        }
+        if (this.meaningStatus != other.meaningStatus) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

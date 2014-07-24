@@ -22,7 +22,8 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * A sentence contained in a ISemanticText. Implementations of this interface
- * must be immutable.
+ * must be immutable. Implementations of this interface must be
+ * immutable and implement equals() and hashCode().
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @date 11 Apr 2014

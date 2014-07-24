@@ -175,7 +175,7 @@ public class IntegrityChecker {
         }
 
         try {
-            checkConcept(etype.getConcept());
+            checkURL(etype.getConceptURL());
         } catch (Exception ex) {
             throw new IntegrityException("Found invalid concept for etype " + etype.getURL(), ex);
         }
@@ -409,9 +409,9 @@ public class IntegrityChecker {
         }
 
         try {
-            checkEntityType(structure.getEtype());
+            checkURL(structure.getEtypeURL());
         } catch (Exception ex) {
-            throw new IntegrityException("Found invalid entity type in structure " + structure.getURL(), ex);
+            throw new IntegrityException("Found invalid entity type URL in structure " + structure.getURL(), ex);
         }
 
         if (structure.getStructureAttributes() == null) {

@@ -149,4 +149,35 @@ public class SemanticText implements Serializable, ISemanticText {
         return text;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.text != null ? this.text.hashCode() : 0);
+        hash = 17 * hash + (this.locale != null ? this.locale.hashCode() : 0);
+        hash = 17 * hash + (this.sentences != null ? this.sentences.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SemanticText other = (SemanticText) obj;
+        if ((this.text == null) ? (other.text != null) : !this.text.equals(other.text)) {
+            return false;
+        }
+        if (this.locale != other.locale && (this.locale == null || !this.locale.equals(other.locale))) {
+            return false;
+        }
+        if (this.sentences != other.sentences && (this.sentences == null || !this.sentences.equals(other.sentences))) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }

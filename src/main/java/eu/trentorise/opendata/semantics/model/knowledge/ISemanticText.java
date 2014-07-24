@@ -27,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
  * tokens and no multiwords. Text is only stored in root ISemanticText object
  * and offsets are always absolute and calculated with respects to it.
  * Overlappings are not allowed. Implementations of this interface must be
- * immutable.
+ * immutable and implement equals() and hashCode() methods.
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @date 10 Apr 2014

@@ -19,14 +19,15 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
- * @date 12 May 
- * 
+ * @date 12 May
+ *
  */
 public enum MeaningStatus {
 
     /**
-     * Either the system found no meaning or the user explicitly declares the
-     * sense is missing
+     * Either the system found it is not possible to assign a meaning (i.e. for
+     * entities with insufficient identifying attributes) or the user explicitly
+     * declares the sense is missing
      */
     MISSING,
     /**
@@ -49,4 +50,3 @@ public enum MeaningStatus {
     TO_DISAMBIGUATE
 
 }
-

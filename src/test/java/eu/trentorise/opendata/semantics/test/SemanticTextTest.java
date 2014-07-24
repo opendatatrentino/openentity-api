@@ -2,13 +2,22 @@ package eu.trentorise.opendata.semantics.test;
 
 import eu.trentorise.opendata.semantics.IntegrityChecker;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.semantics.model.knowledge.MeaningKind;
+import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import eu.trentorise.opendata.semantics.model.knowledge.impl.Dict;
+import eu.trentorise.opendata.semantics.model.knowledge.impl.Meaning;
+import eu.trentorise.opendata.semantics.model.knowledge.impl.SemanticText;
+import eu.trentorise.opendata.semantics.model.knowledge.impl.Sentence;
+import eu.trentorise.opendata.semantics.model.knowledge.impl.Word;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import org.junit.Assert;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -89,6 +98,28 @@ public class SemanticTextTest {
         assertFalse(dict.contains("123"));
         
         IntegrityChecker.checkDict(dict);
+        
+    }
+    
+    @Test
+    public void testEquality(){
+        assertEquals(new SemanticText(), new SemanticText());
+        assertEquals(new SemanticText("a"), new SemanticText("a"));
+        
+        assertNotEquals(new SemanticText("a"), new SemanticText("b"));
+        assertEquals(new SemanticText("a", Locale.ITALY), new SemanticText("a", Locale.ITALY));
+        
+        Sentence s1 = new Sentence(0,2);
+        Sentence s2 = new Sentence(0,2);
+        
+        assertEquals(new SemanticText("ab", Locale.ITALY,s1), new SemanticText("ab", Locale.ITALY, s2));
+        assertNotEquals(new SemanticText("ab", Locale.ITALY,s1), new SemanticText("ab", Locale.ITALY));
+        
+        assertEquals(new Meaning("a",0.1,MeaningKind.CONCEPT), new Meaning("a",0.1,MeaningKind.ENTITY));
+        assertNotEquals(new Meaning("a",0.1,MeaningKind.CONCEPT), new Meaning("b",0.1,MeaningKind.CONCEPT));
+        
+        assertEquals(new Word(0,2,MeaningStatus.MISSING,null, new ArrayList()), new Word(0,2,MeaningStatus.MISSING,null, new ArrayList()));
+        assertNotEquals(new Word(0,2,MeaningStatus.MISSING,null, new ArrayList()), new Word(0,3,MeaningStatus.MISSING,null, new ArrayList()));
         
     }
 }

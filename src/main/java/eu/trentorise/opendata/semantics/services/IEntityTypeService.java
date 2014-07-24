@@ -38,9 +38,29 @@ public interface IEntityTypeService {
     /**
      * Reads all entity types available in the system
      *
+     * @deprecated use {@link #readAllEntityTypes(java.lang.String)}  instead
      * @return list of all entity types in the system
      */
     List<IEntityType> getAllEntityTypes();
+    
+    /**
+     * Reads all entity types available in the system
+     *
+     * @return list of all entity types in the system
+     */
+    List<IEntityType> readAllEntityTypes();
+
+    
+    /**
+     * Returns the entity types with the given URLs
+     *
+     * @deprecated Use {@link #readEntityTypes(java.util.List)} instead 
+     * @param URLs a list of URLs for entity types
+     * @return the entity types. For entity types that were not found, the corresponding item in the list will contain
+     * null.
+     */
+
+    List<IEntityType> getEntityTypes(List<String> URLs);    
 
     /**
      * Returns the entity types with the given URLs
@@ -50,7 +70,7 @@ public interface IEntityTypeService {
      * null.
      */
 
-    List<IEntityType> getEntityTypes(List<String> URLs);
+    List<IEntityType> readEntityTypes(List<String> URLs);
 
     /**
      * Returns a list of possible entity types with name similar to provided partial name.
@@ -84,6 +104,17 @@ public interface IEntityTypeService {
      * @return the entity type, null if not found.
      */
     @Nullable
+    IEntityType readEntityType(String URL);
+    
+    
+    /**
+     * Return the entity type by the given URL
+     * 
+     * @deprecated use {@link #readEntityType(java.lang.String)}  by URL instead
+     * @param URL The URL of the entity type
+     * @return the entity type, null if not found.
+     */
+    @Nullable
     IEntityType getEntityType(String URL);
 
     /**
@@ -91,24 +122,41 @@ public interface IEntityTypeService {
      *
      * @param id of the entity type
      * @return entity type
-     * @deprecated use getEntityType by URL instead
+     * @deprecated use {@link #readEntityType(java.lang.String)}  by URL instead
      */
     IEntityType getEntityType(long id);
 
     /**
      * Returns the parent of all structures
      *
+     * @deprecated use {@link #readRootStructure(java.lang.String)}  instead
      * @return the parent of all structures
      * @see #getRootEtype()
      */
     IEntityType getRootStructure();
+    
+    /**
+     * Returns the parent of all structures
+     *
+     * @return the parent of all structures
+     * @see #getRootEtype()
+     */
+    IEntityType readRootStructure();    
 
     /**
+     * Returns the parent of all etypes.     
+     * @deprecated use {@link #readRootEtype(java.lang.String)}  instead
+     * @return the parent of all etypes. Must inherit from value returned by {@link #getRootStructure()}
+     * @see #getRootStructure()
+     */
+    IEntityType getRootEtype();
+    
+       /**
      * Returns the parent of all etypes.
      *
      * @return the parent of all etypes. Must inherit from value returned by {@link #getRootStructure()}
      * @see #getRootStructure()
      */
-    IEntityType getRootEtype();
+    IEntityType readRootEtype();
 
 }
