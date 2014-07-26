@@ -90,6 +90,14 @@ public interface IEntityService {
     IEntity readEntity(String URL);
 
     /**
+     * Reads an entities given their URLs
+     *
+     * @param entityURLs the URLs of the entity to read
+     * @return the list of entities identified by the URL. Not found entities will be null.
+     */    
+    List<IEntity> readEntities(List<String> entityURLs);
+    
+    /**
      * Creates an attribute of the specified attribute definition kind and fills it with provided values.
      *
      * @param attrDef the attribute definition of the attribute to create

@@ -64,7 +64,7 @@ public interface IAttributeDef {
 
     /**
      * Return the entity type for the range, when the datatype is oe:structure or oe:entity
-     * @deprecated we only provide the URL with getRangeETypeURL()
+     * @deprecated we only provide the URL with {@link #getRangeEtypeURL()}
      * @return the entity type if the data type is oe:structure or oe:entity, null otherwise
      */
     IEntityType getRangeEType();

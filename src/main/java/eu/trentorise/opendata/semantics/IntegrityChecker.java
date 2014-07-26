@@ -25,14 +25,19 @@ import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
+import eu.trentorise.opendata.semantics.model.knowledge.ISentence;
+import eu.trentorise.opendata.semantics.model.knowledge.IWord;
+import eu.trentorise.opendata.semantics.model.knowledge.MeaningKind;
+import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
 import eu.trentorise.opendata.semantics.services.model.DataTypes;
 import eu.trentorise.opendata.semantics.services.model.IAttributeCorrespondence;
 import eu.trentorise.opendata.semantics.services.model.IIDResult;
 import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
-
+import static eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence.SCORE_TOLERANCE;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,24 +48,65 @@ import java.util.Locale;
  */
 public final class IntegrityChecker {
 
-    private IntegrityChecker(){        
+    public static void checkSentence(ISentence s) {
+        if (s.getWords() == null) {
+            throw new IntegrityException("Found null words in sentence!");
+        }
+
+        for (IWord w : s.getWords()) {
+            checkWord(w);
+        }
     }
-    
+
+
+    public static void checkWord(IWord w) {        
+        
+        if (w.getMeaningStatus() == null){
+            throw new IntegrityException("Found null meaning status in a word!");
+        }
+        
+        if (w.getSelectedMeaning() != null){
+            checkMeaning(w.getSelectedMeaning());
+        }
+        
+        if (w.getMeanings() == null) {
+            throw new IntegrityException("Found null meanings in a word!");
+        }
+        for (IMeaning m : w.getMeanings()) {
+            checkMeaning(m);
+        }
+    }
+
+    private static void checkMeaning(IMeaning m) {
+        checkURL(m.getURL());
+        checkScore(m.getProbability());
+        checkDict(m.getName());        
+    }
+
+    public static void checkScore(double score) {
+        double prec = ISchemaCorrespondence.SCORE_TOLERANCE;
+        if (score < -prec || score > 1.0 + prec) {
+            throw new IntegrityException("Score " + score + " exceeds bounds [" + (-prec) + ", 1.0" + prec + "].");
+        }
+    }
+
+    private IntegrityChecker() {
+    }
+
     private static void checkScore(Float score) {
         if (score == null) {
             throw new IntegrityException("Found null score!");
         }
-        float prec = ISchemaCorrespondence.SCORE_TOLERANCE;
-        if (score < -prec || score > 1.0f + prec) {
-            throw new IntegrityException("Score " + score + " exceeds bounds ["+(-prec)+", 1.0" + prec + "].");
-        }
+        checkScore(score.doubleValue());
+
     }
 
     /**
      * Checks if provided schema correspondence complies with open entity specs.
      *
      * @param schemaCor to check
-     * @throws IntegrityException if provided correspondence is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided correspondence is not conformant
+     * to OpenEntity specs.
      */
     public static void checkSchemaCorrespondence(ISchemaCorrespondence schemaCor) {
         if (schemaCor == null) {
@@ -112,7 +158,8 @@ public final class IntegrityChecker {
      * Checks if provided dictionary complies with open entity specs.
      *
      * @param dict the dictionary to check
-     * @throws IntegrityException if provided dict is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided dict is not conformant to
+     * OpenEntity specs.
      */
     public static void checkDict(IDict dict) {
 
@@ -142,7 +189,8 @@ public final class IntegrityChecker {
      * Checks if provided URL complies with open entity specs.
      *
      * @param URL the URL to check
-     * @throws IntegrityException if provided URL is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided URL is not conformant to
+     * OpenEntity specs.
      */
     public static void checkURL(String URL) {
         if (URL == null) {
@@ -158,7 +206,8 @@ public final class IntegrityChecker {
      * Checks if provided entity type complies with open entity specs.
      *
      * @param etype the entity type to check
-     * @throws IntegrityException if provided etype is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided etype is not conformant to
+     * OpenEntity specs.
      */
     public static void checkEntityType(IEntityType etype) {
         if (etype == null) {
@@ -214,7 +263,8 @@ public final class IntegrityChecker {
      * Checks if provided attribute def complies with open entity specs.
      *
      * @param attrDef the attribute definition to check
-     * @throws IntegrityException if provided attrDef is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided attrDef is not conformant to
+     * OpenEntity specs.
      */
     public static void checkAttributeDef(IAttributeDef attrDef) {
         if (attrDef == null) {
@@ -261,7 +311,8 @@ public final class IntegrityChecker {
      * Checks if provided ekb complies with open entity specs.
      *
      * @param ekb the entity knowledge base to check
-     * @throws IntegrityException if provided ekb is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided ekb is not conformant to
+     * OpenEntity specs.
      */
     public static void checkEkbQuick(IEkb ekb) {
 
@@ -301,7 +352,6 @@ public final class IntegrityChecker {
                 throw new IntegrityException("Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult, ex);
             }
 
-
             for (IEntity entity : idResult.getEntities()) {
                 try {
                     checkEntity(entity);
@@ -309,7 +359,6 @@ public final class IntegrityChecker {
                     throw new IntegrityException("Failed integrity check on entity " + entity + " in idResult " + idResult, ex);
                 }
             }
-
 
         }
 
@@ -333,25 +382,27 @@ public final class IntegrityChecker {
 
     }
 
-
     /**
      * Checks if provided entity complies with open entity specs.
      *
      * @param entity to check
-     * @throws IntegrityException if provided entity is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided entity is not conformant to
+     * OpenEntity specs.
      */
     public static void checkEntity(IEntity entity) {
 
         checkEntity(entity, false);
     }
 
-
     /**
-     * Checks if provided entity complies with open entity specs. For synthetic entities some checks will be skipped.
+     * Checks if provided entity complies with open entity specs. For synthetic
+     * entities some checks will be skipped.
      *
-     * @param entity    to check
-     * @param synthetic if true URL and local ids of attributes and values will not be checked
-     * @throws IntegrityException if provided entity is not conformant to OpenEntity specs.
+     * @param entity to check
+     * @param synthetic if true URL and local ids of attributes and values will
+     * not be checked
+     * @throws IntegrityException if provided entity is not conformant to
+     * OpenEntity specs.
      */
     public static void checkEntity(IEntity entity, boolean synthetic) {
 
@@ -383,7 +434,8 @@ public final class IntegrityChecker {
      * Checks if provided structure complies with open entity specs.
      *
      * @param structure to check
-     * @throws IntegrityException if provided structure is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided structure is not conformant to
+     * OpenEntity specs.
      */
     public static void checkStructure(IStructure structure) {
 
@@ -392,11 +444,12 @@ public final class IntegrityChecker {
     }
 
     /**
-     * Checks if provided structure complies with open entity specs. For synthetic structures some checks will be
-     * skipped.
+     * Checks if provided structure complies with open entity specs. For
+     * synthetic structures some checks will be skipped.
      *
      * @param structure the structure to check
-     * @param synthetic if true URL and local ids of attributes and values will not be checked
+     * @param synthetic if true URL and local ids of attributes and values will
+     * not be checked
      */
     public static void checkStructure(IStructure structure, boolean synthetic) {
         if (structure == null) {
@@ -430,13 +483,14 @@ public final class IntegrityChecker {
         }
     }
 
-
     /**
      * Checks if provided attribute complies with open entity specs.
      *
      * @param attribute to check
-     * @param synthetic if true URL and local ids of attributes and values will not be checked
-     * @throws IntegrityException if provided attribute is not conformant to OpenEntity specs.
+     * @param synthetic if true URL and local ids of attributes and values will
+     * not be checked
+     * @throws IntegrityException if provided attribute is not conformant to
+     * OpenEntity specs.
      */
     public static void checkAttribute(IAttribute attribute, boolean synthetic) {
         if (attribute == null) {
@@ -444,7 +498,6 @@ public final class IntegrityChecker {
         }
 
         IAttributeDef attrDef = attribute.getAttributeDefinition();
-
 
         if (!synthetic && attribute.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in attribute " + attribute);
@@ -476,19 +529,20 @@ public final class IntegrityChecker {
      * Checks if provided attribute complies with open entity specs.
      *
      * @param attribute to check
-     * @throws IntegrityException if provided attribute is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided attribute is not conformant to
+     * OpenEntity specs.
      */
     public static void checkAttribute(IAttribute attribute) {
         checkAttribute(attribute, false);
 
     }
 
-
     /**
      * Checks if provided value complies with open entity specs.
      *
      * @param value to check
-     * @throws IntegrityException if provided value is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided value is not conformant to
+     * OpenEntity specs.
      */
     public static void checkValue(IValue value, IAttributeDef attrDef) {
         checkValue(value, attrDef, false);
@@ -498,7 +552,8 @@ public final class IntegrityChecker {
      * Checks if provided value complies with open entity specs.
      *
      * @param value to check
-     * @throws IntegrityException if provided value is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided value is not conformant to
+     * OpenEntity specs.
      */
     public static void checkValue(IValue value, IAttributeDef attrDef, boolean synthetic) {
 
@@ -508,7 +563,6 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found null value!");
         }
 
-
         if (!synthetic && value.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in value " + value);
         }
@@ -517,11 +571,9 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
 
-
         if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))) {
             throw new IntegrityException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getValue());
         }
-
 
     }
 
@@ -529,7 +581,8 @@ public final class IntegrityChecker {
      * Checks if provided concept complies with open entity specs.
      *
      * @param concept to check
-     * @throws IntegrityException if provided concept is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided concept is not conformant to
+     * OpenEntity specs.
      */
     public static void checkConcept(IConcept concept) {
         if (concept == null) {
@@ -560,7 +613,8 @@ public final class IntegrityChecker {
      * Checks if provided semantic text complies with open entity specs.
      *
      * @param semanticText to check
-     * @throws IntegrityException if provided semantic text is not conformant to OpenEntity specs.
+     * @throws IntegrityException if provided semantic text is not conformant to
+     * OpenEntity specs.
      */
     public static void checkSemanticText(ISemanticText semanticText) {
         if (semanticText == null) {
@@ -577,6 +631,10 @@ public final class IntegrityChecker {
 
         if (semanticText.getSentences() == null) {
             throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
+        }
+
+        for (ISentence s : semanticText.getSentences()) {
+            checkSentence(s);
         }
 
         // todo write the rest...
