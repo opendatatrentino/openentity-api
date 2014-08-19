@@ -88,7 +88,7 @@ public class Sentence implements ISentence {
     }
 
     /** so serialization libraries don't complain */
-    private Sentence(){
+    protected Sentence(){
         
     }
 

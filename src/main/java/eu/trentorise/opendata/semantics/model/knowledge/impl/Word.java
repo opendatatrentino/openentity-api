@@ -112,7 +112,7 @@ public class Word implements IWord {
     }
 
     /** so serialization libraries don't complain */
-    private Word(){
+    protected Word(){
     }
 
     @Override

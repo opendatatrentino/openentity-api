@@ -37,7 +37,7 @@ public class Meaning implements IMeaning {
     private MeaningKind meaningKind;
     private IDict name;
 
-    private Meaning(){
+    protected Meaning(){
         this.URL = "";
         this.probability = 0.0;
         this.meaningKind = MeaningKind.CONCEPT;
