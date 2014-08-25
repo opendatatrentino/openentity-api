@@ -26,7 +26,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nullable;
@@ -45,18 +44,28 @@ public class SemanticText implements Serializable, ISemanticText {
     private String text;
     private Locale locale;
 
-    private List<ISentence> sentences;
-        
+    private List<? extends ISentence> sentences;
+
     public SemanticText() {
         this.text = "";
         this.locale = Locale.ENGLISH;
         this.sentences = new ArrayList<ISentence>();
     }
 
-    public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, IMeaning selectedMeaning, Collection<IMeaning> meanings){
-        this(text,locale,new Sentence(0, text.length(), new Word(0,text.length(),meaningStatus,selectedMeaning, meanings)));
-    }    
+    /**
+     * Creates a semantic text of one word with only one meaning.
+     */
+    public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable final IMeaning selectedMeaning) {
+        this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning, 
+                    selectedMeaning == null ? 
+                            new ArrayList() 
+                            : new ArrayList(){{add(selectedMeaning);}})));
+    }
     
+    public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable IMeaning selectedMeaning, Collection<? extends IMeaning> meanings) {
+        this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning, meanings)));
+    }
+
     /**
      * Creates SemanticText with the provided string. Locale is set to english
      * and the string is not enriched.
@@ -66,7 +75,7 @@ public class SemanticText implements Serializable, ISemanticText {
     public SemanticText(String text) {
         this(text, Locale.ENGLISH);
     }
-    
+
     /**
      * Creates SemanticText with the provided string. Locale is set to english
      * and the string is not enriched.
@@ -83,17 +92,15 @@ public class SemanticText implements Serializable, ISemanticText {
         this.locale = Locale.ENGLISH;
         this.locale = locale;
     }
-    
 
     /**
      * @param sentences a list of sentences. Internally, a new copy of it is
      * created.
      */
-    public SemanticText(String text, @Nullable Locale locale, List<ISentence> sentences) {
+    public SemanticText(String text, @Nullable Locale locale, Collection<? extends ISentence> sentences) {
         this(text, locale);
-        
 
-        List<ISentence> lst = new ArrayList<ISentence>();
+        List<ISentence> lst = new ArrayList();
         for (ISentence ss : sentences) {
             lst.add(ss);
         }
@@ -116,10 +123,10 @@ public class SemanticText implements Serializable, ISemanticText {
         this(semText.getText(), semText.getLocale(), semText.getSentences());
     }
 
-    public List<ISentence> getSentences() {
+    @Override
+    public List<? extends ISentence> getSentences() {
         return sentences;
     }
-        
 
     @Nullable
     public Locale getLocale() {
@@ -137,8 +144,8 @@ public class SemanticText implements Serializable, ISemanticText {
     public String getText(IWord word) {
         return text.substring(word.getStartOffset(), word.getEndOffset());
     }
-    
-    public String toString(){
+
+    public String toString() {
         return text;
     }
 
@@ -172,5 +179,42 @@ public class SemanticText implements Serializable, ISemanticText {
         return true;
     }
 
-    
+    @Override
+    public IWord getWord() {
+        if (!(getSentences().size() == 1)) {
+            return null;
+        }
+        ISentence sentence = sentences.get(0);
+
+        if (!(sentence.getWords().size() == 1)) {
+            return null;
+        }
+
+        IWord word = sentence.getWords().get(0);
+        if (word.getStartOffset() == 0
+                && word.getEndOffset() == getText().length()) {
+            return word;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ISemanticText withMeaning(MeaningStatus status, IMeaning meaning) {
+        SemanticText ret = new SemanticText(this);
+        IWord oldWord = getWord();
+        IWord newWord;
+        if (oldWord == null){
+            newWord = new Word(0, text.length(), status, meaning);
+        } else {
+            newWord = new Word(oldWord).withMeaning(status, meaning);
+        }
+                
+        List<ISentence> arr = new ArrayList();
+        arr.add(new Sentence(0, text.length(), newWord));        
+        ret.sentences = Collections.unmodifiableList(arr);        
+        return ret;
+    }
+;
+
 }

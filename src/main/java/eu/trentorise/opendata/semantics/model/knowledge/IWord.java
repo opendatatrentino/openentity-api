@@ -23,8 +23,8 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * Represents a basic unit of text. Can contain multiwords, that is, sequences
- * of words separated by spaces like "hot dog". Implementations of this interface must be
- * immutable and implement equals() and hashCode() methods.
+ * of words separated by spaces like "hot dog". Implementations of this
+ * interface must be immutable and implement equals() and hashCode() methods.
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @date 11 Apr 2014
@@ -41,6 +41,16 @@ public interface IWord {
      */
     int getEndOffset();
 
+    /**
+     * <ol>
+     * <li> NEW: {@link #getSelectedMeaning()} MAY return a meaning of an
+     * entity/concept yet to be created on the server, with a temporary URL</li>
+     *  
+     * <li> SELECTED: {@link #getSelectedMeaning()} will return the selected
+     * meaning</li>
+     * </ol>
+     * @see MeaningStatus
+     */
     MeaningStatus getMeaningStatus();
 
     /**
@@ -50,8 +60,12 @@ public interface IWord {
     List<IMeaning> getMeanings();
 
     /**
-     * 
-     * @return the selected meaning. Returns null if there is no meaning was selected.
+     *
+     * @return the selected meaning. If {@link #getMeaningStatus()} is different
+     * from SELECTED it MAY return a meaning, which would be the 'best' among
+     * the getMeanings(). In case {@link #getMeaningStatus()} returns NEW, this
+     * function MAY return a meaning of an entity/concept yet to be created on
+     * the server, with a temporary URL.
      */
     @Nullable
     IMeaning getSelectedMeaning();
@@ -63,4 +77,9 @@ public interface IWord {
      */
     int getStartOffset();
 
+    /**
+     * A new word is returned with the provided meaning added to the existing
+     * meanings and set as the main one.
+     */
+    public IWord withMeaning(MeaningStatus status, IMeaning meaning);
 }

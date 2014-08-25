@@ -29,8 +29,6 @@ import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ISentence;
 import eu.trentorise.opendata.semantics.model.knowledge.IWord;
-import eu.trentorise.opendata.semantics.model.knowledge.MeaningKind;
-import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
 import eu.trentorise.opendata.semantics.services.model.DataTypes;
@@ -61,6 +59,10 @@ public final class IntegrityChecker {
 
     public static void checkWord(IWord w) {        
         
+
+        checkSpan(w.getStartOffset(), w.getEndOffset());
+
+        
         if (w.getMeaningStatus() == null){
             throw new IntegrityException("Found null meaning status in a word!");
         }
@@ -87,6 +89,14 @@ public final class IntegrityChecker {
         double prec = ISchemaCorrespondence.SCORE_TOLERANCE;
         if (score < -prec || score > 1.0 + prec) {
             throw new IntegrityException("Score " + score + " exceeds bounds [" + (-prec) + ", 1.0" + prec + "].");
+        }
+    }
+
+    public static void checkSpan(int startOffset, int endOffset) {
+        if (endOffset < 0
+                || startOffset < 0
+                || endOffset < startOffset){
+            throw new IntegrityException("Found invalid span! [" + startOffset + "," + endOffset + "]");
         }
     }
 

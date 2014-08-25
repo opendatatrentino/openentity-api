@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
  * immutable and implement equals() and hashCode().
  *
  * @author David Leoni <david.leoni@unitn.it>
- * @date 11 Apr 2014
+ * @date 21 Aug 2014
  */
 @Immutable
 public interface ISentence {
@@ -45,6 +45,6 @@ public interface ISentence {
      */    
     int getStartOffset();
 
-    List<IWord> getWords();
+    List<? extends IWord> getWords();
 
 }

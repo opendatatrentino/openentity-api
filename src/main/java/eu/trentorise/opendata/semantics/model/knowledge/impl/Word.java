@@ -17,6 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
+import eu.trentorise.opendata.semantics.IntegrityChecker;
+import static eu.trentorise.opendata.semantics.IntegrityChecker.checkSpan;
 import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.IWord;
 import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
@@ -43,6 +45,29 @@ public class Word implements IWord {
     private MeaningStatus meaningStatus;
 
     /**
+     * Constructor for a Word with only one meaning. Meaning probabilities are
+     * normalized so total sum is 1.0
+     *
+     * @param startOffset
+     * @param endOffset the position of the character immediately *after* the
+     * word itself. Position is absolute with respect to the text stored in the
+     * SemanticText container.
+     */
+    public Word(int startOffset,
+            int endOffset,
+            MeaningStatus meaningStatus,
+            @Nullable final IMeaning selectedMeaning) {
+        this(startOffset, endOffset, meaningStatus, selectedMeaning,
+                selectedMeaning == null
+                ? new ArrayList()
+                : new ArrayList() {
+                    {
+                        add(selectedMeaning);
+                    }
+                });
+    }
+
+    /**
      * Constructor for a Word. Meaning probabilities are normalized so total sum
      * is 1.0
      *
@@ -58,10 +83,11 @@ public class Word implements IWord {
     public Word(int startOffset,
             int endOffset,
             MeaningStatus meaningStatus,
-            IMeaning selectedMeaning,
-            Collection<IMeaning> meanings) {
+            @Nullable IMeaning selectedMeaning,
+            Collection<? extends IMeaning> meanings) {
 
-        
+        checkSpan(startOffset, endOffset);
+
         List<IMeaning> mgs = new ArrayList<IMeaning>();
 
         float total = 0;
@@ -111,8 +137,10 @@ public class Word implements IWord {
         return meaningStatus;
     }
 
-    /** so serialization libraries don't complain */
-    protected Word(){
+    /**
+     * so serialization libraries don't complain
+     */
+    protected Word() {
     }
 
     @Override
@@ -152,6 +180,25 @@ public class Word implements IWord {
         }
         return true;
     }
-    
-    
+
+    @Override
+    public IWord withMeaning(MeaningStatus status, IMeaning meaning) {        
+        List<IMeaning> newMeanings = new ArrayList();        
+        
+        for (IMeaning m : meanings){
+            newMeanings.add(m);
+        }
+        if (meaning != null) {             
+            newMeanings.add(meaning);
+        }
+        return new Word(startOffset, endOffset, status, meaning, meanings);        
+    }
+
+    public Word(IWord word){
+        this.startOffset = word.getStartOffset();
+        this.endOffset = word.getEndOffset();
+        this.meaningStatus = word.getMeaningStatus();
+        this.meanings = word.getMeanings();
+        this.selectedMeaning = word.getSelectedMeaning();
+    }
 }

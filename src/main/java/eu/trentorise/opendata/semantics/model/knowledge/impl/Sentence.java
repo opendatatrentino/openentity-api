@@ -17,8 +17,9 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IWord;
+import static eu.trentorise.opendata.semantics.IntegrityChecker.checkSpan;
 import eu.trentorise.opendata.semantics.model.knowledge.ISentence;
+import eu.trentorise.opendata.semantics.model.knowledge.IWord;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,7 @@ import javax.annotation.concurrent.Immutable;
 /**
  *
  * @author David Leoni <david.leoni@unitn.it>
- * @date 11 Apr 2014
+ * @date 21 Aug 2014
  */
 @Immutable
 public class Sentence implements ISentence {
@@ -35,19 +36,18 @@ public class Sentence implements ISentence {
     private int startOffset;
     private int endOffset;
 
-    private List<IWord> words;
+    private List<? extends IWord> words;
 
     public Sentence(int startOffset, int endOffset) {
-        if (endOffset < startOffset) {
-            throw new IllegalArgumentException("endOffset should be greater or equal startOffset! Found instead [" + startOffset + ", " + endOffset + "]");
-        }
+        checkSpan(startOffset, endOffset);
+        
         this.startOffset = startOffset;
         this.endOffset = endOffset;
 
         this.words = Collections.unmodifiableList(new ArrayList<IWord>());
     }
 
-    public Sentence(int startOffset, int endOffset, List<IWord> words) {
+    public Sentence(int startOffset, int endOffset, List<? extends IWord> words) {
         this(startOffset, endOffset);
         if (!words.isEmpty()) {
             int lowerBound = words.get(0).getStartOffset();
@@ -59,7 +59,12 @@ public class Sentence implements ISentence {
         }
 
         List<IWord> lst = new ArrayList<IWord>();
+        IWord prevWord = null;
         for (IWord st : words) {
+            if (prevWord != null && st.getStartOffset() < prevWord.getEndOffset()){                  
+                throw new IllegalArgumentException("There cannot be overlapping words! Word " + prevWord + " overlaps with word " + st + " !");                
+            }
+            prevWord = st;
             lst.add(st);
         }
         this.words = Collections.unmodifiableList(lst);
@@ -75,7 +80,8 @@ public class Sentence implements ISentence {
         this.words = Collections.unmodifiableList(lst);
     }
 
-    public List<IWord> getWords() {
+    @Override
+    public List<? extends IWord> getWords() {
         return words;
     }
 

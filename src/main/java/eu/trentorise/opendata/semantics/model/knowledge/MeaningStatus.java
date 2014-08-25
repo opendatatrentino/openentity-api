@@ -25,18 +25,19 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 public enum MeaningStatus {
 
     /**
-     * Either the system found it is not possible to assign a meaning (i.e. for
-     * entities with insufficient identifying attributes) or the user explicitly
-     * declares the sense is missing
+     * The entity/concept is not present in the knowledge base and cannot be
+     * inserted in it, because, for example, it doesn't have sufficient
+     * identifying attributes
      */
-    MISSING,
+    INVALID,
     /**
-     * Only entities can be declared as new.
+     * The entity/concept is not present in the knowledge base but can be
+     * inserted in it
      */
     NEW,
     /**
-     * The user can declare he is unsure about a concept meaning. Only available
-     * for concepts.
+     * The entity/concept have candidates that are too similar in the knowledge
+     * base
      */
     NOT_SURE,
     /**
@@ -44,8 +45,7 @@ public enum MeaningStatus {
      */
     SELECTED,
     /**
-     * System is unsure about the meaning but offers a set of candidates to
-     * choose from.
+     * Entity/concept should be disambiguated.
      */
     TO_DISAMBIGUATE
 

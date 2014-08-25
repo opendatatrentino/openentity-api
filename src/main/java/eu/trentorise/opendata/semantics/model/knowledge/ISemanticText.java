@@ -48,7 +48,7 @@ public interface ISemanticText {
      *
      * @return the sentences in which the text is divided.
      */
-    List<ISentence> getSentences();
+    List<? extends ISentence> getSentences();
 
     /**
      * Gets the original text
@@ -71,4 +71,21 @@ public interface ISemanticText {
      */
     String getText(IWord word);
     
+    /**
+     * If the semantic text is made of only one word spanning the whole text,
+     * the provided meaning is added to the existing meanings and set as the
+     * main one.
+     * 
+     */
+    public ISemanticText withMeaning(MeaningStatus status, IMeaning meaning);
+        
+    /**
+     * Convenience method. If the semantic text is made of only one word
+     * spanning the whole text, it is given back.
+     *
+     * @return the word if the semantic text is made by one word, null
+     * otherwise.
+     */
+    @Nullable
+    public IWord getWord();    
 }
