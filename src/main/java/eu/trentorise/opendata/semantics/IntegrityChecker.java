@@ -209,6 +209,14 @@ public final class IntegrityChecker {
         if (URL.length() == 0) {
             throw new IntegrityException("Found empty URL!");
         }
+        
+        if (URL.equals("null")) {
+            throw new IntegrityException("Found URL with string \"null\" as content!");
+        }
+        // todo delete this is a too radical checker...
+        if (URL.endsWith("/null")) {
+            throw new IntegrityException("Found URL ending with /\"null\"!");
+        }
 
     }
 
