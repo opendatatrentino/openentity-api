@@ -582,7 +582,11 @@ public final class IntegrityChecker {
         }
 
         if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))) {
-            throw new IntegrityException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getValue());
+            throw new IntegrityException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
+        }
+        
+        if (DataTypes.STRUCTURE.equals(datatype)){           
+            checkStructure((IStructure) value.getValue());
         }
 
     }
