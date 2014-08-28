@@ -515,7 +515,7 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found null attribute!");
         }
 
-        IAttributeDef attrDef = attribute.getAttributeDefinition();
+        IAttributeDef attrDef = attribute.getAttrDef();
 
         if (!synthetic && attribute.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in attribute " + attribute);

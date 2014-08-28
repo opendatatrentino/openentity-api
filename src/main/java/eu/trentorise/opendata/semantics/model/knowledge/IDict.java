@@ -60,7 +60,7 @@ public interface IDict {
 
     /**
      * Checks if provided text is contained in any of the provided translations. Both
-     * text and translations to check are lowercased according to theit locale.
+     * text and translations to check are lowercased according to their locale.
      * @param text the text to search for
      * @return true if text is contained in any of the translations, false otherwise
      */

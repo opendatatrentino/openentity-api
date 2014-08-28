@@ -92,11 +92,5 @@ public interface IEkb {
      */
     @Nullable
     IEntityService getEntityService();
-    
-    /**
-     * Gets the search service
-     * @deprecated don't use it anymore
-     * @return the search service
-     */    
-    ISearchService getSearchService();    
+     
 }

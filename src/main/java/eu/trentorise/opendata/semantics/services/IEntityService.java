@@ -21,6 +21,7 @@ import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
+import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 
 import javax.annotation.Nullable;
 import java.io.Writer;
@@ -173,4 +174,12 @@ public interface IEntityService {
      */
     void exportToCsv(List<String> entityURLs, Writer writer);
 
+    /**
+     * Returns a list of possible entities with name similar to provided partial name.
+     *
+     * @param partialName a partial entity name. It is assumed to be in one of the default locales of the ekb.
+     * @return a list of candidate entities, ordered by probability. The first one is the most probable.
+     */
+    List<ISearchResult> searchEntities(String partialName);    
+    
 }

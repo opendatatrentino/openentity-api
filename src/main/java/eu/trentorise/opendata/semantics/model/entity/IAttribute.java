@@ -41,28 +41,38 @@ public interface IAttribute {
 
     /**
      * Gets the attribute definition of the attribute
-     *
+     * @deprecated use {@link #getAttrDef() instead}
      * @return the attribute definition of the attribute
      */
     IAttributeDef getAttributeDefinition();
+    
+    
+    /**
+     * Gets the attribute definition of the attribute
+     *
+     * @return the attribute definition of the attribute
+     */
+    IAttributeDef getAttrDef();    
 
     /**
      * Sets the attribute definition of the attribute
-     *
+     * @deprecated there's no need for methods that mutate values in interfaces
+     * 
      * @param ad the attribute definition of the attribute
      */
     void setAttributeDefinition(IAttributeDef ad);
 
     /**
      * Adds a value to the attribute
-     *
+     * @deprecated there's no need for methods that mutate values in interfaces
+     * 
      * @param value the value to be added
      */
     void addValue(IValue value);
 
     /**
      * Removes a value from the attribute
-     *
+     * @deprecated there's no need for methods that mutate values in interfaces
      * @param valueID the local ID of the value to be removed
      */
     void removeValue(long valueID);

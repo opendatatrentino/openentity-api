@@ -18,8 +18,15 @@
 package eu.trentorise.opendata.semantics.model.knowledge;
 
 /**
+ * Represents the status of a meaning assigned to an
+ * {@link eu.trentorise.opendata.semantics.model.knowledge.IWord}
+ *
+ * Note it is not possible to specify that a word has no meaning because there
+ * is no entity/concept in the knowledge base to link to. In this case, word tag
+ * should be removed from the semantic text containing it.
+ *
  * @author David Leoni <david.leoni@unitn.it>
- * @date 12 May
+ * @date 28 Aug 2014
  *
  */
 public enum MeaningStatus {
@@ -31,8 +38,8 @@ public enum MeaningStatus {
      */
     INVALID,
     /**
-     * The entity/concept is not present in the knowledge base but can be
-     * inserted in it
+     * The entity/concept is not present in the knowledge base but it is still
+     * valid and can be inserted in it
      */
     NEW,
     /**

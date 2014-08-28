@@ -19,6 +19,7 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -100,5 +101,11 @@ public interface IKnowledgeService {
      */
     IConcept readRootConcept();
     
-
+    /**
+     * Returns a list of possible concepts with name similar to provided partial name.
+     *
+     * @param partialName a partial concept name. It is assumed to be in one of the default locales of the ekb.
+     * @return a list of candidate entities, ordered by probability. The first one is the most probable.
+     */
+    List<ISearchResult> searchConcepts(String partialName);    
 }
