@@ -69,7 +69,7 @@ public final class DataTypes {
     public static final String LONG = "xsd:long";
     public static final String CONCEPT = "oe:concept";
     public static final String SEMANTIC_TEXT = "oe:semantic-text";
-    public static final String NLSTRING = "oe:nlstring";
+    public static final String NLSTRING = "xsd:string";
     public static final String STRUCTURE = "oe:structure";
     public static final String ENTITY = "oe:entity";
 

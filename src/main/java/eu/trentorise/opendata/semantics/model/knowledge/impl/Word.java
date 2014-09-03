@@ -181,7 +181,6 @@ public class Word implements IWord {
         return true;
     }
 
-    @Override
     public IWord withMeaning(MeaningStatus status, IMeaning meaning) {        
         List<IMeaning> newMeanings = new ArrayList();        
         

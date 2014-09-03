@@ -123,7 +123,6 @@ public class SemanticText implements Serializable, ISemanticText {
         this(semText.getText(), semText.getLocale(), semText.getSentences());
     }
 
-    @Override
     public List<? extends ISentence> getSentences() {
         return sentences;
     }
@@ -179,7 +178,6 @@ public class SemanticText implements Serializable, ISemanticText {
         return true;
     }
 
-    @Override
     public IWord getWord() {
         if (!(getSentences().size() == 1)) {
             return null;
@@ -199,7 +197,6 @@ public class SemanticText implements Serializable, ISemanticText {
         }
     }
 
-    @Override
     public ISemanticText withMeaning(MeaningStatus status, IMeaning meaning) {
         SemanticText ret = new SemanticText(this);
         IWord oldWord = getWord();
