@@ -80,7 +80,7 @@ public class Sentence implements ISentence {
         this.words = Collections.unmodifiableList(lst);
     }
 
-    @Override
+    
     public List<? extends IWord> getWords() {
         return words;
     }
