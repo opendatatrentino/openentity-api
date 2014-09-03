@@ -66,14 +66,16 @@ public class Dict implements IDict {
 
     /**
      * Sets english translation to provided text
+     *
      * @param text the given text
      */
     public Dict(final String text) {
         this(text, Locale.ENGLISH);
     }
-    
+
     /**
      * Sets english translation to provided text
+     *
      * @param text the given text in the fiven locale
      * @param locale the locale of the provided text
      */
@@ -84,31 +86,30 @@ public class Dict implements IDict {
                 add(text);
             }
         });
-    }    
-    
+    }
+
     /**
      * Sets translations to provided locale
-    */
-    public Dict(final List<String> texts, Locale locale) {        
+     */
+    public Dict(final List<String> texts, Locale locale) {
         this.translations = new HashMap();
         List<String> ts = new ArrayList();
-        for (String s : texts){
-            ts.add(s);            
+        for (String s : texts) {
+            ts.add(s);
         }
-        this.translations.put(locale, texts);        
-    }    
+        this.translations.put(locale, texts);
+    }
 
     public Set<Locale> getLocales() {
         return translations.keySet();
     }
 
-
     public boolean contains(String text) {
-        
+
         for (Locale loc : getLocales()) {
             String lowText = text.toLowerCase(loc);
-            for (String t : translations.get(loc)){
-                if (t.toLowerCase(loc).contains(lowText)){
+            for (String t : translations.get(loc)) {
+                if (t.toLowerCase(loc).contains(lowText)) {
                     return true;
                 }
             }
@@ -168,18 +169,39 @@ public class Dict implements IDict {
     }
 
     /**
-     * Checks if there is at least one translation in the given locale
+     * A valid string is not null, non-empty, and is not made of the evil string
+     * "null". 
      *
-     * @param locale
-     * @return true if there is at least one translation in the given locale,
-     * false otherwise.
      */
-    public boolean hasTranslation(Locale locale) {
+    private boolean isValid(String s) {
+        return s != null
+                && !s.isEmpty()
+                && !s.equals("null");
+    }
+
+    /*
+     * Returns the first valid translation (see {@link isValid(String)} in the
+     * given locale. If it can't find it, null is returned.
+     */
+    @Nullable
+    public String getValidTranslation(Locale locale) {
         if (translations.containsKey(locale)) {
-            return !translations.get(locale).isEmpty();
-        } else {
-            return false;
+            List<String> as = translations.get(locale);
+            if (as == null) {
+                return null;
+            }
+            if (as.isEmpty()) {
+                return null;
+            } else {
+                for (String s : translations.get(locale)) {
+                    if (isValid(s)) {
+                        return s;
+                    }
+                }
+            }
         }
+
+        return null;
     }
 
     public List<String> getStrings(Locale locale) {
@@ -191,15 +213,16 @@ public class Dict implements IDict {
     }
 
     /**
-     * Checks if there is at least one non-empty translation
+     * Checks if there is at least one non-empty valid translation
      */
     public boolean isEmpty() {
         for (Locale locale : getLocales()) {
-            if (!translations.get(locale).isEmpty()) {
-                return true;
+            String t = getValidTranslation(locale);
+            if (t != null) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -220,24 +243,22 @@ public class Dict implements IDict {
         return nmot;
     }
 
-
-
-    public IDict merge(IDict dict){
+    public IDict merge(IDict dict) {
         Dict ret = new Dict(this);
-        for (Locale locale : dict.getLocales()){
-             if (ret.translations.containsKey(locale)){
-                 for (String t : dict.getStrings(locale)){
-                     if (!ret.translations.get(locale).contains(t)){
-                         ret.translations.get(locale).add(t);
-                     }
-                 }
-             } else {                 
-                 ret.translations.put(locale, dict.getStrings(locale));
-             }
+        for (Locale locale : dict.getLocales()) {
+            if (ret.translations.containsKey(locale)) {
+                for (String t : dict.getStrings(locale)) {
+                    if (!ret.translations.get(locale).contains(t)) {
+                        ret.translations.get(locale).add(t);
+                    }
+                }
+            } else {
+                ret.translations.put(locale, dict.getStrings(locale));
+            }
         }
         return ret;
     }
-    
+
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
@@ -262,10 +283,10 @@ public class Dict implements IDict {
         sb.append("\n");
         return sb.toString();
     }
-    
-    public int translationsCount(){
+
+    public int translationsCount() {
         int count = 0;
-        for (Locale loc : translations.keySet()){
+        for (Locale loc : translations.keySet()) {
             count += translations.get(loc).size();
         }
         return count;
@@ -292,6 +313,5 @@ public class Dict implements IDict {
         }
         return true;
     }
-    
-    
+
 }
