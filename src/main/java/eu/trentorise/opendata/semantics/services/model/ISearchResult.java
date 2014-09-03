@@ -20,25 +20,26 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 
 /**
- * 
- * Represents the result of an entity type search.
- * 
+ *
+ * Represents the result of a search for an object that has an URL and a
+ * multilingual name, such as entities, concepts and entity types.
+ *
  * @author David Leoni
- * @date 20 Apr 2014
+ * @date 28 Aug 2014
  */
-public interface IEtypeSearchResult {
+public interface ISearchResult {
 
     /**
-     * Gets the URL of the etype
-     * 
-     * @return the etype URL
+     * Gets the URL of the object
+     *
+     * @return the object URL
      */
     String getURL();
 
     /**
-     * Gets the entity type name
-     * 
-     * @return the entity type name, in the default locales for the ekb.
+     * Gets the object name
+     *
+     * @return the object name, in the default locales for the ekb.
      */
     IDict getName();
 }
