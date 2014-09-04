@@ -132,5 +132,8 @@ public class SemanticTextTest {
                 .getMeaningStatus());
         assertEquals(MeaningStatus.NOT_SURE, new SemanticText().withMeaning(MeaningStatus.NOT_SURE, null).getWord().getMeaningStatus());
         
+        assertEquals("b", new SemanticText("a").withText("b").getText());
+        assertEquals(Locale.ITALIAN, new SemanticText("a").withLocale(Locale.ITALIAN).getLocale());
+        
     }
 }

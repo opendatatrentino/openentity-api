@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
+import eu.trentorise.opendata.semantics.IntegrityChecker;
 import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ISentence;
@@ -56,12 +57,16 @@ public class SemanticText implements Serializable, ISemanticText {
      * Creates a semantic text of one word with only one meaning.
      */
     public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable final IMeaning selectedMeaning) {
-        this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning, 
-                    selectedMeaning == null ? 
-                            new ArrayList() 
-                            : new ArrayList(){{add(selectedMeaning);}})));
+        this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning,
+                selectedMeaning == null
+                ? new ArrayList()
+                : new ArrayList() {
+                    {
+                        add(selectedMeaning);
+                    }
+                })));
     }
-    
+
     public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable IMeaning selectedMeaning, Collection<? extends IMeaning> meanings) {
         this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning, meanings)));
     }
@@ -151,10 +156,10 @@ public class SemanticText implements Serializable, ISemanticText {
     public String toString() {
         IWord w = getWord();
         String wordDescr = "";
-        if (w != null){
+        if (w != null) {
             wordDescr = "Single word semantic text, with ";
-        } 
-        return wordDescr + "locale: " + locale + ", text: " +  text;
+        }
+        return wordDescr + "locale: " + locale + ", text: " + text;
         // todo put more meaningful word descr
     }
 
@@ -211,17 +216,33 @@ public class SemanticText implements Serializable, ISemanticText {
         SemanticText ret = new SemanticText(this);
         IWord oldWord = getWord();
         IWord newWord;
-        if (oldWord == null){
+        if (oldWord == null) {
             newWord = new Word(0, text.length(), status, meaning);
         } else {
             newWord = new Word(oldWord).withMeaning(status, meaning);
         }
-                
+
         List<ISentence> arr = new ArrayList();
-        arr.add(new Sentence(0, text.length(), newWord));        
-        ret.sentences = Collections.unmodifiableList(arr);        
+        arr.add(new Sentence(0, text.length(), newWord));
+        ret.sentences = Collections.unmodifiableList(arr);
         return ret;
     }
-;
 
+
+    public ISemanticText withLocale(Locale locale) {
+        SemanticText ret = new SemanticText(this);
+        ret.locale = locale;
+        return ret;
+    }
+
+    public ISemanticText withText(String text) {
+        SemanticText ret = new SemanticText(this);
+        ret.text = text;
+        for (ISentence s : sentences) {
+            if (s.getEndOffset() > text.length()) {
+                throw new IllegalArgumentException("Tried to change text of semantic text, but there is a sentence longer thean the provided text!");
+            }
+        }
+        return ret;
+    }
 }

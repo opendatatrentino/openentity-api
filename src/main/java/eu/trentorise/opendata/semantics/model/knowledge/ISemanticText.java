@@ -78,6 +78,16 @@ public interface ISemanticText {
      * 
      */
     public ISemanticText withMeaning(MeaningStatus status, IMeaning meaning);
+    
+    /**
+     * Returns a copy of this object with the provided lcoale set.
+     */
+    public ISemanticText withLocale(Locale locale);
+
+    /**
+     * Returns a copy of this object with the provided text set.
+     */    
+    public ISemanticText withText(String text);
         
     /**
      * Convenience method. If the semantic text is made of only one word
