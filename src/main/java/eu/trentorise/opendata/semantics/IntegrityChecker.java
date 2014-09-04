@@ -178,11 +178,18 @@ public final class IntegrityChecker {
             throw new IntegrityException("Dict has null locales!");
         }
 
+        
+        
         for (Locale loc : dict.getLocales()) {
+            if (loc == null){
+                throw new IntegrityException("Found null locale in IDict!");
+            }
+            
             List<String> tr = dict.getStrings(loc);
             if (tr == null) {
-                throw new IntegrityException("Dict has null translations for locale " + loc);
+                throw new IntegrityException("IDict has null translations for locale " + loc);
             }
+            
             for (String t : tr) {
                 if (t == null) {
                     throw new IntegrityException("Found null translation fot locale " + loc);
@@ -511,7 +518,7 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found null attribute!");
         }
 
-        IAttributeDef attrDef = attribute.getAttributeDefinition();
+        IAttributeDef attrDef = attribute.getAttrDef();
 
         if (!synthetic && attribute.getLocalID() == null) {
             throw new IntegrityException("Found null local ID in attribute " + attribute);
@@ -585,6 +592,10 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
 
+        if (DataTypes.getDataTypes().get(datatype) == null){
+            throw new IntegrityException("Found unsupported datatype " + datatype + " in value " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
+        }
+        
         if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))) {
             throw new IntegrityException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
         }

@@ -144,8 +144,18 @@ public class SemanticText implements Serializable, ISemanticText {
         return text.substring(word.getStartOffset(), word.getEndOffset());
     }
 
+    /**
+     * Returns a description of the SemanticText
+     */
+    @Override
     public String toString() {
-        return text;
+        IWord w = getWord();
+        String wordDescr = "";
+        if (w != null){
+            wordDescr = "Single word semantic text, with ";
+        } 
+        return wordDescr + "locale: " + locale + ", text: " +  text;
+        // todo put more meaningful word descr
     }
 
     @Override
