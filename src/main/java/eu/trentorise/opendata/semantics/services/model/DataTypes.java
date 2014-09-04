@@ -20,7 +20,6 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import java.util.Collections;
 import java.util.Date;
@@ -46,14 +45,13 @@ import java.util.Set;
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
  * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
- * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.model.knowledge.ISemanticText} <br/>
- * NLSTRING : {@link eu.trentorise.opendata.semantics.model.knowledge.IDict} <br/>
+ * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.model.knowledge.ISemanticText} <br/> 
  * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} <br/>
  * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure} <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date May 30, 2014
+ * @date Sept 4, 2014
  *
  */
 public final class DataTypes {
@@ -68,8 +66,7 @@ public final class DataTypes {
     public static final String FLOAT = "xsd:float";
     public static final String LONG = "xsd:long";
     public static final String CONCEPT = "oe:concept";
-    public static final String SEMANTIC_TEXT = "oe:semantic-text";
-    public static final String NLSTRING = "xsd:string";
+    public static final String SEMANTIC_TEXT = "oe:semantic-text";    
     public static final String STRUCTURE = "oe:structure";
     public static final String ENTITY = "oe:entity";
 
@@ -87,8 +84,7 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Single precision Number");
         DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
         DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
-        DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Natural language text");
-        DATATYPE_PRETTY_NAMES_EN.put(NLSTRING, "Natural language string");
+        DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Natural language text");        
         DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);
@@ -100,8 +96,7 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_IT.put(FLOAT, "Numero a precisione singola");
         DATATYPE_PRETTY_NAMES_IT.put(LONG, "Intero grande");
         DATATYPE_PRETTY_NAMES_IT.put(CONCEPT, "Concetto");
-        DATATYPE_PRETTY_NAMES_IT.put(SEMANTIC_TEXT, "Testo semantico");
-        DATATYPE_PRETTY_NAMES_IT.put(NLSTRING, "Stringa in linguaggio naturale");
+        DATATYPE_PRETTY_NAMES_IT.put(SEMANTIC_TEXT, "Testo semantico");        
         DATATYPE_PRETTY_NAMES_IT.put(STRUCTURE, "Struttura");
         DATATYPE_PRETTY_NAMES_IT.put(ENTITY, "Entità");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ITALIAN, DATATYPE_PRETTY_NAMES_IT);
@@ -113,8 +108,7 @@ public final class DataTypes {
         JAVA_DATATYPES.put(FLOAT, Float.class);
         JAVA_DATATYPES.put(LONG, Long.class);
         JAVA_DATATYPES.put(CONCEPT, IConcept.class);
-        JAVA_DATATYPES.put(SEMANTIC_TEXT, ISemanticText.class);
-        JAVA_DATATYPES.put(NLSTRING, IDict.class);
+        JAVA_DATATYPES.put(SEMANTIC_TEXT, ISemanticText.class);        
         JAVA_DATATYPES.put(ENTITY, IEntity.class);
         JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
 
