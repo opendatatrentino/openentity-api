@@ -437,6 +437,14 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found invalid structural properties of entity " + entity.getURL(), ex);
         }
 
+        if (!synthetic) {
+            try {
+                checkURL(entity.getURL());
+            } catch (Exception ex) {
+                throw new IntegrityException("Found invalid URL in entity " + entity, ex);
+            }
+        }        
+        
         try {
             checkDict(entity.getName());
         } catch (Exception ex) {
@@ -469,21 +477,13 @@ public final class IntegrityChecker {
      * synthetic structures some checks will be skipped.
      *
      * @param structure the structure to check
-     * @param synthetic if true URL and local ids of attributes and values will
-     * not be checked
+     * @param synthetic if true URLs and local ids of attributes and values will
+     * not be checked. The URL of the structure is not checked anyway.
      */
     public static void checkStructure(IStructure structure, boolean synthetic) {
         if (structure == null) {
             throw new IntegrityException("Found null structure!");
-        }
-
-        if (!synthetic) {
-            try {
-                checkURL(structure.getURL());
-            } catch (Exception ex) {
-                throw new IntegrityException("Found invalid URL in structure " + structure, ex);
-            }
-        }
+        }       
 
         try {
             checkURL(structure.getEtypeURL());

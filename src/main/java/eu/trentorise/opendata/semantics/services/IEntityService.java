@@ -28,12 +28,14 @@ import java.io.Writer;
 import java.util.List;
 
 /**
- * Entity services allow CRUD on entities and attributes, and also exporting in various formats.
+ * Entity services allow CRUD on entities and attributes, and also exporting in
+ * various formats.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>*
+ * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
+ *
  * @date May 12, 2014
  */
 public interface IEntityService {
@@ -41,28 +43,34 @@ public interface IEntityService {
     /**
      * Creates an entity
      *
-     * @param entity the entity to be created. Will not be changed by the method.
+     * @param entity the entity to be created. Will not be changed by the
+     * method.
      * @return the GUID of the newly created entity
-     * @deprecated use {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)} instead
+     * @deprecated use
+     * {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)}
+     * instead
      */
     Long createEntity(IEntity entity);
 
     /**
      * Creates an entity
      *
-     * @param entity the entity to be created. Will not be changed by the method. URL of the provided entity will be
-     *               ignored. If an equal entity is already present in the server, a duplicate with different URL will
-     *               be created.
+     * @param entity the entity to be created. Will not be changed by the
+     * method. URL of the provided entity will be ignored. If an equal entity is
+     * already present in the server, a duplicate with different URL will be
+     * created.
      * @return the URL of the newly created entity
      */
     String createEntityURL(IEntity entity);
 
     /**
-     * Updates an entity. For values of type IDict, translations provided in this entity are going to be merged with
-     * translations already present in the Ekb
+     * Updates an entity. For values of type IDict, translations provided in
+     * this entity are going to be merged with translations already present in
+     * the Ekb
      *
      * @param entity the entity to be updated
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity doesn't exists
+     * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity
+     * doesn't exists
      */
     void updateEntity(IEntity entity);
 
@@ -77,7 +85,8 @@ public interface IEntityService {
     /**
      * Deletes an entity
      *
-     * @param URL the URL of the entity to delete. If the entity is not present, the method silently exits.
+     * @param URL the URL of the entity to delete. If the entity is not present,
+     * the method silently exits.
      */
     void deleteEntity(String URL);
 
@@ -94,25 +103,30 @@ public interface IEntityService {
      * Reads an entities given their URLs
      *
      * @param entityURLs the URLs of the entity to read
-     * @return the list of entities identified by the URL. Not found entities will be null.
-     */    
+     * @return the list of entities identified by the URL. Not found entities
+     * will be null.
+     */
     List<IEntity> readEntities(List<String> entityURLs);
-    
+
     /**
-     * Creates an attribute of the specified attribute definition kind and fills it with provided values.
+     * Creates an attribute of the specified attribute definition kind and fills
+     * it with provided values.
      *
      * @param attrDef the attribute definition of the attribute to create
-     * @param values  the values to set in the attribute. They must belong to supported types in {@link
+     * @param values the values to set in the attribute. They must belong to
+     * supported types in {@link
      *                eu.trentorise.opendata.semantics.services.model.DataTypes}
      * @return the attribute with the provided values
      */
     IAttribute createAttribute(IAttributeDef attrDef, List<Object> values);
 
     /**
-     * Creates an attribute of the specified attribute definition kind and fills it with the provided value.
+     * Creates an attribute of the specified attribute definition kind and fills
+     * it with the provided value.
      *
      * @param attrDef the attribute definition of the attribute to create
-     * @param value   the value to set in the attribute. It must belong to supported types in {@link
+     * @param value the value to set in the attribute. It must belong to
+     * supported types in {@link
      *                eu.trentorise.opendata.semantics.services.model.DataTypes}
      * @return the attribute with the provided values
      */
@@ -121,40 +135,42 @@ public interface IEntityService {
     /**
      * Adds an attribute to an entity
      *
-     * @param entity    the entity that
+     * @param entity the entity that
      * @param attribute
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the provided entity doesn't exists
+     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
+     * provided entity doesn't exists
      */
     void addAttribute(IEntity entity, IAttribute attribute);
 
     /**
      * Adds an attribute value to an attribute in an entity
      *
-     * @param entity    the entity which owns the attribute
+     * @param entity the entity which owns the attribute
      * @param attribute the attribute that owns the value
-     * @param value     the value to be added
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the provided entity or attribute don't exist
+     * @param value the value to be added
+     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
+     * provided entity or attribute don't exist
      */
     void addAttributeValue(IEntity entity, IAttribute attribute,
-                           IValue value);
+            IValue value);
 
     /**
      * Updates an attribute value in an attribute in an entity
      *
-     * @param entity    the entity which owns the attribute
+     * @param entity the entity which owns the attribute
      * @param attribute the attribute that owns the value
-     * @param newValue  the value to be updated
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the provided entity or attribute don't exist
+     * @param newValue the value to be updated
+     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
+     * provided entity or attribute don't exist
      */
     void updateAttributeValue(IEntity entity, IAttribute attribute,
-                              IValue newValue);
-
+            IValue newValue);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityURLs the URLs of the entities to export
-     * @param writer     A writer to store the generated rdf
+     * @param writer A writer to store the generated rdf
      */
     void exportToRdf(List<String> entityURLs, Writer writer);
 
@@ -162,7 +178,7 @@ public interface IEntityService {
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityURLs the URLs of the entities to export
-     * @param writer     A writer to store the generated jsonld
+     * @param writer A writer to store the generated jsonld
      */
     void exportToJsonLd(List<String> entityURLs, Writer writer);
 
@@ -170,16 +186,24 @@ public interface IEntityService {
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityURLs the URLs of the entities to export
-     * @param writer     A writer to store the generated csv
+     * @param writer A writer to store the generated csv
      */
     void exportToCsv(List<String> entityURLs, Writer writer);
 
     /**
-     * Returns a list of possible entities with name similar to provided partial name.
+     * Returns a list of possible entities with name similar to provided partial
+     * name.
      *
-     * @param partialName a partial entity name. It is assumed to be in one of the default locales of the ekb.
-     * @return a list of candidate entities, ordered by probability. The first one is the most probable.
+     * @param partialName a partial entity name. It is assumed to be in one of
+     * the default locales of the ekb.
+     * @return a list of candidate entities, ordered by probability. The first
+     * one is the most probable.
      */
-    List<ISearchResult> searchEntities(String partialName);    
-    
+    List<ISearchResult> searchEntities(String partialName);
+
+    /**
+     * Returns whether or not the URL was generated during calls to assign URL
+     * for deduplication purposes. 
+     */
+    public boolean isTemporaryURL(String temporaryEntityURL);
 }

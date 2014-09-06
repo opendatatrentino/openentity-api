@@ -18,6 +18,7 @@
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -313,5 +314,34 @@ public class Dict implements IDict {
         }
         return true;
     }
+
+    public ISemanticText toSemText(List<Locale> locales){
+        for (Locale loc : locales) {
+            String t = getValidTranslation(loc);
+            if (t != null) {
+                return new SemanticText(t, loc);
+            }
+        }
+        String t = getValidTranslation(Locale.ENGLISH);
+        if (t != null) {
+            return new SemanticText(t, Locale.ENGLISH);
+        }
+
+        for (Locale loc : getLocales()) {
+            String other = getValidTranslation(loc);
+            if (t != null) {
+                return new SemanticText(other, loc);
+            }
+        }
+        return new SemanticText("", Locale.ENGLISH);
+    }    
+    
+    
+    /**
+     * @see #toSemText(java.util.List) 
+     */
+    public String prettyString(List<Locale> locales) {
+        return toSemText(locales).getText();
+    }        
 
 }

@@ -39,7 +39,7 @@ public interface IDict {
      * present an empty list is returned.
      */
     List<String> getStrings(Locale locale);
-    
+
     /**
      * Gets the first translation in the given locale.
      *
@@ -48,9 +48,8 @@ public interface IDict {
      * present null is returned.
      */
     @Nullable
-    String getString(Locale locale);    
-        
-    
+    String getString(Locale locale);
+
     /**
      * Gets the locales for which translations are present in the IDict
      *
@@ -59,26 +58,40 @@ public interface IDict {
     Set<Locale> getLocales();
 
     /**
-     * Checks if provided text is contained in any of the provided translations. Both
-     * text and translations to check are lowercased according to their locale.
+     * Checks if provided text is contained in any of the provided translations.
+     * Both text and translations to check are lowercased according to their
+     * locale.
+     *
      * @param text the text to search for
-     * @return true if text is contained in any of the translations, false otherwise
+     * @return true if text is contained in any of the translations, false
+     * otherwise
      */
     boolean contains(String text);
 
     /**
      * Merges dictionary with provided one to create a new dictionary.
+     *
      * @param dict
      * @return a new dictionary resulting from the merge.
-     */    
+     */
     IDict merge(IDict dict);
-    
-    
+
     /**
      * @return the number of translations present in the dictionary
      */
     int translationsCount();
-    
-    
-    
+
+    /**
+     * Tries its best to produce a meaningful string in one of the provided
+     * languages
+     *
+     * @return A string in the first available language from the list of
+     * provided locales. If no translation is available, in order, defaults to
+     * English and then whatever it can find in the list of translations. Empty
+     * or null strings are discarded. Dirty strings like strings containing the
+     * string "null" are also discarded. If no valid translation
+     * is available at all, returns the empty string with null locale.
+     */
+    public ISemanticText toSemText(List<Locale> locales);
+
 }

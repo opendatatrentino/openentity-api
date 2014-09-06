@@ -33,7 +33,7 @@ import javax.annotation.concurrent.Immutable;
 public interface IWord {
 
     /**
-     * @return end offset based on the text of the SemanticText containing this
+     * Returns end offset based on the text of the SemanticText containing this
      * token. Positiong is absolute with reference to the SemanticText
      * containing the word and the offset is positioned *after* the last
      * character of the word, so for word "see" in "I see a car" text endOffset
@@ -43,7 +43,7 @@ public interface IWord {
 
     /**
      * <ol>
-     * <li> NEW: {@link #getSelectedMeaning()} MAY return a meaning of an
+     * <li> NEW: {@link #getSelectedMeaning()} returns a meaning of an
      * entity/concept yet to be created on the server, with a temporary URL</li>
      *  
      * <li> SELECTED: {@link #getSelectedMeaning()} will return the selected
@@ -55,16 +55,16 @@ public interface IWord {
 
     /**
      *
-     * @return the sorted meanings, the first having the highest probability
+     * Returns the sorted meanings, the first having the highest probability
      */
     List<IMeaning> getMeanings();
 
     /**
      *
-     * @return the selected meaning. If {@link #getMeaningStatus()} is different
-     * from SELECTED it MAY return a meaning, which would be the 'best' among
+     * Returns the selected meaning. If {@link #getMeaningStatus()} is different
+     * from SELECTED or NEW it MAY return a meaning, which would be the 'best' among
      * the getMeanings(). In case {@link #getMeaningStatus()} returns NEW, this
-     * function MAY return a meaning of an entity/concept yet to be created on
+     * function MUST return a meaning of an entity/concept yet to be created on
      * the server, with a temporary URL.
      */
     @Nullable
