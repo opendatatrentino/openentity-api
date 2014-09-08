@@ -163,6 +163,29 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>1.9</version>
+             
+                <configuration>          
+                    <signature>
+                        <groupId>org.codehaus.mojo.signature</groupId>
+                        <artifactId>java16</artifactId>
+                        <version>1.1</version>
+                    </signature>                  
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkJavaApiSignature</id>
+                        <phase>verify</phase>        
+                        <goals>
+                            <goal>check</goal>
+                        </goals>        
+                    </execution>        
+                </executions>
+            </plugin>                      
         </plugins>      
 
         <pluginManagement>
