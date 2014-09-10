@@ -65,6 +65,7 @@ public final class IntegrityChecker {
         }
 
         if (w.getSelectedMeaning() != null) {
+            checkURL(w.getSelectedMeaning().getURL());
             checkMeaning(w.getSelectedMeaning());
         }
 
@@ -76,8 +77,7 @@ public final class IntegrityChecker {
         }
     }
 
-    private static void checkMeaning(IMeaning m) {
-        checkURL(m.getURL());
+    private static void checkMeaning(IMeaning m) {        
         checkScore(m.getProbability());
         checkDict(m.getName());
     }
@@ -85,7 +85,7 @@ public final class IntegrityChecker {
     public static void checkScore(double score) {
         double prec = ISchemaCorrespondence.SCORE_TOLERANCE;
         if (score < -prec || score > 1.0 + prec) {
-            throw new IntegrityException("Score " + score + " exceeds bounds [" + (-prec) + ", 1.0" + prec + "].");
+            throw new IntegrityException("Score " + score + " exceeds bounds [" + (-prec) + ", " + 1.0 + prec + "].");
         }
     }
 
@@ -672,12 +672,8 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found semantic text containing null text!");
         }
 
-        if (semanticText.getLocale() == null) {
-            throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
-        }
-
         if (semanticText.getSentences() == null) {
-            throw new IntegrityException("Found semantic text with null locale! Text is '" + semanticText.getText() + "'");
+            throw new IntegrityException("Found semantic text with null sentences! Text is '" + semanticText.getText() + "'");
         }
 
         for (ISentence s : semanticText.getSentences()) {

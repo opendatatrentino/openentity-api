@@ -81,8 +81,9 @@ public interface ISemanticText {
     
     /**
      * Returns a copy of this object with the provided lcoale set.
+     * @param locale null if unknown
      */
-    public ISemanticText withLocale(Locale locale);
+    public ISemanticText withLocale(@Nullable Locale locale);
 
     /**
      * Returns a copy of this object with the provided text set.

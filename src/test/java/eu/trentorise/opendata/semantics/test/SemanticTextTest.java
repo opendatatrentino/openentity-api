@@ -105,6 +105,12 @@ public class SemanticTextTest {
 
     @Test
     public void testEquality() {
+        
+        assertNotEquals(new Meaning("a", 0.1, MeaningKind.CONCEPT), new Meaning("a", 0.1, MeaningKind.ENTITY));
+        assertNotEquals(new Meaning("a", 0.1, MeaningKind.CONCEPT), new Meaning("b", 0.1, MeaningKind.CONCEPT));
+        assertEquals(new Meaning("a", 0.1, MeaningKind.CONCEPT), new Meaning("a", 0.9, MeaningKind.CONCEPT));
+        
+        
         assertEquals(new SemanticText(), new SemanticText());
         assertEquals(new SemanticText("a"), new SemanticText("a"));
 
@@ -113,12 +119,11 @@ public class SemanticTextTest {
 
         Sentence s1 = new Sentence(0, 2);
         Sentence s2 = new Sentence(0, 2);
-
+       
         assertEquals(new SemanticText("ab", Locale.ITALY, s1), new SemanticText("ab", Locale.ITALY, s2));
         assertNotEquals(new SemanticText("ab", Locale.ITALY, s1), new SemanticText("ab", Locale.ITALY));
 
-        assertEquals(new Meaning("a", 0.1, MeaningKind.CONCEPT), new Meaning("a", 0.1, MeaningKind.ENTITY));
-        assertNotEquals(new Meaning("a", 0.1, MeaningKind.CONCEPT), new Meaning("b", 0.1, MeaningKind.CONCEPT));
+
 
         assertEquals(new Word(0, 2, MeaningStatus.INVALID, null, new ArrayList()), new Word(0, 2, MeaningStatus.INVALID, null, new ArrayList()));
         assertNotEquals(new Word(0, 2, MeaningStatus.INVALID, null, new ArrayList()), new Word(0, 3, MeaningStatus.INVALID, null, new ArrayList()));

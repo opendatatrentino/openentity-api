@@ -17,7 +17,6 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge.impl;
 
-import eu.trentorise.opendata.semantics.IntegrityChecker;
 import static eu.trentorise.opendata.semantics.IntegrityChecker.checkSpan;
 import eu.trentorise.opendata.semantics.model.knowledge.IMeaning;
 import eu.trentorise.opendata.semantics.model.knowledge.IWord;
@@ -97,18 +96,23 @@ public class Word implements IWord {
         if (total <= 0) {
             total = meanings.size();
         }
-
+        
+        IMeaning newSelectedMeaning = null;
         for (IMeaning m : meanings) {
-            mgs.add(new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName()));
-        }
-
+            IMeaning newM = new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName());
+            if (newM.equals(selectedMeaning)){
+                newSelectedMeaning = newM;
+            }
+            mgs.add(newM);
+        }        
+        
         Collections.sort(mgs, Collections.reverseOrder());
         this.meanings = Collections.unmodifiableList(mgs);
         this.startOffset = startOffset;
         this.endOffset = endOffset;
         this.meanings = mgs;
         this.meaningStatus = meaningStatus;
-        this.selectedMeaning = selectedMeaning;
+        this.selectedMeaning = newSelectedMeaning;
 
     }
 

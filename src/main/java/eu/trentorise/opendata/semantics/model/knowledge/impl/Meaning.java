@@ -44,15 +44,17 @@ public class Meaning implements IMeaning {
         this.name = new Dict();
     }
 
-    /* Equality is checked only considering the URL */
+    /** Equality is checked only considering the URL and kind */
+    
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + (this.URL != null ? this.URL.hashCode() : 0);
+        int hash = 7;
+        hash = 29 * hash + (this.URL != null ? this.URL.hashCode() : 0);
+        hash = 29 * hash + (this.meaningKind != null ? this.meaningKind.hashCode() : 0);
         return hash;
     }
 
-    /* Equality is checked only considering the URL */
+    /** Equality is checked only considering the URL */    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -65,8 +67,13 @@ public class Meaning implements IMeaning {
         if ((this.URL == null) ? (other.URL != null) : !this.URL.equals(other.URL)) {
             return false;
         }
+        if (this.meaningKind != other.meaningKind) {
+            return false;
+        }
         return true;
     }
+
+    
     
     /**
      *
@@ -123,10 +130,16 @@ public class Meaning implements IMeaning {
             return null;
         }
         if (meanings.size() == 1) {
-            return meanings.iterator().next();
+            IMeaning m = meanings.iterator().next();
+            if (m.getURL() == null){
+                return null;
+            } else {
+                return m;
+            }
         }
 
-        if (meanings.get(0).getProbability() > FACTOR / meanings.size()) {
+        if (meanings.get(0).getProbability() > FACTOR / meanings.size()
+                && meanings.get(0).getURL() != null) {
             return meanings.get(0);
         } else {
             return null;
