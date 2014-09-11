@@ -22,7 +22,7 @@ import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 /**
  *
  * Represents the result of a search for an object that has an URL and a
- * multilingual name, such as entities, concepts and entity types.
+ * multilingual name, such as entity types and concepts.
  *
  * @author David Leoni
  * @date 28 Aug 2014

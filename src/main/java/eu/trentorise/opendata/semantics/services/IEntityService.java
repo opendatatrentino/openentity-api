@@ -20,12 +20,12 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
-
-import javax.annotation.Nullable;
 import java.io.Writer;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Entity services allow CRUD on entities and attributes, and also exporting in
@@ -192,18 +192,18 @@ public interface IEntityService {
 
     /**
      * Returns a list of possible entities with name similar to provided partial
-     * name.
+     * name. Returned entities will belong to provided etype, if any.
      *
      * @param partialName a partial entity name. It is assumed to be in one of
      * the default locales of the ekb.
      * @return a list of candidate entities, ordered by probability. The first
      * one is the most probable.
      */
-    List<ISearchResult> searchEntities(String partialName);
+    List<ISearchResult> searchEntities(String partialName, @Nullable String entityTypeURL);
 
     /**
      * Returns whether or not the URL was generated during calls to assign URL
-     * for deduplication purposes. 
+     * for deduplication purposes.
      */
     public boolean isTemporaryURL(String temporaryEntityURL);
 }

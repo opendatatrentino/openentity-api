@@ -29,8 +29,9 @@ public interface IIDResult {
      * possible matching entities. If the assignment result is NEW, a deep copy
      * of the original entity is returned containing an assigned URL. This new
      * entity will not be stored on the server, though. In order to store it,
-     * call {@link eu.trentorise.opendata.semantics.services.IEntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)
-     * } with the new entity.
+     * call
+     * {@link eu.trentorise.opendata.semantics.services.IEntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)}
+     * with the new entity.
      */
     @Nullable
     IEntity getResultEntity();

@@ -344,4 +344,12 @@ public class Dict implements IDict {
         return toSemText(locales).getText();
     }        
 
+    /** Factory method - if input is already a Dict, it is returned unchanged */
+    public static Dict of(IDict d){
+        if (d instanceof Dict){
+            return (Dict) d;
+        } else {
+            return new Dict(d);
+        }
+    };
 }
