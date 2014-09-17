@@ -205,5 +205,5 @@ public interface IEntityService {
      * Returns whether or not the URL was generated during calls to assign URL
      * for deduplication purposes.
      */
-    public boolean isTemporaryURL(String temporaryEntityURL);
+    boolean isTemporaryURL(String temporaryEntityURL);
 }
