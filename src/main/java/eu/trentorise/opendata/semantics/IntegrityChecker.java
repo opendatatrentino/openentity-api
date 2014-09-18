@@ -601,7 +601,7 @@ public final class IntegrityChecker {
 
         if (DataTypes.STRUCTURE.equals(datatype)) { // for structures we do deep check
             IStructure s = (IStructure) value.getValue();
-            if (attrDef.getRangeEtypeURL() != s.getEtypeURL()){
+            if (!attrDef.getRangeEtypeURL().equals(s.getEtypeURL())){
                 throw new IntegrityException("Found structure value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
                         + "\nStructure etype URL: " + s.getEtypeURL() + "\nAttribute rangeEtypeURL: " + attrDef.getRangeEtypeURL());
             }
