@@ -192,15 +192,11 @@ public class Word implements IWord {
      * A new word is returned with the provided meaning added to the existing
      * meanings and set as the selected meaning.
      */
-    public Word with(MeaningStatus status, IMeaning meaning) {
-        List<Meaning> newMeanings = new ArrayList();
-
-        for (Meaning m : meanings) {
-            newMeanings.add(m);
-        }
-        if (meaning != null) {
-            newMeanings.add(Meaning.copyOf(meaning));        }
-        return new Word(startOffset, endOffset, status, meaning, meanings);
+    public Word with(MeaningStatus status, IMeaning selectedMeaning) {       
+        Word ret = new Word(this);
+        ret.meaningStatus = status;
+        ret.normalizeMeanings(meanings, selectedMeaning);
+        return ret;
     }
 
     /**
@@ -235,7 +231,7 @@ public class Word implements IWord {
      * Normalizes the provided meaning probabilities and the selected meaning
      * accordingly
      *
-     * @param meanings
+     * @param meanings won't be changed by the method
      * @param selectedMeaning
      */
     private void normalizeMeanings(Collection<? extends IMeaning> meanings, IMeaning selectedMeaning) {
