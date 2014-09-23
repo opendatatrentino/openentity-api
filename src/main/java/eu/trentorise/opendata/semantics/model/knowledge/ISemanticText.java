@@ -30,7 +30,7 @@ import javax.annotation.concurrent.Immutable;
  * immutable and implement equals() and hashCode() methods.
  *
  * @author David Leoni <david.leoni@unitn.it>
- * @date 10 Apr 2014
+ * @date 23 Sept 2014
  */
 @Immutable
 public interface ISemanticText {
@@ -45,6 +45,8 @@ public interface ISemanticText {
 
     /**
      * Gets the sentences of the text
+     *
+     * @deprecated we don't really need sentences (for now)
      *
      * @return the sentences in which the text is divided.
      */
@@ -70,26 +72,7 @@ public interface ISemanticText {
      * @return the text of the word, without annotations
      */
     String getText(IWord word);
-    
-    /**
-     * If the semantic text is made of only one word spanning the whole text,
-     * the provided meaning is added to the existing meanings and set as the
-     * main one.
-     * 
-     */
-    public ISemanticText withMeaning(MeaningStatus status, IMeaning meaning);
-    
-    /**
-     * Returns a copy of this object with the provided lcoale set.
-     * @param locale null if unknown
-     */
-    public ISemanticText withLocale(@Nullable Locale locale);
 
-    /**
-     * Returns a copy of this object with the provided text set.
-     */    
-    public ISemanticText withText(String text);
-        
     /**
      * Convenience method. If the semantic text is made of only one word
      * spanning the whole text, it is given back.
@@ -98,5 +81,12 @@ public interface ISemanticText {
      * otherwise.
      */
     @Nullable
-    public IWord getWord();    
+    public IWord getWord();
+
+    /**
+     * Gets all the words in the text (regardless of the sentences).
+     */
+    List<? extends IWord> getWords();
+    
+    
 }

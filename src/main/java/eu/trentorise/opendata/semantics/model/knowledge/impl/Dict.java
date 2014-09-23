@@ -34,7 +34,7 @@ import javax.annotation.concurrent.Immutable;
  * @author David Leoni
  */
 /**
- * An immutable dictionary of translations
+ * An immutable dictionary copyOf translations
  *
  * @author David Leoni
  */
@@ -47,7 +47,7 @@ public class Dict implements IDict {
         translations = new HashMap<Locale, List<String>>();
     }
 
-    public Dict(@Nullable IDict dict) {
+    protected Dict(@Nullable IDict dict) {
         this();
         if (dict != null) {
             for (Locale loc : dict.getLocales()) {
@@ -78,7 +78,7 @@ public class Dict implements IDict {
      * Sets english translation to provided text
      *
      * @param text the given text in the fiven locale
-     * @param locale the locale of the provided text
+     * @param locale the locale copyOf the provided text
      */
     public Dict(final String text, Locale locale) {
         this();
@@ -170,8 +170,8 @@ public class Dict implements IDict {
     }
 
     /**
-     * A valid string is not null, non-empty, and is not made of the evil string
-     * "null". 
+     * A valid string is not null, non-empty, and is not made copyOf the evil string
+ "null". 
      *
      */
     private boolean isValid(String s) {
@@ -244,7 +244,13 @@ public class Dict implements IDict {
         return nmot;
     }
 
-    public IDict merge(IDict dict) {
+    /**
+     * Merges dictionary with provided one to create a new dictionary.
+     *
+     * @param dict
+     * @return a new dictionary resulting from the merge.
+     */    
+    public Dict merge(IDict dict) {
         Dict ret = new Dict(this);
         for (Locale locale : dict.getLocales()) {
             if (ret.translations.containsKey(locale)) {
@@ -345,11 +351,12 @@ public class Dict implements IDict {
     }        
 
     /** Factory method - if input is already a Dict, it is returned unchanged */
-    public static Dict of(IDict d){
+    public static Dict copyOf(IDict d){
         if (d instanceof Dict){
             return (Dict) d;
         } else {
             return new Dict(d);
         }
     };
+       
 }

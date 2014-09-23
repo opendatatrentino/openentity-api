@@ -69,14 +69,6 @@ public interface IDict {
     boolean contains(String text);
 
     /**
-     * Merges dictionary with provided one to create a new dictionary.
-     *
-     * @param dict
-     * @return a new dictionary resulting from the merge.
-     */
-    IDict merge(IDict dict);
-
-    /**
      * @return the number of translations present in the dictionary
      */
     int translationsCount();
