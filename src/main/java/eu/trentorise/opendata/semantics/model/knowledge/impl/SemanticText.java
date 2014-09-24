@@ -218,7 +218,6 @@ public class SemanticText implements Serializable, ISemanticText {
         return true;
     }
 
-    @Override
     public Word getWord() {
         if (!(getSentences().size() == 1)) {
             return null;
@@ -260,7 +259,6 @@ public class SemanticText implements Serializable, ISemanticText {
         return ret;
     }
 
-    @Override
     public List<? extends Word> getWords() {
         List<Word> ret = new ArrayList();
         for (Sentence s : sentences) {

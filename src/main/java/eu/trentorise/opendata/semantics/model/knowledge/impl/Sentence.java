@@ -100,7 +100,6 @@ public class Sentence implements ISentence {
         }
     }
     
-    @Override
     public List<? extends Word> getWords() {
         return words;
     }

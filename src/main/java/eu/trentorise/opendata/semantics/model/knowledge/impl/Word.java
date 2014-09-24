@@ -110,7 +110,6 @@ public class Word implements IWord {
     /**
      * @return the meanings sorted, the first having the highest probability
      */
-    @Override
     public List<? extends IMeaning> getMeanings() {
         return meanings;
     }
