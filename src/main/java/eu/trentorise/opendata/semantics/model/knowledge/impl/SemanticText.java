@@ -372,9 +372,9 @@ public class SemanticText implements Serializable, ISemanticText {
                     newWords.add(wordToAdd);
                 }
             }
-            do {
+            while (curOrigWord != null && curOrigWord.getStartOffset() < wordToAdd.getEndOffset()){
                 curOrigWord = nextWord(origWordIter);
-            } while (curOrigWord != null && curOrigWord.getStartOffset() < wordToAdd.getEndOffset());
+            }
         }
 
         while (curOrigWord != null
