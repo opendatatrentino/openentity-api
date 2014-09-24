@@ -591,7 +591,7 @@ public final class IntegrityChecker {
         if (value.getValue() == null) {
             throw new IntegrityException("Found null object in value " + value.getLocalID());
         }
-
+//here
         if (DataTypes.getDataTypes().get(datatype) == null){
             throw new IntegrityException("Found unsupported datatype " + datatype + " in value " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
         }
