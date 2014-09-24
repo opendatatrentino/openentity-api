@@ -20,7 +20,6 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 import java.io.Writer;
@@ -110,24 +109,14 @@ public interface IEntityService {
 
     /**
      * Creates an attribute of the specified attribute definition kind and fills
-     * it with provided values.
-     *
-     * @param attrDef the attribute definition of the attribute to create
-     * @param values the values to set in the attribute. They must belong to
-     * supported types in {@link
-     *                eu.trentorise.opendata.semantics.services.model.DataTypes}
-     * @return the attribute with the provided values
-     */
-    IAttribute createAttribute(IAttributeDef attrDef, List<Object> values);
-
-    /**
-     * Creates an attribute of the specified attribute definition kind and fills
      * it with the provided value.
      *
      * @param attrDef the attribute definition of the attribute to create
      * @param value the value to set in the attribute. It must belong to
      * supported types in {@link
-     *                eu.trentorise.opendata.semantics.services.model.DataTypes}
+     *                eu.trentorise.opendata.semantics.services.model.DataTypes} or be a
+     * Collection of supported values
+     *
      * @return the attribute with the provided values
      */
     IAttribute createAttribute(IAttributeDef attrDef, Object value);

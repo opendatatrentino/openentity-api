@@ -30,23 +30,9 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 8, 2014
+ * @date Sept 24, 2014
  */
 public interface IKnowledgeService {
-
-    /*
-     * Reading words by lemma
-     * @param wordLemma the word's lemma
-     * @return the list of words that have this lemma
-     *
-    List<IWord> readByWordLemma(String wordLemma);
-
-    /**
-     * Reading a word by a prefix
-     * @param prefix the prefix of the words to be found
-     * @return the list of words that starts with the given prefix
-     *
-    List<IWord> readByWordPrefix(String prefix); */
 
     /**
      * Returns the concepts with the given URLs
@@ -81,7 +67,7 @@ public interface IKnowledgeService {
      * Returns the concepts with the given URLs
      *
      * @param URL the URL of a concept
-     * @return The concept. If not found, null is returned instead,
+     * @return The concept. Returns null if the concept is not found.
      */
     @Nullable
     IConcept readConcept(String URL);    
@@ -97,8 +83,9 @@ public interface IKnowledgeService {
     /**
      * Returns the parent of all concepts
      *
-     * @return the parent of all concepts
-     */
+     * @return the parent of all concepts. 
+     * @throws UnsupportedOperationException if concepts are not supported by the Ekb.
+     */    
     IConcept readRootConcept();
     
     /**
