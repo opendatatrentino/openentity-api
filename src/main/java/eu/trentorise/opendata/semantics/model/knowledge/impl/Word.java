@@ -24,20 +24,22 @@ import eu.trentorise.opendata.semantics.model.knowledge.MeaningStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
  * @author David Leoni <david.leoni@unitn.it>
- * @date 11 Apr 2014
+ * @date 23 Sept 2014
  */
 @Immutable
 public class Word implements IWord {
 
     private int startOffset;
     private int endOffset;
-    private List<IMeaning> meanings;
+    private List<? extends Meaning> meanings;
     @Nullable
     private IMeaning selectedMeaning;
     @Nullable
@@ -48,9 +50,9 @@ public class Word implements IWord {
      * normalized so total sum is 1.0
      *
      * @param startOffset
-     * @param endOffset the position of the character immediately *after* the
-     * word itself. Position is absolute with respect to the text stored in the
-     * SemanticText container.
+     * @param endOffset the position copyOf the character immediately *after* the
+ word itself. Position is absolute with respect to the text stored in the
+ SemanticText container.
      */
     public Word(int startOffset,
             int endOffset,
@@ -67,17 +69,19 @@ public class Word implements IWord {
     }
 
     /**
-     * Constructor for a Word. Meaning probabilities are normalized so total sum
-     * is 1.0
+     * Constructors a Word. Meaning probabilities are stored deduplicated and
+     * normalized so total sum is 1.0 . The selected meaning if not null is also
+     * merged in the meanings.
      *
      * @param startOffset
-     * @param endOffset the position of the character immediately *after* the
-     * word itself. Position is absolute with respect to the text stored in the
-     * SemanticText container.
+     * @param endOffset the position copyOf the character immediately *after* the
+ word itself. Position is absolute with respect to the text stored in the
+ SemanticText container.
      * @param meaningStatus
      * @param selectedMeaning
      * @param meanings a new collection is created internally to store the
-     * meanings.
+     * deduplicated meanings. If the selectedMeaning is present it is merged in
+     * the stored meanings
      */
     public Word(int startOffset,
             int endOffset,
@@ -87,32 +91,11 @@ public class Word implements IWord {
 
         checkSpan(startOffset, endOffset);
 
-        List<IMeaning> mgs = new ArrayList<IMeaning>();
+        normalizeMeanings(meanings, selectedMeaning);
 
-        float total = 0;
-        for (IMeaning m : meanings) {
-            total += m.getProbability();
-        }
-        if (total <= 0) {
-            total = meanings.size();
-        }
-        
-        IMeaning newSelectedMeaning = null;
-        for (IMeaning m : meanings) {
-            IMeaning newM = new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName());
-            if (newM.equals(selectedMeaning)){
-                newSelectedMeaning = newM;
-            }
-            mgs.add(newM);
-        }        
-        
-        Collections.sort(mgs, Collections.reverseOrder());
-        this.meanings = Collections.unmodifiableList(mgs);
         this.startOffset = startOffset;
         this.endOffset = endOffset;
-        this.meanings = mgs;
         this.meaningStatus = meaningStatus;
-        this.selectedMeaning = newSelectedMeaning;
 
     }
 
@@ -125,10 +108,10 @@ public class Word implements IWord {
     }
 
     /**
-     *
      * @return the meanings sorted, the first having the highest probability
      */
-    public List<IMeaning> getMeanings() {
+    @Override
+    public List<? extends IMeaning> getMeanings() {
         return meanings;
     }
 
@@ -185,23 +168,101 @@ public class Word implements IWord {
         return true;
     }
 
-    public IWord withMeaning(MeaningStatus status, IMeaning meaning) {        
-        List<IMeaning> newMeanings = new ArrayList();        
-        
-        for (IMeaning m : meanings){
-            newMeanings.add(m);
-        }
-        if (meaning != null) {             
-            newMeanings.add(meaning);
-        }
-        return new Word(startOffset, endOffset, status, meaning, meanings);        
-    }
-
-    public Word(IWord word){
+    public Word(IWord word) {
         this.startOffset = word.getStartOffset();
         this.endOffset = word.getEndOffset();
         this.meaningStatus = word.getMeaningStatus();
-        this.meanings = word.getMeanings();
+        List<Meaning> ms = new ArrayList();
+        for(IMeaning m : word.getMeanings()){
+            ms.add(Meaning.copyOf(m));
+        }
+        this.meanings = Collections.unmodifiableList(ms);
         this.selectedMeaning = word.getSelectedMeaning();
     }
+
+    public static Word copyOf(IWord word) {
+        if (word instanceof Word) {
+            return (Word) word;
+        } else {
+            return new Word(word);
+        }
+    }
+
+    /**
+     * A new word is returned with the provided meaning added to the existing
+     * meanings and set as the selected meaning.
+     */
+    public Word with(MeaningStatus status, IMeaning selectedMeaning) {       
+        Word ret = new Word(this);
+        ret.meaningStatus = status;
+        ret.normalizeMeanings(meanings, selectedMeaning);
+        return ret;
+    }
+
+    /**
+     * A new word is returned with the provided meanings merged to the existing
+     * ones.
+     */
+    public Word add(Collection<? extends IMeaning> meanings) {
+
+        Set<IMeaning> newMeanings = new HashSet();
+
+        for (IMeaning m1 : this.meanings) {
+            newMeanings.add(m1);
+        }
+        for (IMeaning m2 : meanings) {
+            newMeanings.add(m2);
+        }
+        return this.with(newMeanings);
+    }
+
+    /**
+     * Returns a new word with the provided meanings. If current selected
+     * meaning is not among the new meanings, the stored meanings will also have
+     * the current selected meaning.
+     */
+    public Word with(Collection<? extends IMeaning> meanings) {
+        Word ret = new Word(this);
+        ret.normalizeMeanings(meanings, selectedMeaning);
+        return ret;
+    }
+
+    /**
+     * Normalizes the provided meaning probabilities and the selected meaning
+     * accordingly
+     *
+     * @param meanings won't be changed by the method
+     * @param selectedMeaning
+     */
+    private void normalizeMeanings(Collection<? extends IMeaning> meanings, IMeaning selectedMeaning) {
+
+        Set<IMeaning> dedupMeanings = new HashSet(meanings);
+        if (selectedMeaning != null){
+            dedupMeanings.add(selectedMeaning);
+        }
+
+        float total = 0;
+        for (IMeaning m : dedupMeanings) {
+            total += m.getProbability();
+        }
+        if (total <= 0) {
+            total = dedupMeanings.size();
+        }
+
+        Meaning newSelectedMeaning = null;
+        List<Meaning> mgs = new ArrayList();
+        for (IMeaning m : dedupMeanings) {
+            Meaning newM = new Meaning(m.getURL(), m.getProbability() / total, m.getKind(), m.getName());
+            if (newM.equals(selectedMeaning)) {
+                newSelectedMeaning = newM;
+            }
+            mgs.add(newM);
+        }
+
+        Collections.sort(mgs, Collections.reverseOrder());
+
+        this.meanings = Collections.unmodifiableList(mgs);
+        this.selectedMeaning = newSelectedMeaning;
+    }
+
 }

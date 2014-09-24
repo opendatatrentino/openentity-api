@@ -35,7 +35,6 @@ import eu.trentorise.opendata.semantics.services.model.DataTypes;
 import eu.trentorise.opendata.semantics.services.model.IAttributeCorrespondence;
 import eu.trentorise.opendata.semantics.services.model.IIDResult;
 import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
-import static eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence.SCORE_TOLERANCE;
 import java.util.List;
 import java.util.Locale;
 
@@ -602,6 +601,10 @@ public final class IntegrityChecker {
 
         if (DataTypes.STRUCTURE.equals(datatype)) { // for structures we do deep check
             IStructure s = (IStructure) value.getValue();
+            if (!attrDef.getRangeEtypeURL().equals(s.getEtypeURL())){
+                throw new IntegrityException("Found structure value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
+                        + "\nStructure etype URL: " + s.getEtypeURL() + "\nAttribute rangeEtypeURL: " + attrDef.getRangeEtypeURL());
+            }
             checkStructure(s, synthetic);
         }
 

@@ -37,7 +37,7 @@ public class Meaning implements IMeaning {
     private MeaningKind meaningKind;
     private IDict name;
 
-    protected Meaning(){
+   protected Meaning(){
         this.URL = "";
         this.probability = 0.0;
         this.meaningKind = MeaningKind.CONCEPT;
@@ -77,7 +77,7 @@ public class Meaning implements IMeaning {
     
     /**
      *
-     * @param URL the URL of the entity or concept this meaning represents.      
+     * @param URL the URL copyOf the entity or concept this meaning represents.      
      * @param probability Must be greater or equal than 0
      * @param meaningKind The kind can be either an entity or a concept.
      */
@@ -87,8 +87,8 @@ public class Meaning implements IMeaning {
     
     /**
      *
-     * @param URL the URL of the entity or concept this meaning represents. 
-     * @param name the name of the entity or concept this meaning represents. 
+     * @param URL the URL copyOf the entity or concept this meaning represents. 
+     * @param name the name copyOf the entity or concept this meaning represents. 
      * @param probability Must be greater or equal than 0
      * @param meaningKind The kind can be either an entity or a concept.
      */
@@ -118,12 +118,12 @@ public class Meaning implements IMeaning {
      * Determines the best meaning among the given one according to theIR
      * probabilities. If no best meaning is found null is returned.
      *
-     * @param meanings a sorted list of meanings
+     * @param meanings a sorted list copyOf meanings
      * @return the disambiguated meaning or null if no meaning can be clearly
      * dismabiguated.
      */
     @Nullable
-    public static IMeaning disambiguate(List<IMeaning> meanings) {
+    public static IMeaning disambiguate(List<? extends IMeaning> meanings) {
         final double FACTOR = 1.5;
 
         if (meanings.isEmpty()) {
@@ -163,5 +163,18 @@ public class Meaning implements IMeaning {
         return name;
     }
     
-   
+    private Meaning(IMeaning meaning){
+        this.URL = meaning.getURL();
+        this.meaningKind = meaning.getKind();
+        this.name = meaning.getName();
+        this.probability = meaning.getProbability();
+    }
+    
+    public static Meaning copyOf(IMeaning meaning){
+        if (meaning instanceof Meaning){
+            return (Meaning) meaning;
+        } else {
+            return new Meaning(meaning);
+        }
+    }
 }

@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -39,8 +40,8 @@ public interface IWord {
      * character of the word, so for word "see" in "I see a car" text endOffset
      * would be 5.
      */
-    int getEndOffset();
-
+    int getEndOffset();   
+    
     /**
      * <ol>
      * <li> NEW: {@link #getSelectedMeaning()} returns a meaning of an
@@ -57,7 +58,7 @@ public interface IWord {
      *
      * Returns the sorted meanings, the first having the highest probability
      */
-    List<IMeaning> getMeanings();
+    List<? extends IMeaning> getMeanings();
 
     /**
      *
@@ -76,10 +77,5 @@ public interface IWord {
      * so for token "see" in "I see a car" text startOffset would be 2.
      */
     int getStartOffset();
-
-    /**
-     * A new word is returned with the provided meaning added to the existing
-     * meanings and set as the main one.
-     */
-    public IWord withMeaning(MeaningStatus status, IMeaning meaning);
+              
 }

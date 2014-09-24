@@ -51,7 +51,7 @@ import java.util.Set;
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Sept 4, 2014
+ * @date Sept 17, 2014
  *
  */
 public final class DataTypes {
@@ -69,6 +69,9 @@ public final class DataTypes {
     public static final String SEMANTIC_TEXT = "oe:semantic-text";    
     public static final String STRUCTURE = "oe:structure";
     public static final String ENTITY = "oe:entity";
+    
+    public static final String ATTRDEF = "oe:attrdef";
+    public static final String ETYPE = "oe:etype";
 
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap<String, String>();
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap<String, String>();

@@ -33,10 +33,11 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public class Sentence implements ISentence {
 
+
     private int startOffset;
     private int endOffset;
 
-    private List<? extends IWord> words;
+    private List<? extends Word> words;
 
     public Sentence(int startOffset, int endOffset) {
         checkSpan(startOffset, endOffset);
@@ -44,9 +45,20 @@ public class Sentence implements ISentence {
         this.startOffset = startOffset;
         this.endOffset = endOffset;
 
-        this.words = Collections.unmodifiableList(new ArrayList<IWord>());
+        this.words = Collections.unmodifiableList(new ArrayList());
     }
 
+    private Sentence(ISentence sentence){
+        this.startOffset = sentence.getStartOffset();
+        this.endOffset = sentence.getEndOffset();
+        List<Word> ws = new ArrayList();
+        for (IWord w : sentence.getWords()){
+            Word wz = Word.copyOf(w);
+            ws.add(wz);
+        }
+        this.words = Collections.unmodifiableList(ws);
+    }
+    
     public Sentence(int startOffset, int endOffset, List<? extends IWord> words) {
         this(startOffset, endOffset);
         if (!words.isEmpty()) {
@@ -58,30 +70,38 @@ public class Sentence implements ISentence {
             }
         }
 
-        List<IWord> lst = new ArrayList<IWord>();
+        List<Word> lst = new ArrayList();
         IWord prevWord = null;
-        for (IWord st : words) {
-            if (prevWord != null && st.getStartOffset() < prevWord.getEndOffset()){                  
-                throw new IllegalArgumentException("There cannot be overlapping words! Word " + prevWord + " overlaps with word " + st + " !");                
+        for (IWord w : words) {
+            if (prevWord != null && w.getStartOffset() < prevWord.getEndOffset()){                  
+                throw new IllegalArgumentException("There cannot be overlapping words! Word " + prevWord + " overlaps with word " + w + " !");                
             }
-            prevWord = st;
-            lst.add(st);
+            prevWord = w;
+            lst.add(Word.copyOf(w));
         }
         this.words = Collections.unmodifiableList(lst);
     }
 
     /**
-     * Creates a sentence of one word.
+     * Creates a sentence copyOf one word.
      */
     public Sentence(int startOffset, int endOffset, IWord word) {
         this(startOffset, endOffset);
-        List<IWord> lst = new ArrayList<IWord>();
-        lst.add(word);
+        List<Word> lst = new ArrayList<Word>();
+        lst.add(Word.copyOf(word));
         this.words = Collections.unmodifiableList(lst);
     }
 
+    static public Sentence copyOf(ISentence ss) {
+        if (ss instanceof Sentence){
+            return (Sentence) ss;
+        } else {
+            return new Sentence(ss);
+        }
+    }
     
-    public List<? extends IWord> getWords() {
+    @Override
+    public List<? extends Word> getWords() {
         return words;
     }
 
