@@ -23,7 +23,9 @@ import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 
 import javax.annotation.Nullable;
+
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Entity type services allow reading and modifying entity types
@@ -78,7 +80,7 @@ public interface IEntityTypeService {
      * @param partialName a partial entity type name. It is assumed to be in one of the default locales of the ekb.
      * @return a list of candidate entity types, ordered by probability. The first one is the most probable.
      */
-    List<ISearchResult> searchEntityTypes(String partialName);
+    List<ISearchResult> searchEntityTypes(String partialName, Locale locale);
 
     /**
      * Adds an attribute definition to an entity type
