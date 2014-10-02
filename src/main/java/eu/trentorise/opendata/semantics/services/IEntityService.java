@@ -22,8 +22,11 @@ import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
+
 import java.io.Writer;
 import java.util.List;
+import java.util.Locale;
+
 import javax.annotation.Nullable;
 
 /**
@@ -188,7 +191,7 @@ public interface IEntityService {
      * @return a list of candidate entities, ordered by probability. The first
      * one is the most probable.
      */
-    List<ISearchResult> searchEntities(String partialName, @Nullable String entityTypeURL);
+    List<ISearchResult> searchEntities(String partialName, @Nullable String entityTypeURL, Locale locale);
 
     /**
      * Returns whether or not the URL was generated during calls to assign URL

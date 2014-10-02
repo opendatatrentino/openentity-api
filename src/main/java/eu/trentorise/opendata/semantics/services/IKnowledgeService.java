@@ -22,7 +22,9 @@ import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 
 import javax.annotation.Nullable;
+
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Knowledge services are used to read words from the a knowledge base.
@@ -94,5 +96,5 @@ public interface IKnowledgeService {
      * @param partialName a partial concept name. It is assumed to be in one of the default locales of the ekb.
      * @return a list of candidate entities, ordered by probability. The first one is the most probable.
      */
-    List<ISearchResult> searchConcepts(String partialName);    
+    List<ISearchResult> searchConcepts(String partialName, Locale locale);    
 }
