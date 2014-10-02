@@ -17,6 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import eu.trentorise.opendata.semantics.services.IEntityService;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -40,16 +41,17 @@ public interface IWord {
      * character of the word, so for word "see" in "I see a car" text endOffset
      * would be 5.
      */
-    int getEndOffset();   
-    
+    int getEndOffset();
+
     /**
      * <ol>
      * <li> NEW: {@link #getSelectedMeaning()} returns a meaning of an
      * entity/concept yet to be created on the server, with a temporary URL</li>
-     *  
+     *
      * <li> SELECTED: {@link #getSelectedMeaning()} will return the selected
      * meaning</li>
      * </ol>
+     *
      * @see MeaningStatus
      */
     MeaningStatus getMeaningStatus();
@@ -63,10 +65,12 @@ public interface IWord {
     /**
      *
      * Returns the selected meaning. If {@link #getMeaningStatus()} is different
-     * from SELECTED or NEW it MAY return a meaning, which would be the 'best' among
-     * the getMeanings(). In case {@link #getMeaningStatus()} returns NEW, this
-     * function MUST return a meaning of an entity/concept yet to be created on
-     * the server, with a temporary URL.
+     * from SELECTED or NEW it MAY return a meaning, which would be the 'best'
+     * among the getMeanings(). In case {@link #getMeaningStatus()} returns NEW,
+     * this function MUST return a meaning of an entity/concept yet to be
+     * created on the server, with a temporary URL. Temporary URLs are
+     * recognized with {@link IEntityService#isTemporaryURL(java.lang.String)}
+     * method.
      */
     @Nullable
     IMeaning getSelectedMeaning();
@@ -77,5 +81,5 @@ public interface IWord {
      * so for token "see" in "I see a car" text startOffset would be 2.
      */
     int getStartOffset();
-              
+
 }

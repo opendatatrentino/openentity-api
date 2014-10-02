@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Equality is checked only considering the URL
+ * Equality is checked only considering the URL and kind
  * @author David Leoni <david.leoni@unitn.it>
  * @date 11 Apr 2014
  */
@@ -54,7 +54,7 @@ public class Meaning implements IMeaning {
         return hash;
     }
 
-    /** Equality is checked only considering the URL */    
+    /** Equality is checked only considering the URL and kind */    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

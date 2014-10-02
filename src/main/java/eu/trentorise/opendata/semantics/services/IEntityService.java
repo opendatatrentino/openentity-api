@@ -161,7 +161,7 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export
+     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated rdf
      */
     void exportToRdf(List<String> entityURLs, Writer writer);
@@ -169,7 +169,7 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export
+     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated jsonld
      */
     void exportToJsonLd(List<String> entityURLs, Writer writer);
@@ -177,7 +177,7 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export
+     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated csv
      */
     void exportToCsv(List<String> entityURLs, Writer writer);
