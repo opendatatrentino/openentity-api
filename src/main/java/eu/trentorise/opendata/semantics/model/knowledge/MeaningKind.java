@@ -17,11 +17,26 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
+import eu.trentorise.opendata.semantics.services.model.DataTypes;
+
 /**
  * @author David Leoni <david.leoni@unitn.it>
- * @date 10 Apr 2014
+ * @date 06 Oct 2014
  */
-public enum MeaningKind {
+public enum MeaningKind {    
     ENTITY,
-    CONCEPT
+    CONCEPT;
+    
+    /** 
+     * @param datatype either {@link DataTypes#CONCEPT} or {@link DataTypes#ENTITY}
+     */
+    public static MeaningKind from(String datatype){
+        if (DataTypes.ENTITY.equals(datatype)){
+            return ENTITY;
+        }
+        if (DataTypes.CONCEPT.equals(datatype)){
+            return CONCEPT;
+        }
+        throw new IllegalArgumentException("Error while creating MeaningKind. Provided string ->" + datatype + "<- doesn't contain any supported datatype!");
+    }
 }

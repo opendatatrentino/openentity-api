@@ -84,10 +84,10 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(BOOLEAN, "Boolean");
         DATATYPE_PRETTY_NAMES_EN.put(DATE, "Date");
         DATATYPE_PRETTY_NAMES_EN.put(INTEGER, "Integer");
-        DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Single precision Number");
+        DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Single precision number");
         DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
         DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
-        DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Natural language text");        
+        DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Semantic text");        
         DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);

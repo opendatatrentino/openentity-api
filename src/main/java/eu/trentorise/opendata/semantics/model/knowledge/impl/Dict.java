@@ -321,6 +321,7 @@ public class Dict implements IDict {
         return true;
     }
 
+    @Override
     public ISemanticText toSemText(List<Locale> locales){
         for (Locale loc : locales) {
             String t = getValidTranslation(loc);

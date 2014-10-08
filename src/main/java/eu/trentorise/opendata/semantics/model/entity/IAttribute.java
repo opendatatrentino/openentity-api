@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * An attribute is used in entities. It holds one or more values.
+ * An attribute is used in entities. It holds one or more values. null values are not allowed.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
@@ -80,7 +80,7 @@ public interface IAttribute {
     /**
      * Returns all the value of the attribute
      *
-     * @return immutable list of all values of the attribute. It can be empty.
+     * @return immutable list of all values of the attribute. It can be empty. Null values are not allowed.
      */
     List<IValue> getValues();
 
