@@ -60,7 +60,7 @@ public interface IEntityService {
      * @param entity the entity to be created. Will not be changed by the
      * method. URL of the provided entity will be ignored. If an equal entity is
      * already present in the server, a duplicate with different URL will be
-     * created.
+     * created. All linked entities must exist on the server.
      * @return the URL of the newly created entity
      */
     String createEntityURL(IEntity entity);

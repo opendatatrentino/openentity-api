@@ -17,11 +17,11 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * The NLP interface provides natural language processing services such as named
@@ -30,7 +30,7 @@ import java.util.List;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 12, 2014
+ * @date Oct 08, 2014
  */
 public interface INLPService {
 
@@ -55,50 +55,17 @@ public interface INLPService {
     String guessType(List<String> cellList);
 
     /**
-     * Takes a natural language string and returns concepts and entities
-     * disambiguated
-     *
-     * @param text an input natural language string
-     * @return the natural language text object with all the entities and
-     * concepts found and disambiguated
-     */
-    ISemanticText runNLP(String text);
-
-    /**
-     * Takes natural language strings and returns concepts and entities
-     * disambiguated
-     *
-     * @param texts an input natural language string
-     * @return the texts enriched with all the entities and concepts found and
-     * disambiguated when there is sufficient confidence
-     */
-    List<ISemanticText> runNLP(List<String> texts);
-
-
-    /**
-     * Takes natural language strings and returns entities disambiguated
-     *
-     * @param texts an input natural language string
-     * @return the texts enriched with all the entities found and
-     * disambiguated when there is sufficient confidence.
-     */
-    List<ISemanticText> runNER(List<String> texts);
-
-
-
-    /**
      * Takes natural language strings and assigns to each string candidate
-     * concepts meanings. All the candidate concepts will descend from the
-     * provided parent concept.
+     * concept or entity meanings according to the domainURL. If a concept domain
+     * is provided, all the candidate meanings will be concepts descending from
+     * the provided concept. If an entity type domain is provided, all the candidate
+     * meanings will be entities having as ancestor type the provided etype.
      *
      * @param texts an input natural language string
-     * @param parentConcept the concept from which all the resulting concepts
-     * will descend from.
+     * @param domainURL Either null, an entity type URL or a concept URL. 
      * @return the list of enriched strings, one for each of the provided texts.
-     * Each enriched string will be a semantic text of only one sentence and one
-     * word. All the candidate meanings will be concepts descending from
-     * parentConcept.
+     * Each enriched string will be a semantic text of only one word.
      */
-    List<ISemanticText> runNLP(List<String> texts, IConcept parentConcept);
+    List<ISemanticText> runNLP(List<String> texts, @Nullable String domainURL);
 
 }
