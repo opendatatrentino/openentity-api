@@ -28,7 +28,7 @@ import java.util.List;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Mar 27, 2014
+ * @date 15 Oct, 2014
  *
  */
 public interface IIdentityService {
@@ -42,5 +42,5 @@ public interface IIdentityService {
      * entity to match
      * @return a list of reconciliation results, one for each input entity.
      */
-    List<IIDResult> assignURL(List<IEntity> entities, int numCandidates);
+    List<? extends IIDResult> assignURL(List<? extends IEntity> entities, int numCandidates);
 }

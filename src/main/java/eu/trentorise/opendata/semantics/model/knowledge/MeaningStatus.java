@@ -43,7 +43,7 @@ public enum MeaningStatus {
      */
     NEW,
     /**
-     * The entity/concept have candidates that are too similar in the knowledge
+     * The entity/concept has candidates that are too similar in the knowledge
      * base
      */
     NOT_SURE,

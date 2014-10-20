@@ -93,7 +93,7 @@ public interface IKnowledgeService {
     /**
      * Returns a list of possible concepts with name similar to provided partial name.
      *
-     * @param partialName a partial concept name. It is assumed to be in one of the default locales of the ekb.
+     * @param partialName a partial concept name. It is assumed to be in the provided locale.
      * @return a list of candidate entities, ordered by probability. The first one is the most probable.
      */
     List<ISearchResult> searchConcepts(String partialName, Locale locale);    

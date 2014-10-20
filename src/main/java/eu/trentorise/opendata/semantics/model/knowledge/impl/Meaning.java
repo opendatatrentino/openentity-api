@@ -34,13 +34,13 @@ public class Meaning implements IMeaning {
 
     private String URL;
     private double probability;
-    private MeaningKind meaningKind;
+    private MeaningKind kind;
     private IDict name;
 
    protected Meaning(){
         this.URL = "";
         this.probability = 0.0;
-        this.meaningKind = MeaningKind.CONCEPT;
+        this.kind = MeaningKind.CONCEPT;
         this.name = new Dict();
     }
 
@@ -50,7 +50,7 @@ public class Meaning implements IMeaning {
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + (this.URL != null ? this.URL.hashCode() : 0);
-        hash = 29 * hash + (this.meaningKind != null ? this.meaningKind.hashCode() : 0);
+        hash = 29 * hash + (this.kind != null ? this.kind.hashCode() : 0);
         return hash;
     }
 
@@ -67,7 +67,7 @@ public class Meaning implements IMeaning {
         if ((this.URL == null) ? (other.URL != null) : !this.URL.equals(other.URL)) {
             return false;
         }
-        if (this.meaningKind != other.meaningKind) {
+        if (this.kind != other.kind) {
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public class Meaning implements IMeaning {
         }
         this.URL = URL;
         this.probability = probability;
-        this.meaningKind = meaningKind;
+        this.kind = meaningKind;
         this.name = name;
     }
 
@@ -156,7 +156,7 @@ public class Meaning implements IMeaning {
     }
 
     public MeaningKind getKind() {
-        return meaningKind;
+        return kind;
     }
 
     public IDict getName() {
@@ -165,7 +165,7 @@ public class Meaning implements IMeaning {
     
     private Meaning(IMeaning meaning){
         this.URL = meaning.getURL();
-        this.meaningKind = meaning.getKind();
+        this.kind = meaning.getKind();
         this.name = meaning.getName();
         this.probability = meaning.getProbability();
     }

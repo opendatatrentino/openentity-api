@@ -20,7 +20,10 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
+import eu.trentorise.opendata.semantics.services.model.ISearchResult;
+import eu.trentorise.opendata.semantics.services.model.IWordSearchResult;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.Nullable;
 
 /**
@@ -68,4 +71,11 @@ public interface INLPService {
      */
     List<ISemanticText> runNLP(List<String> texts, @Nullable String domainURL);
 
+    /** 
+     * Searches for concepts or entities 
+     * 
+     * @param partialName a partial entity or concept name. It is assumed to be in the provided locale.
+     * @return a list of candidate entities and/or concepts, ordered by probability. The first one is the most probable.
+     */
+    List<IWordSearchResult> freeSearch(String partialName, Locale locale);          
 }
