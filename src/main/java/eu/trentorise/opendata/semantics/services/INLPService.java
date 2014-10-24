@@ -20,7 +20,6 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
-import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 import eu.trentorise.opendata.semantics.services.model.IWordSearchResult;
 import java.util.List;
 import java.util.Locale;

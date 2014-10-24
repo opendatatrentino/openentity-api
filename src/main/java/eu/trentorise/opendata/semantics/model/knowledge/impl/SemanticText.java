@@ -59,8 +59,8 @@ public class SemanticText implements Serializable, ISemanticText {
     public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable final IMeaning selectedMeaning) {
         this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning,
                 selectedMeaning == null
-                ? new ArrayList()
-                : new ArrayList() {
+                        ? new ArrayList()
+                        : new ArrayList() {
                     {
                         add(selectedMeaning);
                     }
@@ -99,9 +99,8 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * @deprecated
-     * @param sentences a list copyOf sentences. Internally, a new copy copyOf it is
- created.
+     * @deprecated @param sentences a list copyOf sentences. Internally, a new
+     * copy copyOf it is created.
      */
     public SemanticText(String text, @Nullable Locale locale, Collection<? extends ISentence> sentences) {
         this(text, locale);
@@ -115,7 +114,7 @@ public class SemanticText implements Serializable, ISemanticText {
 
     /**
      * @param sentence a list of sentences. Internally, a new copy copyOf it is
- created.
+     * created.
      * @deprecated
      */
     public SemanticText(String text, Locale locale, final ISentence sentence) {
@@ -134,13 +133,15 @@ public class SemanticText implements Serializable, ISemanticText {
         });
     }
 
-    /** todo make private */
+    /**
+     * todo make private
+     */
     protected SemanticText(ISemanticText semText) {
         this(semText.getText(), semText.getLocale(), semText.getSentences());
     }
-    
-    public static SemanticText copyOf(ISemanticText semText){
-        if (semText instanceof SemanticText){
+
+    public static SemanticText copyOf(ISemanticText semText) {
+        if (semText instanceof SemanticText) {
             return (SemanticText) semText;
         } else {
             return new SemanticText(semText);
@@ -238,9 +239,9 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * If the semantic text is made copyOf only one word spanning the whole text,
- the provided meaning is added to the existing meanings and set as the
- main one.
+     * If the semantic text is made copyOf only one word spanning the whole
+     * text, the provided meaning is added to the existing meanings and set as
+     * the main one.
      *
      */
     public ISemanticText with(MeaningStatus status, IMeaning meaning) {
@@ -295,8 +296,8 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * Returns a copy copyOf this object with the provided words set. Existing words
-     * won't be present in the returned object.
+     * Returns a copy copyOf this object with the provided words set. Existing
+     * words won't be present in the returned object.
      */
     public SemanticText with(List<? extends IWord> words) {
         SemanticText ret = new SemanticText(this);
@@ -311,8 +312,9 @@ public class SemanticText implements Serializable, ISemanticText {
     /**
      * Returns a new semantic text having existing words plus the provided one.
      * If the new word exactly covers another one, the existing is replaced and
- meanings copyOf the new one will be merged with the old one. If the word partially overlaps with
- other ones, existing overlapping words are removed.
+     * meanings copyOf the new one will be merged with the old one. If the word
+     * partially overlaps with other ones, existing overlapping words are
+     * removed.
      */
     public SemanticText update(IWord word) {
         List<IWord> words = new ArrayList();
@@ -335,55 +337,60 @@ public class SemanticText implements Serializable, ISemanticText {
     /**
      * Returns a new semantic text having existing words plus the provided ones.
      * If new words overlaps with other ones, existing overlapping words are
- removed. If meaning status copyOf a provided word is null, then any existing
- words overlapping it will be removed. If a word is precisely overlapping
- an existing one, resulting word will have meaning status and selected
- meaning copyOf provided word and the list copyOf meanings will be a merge copyOf the
- meanings found in the provided word plus the meanings copyOf the existing
- word.
+     * removed. If meaning status copyOf a provided word is null, then any
+     * existing words overlapping it will be removed. If a word is precisely
+     * overlapping an existing one, resulting word will have meaning status and
+     * selected meaning copyOf provided word and the list copyOf meanings will
+     * be a merge copyOf the meanings found in the provided word plus the
+     * meanings copyOf the existing word.
      */
     public SemanticText update(List<? extends IWord> wordsToAdd) {
 
-        List<? extends IWord> origWords = getWords();
-        List<IWord> newWords = new ArrayList();
-        Iterator<? extends IWord> origWordIter = origWords.iterator();
-        IWord curOrigWord = null;
+        if (wordsToAdd.size() == 0) {
+            return this;
+        } else {
+            List<? extends IWord> origWords = getWords();
+            List<IWord> newWords = new ArrayList();
+            Iterator<? extends IWord> origWordIter = origWords.iterator();
+            IWord curOrigWord = null;
 
-        curOrigWord = nextWord(origWordIter);
+            curOrigWord = nextWord(origWordIter);
 
-        for (IWord wordToAdd : wordsToAdd) {
+            for (IWord wordToAdd : wordsToAdd) {
 
-            // adds orig words until they overlap with new one
+                // adds orig words until they overlap with new one
+                while (curOrigWord != null
+                        && curOrigWord.getEndOffset() <= wordToAdd.getStartOffset()) {
+                    newWords.add(curOrigWord);
+                    curOrigWord = nextWord(origWordIter);
+                }
+                if (curOrigWord != null // words coincide, we merge
+                        && wordToAdd.getStartOffset() == curOrigWord.getStartOffset()
+                        && wordToAdd.getEndOffset() == curOrigWord.getEndOffset()) {
+
+                    if (wordToAdd.getMeaningStatus() != null) {
+                        newWords.add(Word.copyOf(wordToAdd).add(curOrigWord.getMeanings()));
+                    }
+
+                } else { // words don't coincide
+                    if (wordToAdd.getMeaningStatus() != null) {
+                        newWords.add(wordToAdd);
+                    }
+                }
+                while (curOrigWord != null && curOrigWord.getStartOffset() < wordToAdd.getEndOffset()) {
+                    curOrigWord = nextWord(origWordIter);
+                }
+            }
+
             while (curOrigWord != null
-                    && curOrigWord.getEndOffset() <= wordToAdd.getStartOffset()) {
+                    && curOrigWord.getStartOffset() >= wordsToAdd.get(wordsToAdd.size() - 1).getEndOffset()) {
                 newWords.add(curOrigWord);
                 curOrigWord = nextWord(origWordIter);
             }
-            if (curOrigWord != null // words coincide, we merge
-                    && wordToAdd.getStartOffset() == curOrigWord.getStartOffset()
-                    && wordToAdd.getEndOffset() == curOrigWord.getEndOffset()) {
 
-                if (wordToAdd.getMeaningStatus() != null) {
-                    newWords.add(Word.copyOf(wordToAdd).add(curOrigWord.getMeanings()));
-                }
+            return this.with(newWords);
 
-            } else { // words don't coincide
-                if (wordToAdd.getMeaningStatus() != null) {
-                    newWords.add(wordToAdd);
-                }
-            }
-            while (curOrigWord != null && curOrigWord.getStartOffset() < wordToAdd.getEndOffset()){
-                curOrigWord = nextWord(origWordIter);
-            }
         }
-
-        while (curOrigWord != null
-                && curOrigWord.getStartOffset() >= wordsToAdd.get(wordsToAdd.size() - 1).getEndOffset()) {
-            newWords.add(curOrigWord);
-            curOrigWord = nextWord(origWordIter);
-        }
-
-        return this.with(newWords);
 
     }
 
