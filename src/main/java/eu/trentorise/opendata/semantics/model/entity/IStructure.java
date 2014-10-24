@@ -62,6 +62,7 @@ public interface IStructure {
      * Sets the list of attributes in this structure
      *
      * @param attributes the list of attributes to be set in the structure
+     * @deprecated Don't want setters in interfaces
      */
     void setStructureAttributes(List<IAttribute> attributes);
 

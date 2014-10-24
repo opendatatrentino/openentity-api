@@ -51,6 +51,7 @@ public interface IEntity extends IStructure {
 	 * Sets the name in the given locale
 	 * @param locale language in which the name is expressed
 	 * @param name the provided name
+         * @deprecated Don't want setters in interfaces
 	 */
 	void setName(Locale locale, String name);
 
@@ -58,6 +59,7 @@ public interface IEntity extends IStructure {
 	 * Sets names for the entity in the given locale
 	 * @param locale language in which the name is expressed
 	 * @param names the provided names
+         * @deprecated Don't want setters in interfaces
 	 */
 	void setName(Locale locale, List<String> names);        
         
@@ -73,7 +75,8 @@ public interface IEntity extends IStructure {
 	 * Sets the description on the entity in the given language
 	 *
 	 * @param language the language of the description
-	 * @param description the description of the entity in the given language      
+	 * @param description the description of the entity in the given language    
+         * @deprecated Don't want setters in interfaces
 	 */
 	void setDescription(Locale language, String description);    
 

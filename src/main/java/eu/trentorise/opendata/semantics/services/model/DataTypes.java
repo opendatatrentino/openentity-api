@@ -46,7 +46,7 @@ import java.util.Set;
  * LONG : {@link java.lang.Long} <br/>
  * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
  * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.model.knowledge.ISemanticText} <br/> 
- * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} <br/>
+ * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} A convenient implementation for entities which are values of other entities (like in part-of relations) may be found in the {@link eu.trentorise.opendata.semantics.impl.model.entity.MinimalEntity} class <br/> 
  * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure} <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
