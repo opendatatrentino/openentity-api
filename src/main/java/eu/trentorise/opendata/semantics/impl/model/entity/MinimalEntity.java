@@ -15,10 +15,13 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 /**
- * Always has URL, and might have some additional info, like name
- * and description, but they can still be empty (but never null). EtypeURL can be empty.
- * Trying to set any structureAttribute will throw an exception.
- * 
+ *
+ * Experimental entity, it's likely to be removed once we have a proper entity
+ * implementation in the OpenEntity API. MinimalEntity always has URL, and might have some
+ * additional info, like name and description, but they can still be empty (but
+ * never null). EtypeURL can be empty. Trying to set any structureAttribute will
+ * throw an exception.
+ *
  * @author David Leoni
  */
 public class MinimalEntity implements IEntity {
@@ -33,7 +36,7 @@ public class MinimalEntity implements IEntity {
     private String etypeURL;
 
     /**
-     * 
+     *
      * @param URL Must be provided.
      * @param name if null will be silently converted to empty dict.
      * @param description if null will be silently converted to empty dict.
@@ -60,8 +63,9 @@ public class MinimalEntity implements IEntity {
 
         this.etypeURL = etypeURL;
     }
-    
-    private MinimalEntity(){}
+
+    private MinimalEntity() {
+    }
 
     @Override
     public Long getGUID() {
@@ -109,7 +113,7 @@ public class MinimalEntity implements IEntity {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public List<IAttribute> getStructureAttributes() {
