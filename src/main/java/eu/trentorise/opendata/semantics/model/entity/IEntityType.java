@@ -29,30 +29,92 @@ import javax.annotation.Nullable;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 13, 2014
+ * @date Oct 27, 2014
  */
 public interface IEntityType {
 
     /**
+     * Gets the URL of the entity type
+     *
+     * @return the URL of the entity type
+     */
+    String getURL();
+
+    /**
      * Gets the name of the entity type
      *
-     * @return the name of the entity type in the default languages if available. Returned dict can be empty.
+     * @return the name of the entity type in the default languages if
+     * available. Returned dict can be empty.
      */
     IDict getName();
 
     /**
      * Gets the concept of the entity type
-     * @deprecated Use {@link #getConceptURL()}} or {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)} instead.
+     *
      * @return the concept of the entity type
      */
+    @Nullable
     IConcept getConcept();
 
     /**
      * Gets the concept URL of the entity type
+     *
+     * @deprecated Use {@link #getConcept()}} or
+     * {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)}
+     * instead.
      * @return the concept URL of the entity type
      */
+    @Nullable
     String getConceptURL();
 
+    /**
+     * Gets the attribute definitions for the entity type
+     *
+     * @return the attribute definitions for the entity type
+     */
+    List<IAttributeDef> getAttributeDefs();
+
+    /**
+     * Gets the unique indexes
+     *
+     * @return the unique indexes
+     */
+    List<IUniqueIndex> getUniqueIndexes();
+
+    /**
+     * Returns the attribute def used for name.
+     *
+     * @return the attribute def used for name if the entity type represents an
+     * entity. If it represents a structure, returns null.
+     */
+    @Nullable
+    IAttributeDef getNameAttrDef();
+
+    /**
+     * In case this Etype represents an entity and name attribute is of datatype
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes},
+     * returns name etype. Returns null otherwise.
+     */
+    @Nullable
+    IEntityType getNameEtype();
+
+    /**
+     * Returns the attribute def used for description.
+     *
+     * @return the attribute def used for description if the entity type
+     * represents an entity. If it represents a structure, returns null.
+     */
+    @Nullable
+    IAttributeDef getDescriptionAttrDef();
+
+    /**
+     * Returns the attribute def indicated by the provided URL.
+     *
+     * @return Returns the attribute def indicated by the provided URL if it
+     * exists, null otherwise.
+     */
+    @Nullable
+    IAttributeDef getAttrDef(String URL);
 
     /**
      * Sets the concept of the entity type
@@ -63,14 +125,8 @@ public interface IEntityType {
     void setConcept(IConcept concept);
 
     /**
-     * Gets the attribute definitions for the entity type
-     *
-     * @return the attribute definitions for the entity type
-     */
-    List<IAttributeDef> getAttributeDefs();
-
-    /**
      * Adds an attribute definition to the entity type
+     *
      * @deprecated we don't need methods to change objects
      * @param attrDef the attribute definition to be added
      */
@@ -86,17 +142,11 @@ public interface IEntityType {
 
     /**
      * Removes an attribute definition from the entity type
+     *
      * @deprecated we don't need methods to change objects
      * @param attrDefURL the URL of the attribute definition to be removed
      */
     void removeAttributeDef(String attrDefURL);
-
-    /**
-     * Gets the unique indexes
-     *
-     * @return the unique indexes
-     */
-    List<IUniqueIndex> getUniqueIndexes();
 
     /**
      * Removes Unique Indexes
@@ -108,6 +158,7 @@ public interface IEntityType {
 
     /**
      * Removes Unique Indexes
+     *
      * @deprecated we don't need methods to change objects
      * @param uniqueIndexURL the URL of the unique indexes to be removed
      */
@@ -115,42 +166,10 @@ public interface IEntityType {
 
     /**
      * Adds Unique Indexes
+     *
      * @deprecated we don't need methods to change objects
      * @param uniqueIndex the unique indexes to be added
      */
     void addUniqueIndex(IUniqueIndex uniqueIndex);
 
-    /**
-     * Gets the URL of the entity type
-     *
-     * @return the URL of the entity type
-     */
-    String getURL();
-
-    /**
-     * Returns the attribute def used for name.
-     *
-     * @return the attribute def used for name if the entity type represents an
-     * entity. If it represents a structure, returns null.
-     */
-    @Nullable
-    IAttributeDef getNameAttrDef();
-
-    /**
-     * Returns the attribute def used for description.
-     *
-     * @return the attribute def used for description if the entity type represents an
-     * entity. If it represents a structure, returns null.
-     */
-    @Nullable
-    IAttributeDef getDescriptionAttrDef();
-
-
-    /**
-     * Returns the attribute def indicated by the provided URL.
-     *
-     * @return Returns the attribute def indicated by the provided URL if it exists, null otherwise.
-     */
-    @Nullable
-    IAttributeDef getAttrDef(String URL);
 }

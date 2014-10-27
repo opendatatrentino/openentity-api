@@ -26,17 +26,10 @@ import java.util.List;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 13, 2014
+ * @date Oct 27, 2014
  */
 public interface IStructure {
 
-     /**
-     * Gets the local identifier for the entity
-     * @deprecated use getURL() instead
-     * @return the local identifier as Long
-     */
-    Long getLocalID();    
-    
     /**
      * Gets the URL of the object
      *
@@ -44,20 +37,53 @@ public interface IStructure {
      */
     String getURL();
 
+
+    /**
+     * Gets the values contained in the structure for the given attribute def.
+     * No value of the given attribute def is present in the structure, an empty
+     * list is returned.
+     */
+    List<? extends IValue> getValues(String attrDefURL);
+    
+    /**
+     * Returns all the values contained in the structure.
+     */
+    List<? extends IValue> getValues();    
+
+
+    /**
+     * Gets the structure type
+     *
+     * @return the structure type
+     */
+    IEntityType getEtype();
+
+    /**
+     * Gets the structure type URL     
+     * @deprecated use {@link #getEtype() instead}
+     */
+    @Nullable
+    String getEtypeURL();
+
+    
     /**
      * Sets the URL of the object
+     *
      * @deprecated we don't need methods to change objects
      * @param url a string that holds the URL of the object
      */
     void setURL(String url);
-
+    
+    
     /**
      * Gets the external identifier of the structure
      *
+     * @deprecated use {@link #getValues()} instead
+     *
      * @return a string representing the external identifier of the structure
      */
-    List<IAttribute> getStructureAttributes();
-
+    List<IAttribute> getStructureAttributes();    
+    
     /**
      * Sets the list of attributes in this structure
      *
@@ -65,24 +91,10 @@ public interface IStructure {
      * @deprecated Don't want setters in interfaces
      */
     void setStructureAttributes(List<IAttribute> attributes);
-
-    /**
-     * Gets the structure type
-     * @deprecated Use {@link #getEtypeURL()} or  {@link eu.trentorise.opendata.semantics.services.IEntityTypeService#getEntityType(String)} instead.
-     * @return the structure type
-     */
-    IEntityType getEtype();
-
-
-    /**
-     * Gets the structure type
-     * @return the structure type URL
-     *
-    */
-    String getEtypeURL();
-
+    
     /**
      * Sets the structure type
+     *
      * @deprecated we don't need methods to change objects
      * @param type the structure type
      */
@@ -91,9 +103,20 @@ public interface IStructure {
     /**
      * Gets an attribute from the structure.
      *
-     * @param attrDefURL the URL of the attribute definition corresponding to the desired attribute.
-     * @return the attribute corresponding to the given attribute def, if present. Returns null otherwise.
+     * @param attrDefURL the URL of the attribute definition corresponding to
+     * the desired attribute.
+     * @deprecated attributes are deprecated. Use {@link #getValues(java.lang.String)} instead
+     * @return the attribute corresponding to the given attribute def, if
+     * present. Returns null otherwise.
      */
     @Nullable
     IAttribute getAttribute(String attrDefURL);
+    
+   /**
+     * Gets the local identifier for the entity
+     *
+     * @deprecated use getURL() instead
+     * @return the local identifier as Long
+     */
+    Long getLocalID();    
 }

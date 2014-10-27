@@ -4,14 +4,17 @@ package eu.trentorise.opendata.semantics.impl.model.entity;
  *
  * @author David Leoni
  */
+import com.google.common.collect.ImmutableMap;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import eu.trentorise.opendata.semantics.model.knowledge.impl.Dict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
@@ -31,6 +34,8 @@ public class MinimalEntity implements IEntity {
 
     @Nullable
     private String etypeURL;
+    
+    private static ImmutableMap<String, List<? extends IValue>>  VALUES = ImmutableMap.of();
 
     /**
      * 
@@ -142,4 +147,12 @@ public class MinimalEntity implements IEntity {
         throw new UnsupportedOperationException("Getting strucutre attributes is not allowed in " + this.getClass().getSimpleName());
     }
 
+    
+    /** Always return empty values */
+    @Override
+    public Map<String, List<? extends IValue>> getValues() {
+        return VALUES;
+    }
+
+    
 }

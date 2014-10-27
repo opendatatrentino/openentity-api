@@ -79,5 +79,5 @@ public interface IEntity extends IStructure {
          * @deprecated Don't want setters in interfaces
 	 */
 	void setDescription(Locale language, String description);    
-
+    
 }

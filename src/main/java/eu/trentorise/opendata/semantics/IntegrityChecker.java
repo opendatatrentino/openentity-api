@@ -22,6 +22,7 @@ import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
+import eu.trentorise.opendata.semantics.model.entity.ITypeSig;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
@@ -94,6 +95,25 @@ public final class IntegrityChecker {
                 || endOffset < startOffset) {
             throw new IntegrityException("Found invalid span! [" + startOffset + "," + endOffset + "]");
         }
+    }
+
+    
+    public static void checkTypeSig(ITypeSig typeSig) {
+        if (typeSig == null){
+            throw new IntegrityException("Found null type signature!");
+        }
+        
+        checkDataType(typeSig.getDataType());
+        
+        if ((typeSig.getDataType().equals(DataTypes.STRUCTURE) || typeSig.getDataType().equals(DataTypes.ENTITY))) {
+            try {
+                checkURL(typeSig.getEtypeURL());
+            } catch (Exception ex) {
+                throw new IntegrityException("Found type signature of datatype " + typeSig.getDataType() + " with invalid range etype URL!", ex);
+
+            }
+        }
+
     }
 
     private IntegrityChecker() {
@@ -290,13 +310,8 @@ public final class IntegrityChecker {
         if (attrDef == null) {
             throw new IntegrityException("Found null attribute def!");
         }
-        if (attrDef.getURL() == null) {
-            throw new IntegrityException("Found null URL for attribute def " + attrDef.getName());
-        }
-        if (attrDef.getURL().length() == 0) {
-            throw new IntegrityException("Found empty URL for attribute def " + attrDef.getName());
-        }
-
+        
+        checkURL(attrDef.getURL());
         if (attrDef.getName() == null) {
             throw new IntegrityException("Found null name dict for attribute def " + attrDef.getURL());
         }
@@ -310,13 +325,12 @@ public final class IntegrityChecker {
         if (attrDef.getDataType() == null) {
             throw new IntegrityException("Found null datatype for attribute def " + attrDef.getURL());
         }
-        if ((attrDef.getDataType().equals(DataTypes.STRUCTURE) || attrDef.getDataType().equals(DataTypes.ENTITY))) {
-            try {
-                checkURL(attrDef.getRangeEtypeURL());
-            } catch (Exception ex) {
+        
+        try {
+            checkTypeSig(attrDef.getTypeSig());
+        } catch (Exception ex){
                 throw new IntegrityException("Attribute def " + attrDef.getURL() + " with parent etype " + attrDef.getEtypeURL() + " is of datatype " + attrDef.getDataType() + ", but is has invalid getRangeEtypeURL()", ex);
-
-            }
+            
         }
 
         try {
@@ -325,6 +339,12 @@ public final class IntegrityChecker {
             throw new IntegrityException("Found invalid concept for attr def " + attrDef.getURL(), ex);
         }
 
+    }
+    
+    public static void checkDataType(String dataType){
+        if (dataType == null) {
+             throw new IntegrityException("Found null datatype!");
+        }
     }
 
     /**

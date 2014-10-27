@@ -24,10 +24,12 @@ import java.util.List;
 /**
  * An attribute is used in entities. It holds one or more values. null values are not allowed.
  *
+ * @deprecated Don't see the need of it. 
+ * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 8, 2014
+ * @date Oct 24, 2014
  */
 public interface IAttribute {
 

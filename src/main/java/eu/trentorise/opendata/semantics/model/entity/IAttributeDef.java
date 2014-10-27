@@ -19,6 +19,7 @@ package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import javax.annotation.Nullable;
 
 /**
  * The attribute definition stores information about the attributes, such as the
@@ -27,16 +28,9 @@ import eu.trentorise.opendata.semantics.model.knowledge.IDict;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 24, 2014
+ * @date Oct 27, 2014
  */
 public interface IAttributeDef {
-
-    /**
-     * Gets the Globally Unique Identifier (GUID) for the attribute definition
-     * @deprecated use getURL instead
-     * @return the Globally Unique Identifier (GUID) represented as Long
-     */
-    Long getGUID();
  
     /**
      * Gets the URL of the attribute definition
@@ -57,27 +51,48 @@ public interface IAttributeDef {
      * Gets the data type of the attribute definition. Possible values for the
      * datatypes are listed in
      * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
-     *
+     * @deprecated use {@link #getTypeSig()} instead
      * @return the data type as string
      */
     String getDataType();
 
     /**
+     * Returns the owner entity type for this attribute definition 
+     * @deprecated use {@link #getTypeSig()} instead
+     * @return entity type URL
+     */
+     String getEtypeURL();  	
+
+    /**
+     * Return the entity type for the range, when the datatype is oe:structure or oe:entity     
+     * @return the entity type URL if the data type is oe:structure or oe:entity, null otherwise
+     * @deprecated use {@link #getTypeSig()} instead
+     */     
+     String getRangeEtypeURL();
+     
+     /**
+      * Returns the type signature of the attribute definition.
+      */
+     ITypeSig getTypeSig();
+     
+    /**
      * Return the entity type for the range, when the datatype is oe:structure or oe:entity
-     * @deprecated we only provide the URL with {@link #getRangeEtypeURL()}
+     * @deprecated we only provide the URL within  {@link #getTypeSig()} 
      * @return the entity type if the data type is oe:structure or oe:entity, null otherwise
      */
+    @Nullable 
     IEntityType getRangeEType();
 
     /**
      * Gets the concept of the attribute definition
-     * @deprecated Use {@link #getConceptURL()}} or {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)} instead.
      * @return the concept of attribute definition
      */
+    @Nullable
     IConcept getConcept();
 
     /**
      * Gets the concept URL of the entity type
+     * @deprecated Use {@link #getConcept()}} instead.
      * @return the concept URL of the entity type
      */
     String getConceptURL();
@@ -86,7 +101,7 @@ public interface IAttributeDef {
      * Gets the IsSet flag that tells if the attribute can hold a set of values
      * or it can hold only one value.
      *
-     * @deprecated use {@link #isList()} instead
+     * @deprecated use {@link #getTypeSig() } instead
      * @return true if the attribute can hold a set or false if it can hold only
      * one value.
      */
@@ -94,7 +109,7 @@ public interface IAttributeDef {
 
     /**
      * Tells if the attribute can hold a set of values.
-     *
+     * @deprecated use {@link #getTypeSig() } instead
      * @return true if the attribute can hold a list of values
      */
     boolean isList();
@@ -128,22 +143,17 @@ public interface IAttributeDef {
        
     /**
      * Returns the entity type for the attribute definition 
-     * @deprecated use getETypeURL instead
+     * @deprecated use {@link #getTypeSig() } instead
      * @return entity type
      */
      Long getEType();
     
-    /**
-     * Returns the owner entity type for this attribute definition 
-     * 
-     * @return entity type URL
-     */
-     String getEtypeURL();  	
 
     /**
-     * Return the entity type for the range, when the datatype is oe:structure or oe:entity     
-     * @return the entity type URL if the data type is oe:structure or oe:entity, null otherwise
-     */     
-     String getRangeEtypeURL();
-    	
+     * Gets the Globally Unique Identifier (GUID) for the attribute definition
+     * @deprecated use {@link #getURL()} instead
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
+     
 }
