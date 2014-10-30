@@ -17,10 +17,10 @@ import javax.annotation.Nullable;
 /**
  *
  * Experimental entity, it's likely to be removed once we have a proper entity
- * implementation in the OpenEntity API. MinimalEntity always has URL, and might have some
- * additional info, like name and description, but they can still be empty (but
- * never null). EtypeURL can be empty. Trying to set any structureAttribute will
- * throw an exception.
+ * implementation in the OpenEntity API. MinimalEntity can have all parameters
+ * missing., and might have some additional info, like name and description, but
+ * they can still be empty (but never null). EtypeURL can be null. Trying to set
+ * any structureAttribute will throw an exception.
  *
  * @author David Leoni
  */
@@ -37,15 +37,15 @@ public class MinimalEntity implements IEntity {
 
     /**
      *
-     * @param URL Must be provided.
+     * @param URL
      * @param name if null will be silently converted to empty dict.
      * @param description if null will be silently converted to empty dict.
      * @param etypeURL May be null
      */
-    public MinimalEntity(String URL, IDict name, IDict description, @Nullable String etypeURL) {
-        if (URL == null) {
-            throw new IllegalArgumentException("At least URL must be non null in " + this.getClass().getSimpleName());
-        }
+    public MinimalEntity(@Nullable String URL,
+            IDict name,
+            IDict description,
+            @Nullable String etypeURL) {
 
         this.URL = URL;
 
@@ -62,6 +62,7 @@ public class MinimalEntity implements IEntity {
         }
 
         this.etypeURL = etypeURL;
+
     }
 
     private MinimalEntity() {
@@ -102,6 +103,7 @@ public class MinimalEntity implements IEntity {
         throw new UnsupportedOperationException("Deprecated!");
     }
 
+    @Nullable
     @Override
     public String getURL() {
         return URL;
@@ -112,9 +114,6 @@ public class MinimalEntity implements IEntity {
         throw new UnsupportedOperationException("Deprecated!");
     }
 
-    /**
-     * @return
-     */
     @Override
     public List<IAttribute> getStructureAttributes() {
         return new ArrayList();
