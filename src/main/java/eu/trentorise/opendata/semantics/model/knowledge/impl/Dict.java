@@ -62,11 +62,14 @@ public class Dict implements IDict {
 
     private Dict(Map<Locale, List<String>> inputMap) {
         this();
+        if (inputMap == null){
+            throw new IllegalArgumentException("null inputMap is not allowed!");
+        }
         this.translations = inputMap;
     }
 
     /**
-     * Sets english translation to provided text
+     * Sets {@link java.util.Locale.ENGLISH} translation to provided text
      *
      * @param text the given text
      */
@@ -78,10 +81,21 @@ public class Dict implements IDict {
      * Sets english translation to provided text
      *
      * @param text the given text in the fiven locale
-     * @param locale the locale copyOf the provided text
+     * @param locale the locale of the provided text
      */
     public Dict(final String text, Locale locale) {
         this();
+        if (text == null){
+            throw new IllegalArgumentException("null text is not allowed in a " + Dict.class.getSimpleName());
+        }
+        /*
+        todo enable when we fix https://github.com/opendatatrentino/openentity-api/issues/7
+        if (locale == null){
+            throw new IllegalArgumentException("null locale is not allowed in a " + Dict.class.getSimpleName());
+        
+        }    */
+            
+        
         translations.put(locale, new ArrayList() {
             {
                 add(text);
@@ -95,9 +109,14 @@ public class Dict implements IDict {
     public Dict(final List<String> texts, Locale locale) {
         this.translations = new HashMap();
         List<String> ts = new ArrayList();
+        
         for (String s : texts) {
+            if (s == null){
+                throw new IllegalArgumentException("null texts are not allowed in a " + Dict.class.getSimpleName());
+            }
             ts.add(s);
         }
+        // todo put null check on locale, see https://github.com/opendatatrentino/openentity-api/issues/7
         this.translations.put(locale, texts);
     }
 
@@ -127,13 +146,19 @@ public class Dict implements IDict {
 
         List<String> lst = new ArrayList<String>();
         for (String s : strings) {
+            if (s == null){
+                throw new IllegalArgumentException("null translations are not allowed in a Dict!");
+            }
             lst.add(s);
         }
+       
         for (Locale loc : translations.keySet()) {
             newTranslations.put(loc, translations.get(loc));
         }
+        
+        // todo check null locale https://github.com/opendatatrentino/openentity-api/issues/7
         newTranslations.put(locale, Collections.unmodifiableList(lst));
-
+                        
         return new Dict(newTranslations);
     }
 
@@ -146,6 +171,9 @@ public class Dict implements IDict {
 
         List<String> lst = new ArrayList<String>();
 
+        if (string == null){
+            throw new IllegalArgumentException("null translations are not allowed in a Dict!");
+        }
         lst.add(string);
 
         for (Locale loc : translations.keySet()) {
@@ -214,7 +242,7 @@ public class Dict implements IDict {
     }
 
     /**
-     * Checks if there is at least one non-empty valid translation
+     * Returns true if there is at least one non-empty valid translation, otherwise returns false
      */
     public boolean isEmpty() {
         for (Locale locale : getLocales()) {

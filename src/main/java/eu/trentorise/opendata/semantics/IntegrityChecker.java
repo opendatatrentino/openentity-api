@@ -176,7 +176,7 @@ public final class IntegrityChecker {
         if (dict.getLocales() == null) {
             throw new IntegrityException("Dict has null locales!");
         }
-
+        
         
         
         for (Locale loc : dict.getLocales()) {
