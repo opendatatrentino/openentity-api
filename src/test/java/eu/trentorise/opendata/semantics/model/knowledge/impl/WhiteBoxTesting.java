@@ -1,4 +1,4 @@
-package eu.trentorise.opendata.semantics.model.knowledge.impl;
+package eu.trentorise.opendata.semantics.impl.model.knowledge;
 
 import eu.trentorise.opendata.semantics.IntegrityChecker;
 import java.util.ArrayList;

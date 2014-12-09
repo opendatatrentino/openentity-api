@@ -15,7 +15,7 @@
  *
  *******************************************************************************
  */
-package eu.trentorise.opendata.semantics.model.knowledge.impl;
+package eu.trentorise.opendata.semantics.impl.model.knowledge;
 
 import static eu.trentorise.opendata.semantics.IntegrityChecker.checkSpan;
 import eu.trentorise.opendata.semantics.model.knowledge.ISentence;

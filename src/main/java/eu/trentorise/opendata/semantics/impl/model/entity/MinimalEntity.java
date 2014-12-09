@@ -8,7 +8,7 @@ import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.knowledge.IDict;
-import eu.trentorise.opendata.semantics.model.knowledge.impl.Dict;
+import eu.trentorise.opendata.semantics.impl.model.knowledge.Dict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -18,8 +18,8 @@ import javax.annotation.Nullable;
  *
  * Experimental entity, it's likely to be removed once we have a proper entity
  * implementation in the OpenEntity API. MinimalEntity can have all parameters
- * missing., and might have some additional info, like name and description, but
- * they can still be empty (but never null). EtypeURL can be null. Trying to set
+ * missing, and might have some additional info, like name and description, but
+ * they can still be empty (but never null). Entity URL and etypeURL can be empty, but not null. Trying to set
  * any structureAttribute will throw an exception.
  *
  * @author David Leoni
@@ -28,39 +28,45 @@ public class MinimalEntity implements IEntity {
 
     private String URL;
 
-    private IDict name;
+    private Dict name;
 
-    private IDict description;
-
-    @Nullable
+    private Dict description;
+    
     private String etypeURL;
 
     /**
      *
-     * @param URL
-     * @param name if null will be silently converted to empty dict.
-     * @param description if null will be silently converted to empty dict.
-     * @param etypeURL May be null
+     * @param URL if URL is not available put an empty string, otherwise an exception will be thrown
+     * @param name if not available put an empty dict.
+     * @param description if not available put an empty dict.
+     * @param etypeURL if not available put an empty string
      */
-    public MinimalEntity(@Nullable String URL,
+    public MinimalEntity(String URL,
             IDict name,
             IDict description,
-            @Nullable String etypeURL) {
+            String etypeURL) {
 
+        if (URL == null){
+            throw new IllegalArgumentException("null URL is not allowed! Use an empty string if needed!");
+        }
+        
+        
+
+        if (name == null){
+            throw new IllegalArgumentException("null name is not allowed!");
+        }
+        
+        if (description == null){
+            throw new IllegalArgumentException("null description is not allowed!");
+        }
+        
+        if (etypeURL == null){
+            throw new IllegalArgumentException("null etype URL is not allowed! Use an empty string if needed!");
+        }
+        
         this.URL = URL;
-
-        if (name == null) {
-            this.name = new Dict();
-        } else {
-            this.name = name;
-        }
-
-        if (description == null) {
-            this.description = new Dict();
-        } else {
-            this.description = description;
-        }
-
+        this.name = Dict.copyOf(name);
+        this.description = Dict.copyOf(description);
         this.etypeURL = etypeURL;
 
     }
@@ -103,7 +109,7 @@ public class MinimalEntity implements IEntity {
         throw new UnsupportedOperationException("Deprecated!");
     }
 
-    @Nullable
+    
     @Override
     public String getURL() {
         return URL;
@@ -130,7 +136,6 @@ public class MinimalEntity implements IEntity {
     }
 
     @Override
-    @Nullable
     public String getEtypeURL() {
         return etypeURL;
     }
