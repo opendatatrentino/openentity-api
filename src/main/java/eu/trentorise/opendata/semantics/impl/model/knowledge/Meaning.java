@@ -77,7 +77,7 @@ public class Meaning implements IMeaning {
     
     /**
      *
-     * @param URL the URL copyOf the entity or concept this meaning represents.      
+     * @param URL the URL of the entity or concept this meaning represents.      
      * @param probability Must be greater or equal than 0
      * @param meaningKind The kind can be either an entity or a concept.
      */
@@ -87,8 +87,8 @@ public class Meaning implements IMeaning {
     
     /**
      *
-     * @param URL the URL copyOf the entity or concept this meaning represents. 
-     * @param name the name copyOf the entity or concept this meaning represents. 
+     * @param URL the URL of the entity or concept this meaning represents. 
+     * @param name the name of the entity or concept this meaning represents. 
      * @param probability Must be greater or equal than 0
      * @param meaningKind The kind can be either an entity or a concept.
      */
@@ -118,7 +118,7 @@ public class Meaning implements IMeaning {
      * Determines the best meaning among the given one according to theIR
      * probabilities. If no best meaning is found null is returned.
      *
-     * @param meanings a sorted list copyOf meanings
+     * @param meanings a sorted list of meanings
      * @return the disambiguated meaning or null if no meaning can be clearly
      * dismabiguated.
      */

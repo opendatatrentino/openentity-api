@@ -81,7 +81,7 @@ public interface ISemanticText {
      * otherwise.
      */
     @Nullable
-    public IWord getWord();
+    IWord getWord();
 
     /**
      * Gets all the words in the text (regardless of the sentences).

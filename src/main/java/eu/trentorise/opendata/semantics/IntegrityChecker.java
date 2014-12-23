@@ -614,13 +614,13 @@ public final class IntegrityChecker {
                 try {
                     checkURL(entity.getURL());
                 } catch (IntegrityException ex) {
-                    throw new IntegrityException("Found invalid URL in entity inside value with local ID: " + value.getLocalID());
+                    throw new IntegrityException("Found invalid URL in entity inside value with local ID: " + value.getLocalID(), ex);
                 }
             }
             try {
                 checkDict(entity.getName());
             } catch (IntegrityException ex) {
-                throw new IntegrityException("Found invalid name in entity with URL " + entity.getURL() + " inside value with local ID: " + value.getLocalID());
+                throw new IntegrityException("Found invalid name in entity with URL " + entity.getURL() + " inside value with local ID: " + value.getLocalID(), ex);
             }
 
         }

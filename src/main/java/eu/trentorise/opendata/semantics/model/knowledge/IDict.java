@@ -84,6 +84,6 @@ public interface IDict {
      * string "null" are also discarded. If no valid translation
      * is available at all, returns the empty string with null locale.
      */
-    public ISemanticText toSemText(List<Locale> locales);
+     ISemanticText toSemText(List<Locale> locales);
 
 }

@@ -57,7 +57,7 @@ import java.util.Set;
 public final class DataTypes {
 
     public static final String OPEN_ENTITY_PREFIX = "oe";
-    public static final String OPEN_ENTITY_EXPANDED_PREFIX = "https://github.com/opendatatrentino/openentity-api/1.0/";
+    public static final String OPEN_ENTITY_URL = "https://github.com/opendatatrentino/openentity-api/1.0/";
 
     public static final String STRING = "xsd:string";
     public static final String BOOLEAN = "xsd:boolean";

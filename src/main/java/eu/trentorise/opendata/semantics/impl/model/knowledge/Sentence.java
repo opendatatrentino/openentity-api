@@ -83,7 +83,7 @@ public class Sentence implements ISentence {
     }
 
     /**
-     * Creates a sentence copyOf one word.
+     * Creates a sentence of one word.
      */
     public Sentence(int startOffset, int endOffset, IWord word) {
         this(startOffset, endOffset);
@@ -92,7 +92,7 @@ public class Sentence implements ISentence {
         this.words = Collections.unmodifiableList(lst);
     }
 
-    static public Sentence copyOf(ISentence ss) {
+    public static Sentence copyOf(ISentence ss) {
         if (ss instanceof Sentence){
             return (Sentence) ss;
         } else {

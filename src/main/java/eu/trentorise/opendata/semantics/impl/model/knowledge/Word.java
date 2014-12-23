@@ -50,7 +50,7 @@ public class Word implements IWord {
      * normalized so total sum is 1.0
      *
      * @param startOffset
-     * @param endOffset the position copyOf the character immediately *after* the
+     * @param endOffset the position of the character immediately *after* the
  word itself. Position is absolute with respect to the text stored in the
  SemanticText container.
      */
@@ -74,7 +74,7 @@ public class Word implements IWord {
      * merged in the meanings.
      *
      * @param startOffset
-     * @param endOffset the position copyOf the character immediately *after* the
+     * @param endOffset the position of the character immediately *after* the
  word itself. Position is absolute with respect to the text stored in the
  SemanticText container.
      * @param meaningStatus

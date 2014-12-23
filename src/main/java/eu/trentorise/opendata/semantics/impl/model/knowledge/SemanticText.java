@@ -54,7 +54,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * Creates a semantic text copyOf one word with only one meaning.
+     * Creates a semantic text of one word with only one meaning.
      */
     public SemanticText(String text, Locale locale, MeaningStatus meaningStatus, @Nullable final IMeaning selectedMeaning) {
         this(text, locale, new Sentence(0, text.length(), new Word(0, text.length(), meaningStatus, selectedMeaning,
@@ -99,8 +99,8 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * @deprecated @param sentences a list copyOf sentences. Internally, a new
-     * copy copyOf it is created.
+     * @deprecated @param sentences a list of sentences. Internally, a new
+     * copy of it is created.
      */
     public SemanticText(String text, @Nullable Locale locale, Collection<? extends ISentence> sentences) {
         this(text, locale);
@@ -113,7 +113,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * @param sentence a list of sentences. Internally, a new copy copyOf it is
+     * @param sentence a list of sentences. Internally, a new copy of it is
      * created.
      * @deprecated
      */
@@ -176,7 +176,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * Returns a description copyOf the SemanticText
+     * Returns a description of the SemanticText
      */
     @Override
     public String toString() {
@@ -239,7 +239,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * If the semantic text is made copyOf only one word spanning the whole
+     * If the semantic text is made of only one word spanning the whole
      * text, the provided meaning is added to the existing meanings and set as
      * the main one.
      *
@@ -282,7 +282,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * Returns a copy copyOf this object with the provided text set.
+     * Returns a copy of this object with the provided text set.
      */
     public SemanticText with(String text) {
         SemanticText ret = new SemanticText(this);
@@ -296,7 +296,7 @@ public class SemanticText implements Serializable, ISemanticText {
     }
 
     /**
-     * Returns a copy copyOf this object with the provided words set. Existing
+     * Returns a copy of this object with the provided words set. Existing
      * words won't be present in the returned object.
      */
     public SemanticText with(List<? extends IWord> words) {
@@ -312,7 +312,7 @@ public class SemanticText implements Serializable, ISemanticText {
     /**
      * Returns a new semantic text having existing words plus the provided one.
      * If the new word exactly covers another one, the existing is replaced and
-     * meanings copyOf the new one will be merged with the old one. If the word
+     * meanings of the new one will be merged with the old one. If the word
      * partially overlaps with other ones, existing overlapping words are
      * removed.
      */
@@ -337,12 +337,12 @@ public class SemanticText implements Serializable, ISemanticText {
     /**
      * Returns a new semantic text having existing words plus the provided ones.
      * If new words overlaps with other ones, existing overlapping words are
-     * removed. If meaning status copyOf a provided word is null, then any
+     * removed. If meaning status of a provided word is null, then any
      * existing words overlapping it will be removed. If a word is precisely
      * overlapping an existing one, resulting word will have meaning status and
-     * selected meaning copyOf provided word and the list copyOf meanings will
-     * be a merge copyOf the meanings found in the provided word plus the
-     * meanings copyOf the existing word.
+     * selected meaning of provided word and the list of meanings will
+     * be a merge of the meanings found in the provided word plus the
+     * meanings of the existing word.
      */
     public SemanticText update(List<? extends IWord> wordsToAdd) {
 

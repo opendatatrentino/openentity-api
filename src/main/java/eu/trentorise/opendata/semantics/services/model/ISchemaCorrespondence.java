@@ -30,7 +30,7 @@ import java.util.List;
 public interface ISchemaCorrespondence {
 
     /** Scores are considered equals up to this margin */
-    static public final double SCORE_TOLERANCE = 0.01;
+    public final double SCORE_TOLERANCE = 0.01;
 
     
     /**

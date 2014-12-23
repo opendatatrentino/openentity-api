@@ -12,7 +12,6 @@ import eu.trentorise.opendata.semantics.impl.model.knowledge.Dict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import javax.annotation.Nullable;
 
 /**
  *
@@ -76,7 +75,7 @@ public class MinimalEntity implements IEntity {
 
     @Override
     public Long getGUID() {
-        throw new UnsupportedOperationException("Deprecated!"); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Deprecated!"); 
     }
 
     @Override
