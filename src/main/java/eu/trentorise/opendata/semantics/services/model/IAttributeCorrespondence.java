@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date Mar 09, 2014
+ * 
  */
 public interface IAttributeCorrespondence {
     

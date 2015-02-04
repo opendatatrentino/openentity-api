@@ -33,7 +33,7 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 08, 2014
+ * 
  */
 public interface IEntityTypeService {
 

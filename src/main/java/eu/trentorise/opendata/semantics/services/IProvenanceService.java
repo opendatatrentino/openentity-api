@@ -25,7 +25,7 @@ import eu.trentorise.opendata.semantics.model.provenance.Provenance;
  *
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 8, 2014
+ * 
  */
 public interface IProvenanceService {
 

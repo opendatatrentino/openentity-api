@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  *
- * @date May 12, 2014
+ * 
  */
 public interface IEntityService {
 

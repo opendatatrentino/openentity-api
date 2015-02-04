@@ -17,8 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 13, 2014
+
  */
 public interface IEntityType {
 
@@ -38,7 +38,7 @@ public interface IEntityType {
      *
      * @return the name of the entity type in the default languages if available. Returned dict can be empty.
      */
-    IDict getName();
+    Dict getName();
 
     /**
      * Gets the concept of the entity type

@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 13, 2014
+ * 
  */
 public interface IStructure {
 

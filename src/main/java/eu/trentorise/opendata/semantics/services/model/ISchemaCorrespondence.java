@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date Apr 24, 2014
+ * 
  */
 public interface ISchemaCorrespondence {
 

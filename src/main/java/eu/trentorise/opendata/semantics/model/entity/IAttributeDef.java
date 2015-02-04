@@ -17,8 +17,8 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
 
 /**
  * The attribute definition stores information about the attributes, such as the
@@ -27,7 +27,7 @@ import eu.trentorise.opendata.semantics.model.knowledge.IDict;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 24, 2014
+ * 
  */
 public interface IAttributeDef {
 
@@ -51,7 +51,7 @@ public interface IAttributeDef {
      *
      * @return the attribute name in the default languages if available
      */
-    IDict getName();
+    Dict getName();
 
     /**
      * Gets the data type of the attribute definition. Possible values for the

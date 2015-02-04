@@ -32,7 +32,7 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Sept 24, 2014
+ * 
  */
 public interface IKnowledgeService {
 

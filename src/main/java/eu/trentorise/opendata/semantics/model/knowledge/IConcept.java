@@ -17,8 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.model.knowledge;
 
-import eu.trentorise.opendata.semantics.services.model.ISearchResult;
-import java.util.List;
+import eu.trentorise.opendata.commons.Dict;
 
 /**
  * A concept is a language independent element that gives meaning
@@ -27,7 +26,6 @@ import java.util.List;
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 11, 2014
  */
 public interface IConcept {
     
@@ -35,7 +33,7 @@ public interface IConcept {
      * Gets the name of the concept
      * @return the name of the concept in the default languages if available
      */    
-    IDict getName();
+    Dict getName();
 
     /**
      * Gets the URL of the concept
@@ -55,6 +53,6 @@ public interface IConcept {
      * Gets the description of the concept
      * @return the description of the concept in the default languages if available
      */
-    IDict getDescription();
+    Dict getDescription();
     
 }

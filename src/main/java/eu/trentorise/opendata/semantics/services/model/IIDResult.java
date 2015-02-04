@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date May 12, 2014
+ * 
  */
 public interface IIDResult {
 

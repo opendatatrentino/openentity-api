@@ -22,7 +22,7 @@ package eu.trentorise.opendata.semantics.services.model;
  * The status of a reconciliation operation against a single entity
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date May 13, 2014
+ * 
  */
 public enum AssignmentResult {
     /** Entity to reconcile was not found in the database and has sufficient attributes to get assigned an id *//** Entity to reconcile was not found in the database and has sufficient attributes to get assigned an id */

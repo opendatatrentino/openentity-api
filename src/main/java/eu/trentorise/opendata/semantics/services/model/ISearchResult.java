@@ -17,7 +17,7 @@
  */
 package eu.trentorise.opendata.semantics.services.model;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.commons.Dict;
 
 /**
  *
@@ -25,7 +25,7 @@ import eu.trentorise.opendata.semantics.model.knowledge.IDict;
  * multilingual name, such as entity types and concepts.
  *
  * @author David Leoni
- * @date 28 Aug 2014
+ * 
  */
 public interface ISearchResult {
 
@@ -41,5 +41,5 @@ public interface ISearchResult {
      *
      * @return the object name, in the default locales for the ekb.
      */
-    IDict getName();
+    Dict getName();
 }

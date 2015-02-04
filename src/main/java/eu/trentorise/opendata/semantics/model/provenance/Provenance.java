@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Apr 8, 2014
+ * 
  */
 public class Provenance {
     

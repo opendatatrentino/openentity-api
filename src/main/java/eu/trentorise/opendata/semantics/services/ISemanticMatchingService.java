@@ -29,7 +29,7 @@ import java.util.List;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date Mar 09, 2014
+ * 
  */
 public interface ISemanticMatchingService {
 

@@ -18,7 +18,7 @@
 
 package eu.trentorise.opendata.semantics.model.entity;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.commons.Dict;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,7 +28,7 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date June 8, 2014
+ * 
  */
 public interface IEntity extends IStructure {
 
@@ -45,7 +45,7 @@ public interface IEntity extends IStructure {
 	 *	 
 	 * @return the name of the entity in the default languages if available. Returned dict can be empty.
 	 */
-	IDict getName();
+	Dict getName();
 
 	/**
 	 * Sets the name in the given locale
@@ -68,7 +68,7 @@ public interface IEntity extends IStructure {
 	 *	 
 	 * @return the description of the entity in the default languages if available. Returned dict can be empty.
 	 */
-	IDict getDescription();    
+	Dict getDescription();    
 
 
 	/**

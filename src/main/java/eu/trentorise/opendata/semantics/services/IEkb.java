@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
  * Interface for representing an entity knowledge base.
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date 23 Apr, 2014
+ * 
  */
 public interface IEkb {
     

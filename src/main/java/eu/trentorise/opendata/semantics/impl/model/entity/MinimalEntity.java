@@ -4,11 +4,10 @@ package eu.trentorise.opendata.semantics.impl.model.entity;
  *
  * @author David Leoni
  */
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
-import eu.trentorise.opendata.semantics.impl.model.knowledge.Dict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,8 +40,8 @@ public class MinimalEntity implements IEntity {
      * @param etypeURL if not available put an empty string
      */
     public MinimalEntity(String URL,
-            IDict name,
-            IDict description,
+            Dict name,
+            Dict description,
             String etypeURL) {
 
         if (URL == null){
@@ -64,8 +63,8 @@ public class MinimalEntity implements IEntity {
         }
         
         this.URL = URL;
-        this.name = Dict.copyOf(name);
-        this.description = Dict.copyOf(description);
+        this.name = name;
+        this.description = description;
         this.etypeURL = etypeURL;
 
     }
@@ -79,7 +78,7 @@ public class MinimalEntity implements IEntity {
     }
 
     @Override
-    public IDict getName() {
+    public Dict getName() {
         return name;
     }
 
@@ -94,7 +93,7 @@ public class MinimalEntity implements IEntity {
     }
 
     @Override
-    public IDict getDescription() {
+    public Dict getDescription() {
         return description;
     }
 

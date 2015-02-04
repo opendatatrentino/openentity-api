@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
  * 
- * @date June 8, 2014
+ * 
  *
  */
 public interface IValue {

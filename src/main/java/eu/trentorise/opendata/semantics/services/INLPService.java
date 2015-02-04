@@ -18,9 +18,9 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
-import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
-import eu.trentorise.opendata.semantics.services.model.IWordSearchResult;
+import eu.trentorise.opendata.semantics.nlp.model.SemText;
+import eu.trentorise.opendata.semantics.services.model.ITermSearchResult;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nullable;
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Oct 08, 2014
+ * 
  */
 public interface INLPService {
 
@@ -45,7 +45,7 @@ public interface INLPService {
      * catalog
      * @return the column names enriched with the meaning, ranked by confidence
      */
-    List<ISemanticText> disambiguateColumns(ITableResource table, IResourceContext context);
+    List<SemText> disambiguateColumns(ITableResource table, IResourceContext context);
 
     /**
      * Guesses the datatype common to a list of strings passed as input. Todo
@@ -54,7 +54,7 @@ public interface INLPService {
      * @return the guessed type
      * @param cellList a list of strings
      */
-    String guessType(List<String> cellList);
+    String guessType(Iterable<String> cellList);
 
     /**
      * Takes natural language strings and assigns to each string candidate
@@ -68,13 +68,14 @@ public interface INLPService {
      * @return the list of enriched strings, one for each of the provided texts.
      * Each enriched string will be a semantic text of only one word.
      */
-    List<ISemanticText> runNLP(List<String> texts, @Nullable String domainURL);
+    List<SemText> runNLP(Iterable<String> texts, @Nullable String domainURL);
 
     /** 
      * Searches for concepts or entities 
      * 
      * @param partialName a partial entity or concept name. It is assumed to be in the provided locale.
+     * @param locale if unknown use {@link Locale#ROOT}
      * @return a list of candidate entities and/or concepts, ordered by probability. The first one is the most probable.
      */
-    List<IWordSearchResult> freeSearch(String partialName, Locale locale);          
+    List<? extends ITermSearchResult> freeSearch(String partialName, Locale locale);          
 }

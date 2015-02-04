@@ -20,7 +20,7 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.model.knowledge.ISemanticText;
+import eu.trentorise.opendata.semantics.nlp.model.SemText;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,13 +45,13 @@ import java.util.Set;
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
  * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
- * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.model.knowledge.ISemanticText} <br/> 
+ * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.nlp.model.SemText} <br/> 
  * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} A convenient implementation for entities which are values of other entities (like in part-of relations) may be found in the {@link eu.trentorise.opendata.semantics.impl.model.entity.MinimalEntity} class <br/> 
  * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure} <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * @date Sept 17, 2014
+ * 
  *
  */
 public final class DataTypes {
@@ -66,7 +66,7 @@ public final class DataTypes {
     public static final String FLOAT = "xsd:float";
     public static final String LONG = "xsd:long";
     public static final String CONCEPT = "oe:concept";
-    public static final String SEMANTIC_TEXT = "oe:semantic-text";    
+    public static final String SEMANTIC_TEXT = "oe:semantic-text";
     public static final String STRUCTURE = "oe:structure";
     public static final String ENTITY = "oe:entity";
     
@@ -111,7 +111,7 @@ public final class DataTypes {
         JAVA_DATATYPES.put(FLOAT, Float.class);
         JAVA_DATATYPES.put(LONG, Long.class);
         JAVA_DATATYPES.put(CONCEPT, IConcept.class);
-        JAVA_DATATYPES.put(SEMANTIC_TEXT, ISemanticText.class);        
+        JAVA_DATATYPES.put(SEMANTIC_TEXT, SemText.class);        
         JAVA_DATATYPES.put(ENTITY, IEntity.class);
         JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
 

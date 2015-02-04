@@ -1,6 +1,6 @@
 package eu.trentorise.opendata.semantics.impl.model;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IDict;
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 import javax.annotation.concurrent.Immutable;
 
@@ -12,9 +12,9 @@ import javax.annotation.concurrent.Immutable;
 public class SearchResult implements ISearchResult {
 
     private String URL;
-    private IDict name;
+    private Dict name;
 
-    public SearchResult(String URL, IDict name) {
+    public SearchResult(String URL, Dict name) {
         this.URL = URL;
         this.name = name;
     }
@@ -23,7 +23,7 @@ public class SearchResult implements ISearchResult {
         return URL;
     }
 
-    public IDict getName() {
+    public Dict getName() {
         return name;
     }
     
