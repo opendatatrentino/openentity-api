@@ -1,7 +1,7 @@
 package eu.trentorise.opendata.semantics.impl.model;
 
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.nlp.model.MeaningKind;
+import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.semantics.services.model.ITermSearchResult;
 import javax.annotation.concurrent.Immutable;
 

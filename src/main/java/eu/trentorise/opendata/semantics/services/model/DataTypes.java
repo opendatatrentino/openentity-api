@@ -20,7 +20,7 @@ package eu.trentorise.opendata.semantics.services.model;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.nlp.model.SemText;
+import eu.trentorise.opendata.semtext.SemText;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +45,7 @@ import java.util.Set;
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
  * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept} <br/>
- * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semantics.nlp.model.SemText} <br/> 
+ * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semtext.SemText} <br/> 
  * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} A convenient implementation for entities which are values of other entities (like in part-of relations) may be found in the {@link eu.trentorise.opendata.semantics.impl.model.entity.MinimalEntity} class <br/> 
  * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure} <br/>
  *

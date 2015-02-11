@@ -1,6 +1,6 @@
 package eu.trentorise.opendata.semantics.services.model;
 
-import eu.trentorise.opendata.semantics.nlp.model.MeaningKind;
+import eu.trentorise.opendata.semtext.MeaningKind;
 
 /**
  * Represents a search result that can contain either an entity or a concept

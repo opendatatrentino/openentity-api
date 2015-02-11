@@ -26,7 +26,7 @@ import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.nlp.model.SemTexts;
+import eu.trentorise.opendata.semtext.SemTexts;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
 import eu.trentorise.opendata.semantics.services.model.DataTypes;

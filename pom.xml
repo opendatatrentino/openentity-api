@@ -275,8 +275,8 @@
         </dependency>
         
         <dependency>        
-            <groupId>eu.trentorise.opendata.semantics.nlp</groupId>
-            <artifactId>semtext-model</artifactId>
+            <groupId>eu.trentorise.opendata.semtext</groupId>
+            <artifactId>semtext</artifactId>
             <version>0.27.0-SNAPSHOT</version>
         </dependency>        
         
