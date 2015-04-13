@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  *
- * 
+ *
  */
 public interface IEntityService {
 
@@ -177,7 +177,8 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
+     * @param entityURLs the URLs of the entities to export. If list is empty,
+     * an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated csv
      */
     void exportToCsv(List<String> entityURLs, Writer writer);
@@ -188,10 +189,12 @@ public interface IEntityService {
      *
      * @param partialName a partial entity name. It is assumed to be in one of
      * the default locales of the ekb.
+     * @param etypeURL The url of the entity type. Enities returned will be
+     * instances of that etype (or its descendants).
      * @return a list of candidate entities, ordered by probability. The first
      * one is the most probable.
      */
-    List<ISearchResult> searchEntities(String partialName, @Nullable String entityTypeURL, Locale locale);
+    List<ISearchResult> searchEntities(String partialName, @Nullable String eTypeURL, Locale locale);
 
     /**
      * Returns whether or not the URL was generated during calls to assign URL
