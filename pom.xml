@@ -22,7 +22,7 @@
 
     <groupId>eu.trentorise.opendata</groupId>
     <artifactId>openentity-api</artifactId>
-    <version>0.26.1-SNAPSHOT</version>
+    <version>0.26.1</version>
     <packaging>jar</packaging>
 
     <name>OpenEntityApi</name>
