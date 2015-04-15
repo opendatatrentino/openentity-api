@@ -17,22 +17,33 @@ package eu.trentorise.opendata.semantics.services;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
- * Interface for representing an entity knowledge base.
+ * Interface for representing an entity knowledge base. Implementations of this
+ * interface must have a public default constructor. Clients are not required to
+ * be thread safe.
+ *
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * @date 23 Apr, 2014
  */
 public interface IEkb {
-    
+
     /**
      * Returns the locales supported by the ekb.
+     *
      * @return the supported locales.
      */
     List<Locale> getSupportedLocales();
-    
+
+    /**
+     * Gets the default locales used when returning translations by the Ekb
+     *
+     * @return the default locales
+     */
+    List<Locale> getDefaultLocales();
+
     /**
      * Sets the locales in which strings will be returned during subsequent
      * service api calls, if they are available.
@@ -40,24 +51,31 @@ public interface IEkb {
      * @param locales the list of desired locales. If empty, English will be
      * used as default locale.
      */
-    void setDefaultLocales(List<Locale> locales);
-    
+    void setDefaultLocales(Iterable<Locale> locales);
+
     /**
-     * Gets the default locales used when returning translations by the Ekb
-     * @return the default locales 
+     * Set the client specific properties. Their name will have the prefix given
+     * by {@link #getPropertyNamespace()}
+     *
      */
-    List<Locale> getDefaultLocales();
+    void setProperties(Map<String, String> properties);
+
+    /**
+     * Returns the namespace used for the client properties.
+     */
+    String getPropertyNamespace();
 
     /**
      * Gets the service for Natural Language Processing
-     * 
+     *
      * @return the NLP service if supported, null otherwise.
      */
     @Nullable
     INLPService getNLPService();
 
     /**
-     * Gets the knowledge service 
+     * Gets the knowledge service
+     *
      * @return the knowledge service if supported, null otherwise.
      */
     @Nullable
@@ -65,6 +83,7 @@ public interface IEkb {
 
     /**
      * Gets the service for schema matching
+     *
      * @return the schema matching service if supported, null otherwise.
      */
     @Nullable
@@ -72,6 +91,7 @@ public interface IEkb {
 
     /**
      * Gets the identity management service
+     *
      * @return the identity service if supported, null otherwise.
      */
     @Nullable
@@ -79,6 +99,7 @@ public interface IEkb {
 
     /**
      * Gets the entity type management service
+     *
      * @return the entity type service if supported, null otherwise.
      */
     @Nullable
@@ -86,9 +107,10 @@ public interface IEkb {
 
     /**
      * Gets the entity management service
+     *
      * @return the entity service if supported, null otherwise.
      */
     @Nullable
     IEntityService getEntityService();
-     
+
 }
