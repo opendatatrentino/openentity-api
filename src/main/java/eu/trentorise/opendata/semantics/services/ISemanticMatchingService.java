@@ -23,6 +23,8 @@ import java.util.List;
 /**
  * A service that performs semantic matching between two schemas
  *
+ * @deprecated use {@link ISchemaMatchingService} instead
+ * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>

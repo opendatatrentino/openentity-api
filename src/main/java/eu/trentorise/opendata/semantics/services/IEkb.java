@@ -17,13 +17,16 @@ package eu.trentorise.opendata.semantics.services;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
- * Interface for representing an entity knowledge base.
+ * Interface for representing an entity knowledge base. Implementations of this
+ * interface must have a public default constructor. Clients are not required to
+ * be thread safe.
+ *
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * 
  */
 public interface IEkb {
     
@@ -40,13 +43,26 @@ public interface IEkb {
      * @param locales the list of desired locales. If empty, English will be
      * used as default locale.
      */
-    void setDefaultLocales(List<Locale> locales);
+ void setDefaultLocales(Iterable<Locale> locales);
     
     /**
      * Gets the default locales used when returning translations by the Ekb
      * @return the default locales 
      */
     List<Locale> getDefaultLocales();
+    
+/**
+     * Set the client specific properties. Their name will have the prefix given
+     * by {@link #getPropertyNamespace()}
+     *
+     */
+    void setProperties(Map<String, String> properties);
+
+    /**
+     * Returns the namespace used for the client properties.
+     */
+    String getPropertyNamespace();
+    
 
     /**
      * Gets the service for Natural Language Processing
@@ -58,6 +74,7 @@ public interface IEkb {
 
     /**
      * Gets the knowledge service 
+     * 
      * @return the knowledge service if supported, null otherwise.
      */
     @Nullable
