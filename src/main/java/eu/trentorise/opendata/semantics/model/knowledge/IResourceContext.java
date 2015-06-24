@@ -18,6 +18,8 @@ package eu.trentorise.opendata.semantics.model.knowledge;
 /**
  * The context of a resource coming from a catalog such as i.e. Ckan.
  * 
+ * @deprecated use ProvFile and DcatMetadata instead
+ * 
  * @author David Leoni <david.leoni@unitn.it>
  */
 public interface IResourceContext {

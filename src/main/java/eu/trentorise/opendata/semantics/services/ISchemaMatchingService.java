@@ -1,5 +1,5 @@
-/* 
- * Copyright 2015 TrentoRISE   (trentorise.eu).
+/*
+ * Copyright 2015 Trento Rise.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,17 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
-import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
+
 import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
+import eu.trentorise.opendata.traceprov.data.ProvFile;
 import java.util.List;
 
 /**
- * A service that performs semantic matching between two schemas
- *
- * @deprecated use {@link ISchemaMatchingService} instead
- * 
- * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <reyad@disi.unitn.it>
- * @author David Leoni <david.leoni@unitn.it>
- * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
- * 
+ * Superceeds {@link ISemanticMatchingService}
+ * @author David Leoni
  */
-public interface ISemanticMatchingService {
-
+public interface ISchemaMatchingService {
+    
     /**
      * Given a resource in tabular format guesses a target
      * entitytype and returns a matching between the source headers and the
@@ -42,6 +35,5 @@ public interface ISemanticMatchingService {
      * @param tableResource the names of the resource columns     
      * @return - a list of scored correspondences ordered in decreasing order of scoring.
      */   
-    List<ISchemaCorrespondence> matchSchemas(IResourceContext resourceContext, ITableResource tableResource);
-    
+    List<ISchemaCorrespondence> matchSchemas(ProvFile provFile);
 }

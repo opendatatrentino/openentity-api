@@ -13,29 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.trentorise.opendata.semantics.impl.model;
+package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.commons.Dict;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semtext.MeaningKind;
-import eu.trentorise.opendata.semantics.services.model.ITermSearchResult;
-import javax.annotation.concurrent.Immutable;
+import org.immutables.value.Value;
 
 /**
- * Immutable implementation of ITermSearchResult
+ * Represents a search result that can contain either an entity or a concept
+ * 
  * @author David Leoni
  */
-@Immutable
-public class TermSearchResult extends SearchResult implements ITermSearchResult {
+@Value.Immutable
+@BuilderStylePublic
+@JsonSerialize(as=TermSearchResult.class)
+@JsonDeserialize(as=TermSearchResult.class)
+public abstract class ATermSearchResult extends SearchResult {    
     
-    private final MeaningKind kind;
-
-    public TermSearchResult(String URL, Dict name, MeaningKind kind) {
-        super(URL, name);
-        this.kind = kind;
+            
+    @Value.Default    
+    public MeaningKind getKind(){
+        return MeaningKind.UNKNOWN;
     }
-
-    public MeaningKind getKind() {
-        return kind;
-    }    
-    
 }

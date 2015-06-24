@@ -18,7 +18,6 @@ package eu.trentorise.opendata.semantics.services;
 import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
 import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
 import eu.trentorise.opendata.semtext.SemText;
-import eu.trentorise.opendata.semantics.services.model.ITermSearchResult;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nullable;
@@ -75,5 +74,5 @@ public interface INLPService {
      * @param locale if unknown use {@link Locale#ROOT}
      * @return a list of candidate entities and/or concepts, ordered by probability. The first one is the most probable.
      */
-    List<? extends ITermSearchResult> freeSearch(String partialName, Locale locale);          
+    List<? extends TermSearchResult> freeSearch(String partialName, Locale locale);          
 }

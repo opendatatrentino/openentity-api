@@ -16,7 +16,6 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semantics.services.model.ISearchResult;
 
 import javax.annotation.Nullable;
 
@@ -93,5 +92,5 @@ public interface IKnowledgeService {
      * @param partialName a partial concept name. It is assumed to be in the provided locale.
      * @return a list of candidate entities, ordered by probability. The first one is the most probable.
      */
-    List<ISearchResult> searchConcepts(String partialName, Locale locale);    
+    List<SearchResult> searchConcepts(String partialName, Locale locale);    
 }
