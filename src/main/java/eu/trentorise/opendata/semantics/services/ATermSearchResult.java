@@ -18,6 +18,7 @@ package eu.trentorise.opendata.semantics.services;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import org.immutables.value.Value;
 
@@ -36,5 +37,13 @@ public abstract class ATermSearchResult extends SearchResult {
     @Value.Default    
     public MeaningKind getKind(){
         return MeaningKind.UNKNOWN;
+    }
+    
+    public static TermSearchResult of(String id, Dict name, MeaningKind kind){
+        return TermSearchResult.builder()
+                .setId(id)
+                .setName(name)
+                .setKind(kind)
+                .build();
     }
 }

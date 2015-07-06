@@ -74,5 +74,5 @@ public interface INLPService {
      * @param locale if unknown use {@link Locale#ROOT}
      * @return a list of candidate entities and/or concepts, ordered by probability. The first one is the most probable.
      */
-    List<? extends TermSearchResult> freeSearch(String partialName, Locale locale);          
+    List<TermSearchResult> freeSearch(String partialName, Locale locale);          
 }

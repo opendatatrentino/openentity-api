@@ -24,11 +24,11 @@ public class OpenEntityException extends RuntimeException {
         super(s);
     }
 
-    public OpenEntityException(String s, Exception ex) {        
-        super(s, ex);        
+    public OpenEntityException(String s, Throwable tr) {        
+        super(s, tr);        
     }
 
-    OpenEntityException(Exception ex) {
-        super(ex); 
+    OpenEntityException(Throwable tr) {
+        super(tr); 
     }
 }

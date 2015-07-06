@@ -85,7 +85,7 @@ public interface IEkb {
      * @return the schema matching service if supported, null otherwise.
      */
     @Nullable
-    ISemanticMatchingService getSemanticMatchingService();
+    ISchemaMatchingService getSchemaMatchingService();
 
     /**
      * Gets the identity management service

@@ -16,8 +16,8 @@
 package eu.trentorise.opendata.semantics.services;
 
 
-import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
-import eu.trentorise.opendata.traceprov.data.ProvFile;
+import eu.trentorise.opendata.traceprov.data.DcatMetadata;
+import eu.trentorise.opendata.traceprov.schema.Schema;
 import java.util.List;
 
 /**
@@ -27,13 +27,15 @@ import java.util.List;
 public interface ISchemaMatchingService {
     
     /**
-     * Given a resource in tabular format guesses a target
-     * entitytype and returns a matching between the source headers and the
+     * Given a resource in tree format guesses a target
+     * entitytype and returns a matching between the source schema elements and the
      * attributes of the target entity type. 
      *
-     * @param resourceContext the context of the resource as found in the catalog of provenance
-     * @param tableResource the names of the resource columns     
-     * @return - a list of scored correspondences ordered in decreasing order of scoring.
+     * @parameter dcatMetadata
+     * @parameter schema The source schema. If unknown use {@link Schema#of()}
+     * @parameter data a sample of data organized as list of tree-like data, with objects belonging to one of the followong types: Map, Iterable, String, Number, null
+     * 
+     * @return - a list of scored schema to schema mappings ordered in decreasing order of relevance.
      */   
-    List<ISchemaCorrespondence> matchSchemas(ProvFile provFile);
+    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Schema schema, Iterable data);
 }

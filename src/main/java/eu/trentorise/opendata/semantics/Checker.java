@@ -16,6 +16,7 @@
 package eu.trentorise.opendata.semantics;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import eu.trentorise.opendata.commons.OdtUtils;
 import static eu.trentorise.opendata.commons.OdtUtils.checkNotDirtyUrl;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
@@ -24,12 +25,10 @@ import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
-import eu.trentorise.opendata.semtext.SemTexts;
 import eu.trentorise.opendata.semantics.services.IEkb;
+import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
-import eu.trentorise.opendata.semantics.services.model.IAttributeCorrespondence;
 import eu.trentorise.opendata.semantics.services.model.IIDResult;
-import eu.trentorise.opendata.semantics.services.model.ISchemaCorrespondence;
 
 /**
  * Class to collect checkers for implementations of Open Entity API interfaces.
@@ -41,65 +40,29 @@ public final class Checker {
     private Checker() {
     }
 
+    
     private static void checkScore(Float score, String prependedErrorMessage) {
-        checkNotNull(score, "Found null score!");
-        SemTexts.checkScore(score.doubleValue(), prependedErrorMessage);
-
+        checkNotNull(score, "%s Found null score!");
+        OdtUtils.checkScore(score, prependedErrorMessage);        
     }
-
+    
     /**
      * Checks if provided schema correspondence complies with open entity specs.
      *
-     * @param schemaCor to check
+     * @param schemaMapping to check
      * @throws IllegalArgumentException if provided correspondence is not
      * conformant to OpenEntity specs.
      */
-    public static void checkSchemaCorrespondence(ISchemaCorrespondence schemaCor) {
-        if (schemaCor == null) {
-            throw new IllegalArgumentException("Schema correspondence is null!");
+    public static void checkSchemaMapping(SchemaMapping schemaMapping) {
+        if (schemaMapping == null) {
+            throw new IllegalArgumentException("Schema mapping is null!");
         }
 
         try {
-            checkEntityType(schemaCor.getEtype());
+            checkEntityType(schemaMapping.getTargetEtype());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Invalid etype in schema correspondence!", ex);
-        }
-
-        if (schemaCor.getAttributeCorrespondences() == null) {
-            throw new IllegalArgumentException("Schema Correrespondence has null correspondences!");
-        }
-
-        for (IAttributeCorrespondence attrCor : schemaCor.getAttributeCorrespondences()) {
-            checkNotDirtyUrl(attrCor.getHeaderConceptURL(), "header concept URL is invalid!");
-            try {
-
-                checkScore(attrCor.getScore(), "attribute correspondence score is invalid!");
-            }
-            catch (Exception ex) {
-
-                throw new IllegalArgumentException("Invalid score for attribute correspondence " + attrCor.getScore() + " Found score: " + attrCor.getScore(), ex);
-            }
-
-            if (attrCor.getColumnIndex() < 0) {
-                throw new IllegalArgumentException("Attribute correspondence column index is lesss than zero. Found index: " + attrCor.getColumnIndex());
-            }
-
-            checkAttributeDef(attrCor.getAttrDef());
-
-            if (attrCor.getAttrMap() == null) {
-                throw new IllegalArgumentException("Found null attr map in IAttributeCorrespondence for etype " + schemaCor.getEtype().getURL());
-            }
-
-            for (IAttributeDef ad : attrCor.getAttrMap().keySet()) {
-                try {
-                    checkScore(attrCor.getAttrMap().get(ad), "Found invalid score in attribute correspondance map!");
-                }
-                catch (Exception ex) {
-                    throw new IllegalArgumentException("Found invalid score in attribute correspondence map for attribute " + ad.getURL(), ex);
-                }
-            }
-
+            throw new IllegalArgumentException("Invalid etype in schema mapping!", ex);
         }
     }
 
@@ -510,7 +473,5 @@ public final class Checker {
         }
 
     }
-
-    
 
 }
