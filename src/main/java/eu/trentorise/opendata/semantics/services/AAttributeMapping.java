@@ -17,11 +17,11 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.OdtUtils;
 import eu.trentorise.opendata.commons.SimpleStyle;
 
 import java.io.Serializable;
-import java.util.List;
 import org.immutables.value.Value;
 
 /**
@@ -33,9 +33,9 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @SimpleStyle
-@JsonSerialize(as = PropertyMapping.class)
-@JsonDeserialize(as = PropertyMapping.class)
-abstract class APropertyMapping implements Serializable {
+@JsonSerialize(as = AttributeMapping.class)
+@JsonDeserialize(as = AttributeMapping.class)
+abstract class AAttributeMapping implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,14 +46,14 @@ abstract class APropertyMapping implements Serializable {
      * source properties see {@link SchemaPaths}.
      *
      */
-    public abstract List<String> getSourcePath();
+    public abstract ImmutableList<String> getSourcePath();
 
     /**
      * A reference to a target etype attribute path of IRIs, like
      * ["http://some.entitybase.org/workplace","http://some.entitybase.org/address","http://some.entitybase.org/zip"]
      * *
      */
-    public abstract List<String> getTargetPath();
+    public abstract ImmutableList<String> getTargetPath();
 
     /**
      * The optional confidence for the mapping in the range [0,1]. By default

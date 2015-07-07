@@ -19,11 +19,10 @@ import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.commons.OdtConfig;
 import eu.trentorise.opendata.commons.validation.Ref;
-import eu.trentorise.opendata.semantics.services.PropertyMapping;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
 import eu.trentorise.opendata.traceprov.data.ProvFile;
-import eu.trentorise.opendata.traceprov.schema.RefMapping;
+import eu.trentorise.opendata.traceprov.schema.PropertyMapping;
 
 
 import org.junit.Test;
@@ -51,8 +50,7 @@ public class CodeGenTest {
         assertEquals(ProvFile.of().getMappings(), ImmutableList.of());
 
         ProvFile.builder().addMappings(
-                RefMapping.of(Ref.of(), ImmutableList.of("a", "b"))
-                );
+                PropertyMapping.of(Ref.of(), ImmutableList.of("a", "b")));
         
                 
     }

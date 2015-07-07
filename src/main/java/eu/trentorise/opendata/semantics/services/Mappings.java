@@ -20,12 +20,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import static eu.trentorise.opendata.commons.OdtUtils.checkNotEmpty;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
+import eu.trentorise.opendata.traceprov.schema.PropertyDef;
 import eu.trentorise.opendata.traceprov.schema.ProvRefs;
+import eu.trentorise.opendata.traceprov.schema.Schema;
 import java.util.Iterator;
 import javax.annotation.Nullable;
 
 /**
- * Holds builders for various source paths for {@link PropertyMapping}
+ * Holds builders for various source paths for {@link AttributeMapping}
  * @author David Leoni
  */
 public class Mappings {
@@ -51,7 +53,19 @@ public class Mappings {
         return builder.build();
     }
     
-    public static ImmutableList<String> schemaPath(Iterable<String> idPath) {
+    /**
+     * Returns a path of proprty ids of a given jsource schema
+     * @param idPath
+     * @return 
+     */
+    
+    public static ImmutableList<String> schemaSourcePath(Iterable<String> idPath) {
+        /* todo
+        for (String propertyId : idPath){
+            for (PropertyDef propertyDef : schema.getPropertyDefs()){
+                if (propertyDef.getId().equals());
+            }            
+        }*/
         return buildPath(SCHEMA_SOURCE, idPath);
     }    
 
@@ -97,7 +111,7 @@ public class Mappings {
             switch (selector){
                 
                 case SCHEMA_SOURCE: {
-                    return schemaPath(Iterables.skip(path, 1));                    
+                    return schemaSourcePath(Iterables.skip(path, 1));                    
                 }
                 
                 case DCAT_METADATA_SOURCE: {

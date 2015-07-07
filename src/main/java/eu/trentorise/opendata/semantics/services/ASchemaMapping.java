@@ -17,10 +17,9 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.SimpleStyle;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.traceprov.schema.RefMapping;
-import java.util.List;
 import org.immutables.value.Value;
 
 /**
@@ -34,10 +33,11 @@ import org.immutables.value.Value;
 public abstract class ASchemaMapping {
 
     /**
-     * Gets a list of mappings from source properties to target attributes. 
+     * Gets a list of mappings from source properties to target attributes.
+     * First mappings will have highest score.
      *
      */
-    public abstract List<PropertyMapping> getMappings();
+    public abstract ImmutableList<AttributeMapping> getMappings();
 
     /**
      *

@@ -15,8 +15,6 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IResourceContext;
-import eu.trentorise.opendata.semantics.model.knowledge.ITableResource;
 import eu.trentorise.opendata.semtext.SemText;
 import java.util.List;
 import java.util.Locale;
@@ -32,26 +30,6 @@ import javax.annotation.Nullable;
  * 
  */
 public interface INLPService {
-
-    /**
-     * Disambiguates the column header names of a resource that typically comes
-     * from a catalog.
-     *
-     * @param table the content of the resource
-     * @param context the metadata of the resource, typically found in the
-     * catalog
-     * @return the column names enriched with the meaning, ranked by confidence
-     */
-    List<SemText> disambiguateColumns(ITableResource table, IResourceContext context);
-
-    /**
-     * Guesses the datatype common to a list of strings passed as input. Todo
-     * for now types are expressed as String, maybe we can do an enum
-     *
-     * @return the guessed type
-     * @param cellList a list of strings
-     */
-    String guessType(Iterable<String> cellList);
 
     /**
      * Takes natural language strings and assigns to each string candidate
