@@ -15,26 +15,25 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.commons.SimpleStyle;
-import eu.trentorise.opendata.semtext.MeaningKind;
+import java.io.Serializable;
+
+import javax.annotation.concurrent.Immutable;
 import org.immutables.value.Value;
 
 /**
- * Represents a search result that can contain either an entity or a concept
- * 
+ *
+ * Represents the result of a search for an object that has an URL and a
+ * multilingual name, such as entity types and concepts.
+ *
  * @author David Leoni
+ * 
  */
-@Value.Immutable
-@SimpleStyle
-@JsonSerialize(as=TermSearchResult.class)
-@JsonDeserialize(as=TermSearchResult.class)
-public abstract class ATermSearchResult extends ASearchResult {    
-    
-     private static final long serialVersionUID = 1L;
-            
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@Immutable
+public abstract class ASearchResult implements Serializable {
+
     /**
      * The id of the object (which may be an IRI)
      */
@@ -51,11 +50,10 @@ public abstract class ATermSearchResult extends ASearchResult {
     public Dict getName(){
         return Dict.of();
     }           
-       
-     
-    @Value.Default    
-    public MeaningKind getKind(){
-        return MeaningKind.UNKNOWN;
-    }
+  
     
 }
+
+
+
+

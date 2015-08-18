@@ -1,5 +1,5 @@
-/* 
- * Copyright 2015 TrentoRISE   (trentorise.eu).
+/*
+ * Copyright 2015 Trento Rise.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,45 +17,17 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.commons.SimpleStyle;
-import eu.trentorise.opendata.semtext.MeaningKind;
 import org.immutables.value.Value;
 
 /**
- * Represents a search result that can contain either an entity or a concept
- * 
+ * Little template to create SearchResult implementation
  * @author David Leoni
  */
 @Value.Immutable
 @SimpleStyle
-@JsonSerialize(as=TermSearchResult.class)
-@JsonDeserialize(as=TermSearchResult.class)
-public abstract class ATermSearchResult extends ASearchResult {    
-    
+@JsonSerialize(as=SearchResult.class)
+@JsonDeserialize(as=SearchResult.class)
+class AbstractSearchResult extends ASearchResult {
      private static final long serialVersionUID = 1L;
-            
-    /**
-     * The id of the object (which may be an IRI)
-     */
-    @Value.Default
-    public String getId(){
-        return "";
-    }
-
-    
-    /**
-     * The object name, in the default locales for the ekb.
-     */
-    @Value.Default
-    public Dict getName(){
-        return Dict.of();
-    }           
-       
-     
-    @Value.Default    
-    public MeaningKind getKind(){
-        return MeaningKind.UNKNOWN;
-    }
-    
 }

@@ -16,7 +16,7 @@
 package eu.trentorise.opendata.semantics;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import eu.trentorise.opendata.commons.OdtUtils;
+import eu.trentorise.opendata.commons.validation.Preconditions;
 import static eu.trentorise.opendata.commons.OdtUtils.checkNotDirtyUrl;
 import eu.trentorise.opendata.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
@@ -43,7 +43,7 @@ public final class Checker {
     
     private static void checkScore(Float score, String prependedErrorMessage) {
         checkNotNull(score, "%s Found null score!");
-        OdtUtils.checkScore(score, prependedErrorMessage);        
+        Preconditions.checkScore(score, prependedErrorMessage);        
     }
     
     /**

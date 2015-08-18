@@ -18,11 +18,10 @@ package eu.trentorise.opendata.semantics.services;
 import static com.google.common.base.Preconditions.checkArgument;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import static eu.trentorise.opendata.commons.OdtUtils.checkNotEmpty;
+import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
-import eu.trentorise.opendata.traceprov.schema.PropertyDef;
-import eu.trentorise.opendata.traceprov.schema.ProvRefs;
-import eu.trentorise.opendata.traceprov.schema.Schema;
+import eu.trentorise.opendata.traceprov.types.ProvRefs;
+
 import java.util.Iterator;
 import javax.annotation.Nullable;
 
@@ -54,7 +53,7 @@ public class Mappings {
     }
     
     /**
-     * Returns a path of proprty ids of a given jsource schema
+     * Returns a path of property ids of a given jsource schema
      * @param idPath
      * @return 
      */

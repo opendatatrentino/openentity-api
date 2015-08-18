@@ -21,8 +21,9 @@ import eu.trentorise.opendata.commons.OdtConfig;
 import eu.trentorise.opendata.commons.validation.Ref;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
+import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.traceprov.data.ProvFile;
-import eu.trentorise.opendata.traceprov.schema.PropertyMapping;
+import eu.trentorise.opendata.traceprov.types.PropertyMapping;
 
 
 import org.junit.Test;
@@ -43,15 +44,14 @@ public class CodeGenTest {
 
     @Test
     public void testDataModel() {
-        assertEquals(SearchResult.of("a", Dict.of()).getId(),"a" );
+        assertEquals("a", SearchResult.of("a", Dict.of()).getId());
         
-        assertEquals(TermSearchResult.of("a", Dict.of()).getId(),"a" );
+        assertEquals("a", TermSearchResult.of("a", Dict.of(), MeaningKind.UNKNOWN).getId());
         
         assertEquals(ProvFile.of().getMappings(), ImmutableList.of());
 
-        ProvFile.builder().addMappings(
-                PropertyMapping.of(Ref.of(), ImmutableList.of("a", "b")));
-        
+        ProvFile.builder().setMappings(
+                ImmutableList.of(PropertyMapping.of(Ref.of(), ImmutableList.of("a", "b"))));        
                 
     }
 

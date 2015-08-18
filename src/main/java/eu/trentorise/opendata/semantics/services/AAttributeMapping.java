@@ -18,8 +18,8 @@ package eu.trentorise.opendata.semantics.services;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
-import eu.trentorise.opendata.commons.OdtUtils;
 import eu.trentorise.opendata.commons.SimpleStyle;
+import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
 
 import java.io.Serializable;
 import org.immutables.value.Value;
@@ -66,7 +66,7 @@ abstract class AAttributeMapping implements Serializable {
 
     @Value.Check
     protected void check() {
-        OdtUtils.checkScore(getScore(), "Invalid score!");
+        checkScore(getScore(), "Invalid score!");
         Mappings.checkSourcePath(getSourcePath(), "Invalid source path!");
     }
     
