@@ -53,7 +53,7 @@ public class Mappings {
     }
     
     /**
-     * Returns a path of property ids of a given jsource schema
+     * Returns a path of property ids of a given source schema
      * @param idPath
      * @return 
      */

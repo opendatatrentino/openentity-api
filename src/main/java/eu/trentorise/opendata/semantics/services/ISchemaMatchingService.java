@@ -15,27 +15,32 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-
+import eu.trentorise.opendata.traceprov.data.DataNode;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
 import eu.trentorise.opendata.traceprov.types.Type;
 import java.util.List;
 
 /**
  * Superceeds {@link ISemanticMatchingService}
+ *
  * @author David Leoni
  */
 public interface ISchemaMatchingService {
-    
+
     /**
-     * Given a resource in tree format guesses a target
-     * entitytype and returns a matching between the source schema elements and the
-     * attributes of the target entity type. 
+     * Given a resource in tree format guesses a target entitytype and returns a
+     * matching between the source schema elements and the attributes of the
+     * target entity type.
      *
      * @parameter dcatMetadata
-     * @parameter schema The source schema. If unknown use {@link eu.trentorise.opendata.traceprov.types.AnyType#of() AnyType.of()}
-     * @parameter data a sample of data organized as list of tree-like data, with objects belonging to one of the followong types: Map, Iterable, String, Number, null
-     * 
-     * @return - a list of scored schema to schema mappings ordered in decreasing order of relevance.
-     */   
-    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, Iterable data);
+     * @parameter schema The source schema. If unknown use
+     * {@link eu.trentorise.opendata.traceprov.types.AnyType#of() AnyType.of()}
+     * @parameter data a sample of data organized as list of tree-like data,
+     * with objects belonging to one of the followong types: Map, Iterable,
+     * String, Number, null
+     *
+     * @return - a list of scored schema to schema mappings ordered in
+     * decreasing order of relevance.
+     */
+    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, DataNode data);
 }

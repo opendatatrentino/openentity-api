@@ -67,27 +67,6 @@ public interface IEntityType {
      */
     List<IAttributeDef> getAttributeDefs();
 
-    /**
-     * Adds an attribute definition to the entity type
-     * @deprecated we don't need methods to change objects
-     * @param attrDef the attribute definition to be added
-     */
-    void addAttributeDef(IAttributeDef attrDef);
-
-    /**
-     * Removes an attribute definition from the entity type
-     *
-     * @deprecated use removeAttributeDef by url
-     * @param attrDefID the local ID of the attribute definition to be removed
-     */
-    void removeAttributeDef(long attrDefID);
-
-    /**
-     * Removes an attribute definition from the entity type
-     * @deprecated we don't need methods to change objects
-     * @param attrDefURL the URL of the attribute definition to be removed
-     */
-    void removeAttributeDef(String attrDefURL);
 
     /**
      * Gets the unique indexes
@@ -96,27 +75,6 @@ public interface IEntityType {
      */
     List<IUniqueIndex> getUniqueIndexes();
 
-    /**
-     * Removes Unique Indexes
-     *
-     *      * @deprecated we don't need methods to change objects
-     * @param uniqueIndexID the local ID of the unique indexes to be removed
-     */
-    void removeUniqueIndex(long uniqueIndexID);
-
-    /**
-     * Removes Unique Indexes
-     * @deprecated we don't need methods to change objects
-     * @param uniqueIndexURL the URL of the unique indexes to be removed
-     */
-    void removeUniqueIndex(String uniqueIndexURL);
-
-    /**
-     * Adds Unique Indexes
-     * @deprecated we don't need methods to change objects
-     * @param uniqueIndex the unique indexes to be added
-     */
-    void addUniqueIndex(IUniqueIndex uniqueIndex);
 
     /**
      * Gets the URL of the entity type
@@ -152,3 +110,5 @@ public interface IEntityType {
     @Nullable
     IAttributeDef getAttrDef(String URL);
 }
+
+

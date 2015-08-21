@@ -17,27 +17,28 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.SimpleStyle;
+import eu.trentorise.opendata.semantics.model.entity.EntityType;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
+import java.util.List;
 import org.immutables.value.Value;
 
 /**
- *
+ * 
  * @author David Leoni
  */
 @Value.Immutable
 @SimpleStyle
 @JsonSerialize(as = SchemaMapping.class)
 @JsonDeserialize(as = SchemaMapping.class)
-public abstract class ASchemaMapping {
+abstract class ASchemaMapping implements Comparable<SchemaMapping> {
 
     /**
      * Gets a list of mappings from source properties to target attributes.
      * First mappings will have highest score.
      *
      */
-    public abstract ImmutableList<AttributeMapping> getMappings();
+    public abstract List<AttributeMapping> getMappings();
 
     /**
      *
@@ -45,7 +46,7 @@ public abstract class ASchemaMapping {
      */
     @Value.Default
     public IEntityType getTargetEtype() {
-        return null; // don't like this, but don't want to make an implementation right now..
+        return new EntityType(); 
     }
 
     /**
@@ -57,6 +58,31 @@ public abstract class ASchemaMapping {
     @Value.Default
     public double getScore() {
         return 1.0;
+    }
+
+    @Override
+    public int compareTo(SchemaMapping other) {
+        double diff1 = this.getScore() - other.getScore();
+        if (diff1 != 0.0) {
+            if (diff1 > 0) {
+                return +1;
+            } else {
+                return -1;
+            }
+        }
+        int diff2 = getMappings().toString().compareTo(other.getMappings().toString());
+        if (diff2 != 0) {
+            return diff2;
+        }
+
+        if (getTargetEtype() != null) {
+            int diff3 = getTargetEtype().toString().compareTo(other.getTargetEtype().toString());
+            if (diff3 != 0) {
+                return diff3;
+            } 
+        } 
+        return 0;
+        
     }
 
 }

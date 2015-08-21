@@ -17,11 +17,12 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.common.collect.ImmutableList;
+
 import eu.trentorise.opendata.commons.SimpleStyle;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
 
 import java.io.Serializable;
+import java.util.List;
 import org.immutables.value.Value;
 
 /**
@@ -35,7 +36,7 @@ import org.immutables.value.Value;
 @SimpleStyle
 @JsonSerialize(as = AttributeMapping.class)
 @JsonDeserialize(as = AttributeMapping.class)
-abstract class AAttributeMapping implements Serializable {
+abstract class AAttributeMapping implements Serializable, Comparable<AttributeMapping> {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,17 +44,17 @@ abstract class AAttributeMapping implements Serializable {
      * A reference to a property path in the source schema, which is intended to
      * be in commmon tree format - see
      * {@link eu.trentorise.opendata.traceprov.data.ProvFile}. For allowed
-     * source properties see {@link SchemaPaths}.
+     * source properties see {@link Mappings#ALLOWED_SOURCES}.
      *
      */
-    public abstract ImmutableList<String> getSourcePath();
+    public abstract List<String> getSourcePath();
 
     /**
      * A reference to a target etype attribute path of IRIs, like
      * ["http://some.entitybase.org/workplace","http://some.entitybase.org/address","http://some.entitybase.org/zip"]
      * *
      */
-    public abstract ImmutableList<String> getTargetPath();
+    public abstract List<String> getTargetPath();
 
     /**
      * The optional confidence for the mapping in the range [0,1]. By default
@@ -69,6 +70,28 @@ abstract class AAttributeMapping implements Serializable {
         checkScore(getScore(), "Invalid score!");
         Mappings.checkSourcePath(getSourcePath(), "Invalid source path!");
     }
-    
+
+    @Override
+    public int compareTo(AttributeMapping other) {
+        double diff1 = this.getScore() - other.getScore();
+        if (diff1 != 0.0) {
+            if (diff1 > 0) {
+                return +1;
+            } else {
+                return -1;
+            }
+        }
+        int diff2 = getSourcePath().toString().compareTo(other.getSourcePath().toString());
+        if (diff2 != 0) {
+            return diff2;
+        }
+
+        int diff3 = getTargetPath().toString().compareTo(other.getTargetPath().toString());
+        if (diff3 != 0) {
+            return diff3;
+        } else {
+            return 0;
+        }
+    }
 
 }

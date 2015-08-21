@@ -23,7 +23,7 @@ import eu.trentorise.opendata.semantics.services.SearchResult;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.traceprov.data.ProvFile;
-import eu.trentorise.opendata.traceprov.types.PropertyMapping;
+import eu.trentorise.opendata.traceprov.data.PropertyMapping;
 
 
 import org.junit.Test;

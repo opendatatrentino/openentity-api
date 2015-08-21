@@ -79,22 +79,7 @@ public interface IEntityTypeService {
      */
     List<SearchResult> searchEntityTypes(String partialName, Locale locale);
 
-    /**
-     * Adds an attribute definition to an entity type
-     *
-     * @param entityType the entity type that will own the attribute definition
-     * @param attrDef    the attribute definition to be added
-     */
-    void addAttributeDefToEtype(IEntityType entityType, IAttributeDef attrDef);
-
-    /**
-     * Adds a unique index to an entity type
-     *
-     * @param entityType  the entity type that will own the matching set
-     * @param uniqueIndex the unique index to be added
-     */
-    void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndex uniqueIndex);
-
+    
 
     /**
      * Return the entity type by the given URL
