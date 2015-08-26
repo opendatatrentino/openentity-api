@@ -37,7 +37,7 @@ public class SchemaMatchingTest {
     
     @Test
     public void testAttributeMapping(){        
-        AttributeMapping x1 = AttributeMapping.of(ImmutableList.of("schema","s"), ImmutableList.of("b"), 1.0);
+        AttributeMapping x1 = AttributeMapping.builder().addSourcePath("schema","s").addTargetPath("b").setScore(1.0).build();
         AttributeMapping x2 = AttributeMapping.of(ImmutableList.of("schema","s"), ImmutableList.of("b"), 0.5);
         assertTrue(x1.compareTo(x2) > 0);
     }    
@@ -45,7 +45,7 @@ public class SchemaMatchingTest {
     @Test
     public void testSchemaMapping(){        
         SchemaMapping x1 = SchemaMapping.of(ImmutableList.of(AttributeMapping.of()), new EntityType(), 1.0);
-        SchemaMapping x2 = SchemaMapping.of(ImmutableList.of(AttributeMapping.of()), new EntityType(), 0.5);
+        SchemaMapping x2 = SchemaMapping.builder().addMappings(AttributeMapping.of()).setTargetEtype(new EntityType()).setScore(0.5).build();
         assertTrue(x1.compareTo(x2) > 0);
     }        
 }

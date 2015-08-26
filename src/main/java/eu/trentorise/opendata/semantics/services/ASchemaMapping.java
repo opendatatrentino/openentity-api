@@ -17,18 +17,18 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.trentorise.opendata.commons.SimpleStyle;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.EntityType;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import java.util.List;
 import org.immutables.value.Value;
 
 /**
- * 
+ *
  * @author David Leoni
  */
 @Value.Immutable
-@SimpleStyle
+@BuilderStylePublic
 @JsonSerialize(as = SchemaMapping.class)
 @JsonDeserialize(as = SchemaMapping.class)
 abstract class ASchemaMapping implements Comparable<SchemaMapping> {
@@ -46,7 +46,7 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
      */
     @Value.Default
     public IEntityType getTargetEtype() {
-        return new EntityType(); 
+        return new EntityType();
     }
 
     /**
@@ -79,10 +79,14 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
             int diff3 = getTargetEtype().toString().compareTo(other.getTargetEtype().toString());
             if (diff3 != 0) {
                 return diff3;
-            } 
-        } 
+            }
+        }
         return 0;
-        
+
+    }
+
+    public static SchemaMapping of(Iterable<? extends AttributeMapping> mappings, IEntityType targetEtype, double score) {
+        return SchemaMapping.builder().addAllMappings(mappings).setTargetEtype(targetEtype).setScore(score).build();
     }
 
 }

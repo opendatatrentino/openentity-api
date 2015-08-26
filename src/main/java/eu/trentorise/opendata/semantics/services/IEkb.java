@@ -18,7 +18,7 @@ package eu.trentorise.opendata.semantics.services;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+
 
 /**
  * Interface for representing an entity knowledge base. Implementations of this
@@ -28,14 +28,16 @@ import javax.annotation.Nullable;
  * @author David Leoni <david.leoni@unitn.it>
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
  */
+// TODO define what happens when services are not available
 public interface IEkb {
-    
+
     /**
      * Returns the locales supported by the ekb.
+     *
      * @return the supported locales.
      */
     List<Locale> getSupportedLocales();
-    
+
     /**
      * Sets the locales in which strings will be returned during subsequent
      * service api calls, if they are available.
@@ -43,15 +45,16 @@ public interface IEkb {
      * @param locales the list of desired locales. If empty, English will be
      * used as default locale.
      */
- void setDefaultLocales(Iterable<Locale> locales);
-    
+    void setDefaultLocales(Iterable<Locale> locales);
+
     /**
      * Gets the default locales used when returning translations by the Ekb
-     * @return the default locales 
+     *
+     * @return the default locales
      */
     List<Locale> getDefaultLocales();
-    
-/**
+
+    /**
      * Set the client specific properties. Their name will have the prefix given
      * by {@link #getPropertyNamespace()}
      *
@@ -62,50 +65,47 @@ public interface IEkb {
      * Returns the namespace used for the client properties.
      */
     String getPropertyNamespace();
-    
 
     /**
      * Gets the service for Natural Language Processing
-     * 
+     *
      * @return the NLP service if supported, null otherwise.
      */
-    @Nullable
     INLPService getNLPService();
 
     /**
-     * Gets the knowledge service 
-     * 
+     * Gets the knowledge service
+     *
      * @return the knowledge service if supported, null otherwise.
      */
-    @Nullable
     IKnowledgeService getKnowledgeService();
 
     /**
      * Gets the service for schema matching
+     *
      * @return the schema matching service if supported, null otherwise.
      */
-    @Nullable
     ISchemaMatchingService getSchemaMatchingService();
 
     /**
      * Gets the identity management service
+     *
      * @return the identity service if supported, null otherwise.
      */
-    @Nullable
     IIdentityService getIdentityService();
 
     /**
      * Gets the entity type management service
+     *
      * @return the entity type service if supported, null otherwise.
      */
-    @Nullable
     IEntityTypeService getEntityTypeService();
 
     /**
      * Gets the entity management service
+     *
      * @return the entity service if supported, null otherwise.
      */
-    @Nullable
     IEntityService getEntityService();
-     
+
 }

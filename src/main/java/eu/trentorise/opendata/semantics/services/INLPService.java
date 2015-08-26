@@ -53,4 +53,11 @@ public interface INLPService {
      * @return a list of candidate entities and/or concepts, ordered by probability. The first one is the most probable.
      */
     List<TermSearchResult> freeSearch(String partialName, Locale locale);          
+    
+    
+    /**
+     * Detects the language of a series of strings.
+     * @return the language of the input strings, or {@link Locale#ROOT} if locale can't be detected.
+     */
+    Locale detectLanguage(Iterable<String> strings);
 }

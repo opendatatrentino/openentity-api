@@ -1,5 +1,5 @@
-/* 
- * Copyright 2015 TrentoRISE   (trentorise.eu).
+/*
+ * Copyright 2015 Trento Rise.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.trentorise.opendata.semantics;
+package eu.trentorise.opendata.semantics.exceptions;
 
 /**
- * Common exception for errors raised in OpenEntity library. 
+ * 
  * @author David Leoni
  */
-public class OpenEntityException extends RuntimeException {    
-    public OpenEntityException(String s){
+public class UnsupportedSchemaException extends OpenEntityException {
+
+    public UnsupportedSchemaException(String s) {
         super(s);
     }
 
-    public OpenEntityException(String s, Throwable tr) {        
-        super(s, tr);        
+    public UnsupportedSchemaException(String s, Throwable tr) {
+        super(s, tr);
     }
 
-    OpenEntityException(Throwable tr) {
-        super(tr); 
-    }
+  
 }

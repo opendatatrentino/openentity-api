@@ -40,12 +40,6 @@ public interface IConcept {
      */
     String getURL();
 
-    /**
-     * Gets the global id of the concept
-     * @deprecated use getURL instead
-     * @return the concept global id
-     */
-    Long getGUID();
     
     /**
      * Gets the description of the concept

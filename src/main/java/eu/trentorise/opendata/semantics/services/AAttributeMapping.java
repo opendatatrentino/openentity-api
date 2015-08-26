@@ -17,8 +17,8 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
 
-import eu.trentorise.opendata.commons.SimpleStyle;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
 
 import java.io.Serializable;
@@ -33,7 +33,7 @@ import org.immutables.value.Value;
  * @author David Leoni
  */
 @Value.Immutable
-@SimpleStyle
+@BuilderStylePublic
 @JsonSerialize(as = AttributeMapping.class)
 @JsonDeserialize(as = AttributeMapping.class)
 abstract class AAttributeMapping implements Serializable, Comparable<AttributeMapping> {
@@ -50,11 +50,17 @@ abstract class AAttributeMapping implements Serializable, Comparable<AttributeMa
     public abstract List<String> getSourcePath();
 
     /**
-     * A reference to a target etype attribute path of IRIs, like
-     * ["http://some.entitybase.org/workplace","http://some.entitybase.org/address","http://some.entitybase.org/zip"]
-     * *
+     * A reference to a target etype attribute path made of attribute names in canonical format,
+     * i.e. ["workingPlace","address","zip"] 
      */
     public abstract List<String> getTargetPath();
+
+    /**
+     * todo javadoc
+     */
+    public static AttributeMapping of(Iterable<String> sourcePath, Iterable<String> targetPath, double score) {
+        return AttributeMapping.builder().addAllSourcePath(sourcePath).addAllTargetPath(targetPath).setScore(score).build();
+    }
 
     /**
      * The optional confidence for the mapping in the range [0,1]. By default

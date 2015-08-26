@@ -28,7 +28,7 @@ import java.util.Locale;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * 
+ *
  */
 public interface IKnowledgeService {
 
@@ -37,24 +37,24 @@ public interface IKnowledgeService {
      *
      * @deprecated Use {@link #readConcepts(java.util.List) } instead
      * @param URLs a list of URLs for concepts
-     * @return the list of concepts. If a given concept is not found, null is returned at the corresponding position in
-     * the list.
+     * @return the list of concepts. If a given concept is not found, null is
+     * returned at the corresponding position in the list.
      */
     List<IConcept> getConcepts(List<String> URLs);
 
     /**
      * Returns the concepts with the given URLs
-     *     
+     *
      * @param URLs a list of URLs for concepts
-     * @return the list of concepts. If a given concept is not found, null is returned at the corresponding position in
-     * the list.
+     * @return the list of concepts. If a given concept is not found, null is
+     * returned at the corresponding position in the list.
      */
-    List<IConcept> readConcepts(List<String> URLs);    
-    
+    List<IConcept> readConcepts(List<String> URLs);
+
     /**
      * Returns the concepts with the given URLs
      *
-     *  @deprecated Use {@link #readConcept(java.lang.String)} instead
+     * @deprecated Use {@link #readConcept(java.lang.String)} instead
      * @param URL the URL of a concept
      * @return The concept. If not found, null is returned instead,
      */
@@ -68,8 +68,8 @@ public interface IKnowledgeService {
      * @return The concept. Returns null if the concept is not found.
      */
     @Nullable
-    IConcept readConcept(String URL);    
-    
+    IConcept readConcept(String URL);
+
     /**
      * Returns the parent of all concepts
      *
@@ -77,20 +77,35 @@ public interface IKnowledgeService {
      * @return the parent of all concepts
      */
     IConcept getRootConcept();
-    
+
     /**
      * Returns the parent of all concepts
      *
-     * @return the parent of all concepts. 
-     * @throws UnsupportedOperationException if concepts are not supported by the Ekb.
-     */    
-    IConcept readRootConcept();
-    
-    /**
-     * Returns a list of possible concepts with name similar to provided partial name.
-     *
-     * @param partialName a partial concept name. It is assumed to be in the provided locale.
-     * @return a list of candidate entities, ordered by probability. The first one is the most probable.
+     * @return the parent of all concepts.
+     * @throws UnsupportedOperationException if concepts are not supported by
+     * the Ekb.
      */
-    List<SearchResult> searchConcepts(String partialName, Locale locale);    
+    IConcept readRootConcept();
+
+    /**
+     * Returns a list of possible concepts with name similar to provided partial
+     * name.
+     *
+     * @param partialName a partial concept name. It is assumed to be in the
+     * provided locale.
+     * @return a list of candidate entities, ordered by probability. The first
+     * one is the most probable.
+     */
+    List<SearchResult> searchConcepts(String partialName, Locale locale);
+
+    /**
+     * Returns the distance between two concepts, in the range of [0.0, 1.0].
+     * Two concepts are considered as equal if their absolute distance is
+     * less than {@link OdtUtils#TOLERANCE}.
+     *
+     * @param sourceUrl source concept url
+     * @param targetUrl target concept url
+     * @return the distance between two provided concepts
+     */
+    double getConceptsDistance(String sourceUrl, String targetUrl);
 }

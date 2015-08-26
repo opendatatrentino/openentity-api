@@ -25,18 +25,15 @@ public class Concept implements IConcept {
 
     private Dict name;
     private String URL;
-    private Dict description;
-    private Long GUID;
+    private Dict description;    
 
     public Concept() {
         name = Dict.of();
         description = Dict.of();
-        URL = null;
-        GUID = null;
+        URL = null;        
     }
     
-    
-    
+
     @Override
     public Dict getName() {
         return name;
@@ -47,11 +44,7 @@ public class Concept implements IConcept {
         return URL;
     }
 
-    @Override
-    public Long getGUID() {
-        return GUID;
-    }
-
+   
     @Override
     public Dict getDescription() {
         return description;
@@ -69,10 +62,5 @@ public class Concept implements IConcept {
         this.description = description;
     }
 
-    public void setGUID(Long GUID) {
-        this.GUID = GUID;
-    }
-    
-    
-    
+        
 }

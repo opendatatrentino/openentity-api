@@ -15,10 +15,10 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.traceprov.data.DataNode;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
 import eu.trentorise.opendata.traceprov.types.Type;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Superceeds {@link ISemanticMatchingService}
@@ -32,15 +32,19 @@ public interface ISchemaMatchingService {
      * matching between the source schema elements and the attributes of the
      * target entity type.
      *
-     * @parameter dcatMetadata
+     * @parameter dcatMetadata the dcat metadata associated to the file the data was extracted from.
      * @parameter schema The source schema. If unknown use
      * {@link eu.trentorise.opendata.traceprov.types.AnyType#of() AnyType.of()}
      * @parameter data a sample of data organized as list of tree-like data,
      * with objects belonging to one of the followong types: Map, Iterable,
-     * String, Number, null
+     * String, Number, null - todo write about mapping our Type to java classes
      *
      * @return - a list of scored schema to schema mappings ordered in
      * decreasing order of relevance.
+     *
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedSchemaException if
+     * the input schema cannot be processed.
      */
-    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, DataNode data);
+    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, @Nullable Object data);
 }
