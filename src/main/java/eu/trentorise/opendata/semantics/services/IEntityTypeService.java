@@ -15,9 +15,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.semantics.model.entity.IUniqueIndex;
 
 import javax.annotation.Nullable;
 
@@ -101,15 +99,7 @@ public interface IEntityTypeService {
     @Nullable
     IEntityType getEntityType(String URL);
 
-    /**
-     * Return the entity type by the given ID
-     *
-     * @param id of the entity type
-     * @return entity type
-     * @deprecated use {@link #readEntityType(java.lang.String)}  by URL instead
-     */
-    IEntityType getEntityType(long id);
-
+    
     /**
      * Returns the parent of all structures
      *
