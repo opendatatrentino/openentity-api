@@ -36,14 +36,7 @@ public interface IAttribute {
     @Nullable
     Long getLocalID();
 
-    /**
-     * Gets the attribute definition of the attribute
-     * @deprecated use {@link #getAttrDef() instead}
-     * @return the attribute definition of the attribute
-     */
-    IAttributeDef getAttributeDefinition();
-    
-    
+       
     /**
      * Gets the attribute definition of the attribute
      *
