@@ -32,13 +32,6 @@ import java.util.Locale;
  */
 public interface IEntityTypeService {
 
-    /**
-     * Reads all entity types available in the system
-     *
-     * @deprecated use {@link #readAllEntityTypes()}  instead
-     * @return list of all entity types in the system
-     */
-    List<IEntityType> getAllEntityTypes();
     
     /**
      * Reads all entity types available in the system
@@ -47,18 +40,7 @@ public interface IEntityTypeService {
      */
     List<IEntityType> readAllEntityTypes();
 
-    
-    /**
-     * Returns the entity types with the given URLs
-     *
-     * @deprecated Use {@link #readEntityTypes(java.util.List)} instead 
-     * @param URLs a list of URLs for entity types
-     * @return the entity types. For entity types that were not found, the corresponding item in the list will contain
-     * null.
-     */
-
-    List<IEntityType> getEntityTypes(List<String> URLs);    
-
+        
     /**
      * Returns the entity types with the given URLs
      *
@@ -67,7 +49,7 @@ public interface IEntityTypeService {
      * null.
      */
 
-    List<IEntityType> readEntityTypes(List<String> URLs);
+    List<IEntityType> readEntityTypes(Iterable<String> URLs);
 
     /**
      * Returns a list of possible entity types with name similar to provided partial name.
