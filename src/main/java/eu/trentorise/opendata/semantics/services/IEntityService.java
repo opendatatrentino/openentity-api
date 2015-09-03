@@ -121,27 +121,6 @@ public interface IEntityService {
      */
     IAttribute createAttribute(IAttributeDef attrDef, Object value);
 
-    /**
-     * Adds an attribute to an entity
-     *
-     * @param entity the entity that
-     * @param attribute
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
-     * provided entity doesn't exists
-     */
-    void addAttribute(IEntity entity, IAttribute attribute);
-
-    /**
-     * Adds an attribute value to an attribute in an entity
-     *
-     * @param entity the entity which owns the attribute
-     * @param attribute the attribute that owns the value
-     * @param value the value to be added
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
-     * provided entity or attribute don't exist
-     */
-    void addAttributeValue(IEntity entity, IAttribute attribute,
-            IValue value);
 
     /**
      * Updates an attribute value in an attribute in an entity
