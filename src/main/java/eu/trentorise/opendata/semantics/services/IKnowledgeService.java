@@ -35,16 +35,6 @@ public interface IKnowledgeService {
     /**
      * Returns the concepts with the given URLs
      *
-     * @deprecated Use {@link #readConcepts(java.util.List) } instead
-     * @param URLs a list of URLs for concepts
-     * @return the list of concepts. If a given concept is not found, null is
-     * returned at the corresponding position in the list.
-     */
-    List<IConcept> getConcepts(List<String> URLs);
-
-    /**
-     * Returns the concepts with the given URLs
-     *
      * @param URLs a list of URLs for concepts
      * @return the list of concepts. If a given concept is not found, null is
      * returned at the corresponding position in the list.
@@ -54,29 +44,11 @@ public interface IKnowledgeService {
     /**
      * Returns the concepts with the given URLs
      *
-     * @deprecated Use {@link #readConcept(java.lang.String)} instead
-     * @param URL the URL of a concept
-     * @return The concept. If not found, null is returned instead,
-     */
-    @Nullable
-    IConcept getConcept(String URL);
-
-    /**
-     * Returns the concepts with the given URLs
-     *
      * @param URL the URL of a concept
      * @return The concept. Returns null if the concept is not found.
      */
     @Nullable
     IConcept readConcept(String URL);
-
-    /**
-     * Returns the parent of all concepts
-     *
-     * @deprecated Use {@link #readConcept(java.lang.String) } instead
-     * @return the parent of all concepts
-     */
-    IConcept getRootConcept();
 
     /**
      * Returns the parent of all concepts
@@ -100,8 +72,8 @@ public interface IKnowledgeService {
 
     /**
      * Returns the distance between two concepts, in the range of [0.0, 1.0].
-     * Two concepts are considered as equal if their absolute distance is
-     * less than {@link OdtUtils#TOLERANCE}.
+     * Two concepts are considered as equal if their absolute distance is less
+     * than {@link OdtUtils#TOLERANCE}.
      *
      * @param sourceUrl source concept url
      * @param targetUrl target concept url

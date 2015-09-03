@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.trentorise.opendata.semantics.impl.model.entity;
+package eu.trentorise.opendata.semantics.model.entity;
 
 /**
  *
  * @author David Leoni
  */
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.model.entity.IAttribute;
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.entity.IEntityType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -87,10 +84,6 @@ public class MinimalEntity implements IEntity {
     private MinimalEntity() {
     }
 
-    @Override
-    public Long getGUID() {
-        throw new UnsupportedOperationException("Deprecated!"); 
-    }
 
     @Override
     public Dict getName() {
@@ -98,65 +91,27 @@ public class MinimalEntity implements IEntity {
     }
 
     @Override
-    public void setName(Locale locale, String name) {
-        throw new UnsupportedOperationException("Setting name is not allowed in " + this.getClass().getSimpleName());
-    }
-
-    @Override
-    public void setName(Locale locale, List<String> names) {
-        throw new UnsupportedOperationException("Setting name is not allowed in " + this.getClass().getSimpleName());
-    }
-
-    @Override
     public Dict getDescription() {
         return description;
     }
 
-    @Override
-    public void setDescription(Locale language, String description) {
-        throw new UnsupportedOperationException("Deprecated!");
-    }
-
-    @Override
-    public Long getLocalID() {
-        throw new UnsupportedOperationException("Deprecated!");
-    }
-
     
     @Override
-    public String getURL() {
+    public String getUrl() {
         return URL;
-    }
-
-    @Override
-    public void setURL(String url) {
-        throw new UnsupportedOperationException("Deprecated!");
     }
 
     @Override
     public List<IAttribute> getStructureAttributes() {
         return new ArrayList();
     }
-
-    @Override
-    public void setStructureAttributes(List<IAttribute> attributes) {
-        throw new UnsupportedOperationException("Setting structure attributes is not allowed in " + this.getClass().getSimpleName());
-    }
-
-    @Override
-    public IEntityType getEtype() {
-        throw new UnsupportedOperationException("Deprecated!");
-    }
+      
 
     @Override
     public String getEtypeURL() {
         return etypeURL;
     }
 
-    @Override
-    public void setEtype(IEntityType type) {
-        throw new UnsupportedOperationException("Deprecated!");
-    }
 
     @Override
     public IAttribute getAttribute(String attrDefURL) {

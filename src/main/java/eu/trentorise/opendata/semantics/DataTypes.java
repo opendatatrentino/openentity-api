@@ -15,6 +15,7 @@
  */
 package eu.trentorise.opendata.semantics;
 
+import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
@@ -62,27 +63,47 @@ import java.util.Set;
  */
 public final class DataTypes {
 
-    public static final String OPEN_ENTITY_PREFIX = "oe";
+    public static final String OPEN_ENTITY_PREFIX = "oe:";
     public static final String OPEN_ENTITY_URL = "https://github.com/opendatatrentino/openentity-api/1.0/";
 
+    
+ /**
+     * every value inhibits this one, null included.
+     */
+    public static final String ANY_TYPE = OPEN_ENTITY_PREFIX + "any-type";
+    public static final AttrType TS_ANY_TYPE = AttrType.of(ANY_TYPE);
+    
     public static final String STRING = "xsd:string";
     public static final String BOOLEAN = "xsd:boolean";
     public static final String DATE = "xsd:dateTime";
     public static final String INTEGER = "xsd:int";
     public static final String FLOAT = "xsd:float";
     public static final String LONG = "xsd:long";
-    public static final String CONCEPT = "oe:concept";
-    public static final String SEMANTIC_TEXT = "oe:semantic-text";
-    public static final String STRUCTURE = "oe:structure";
-    public static final String ENTITY = "oe:entity";
+    public static final String CONCEPT = OPEN_ENTITY_PREFIX + "concept";
+    public static final String SEMANTIC_TEXT = OPEN_ENTITY_PREFIX + "semantic-text";
+    public static final String STRUCTURE = OPEN_ENTITY_PREFIX + "structure";
+    public static final String ENTITY = OPEN_ENTITY_PREFIX + "entity";
 
     public static final String ATTRDEF = "oe:attrdef";
     public static final String ETYPE = "oe:etype";
+    
+    
+    public static final AttrType AT_STRING = AttrType.of(DataTypes.STRING);
+    public static final AttrType AT_BOOLEAN = AttrType.of(DataTypes.BOOLEAN);
+    public static final AttrType AT_DATE = AttrType.of(DataTypes.DATE);
+    public static final AttrType AT_INTEGER = AttrType.of(DataTypes.INTEGER);
+    public static final AttrType AT_FLOAT = AttrType.of(DataTypes.FLOAT);
+    public static final AttrType AT_LONG = AttrType.of(DataTypes.LONG);
+    public static final AttrType AT_CONCEPT = AttrType.of(DataTypes.CONCEPT);
+    public static final AttrType AT_SEMANTIC_TEXT = AttrType.of(DataTypes.SEMANTIC_TEXT);
+    // gives error on init public static final AttrType AT_STRUCTURE = AttrType.of(DataTypes.STRUCTURE);
+    // gives error on init public static final AttrType AT_ENTITY = AttrType.of(DataTypes.ENTITY);
+    
 
-    private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap<String, String>();
-    private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap<String, String>();
-    private static final Map<Locale, Map<String, String>> DATATYPE_PRETTY_NAMES_MAP = new HashMap<Locale, Map<String, String>>();
-    private static final Map JAVA_DATATYPES = new HashMap<String, Class>();
+    private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap();
+    private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap();
+    private static final Map<Locale, Map<String, String>> DATATYPE_PRETTY_NAMES_MAP = new HashMap();
+    private static final Map JAVA_DATATYPES = new HashMap();
 
     static {
 
@@ -180,4 +201,31 @@ public final class DataTypes {
         }
         throw new IllegalArgumentException("Tried to get a MeaningKind from an unsupported datatype url! Found url: " + datatypeUrl);
     }
+    
+    /**
+     * todo here we don't consider structures to be enricheable, even if
+     * they _might_ contain relations and names in subfields.
+     */
+    public static boolean isNlpProcessable(String dataType) {
+        return DataTypes.ENTITY.equals(dataType)
+                || DataTypes.CONCEPT.equals(dataType)
+                || DataTypes.SEMANTIC_TEXT.equals(dataType);
+    }
+
+    /**
+     * Only
+     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes.ENTITY ENTITY}
+     * are considered relational. todo 0.3 here we don't consider structures
+     * to be relational, even if they _might_ contain relations in subfields.
+     */
+    public static boolean isRelationalDatatype(String dataType) {
+        return DataTypes.ENTITY.equals(dataType);
+    }
+
+    /**
+     * @see #isRelationalDatatype(java.lang.String)
+     */
+    public boolean isRelationalDataType(AttrType AttrType) {
+        return AttrType.isRelational();
+    }    
 }

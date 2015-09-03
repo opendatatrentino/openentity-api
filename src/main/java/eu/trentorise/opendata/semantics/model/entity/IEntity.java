@@ -16,8 +16,6 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.commons.Dict;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * An entity is a representation of real world object.
@@ -28,38 +26,14 @@ import java.util.Locale;
  * 
  */
 public interface IEntity extends IStructure {
-
-	/**
-	 * Gets the Globally Unique Identifier (GUID) for the entity
-	 * @deprecated use getURL instead
-	 * @return the Globally Unique Identifier (GUID) represented as Long
-	 */
-	Long getGUID();
-    
-    
+	        
 	/**
 	 * Gets the name of the entity.
 	 *	 
 	 * @return the name of the entity in the default languages if available. Returned dict can be empty.
 	 */
 	Dict getName();
-
-	/**
-	 * Sets the name in the given locale
-	 * @param locale language in which the name is expressed
-	 * @param name the provided name
-         * @deprecated Don't want setters in interfaces
-	 */
-	void setName(Locale locale, String name);
-
-	/**
-	 * Sets names for the entity in the given locale
-	 * @param locale language in which the name is expressed
-	 * @param names the provided names
-         * @deprecated Don't want setters in interfaces
-	 */
-	void setName(Locale locale, List<String> names);        
-        
+	           
 	/**
 	 * Gets the description on the entity in the given language
 	 *	 
@@ -67,14 +41,5 @@ public interface IEntity extends IStructure {
 	 */
 	Dict getDescription();    
 
-
-	/**
-	 * Sets the description on the entity in the given language
-	 *
-	 * @param language the language of the description
-	 * @param description the description of the entity in the given language    
-         * @deprecated Don't want setters in interfaces
-	 */
-	void setDescription(Locale language, String description);    
 
 }

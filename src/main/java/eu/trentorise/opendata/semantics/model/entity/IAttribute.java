@@ -19,63 +19,41 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * An attribute is used in entities. It holds one or more values. null values are not allowed.
+ * An attribute is used in entities. It holds one or more values. null values
+ * are not allowed.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * 
+ *
  */
 public interface IAttribute {
 
     /**
-     * Gets the Local identifier for the attribute
-     *
-     * @return the local identifier represented as Long. May be null for synthetic attributes.
+     * The local identifier represented as Long. May be null for synthetic
+     * attributes.
      */
     @Nullable
     Long getLocalID();
 
-       
     /**
-     * Gets the attribute definition of the attribute
+     * The attribute definition URL of the attribute
      *
-     * @return the attribute definition of the attribute
      */
-    IAttributeDef getAttrDef();    
+    String getAttrDefUrl();
 
-    /**
-     * Sets the attribute definition of the attribute
-     * @deprecated there's no need for methods that mutate values in interfaces
-     * 
-     * @param ad the attribute definition of the attribute
-     */
-    void setAttributeDefinition(IAttributeDef ad);
-
-    /**
-     * Adds a value to the attribute
-     * @deprecated there's no need for methods that mutate values in interfaces
-     * 
-     * @param value the value to be added
-     */
-    void addValue(IValue value);
-
-    /**
-     * Removes a value from the attribute
-     * @deprecated there's no need for methods that mutate values in interfaces
-     * @param valueID the local ID of the value to be removed
-     */
-    void removeValue(long valueID);
 
     /**
      * Returns all the value of the attribute
      *
-     * @return immutable list of all values of the attribute. It can be empty. Null values are not allowed.
+     * @return immutable list of all values of the attribute. It can be empty.
+     * Null values are not allowed.
      */
     List<IValue> getValues();
 
     /**
      * Gets the first value of the attribute
+     *
      * @return the first value of the attribute
      *
      * @throws java.util.NoSuchElementException if no value is present
