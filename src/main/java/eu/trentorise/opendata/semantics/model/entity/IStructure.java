@@ -54,8 +54,9 @@ public interface IStructure {
      * Gets an attribute from the structure.
      *
      * @param attrDefURL the URL of the attribute definition corresponding to the desired attribute.
-     * @return the attribute corresponding to the given attribute def, if present. Returns null otherwise.
+     * @return the attribute corresponding to the given attribute def, if present. Throws NotFoundException otherwise.
+     * @throws NotFoundException if attribute is not present.
      */
-    @Nullable
+    
     IAttribute getAttribute(String attrDefURL);
 }
