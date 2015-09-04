@@ -69,7 +69,7 @@ public final class Checker {
         }
 
         try {
-            checkEntityType(schemaMapping.getTargetEtype());
+            checkEtype(schemaMapping.getTargetEtype());
         }
         catch (Exception ex) {
             throw new IllegalArgumentException("Invalid etype in schema mapping!", ex);
@@ -83,7 +83,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided etype is not conformant to
      * OpenEntity specs.
      */
-    public void checkEntityType(IEntityType etype) {
+    public void checkEtype(IEntityType etype) {
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
         }
