@@ -1,8 +1,8 @@
 package eu.trentorise.opendata.semantics.services.mock;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
-import eu.trentorise.opendata.semantics.services.model.IIDResult;
+import eu.trentorise.opendata.semantics.services.AssignmentResult;
+import eu.trentorise.opendata.semantics.services.IIDResult;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

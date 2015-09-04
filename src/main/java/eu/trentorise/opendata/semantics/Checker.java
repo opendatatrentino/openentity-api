@@ -28,8 +28,8 @@ import eu.trentorise.opendata.semantics.model.entity.IValue;
 import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
-import eu.trentorise.opendata.semantics.services.model.AssignmentResult;
-import eu.trentorise.opendata.semantics.services.model.IIDResult;
+import eu.trentorise.opendata.semantics.services.AssignmentResult;
+import eu.trentorise.opendata.semantics.services.IIDResult;
 
 /**
  * Class to collect checkers for implementations of Open Entity API interfaces.

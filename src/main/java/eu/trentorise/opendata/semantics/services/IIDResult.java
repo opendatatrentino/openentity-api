@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.trentorise.opendata.semantics.services.model;
+package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.services.AssignmentResult;
 import java.util.Set;
 import javax.annotation.Nullable;
 

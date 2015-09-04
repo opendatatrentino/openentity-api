@@ -114,7 +114,7 @@ public interface IEntityService {
      * @param attrDef the attribute definition of the attribute to create
      * @param value the value to set in the attribute. It must belong to
      * supported types in {@link
-     *                eu.trentorise.opendata.semantics.services.model.DataTypes} or be a
+     *                package eu.trentorise.opendata.semantics.services.DataTypes} or be a
      * Collection of supported values
      *
      * @return the attribute with the provided values

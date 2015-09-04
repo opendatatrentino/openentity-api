@@ -214,7 +214,7 @@ public final class DataTypes {
 
     /**
      * Only
-     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes.ENTITY ENTITY}
+     * {@link package eu.trentorise.opendata.semantics.services.DataTypes.ENTITY ENTITY}
      * are considered relational. todo 0.3 here we don't consider structures
      * to be relational, even if they _might_ contain relations in subfields.
      */

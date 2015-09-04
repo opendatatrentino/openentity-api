@@ -51,7 +51,7 @@ public interface IAttributeDef {
     /**
      * Gets the data type of the attribute definition. Possible values for the
      * datatypes are listed in
-     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
+     * {@link package eu.trentorise.opendata.semantics.services.DataTypes} class.
      *
      * @return the data type as string
      */

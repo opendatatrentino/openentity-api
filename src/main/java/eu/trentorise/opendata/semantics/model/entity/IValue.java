@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 /**
  * Represents an attribute value. Java objects that can be stored in an IValue
  * are reported in
- * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
+ * {@link package eu.trentorise.opendata.semantics.services.DataTypes} class.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
@@ -44,7 +44,7 @@ public interface IValue {
      *
      * @return the value as an Object. Can't be null. Java objects that can be returned are
      * reported in
-     * {@link eu.trentorise.opendata.semantics.services.model.DataTypes} class.
+     * {@link package eu.trentorise.opendata.semantics.services.DataTypes} class.
      */
     Object getValue();
 
