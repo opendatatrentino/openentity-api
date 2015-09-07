@@ -20,11 +20,6 @@ package eu.trentorise.opendata.semantics.exceptions;
  * @author David Leoni
  */
 public class OpenEntityException extends RuntimeException {    
-    
-    protected OpenEntityException(){
-        super();
-    }
-    
     public OpenEntityException(String s){
         super(s);
     }
