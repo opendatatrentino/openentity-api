@@ -47,7 +47,7 @@ public abstract class AStructure {
      *
      * @return a string representing the external identifier of the structure
      */
-    public abstract Map<String, Attribute> getAttributes();
+    public abstract Map<String, Attr> getAttrs();
 
     /**
      * Gets the structure type
@@ -71,10 +71,10 @@ public abstract class AStructure {
      * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
      * if not found.
      */
-    public Attribute getAttribute(String attrDefURL) {
+    public Attr getAttr(String attrDefURL) {
         checkNotEmpty(attrDefURL, "Invalid url!");
 
-        Attribute ret = getAttributes().get(attrDefURL);
+        Attr ret = getAttrs().get(attrDefURL);
         if (ret == null) {
             throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in structure with URL " + getUrl());
         } else {

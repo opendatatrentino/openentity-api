@@ -7,9 +7,9 @@ import static eu.trentorise.opendata.semantics.DataTypes.AT_CONCEPT;
 import static eu.trentorise.opendata.semantics.DataTypes.AT_FLOAT;
 import static eu.trentorise.opendata.semantics.DataTypes.AT_STRING;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
-import eu.trentorise.opendata.semantics.model.entity.AttributeDef;
-import eu.trentorise.opendata.semantics.model.entity.EntityType;
-import eu.trentorise.opendata.semantics.services.IEntityTypeService;
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
+import eu.trentorise.opendata.semantics.services.IEtypeService;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import static eu.trentorise.opendata.semantics.services.mock.MockEkb.*;
 import java.util.ArrayList;
@@ -24,17 +24,17 @@ import javax.annotation.Nullable;
  *
  * @author David Leoni
  */
-public class MockEntityTypeService implements IEntityTypeService {
+public class MockEtypeService implements IEtypeService {
 
-    private final Map<String, EntityType> registeredETypes;
-    private final Map<String, AttributeDef> registeredAttrDefs;    
+    private final Map<String, Etype> registeredETypes;
+    private final Map<String, AttrDef> registeredAttrDefs;    
 
     public final void storeNameDescr(String nameURL, String descrURL, String parentEtypeURL){
         storeAttrDef(nameURL, "Name", "Nome", AttrType.of(DataTypes.STRING, true));
         storeAttrDef(descrURL, "Description", "Descrizione", AttrType.of(DataTypes.SEMANTIC_TEXT,true));        
     }
     
-    public MockEntityTypeService() {
+    public MockEtypeService() {
         this.registeredETypes = new HashMap();
         this.registeredAttrDefs = new HashMap();
                 
@@ -63,7 +63,7 @@ public class MockEntityTypeService implements IEntityTypeService {
         storeStructureType(TEST_REC_STRUCTURE, "test rec structure", "struttura ricorsiva di test", TEST_REC_ATTR_DEF);
         
         
-        storeAttrDef(TEST_REC_OUTER_ATTR_DEF, "test rec struct attr 1", "Attribute di test per struttura ricorsiva", AttrType.of(DataTypes.STRUCTURE, false, TEST_REC_STRUCTURE));
+        storeAttrDef(TEST_REC_OUTER_ATTR_DEF, "test rec struct attr 1", "Attr di test per struttura ricorsiva", AttrType.of(DataTypes.STRUCTURE, false, TEST_REC_STRUCTURE));
         
         storeNameDescr(TEST_REC_NAME_ATTR, TEST_REC_DESCR_ATTR, TEST_REC_ENTITY_TYPE);
         storeEType(TEST_REC_ENTITY_TYPE, "test recursive etype", "etype ricorsivo di test", ROOT_CONCEPT,
@@ -130,20 +130,20 @@ public class MockEntityTypeService implements IEntityTypeService {
     }
 
     private void storeStructureType(String URL, String engName, String itName, String... attrsURLs) {
-        List<AttributeDef> attrs = new ArrayList();
+        List<AttrDef> attrs = new ArrayList();
         for (String au : attrsURLs) {
             attrs.add(registeredAttrDefs.get(au));
         }
         
-        registeredETypes.put(URL, newEntityType(URL, engName, itName, attrs, ROOT_CONCEPT));
+        registeredETypes.put(URL, newEtype(URL, engName, itName, attrs, ROOT_CONCEPT));
     }    
     
-    private EntityType newEntityType(String URL, String engName, String itName, List<AttributeDef> attrs, String conceptUrl){
-        EntityType.Builder b = EntityType.builder();
+    private Etype newEtype(String URL, String engName, String itName, List<AttrDef> attrs, String conceptUrl){
+        Etype.Builder b = Etype.builder();
         b.setURL(URL);
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
         
-        for (AttributeDef attrDef : attrs){
+        for (AttrDef attrDef : attrs){
             b.putAttrDefs(attrDef.getURL(), attrDef);
         }
         b.setConceptUrl(conceptUrl);
@@ -151,22 +151,22 @@ public class MockEntityTypeService implements IEntityTypeService {
     }
     
     private void storeEType(String URL, String engName, String itName, @Nullable String conceptURL,  String nameAttrDefURL, String descrAttrDefURL, String... attrsURLs) {
-        List<AttributeDef> attrs = new ArrayList();
+        List<AttrDef> attrs = new ArrayList();
         for (String au : attrsURLs) {
             attrs.add(registeredAttrDefs.get(au));
         }
         attrs.add(registeredAttrDefs.get(nameAttrDefURL));
         attrs.add(registeredAttrDefs.get(descrAttrDefURL));
         
-        registeredETypes.put(URL, EntityType.of(URL, engName, itName,conceptURL, nameAttrDefURL, descrAttrDefURL, attrs));
+        registeredETypes.put(URL, Etype.of(URL, engName, itName,conceptURL, nameAttrDefURL, descrAttrDefURL, attrs));
     }
 
     private void storeAttrDef(String URL, String engName, String itName, AttrType attrType) {
-        registeredAttrDefs.put(URL, newAttributeDef(URL, engName, itName, attrType));
+        registeredAttrDefs.put(URL, newAttrDef(URL, engName, itName, attrType));
     }
     
-    static AttributeDef newAttributeDef(String URL, String engName, String itName, AttrType attrType){
-        return AttributeDef.builder()
+    static AttrDef newAttrDef(String URL, String engName, String itName, AttrType attrType){
+        return AttrDef.builder()
                 .setURL(URL)
                 .setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build())
                 .setAttrType(attrType)
@@ -176,20 +176,20 @@ public class MockEntityTypeService implements IEntityTypeService {
     /**
      * @return unmodifiable list
      */
-    public Map<String, AttributeDef> getRegisteredAttrDefs() {
+    public Map<String, AttrDef> getRegisteredAttrDefs() {
         return Collections.unmodifiableMap(registeredAttrDefs);
     }
 
     /**
      * @return unmodifiable list
      */
-    public Map<String, EntityType> getRegisteredETypes() {
+    public Map<String, Etype> getRegisteredETypes() {
         return Collections.unmodifiableMap(registeredETypes);
     }
 
     @Override
-    public EntityType readEntityType(String URL) {
-        for (EntityType et : this.registeredETypes.values()) {
+    public Etype readEtype(String URL) {
+        for (Etype et : this.registeredETypes.values()) {
             if (et.getURL().equals(URL)) {
                 return et;
             }
@@ -198,11 +198,11 @@ public class MockEntityTypeService implements IEntityTypeService {
     }
 
     @Override
-    public List<EntityType> readEntityTypes(Iterable<String> URLs) {
-        List<EntityType> ret = new ArrayList();
+    public List<Etype> readEtypes(Iterable<String> URLs) {
+        List<Etype> ret = new ArrayList();
         
         for (String URL : URLs){
-            ret.add(readEntityType(URL));
+            ret.add(readEtype(URL));
         }
         return ret;
     }
@@ -212,11 +212,11 @@ public class MockEntityTypeService implements IEntityTypeService {
      * Returns all the mock entity types
      */
     @Override
-    public List<SearchResult> searchEntityTypes(String partialName, Locale locale) {
+    public List<SearchResult> searchEtypes(String partialName, Locale locale) {
         List<SearchResult> ret = new ArrayList();
 
 
-        for (EntityType et : readAllEntityTypes()) {
+        for (Etype et : readAllEtypes()) {
             if (et.getName().contains(partialName)) {
                 SearchResult es = SearchResult.of(et.getURL(), et.getName());
                 ret.add(es);
@@ -227,21 +227,21 @@ public class MockEntityTypeService implements IEntityTypeService {
     }
 
     @Override
-    public EntityType readRootEtype() {
+    public Etype readRootEtype() {
         return registeredETypes.get(MockEkb.ROOT_ETYPE);
     }
 
     @Override
-    public EntityType readRootStructure() {
+    public Etype readRootStructure() {
         return registeredETypes.get(MockEkb.TEST_ROOT_STRUCTURE);    }
 
     @Override
-    public List<EntityType> readAllEntityTypes() {
+    public List<Etype> readAllEtypes() {
         return new ArrayList(registeredETypes.values());
     }
 
     @Override
-    public AttributeDef readAttrDef(String url) {
+    public AttrDef readAttrDef(String url) {
         return registeredAttrDefs.get(url);
     }
 

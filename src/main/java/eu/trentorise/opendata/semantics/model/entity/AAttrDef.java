@@ -32,9 +32,9 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @BuilderStylePublic
-@JsonSerialize(as = AttributeDef.class)
-@JsonDeserialize(as = AttributeDef.class)
-abstract class AAttributeDef {
+@JsonSerialize(as = AttrDef.class)
+@JsonDeserialize(as = AttrDef.class)
+abstract class AAttrDef {
 
     /**
      * The URL of the attribute definition

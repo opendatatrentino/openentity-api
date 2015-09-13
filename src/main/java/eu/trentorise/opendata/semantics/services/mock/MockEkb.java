@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.IEntityService;
-import eu.trentorise.opendata.semantics.services.IEntityTypeService;
+import eu.trentorise.opendata.semantics.services.IEtypeService;
 import eu.trentorise.opendata.semantics.services.IIdentityService;
 import eu.trentorise.opendata.semantics.services.IKnowledgeService;
 import eu.trentorise.opendata.semantics.services.INLPService;
@@ -71,8 +71,8 @@ public class MockEkb implements IEkb {
 
     /**
      * This is a transitional prefix ONLY for attributes ID, to be removed when
-     * Attribute will have getURL() instead of getlocalID() - or when we get
-     * read of Attribute alltogether
+     * Attr will have getURL() instead of getlocalID() - or when we get
+     * read of Attr alltogether
      */
     public static final String FOREIGN_ATTRIBUTE_PREFIX = FOREIGN_PREFIX + "attribute/";
 
@@ -175,7 +175,7 @@ public class MockEkb implements IEkb {
     private MockKnowledgeService knowledgeService;
     private MockSchemaMatchingService schemaMatchingService;
     private IIdentityService identityService;
-    private MockEntityTypeService entityTypeService;
+    private MockEtypeService entityTypeService;
     private IEntityService entityService;
     private ImmutableList<Locale> defaultLocales;
 
@@ -184,7 +184,7 @@ public class MockEkb implements IEkb {
 
     public MockEkb() {
         this.NLPService = new MockNlpService(this);
-        this.entityTypeService = new MockEntityTypeService();
+        this.entityTypeService = new MockEtypeService();
         this.knowledgeService = new MockKnowledgeService();
         LOG.warning("NOT INITIALIZING ENTITY SERVICE, todo we need to import it from odr once cast is implmented in traceprov "); 
         this.identityService = null; // new MockIdentityService();
@@ -226,7 +226,7 @@ public class MockEkb implements IEkb {
     }
 
     @Override
-    public IEntityTypeService getEntityTypeService() {
+    public IEtypeService getEtypeService() {
         return entityTypeService;
     }
 

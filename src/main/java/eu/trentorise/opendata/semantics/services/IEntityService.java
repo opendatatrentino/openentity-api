@@ -15,7 +15,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.Attribute;
+import eu.trentorise.opendata.semantics.model.entity.Attr;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semantics.model.entity.Val;
 
@@ -116,7 +116,7 @@ public interface IEntityService {
      * @throws eu.trentorise.opendata.semantics.NotFoundException if the
      * provided entity or attribute don't exist
      */
-    void updateAttributeValue(Entity entity, Attribute attribute,
+    void updateAttrValue(Entity entity, Attr attribute,
             Val newValue);
 
     /**

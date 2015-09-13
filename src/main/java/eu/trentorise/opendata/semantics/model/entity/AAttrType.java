@@ -18,7 +18,7 @@ import org.immutables.value.Value;
  * Note this is a temporary solution until we transition to the generic
  * TraceProv {@link eu.trentorise.opendata.traceprov.types.Type}
  *
- * May seem redundant given we have AttributeDef and 'primitive' dataType but
+ * May seem redundant given we have AttrDef and 'primitive' dataType but
  * sometimes is handy.
  *
  * @author David Leoni
@@ -124,7 +124,7 @@ abstract class AAttrType {
         return AttrType.of(datatype, list, "", Dict.of());
     }
 
-    public static AttrType of(AttributeDef attrDef) {
+    public static AttrType of(AttrDef attrDef) {
         return of(attrDef.getAttrType().getDatatype(), attrDef.getAttrType().isList(), attrDef.getAttrType().getEtypeURL());
     }
 

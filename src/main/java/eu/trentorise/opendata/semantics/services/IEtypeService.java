@@ -15,8 +15,8 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.AttributeDef;
-import eu.trentorise.opendata.semantics.model.entity.EntityType;
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
 
 import javax.annotation.Nullable;
 
@@ -31,14 +31,14 @@ import java.util.Locale;
  * @author David Leoni <david.leoni@unitn.it>
  *
  */
-public interface IEntityTypeService {
+public interface IEtypeService {
 
     /**
      * Reads all entity types available in the system
      *
      * @return list of all entity types in the system
      */
-    List<EntityType> readAllEntityTypes();
+    List<Etype> readAllEtypes();
 
     /**
      * Returns the entity types with the given URLs
@@ -47,7 +47,7 @@ public interface IEntityTypeService {
      * @return the entity types. For entity types that were not found, the
      * corresponding item in the list will contain null.
      */
-    List<EntityType> readEntityTypes(Iterable<String> URLs);
+    List<Etype> readEtypes(Iterable<String> URLs);
 
     /**
      * Returns a list of possible entity types with name similar to provided
@@ -58,7 +58,7 @@ public interface IEntityTypeService {
      * @return a list of candidate entity types, ordered by probability. The
      * first one is the most probable.
      */
-    List<SearchResult> searchEntityTypes(String partialName, Locale locale);
+    List<SearchResult> searchEtypes(String partialName, Locale locale);
 
     /**
      * Return the entity type by the given URL
@@ -67,7 +67,7 @@ public interface IEntityTypeService {
      * @return the entity type, null if not found.
      */
     @Nullable
-    EntityType readEntityType(String URL);
+    Etype readEtype(String URL);
 
     /**
      * Return the attribute definition by the given URL
@@ -76,7 +76,7 @@ public interface IEntityTypeService {
      * @return the attribute definition, null if not found.
      */
     @Nullable
-    public AttributeDef readAttrDef(String url);
+    public AttrDef readAttrDef(String url);
 
 
     /**
@@ -85,7 +85,7 @@ public interface IEntityTypeService {
      * @return the parent of all structures
      * @see #getRootEtype()
      */
-    EntityType readRootStructure();
+    Etype readRootStructure();
 
 
     /**
@@ -95,6 +95,6 @@ public interface IEntityTypeService {
      * {@link #getRootStructure()}
      * @see #getRootStructure()
      */
-    EntityType readRootEtype();
+    Etype readRootEtype();
 
 }

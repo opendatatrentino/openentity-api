@@ -38,9 +38,9 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @BuilderStylePublic
-@JsonSerialize(as = EntityType.class)
-@JsonDeserialize(as = EntityType.class)
-abstract class AEntityType {
+@JsonSerialize(as = Etype.class)
+@JsonDeserialize(as = Etype.class)
+abstract class AEtype {
 
     /**
      * The name of the entity type
@@ -66,7 +66,7 @@ abstract class AEntityType {
      * The attribute definitions for the entity type
      *
      */
-    public abstract Map<String, AttributeDef> getAttrDefs();
+    public abstract Map<String, AttrDef> getAttrDefs();
 
     /**
      * Gets the unique indexes
@@ -105,8 +105,8 @@ abstract class AEntityType {
      * {@link OpenEntityNotFoundException}.
      * @throws OpenEntityNotFoundException
      */
-    public AttributeDef nameAttrDef() {
-        AttributeDef ret = getAttrDefs().get(getNameAttrDefUrl());
+    public AttrDef nameAttrDef() {
+        AttrDef ret = getAttrDefs().get(getNameAttrDefUrl());
         if (ret == null) {
             throw new OpenEntityNotFoundException("Couldn't find name attr def with URL " + getNameAttrDefUrl() + " in etype " + getURL());
         }
@@ -134,8 +134,8 @@ abstract class AEntityType {
      * {@link OpenEntityNotFoundException}.
      * @throws OpenEntityNotFoundException
      */
-    public AttributeDef descrAttrDef() {
-        AttributeDef ret = getAttrDefs().get(getDescrAttrDefUrl());
+    public AttrDef descrAttrDef() {
+        AttrDef ret = getAttrDefs().get(getDescrAttrDefUrl());
         if (ret == null) {
             throw new OpenEntityNotFoundException("Couldn't find description attr def with URL " + getDescrAttrDefUrl() + " in etype " + getURL());
         }
@@ -152,10 +152,10 @@ abstract class AEntityType {
      * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
      * if attribute is not found.
      */
-    public AttributeDef getAttrDef(String URL) {
+    public AttrDef getAttrDef(String URL) {
         checkNotEmpty(URL, "Invalid url!");
 
-        AttributeDef ret = getAttrDefs().get(URL);
+        AttrDef ret = getAttrDefs().get(URL);
         if (ret == null) {
             throw new OpenEntityNotFoundException("Couldn't find attribute definition with URL " + URL + " in etype with URL " + getURL());
         } else {
@@ -166,12 +166,12 @@ abstract class AEntityType {
     /**
      * Creates a structure
      */
-    public static EntityType ofStructure(String URL, String engName, String itName, List<AttributeDef> attrs, String conceptURL) {
-        EntityType.Builder b = EntityType.builder();
+    public static Etype ofStructure(String URL, String engName, String itName, List<AttrDef> attrs, String conceptURL) {
+        Etype.Builder b = Etype.builder();
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
         b.setURL(URL);
 
-        for (AttributeDef ad : attrs) {
+        for (AttrDef ad : attrs) {
             b.putAttrDefs(ad.getURL(), ad);
         }
 
@@ -179,12 +179,12 @@ abstract class AEntityType {
         return b.build();
     }
 
-    public static EntityType of(String URL, String engName, String itName, String conceptURL, String nameAttrDefURL, String descrAttrDefURL, List<AttributeDef> attrs) {
+    public static Etype of(String URL, String engName, String itName, String conceptURL, String nameAttrDefURL, String descrAttrDefURL, List<AttrDef> attrs) {
 
-        EntityType.Builder b = EntityType.builder();
+        Etype.Builder b = Etype.builder();
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
         b.setURL(URL);
-        for (AttributeDef ad : attrs) {
+        for (AttrDef ad : attrs) {
             b.putAttrDefs(ad.getURL(), ad);
         }
         b.setNameAttrDefUrl(nameAttrDefURL);

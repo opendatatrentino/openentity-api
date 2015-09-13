@@ -17,8 +17,8 @@ package eu.trentorise.opendata.semantics.test.services;
 
 import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.OdtConfig;
-import eu.trentorise.opendata.semantics.model.entity.EntityType;
-import eu.trentorise.opendata.semantics.services.AttributeMapping;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
+import eu.trentorise.opendata.semantics.services.AttrMapping;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
@@ -36,16 +36,16 @@ public class SchemaMatchingTest {
     }
     
     @Test
-    public void testAttributeMapping(){        
-        AttributeMapping x1 = AttributeMapping.builder().addSourcePath("schema","s").addTargetPath("b").setScore(1.0).build();
-        AttributeMapping x2 = AttributeMapping.of(ImmutableList.of("schema","s"), ImmutableList.of("b"), 0.5);
+    public void testAttrMapping(){        
+        AttrMapping x1 = AttrMapping.builder().addSourcePath("schema","s").addTargetPath("b").setScore(1.0).build();
+        AttrMapping x2 = AttrMapping.of(ImmutableList.of("schema","s"), ImmutableList.of("b"), 0.5);
         assertTrue(x1.compareTo(x2) > 0);
     }    
     
     @Test
     public void testSchemaMapping(){        
-        SchemaMapping x1 = SchemaMapping.of(ImmutableList.of(AttributeMapping.of()), EntityType.of(), 1.0);
-        SchemaMapping x2 = SchemaMapping.builder().addMappings(AttributeMapping.of()).setTargetEtype(EntityType.of()).setScore(0.5).build();
+        SchemaMapping x1 = SchemaMapping.of(ImmutableList.of(AttrMapping.of()), Etype.of(), 1.0);
+        SchemaMapping x2 = SchemaMapping.builder().addMappings(AttrMapping.of()).setTargetEtype(Etype.of()).setScore(0.5).build();
         assertTrue(x1.compareTo(x2) > 0);
     }        
 }

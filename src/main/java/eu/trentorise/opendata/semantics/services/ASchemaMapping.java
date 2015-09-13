@@ -18,8 +18,8 @@ package eu.trentorise.opendata.semantics.services;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
-import eu.trentorise.opendata.semantics.model.entity.EntityType;
-import eu.trentorise.opendata.semantics.model.entity.EntityType;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
 import java.util.List;
 import org.immutables.value.Value;
 
@@ -38,15 +38,15 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
      * First mappings will have highest score.
      *
      */
-    public abstract List<AttributeMapping> getMappings();
+    public abstract List<AttrMapping> getMappings();
 
     /**
      *
      * Returns the target entity type
      */
     @Value.Default
-    public EntityType getTargetEtype() {
-        return EntityType.of();
+    public Etype getTargetEtype() {
+        return Etype.of();
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
 
     }
 
-    public static SchemaMapping of(Iterable<? extends AttributeMapping> mappings, EntityType targetEtype, double score) {
+    public static SchemaMapping of(Iterable<? extends AttrMapping> mappings, Etype targetEtype, double score) {
         return SchemaMapping.builder().addAllMappings(mappings).setTargetEtype(targetEtype).setScore(score).build();
     }
 

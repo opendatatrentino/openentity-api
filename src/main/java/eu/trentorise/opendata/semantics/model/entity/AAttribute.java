@@ -34,9 +34,9 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @BuilderStylePublic
-@JsonSerialize(as = Attribute.class)
-@JsonDeserialize(as = Attribute.class)
-abstract class AAttribute {
+@JsonSerialize(as = Attr.class)
+@JsonDeserialize(as = Attr.class)
+abstract class AAttr {
 
     /**
      * The local identifier represented as Long. May be null for synthetic

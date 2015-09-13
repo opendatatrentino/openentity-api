@@ -26,7 +26,7 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 /**
- * Holds builders for various source paths for {@link AttributeMapping}
+ * Holds builders for various source paths for {@link AttrMapping}
  * @author David Leoni
  */
 public class Mappings {

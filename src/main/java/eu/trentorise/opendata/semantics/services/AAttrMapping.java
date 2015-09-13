@@ -34,9 +34,9 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @BuilderStylePublic
-@JsonSerialize(as = AttributeMapping.class)
-@JsonDeserialize(as = AttributeMapping.class)
-abstract class AAttributeMapping implements Serializable, Comparable<AttributeMapping> {
+@JsonSerialize(as = AttrMapping.class)
+@JsonDeserialize(as = AttrMapping.class)
+abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,8 +58,8 @@ abstract class AAttributeMapping implements Serializable, Comparable<AttributeMa
     /**
      * todo javadoc
      */
-    public static AttributeMapping of(Iterable<String> sourcePath, Iterable<String> targetPath, double score) {
-        return AttributeMapping.builder().addAllSourcePath(sourcePath).addAllTargetPath(targetPath).setScore(score).build();
+    public static AttrMapping of(Iterable<String> sourcePath, Iterable<String> targetPath, double score) {
+        return AttrMapping.builder().addAllSourcePath(sourcePath).addAllTargetPath(targetPath).setScore(score).build();
     }
 
     /**
@@ -78,7 +78,7 @@ abstract class AAttributeMapping implements Serializable, Comparable<AttributeMa
     }
 
     @Override
-    public int compareTo(AttributeMapping other) {
+    public int compareTo(AttrMapping other) {
         double diff1 = this.getScore() - other.getScore();
         if (diff1 != 0.0) {
             if (diff1 > 0) {

@@ -99,7 +99,7 @@ public interface IEkb {
      *
      * @return the entity type service if supported, null otherwise.
      */
-    IEntityTypeService getEntityTypeService();
+    IEtypeService getEtypeService();
 
     /**
      * Gets the entity management service
