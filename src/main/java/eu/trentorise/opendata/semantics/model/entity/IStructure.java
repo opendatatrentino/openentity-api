@@ -21,6 +21,8 @@ import java.util.List;
 /**
  *
  * A complex structure that is represented by the set of attribute.
+ * 
+ * todo think about specializations: Name DateTime Interval Duration Location 
  *
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
@@ -41,7 +43,7 @@ public interface IStructure {
      *
      * @return a string representing the external identifier of the structure
      */
-    List<IAttribute> getStructureAttributes();
+    List<IAttribute> getAttributes();
 
     /**
      * Gets the structure type

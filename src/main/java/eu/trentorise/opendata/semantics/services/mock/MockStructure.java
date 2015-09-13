@@ -35,7 +35,7 @@ public class MockStructure implements IStructure {
         this();
         this.URL = struct.getUrl();
         this.etype = etype;
-        for (IAttribute attr : struct.getStructureAttributes()) {
+        for (IAttribute attr : struct.getAttributes()) {
             structureAttributes.put(attr.getAttrDefUrl(), attr);
         }
     }
@@ -62,7 +62,7 @@ public class MockStructure implements IStructure {
     }
 
     @Override
-    public List<IAttribute> getStructureAttributes() {
+    public List<IAttribute> getAttributes() {
         return Collections.unmodifiableList(new ArrayList(structureAttributes.values()));
     }
 

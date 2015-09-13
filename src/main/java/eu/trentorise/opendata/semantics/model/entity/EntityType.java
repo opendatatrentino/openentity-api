@@ -93,15 +93,7 @@ public class EntityType implements IEntityType {
         return names;
     }
 
-    @Override
-    public IConcept getConcept() {
-        return concept;
-    }
-
-    @Override
-    public void setConcept(IConcept concept) {
-        this.concept = concept;
-    }
+  
 
     @Override
     public List<IAttributeDef> getAttributeDefs() {
@@ -142,7 +134,7 @@ public class EntityType implements IEntityType {
     }
 
     @Override
-    public String getConceptURL() {
+    public String getConceptUrl() {
         if (concept != null) {
             return concept.getURL();
         } else {

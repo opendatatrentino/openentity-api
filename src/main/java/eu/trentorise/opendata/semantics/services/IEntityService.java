@@ -63,9 +63,9 @@ public interface IEntityService {
     String createEntityURL(IEntity entity);
 
     /**
-     * Updates an entity. For values of type IDict, translations provided in
+     * Updates an entity. For values of type Dict, translations provided in
      * this entity are going to be merged with translations already present in
-     * the Ekb
+     * the Ekb. TODO need to specify MUCH better
      *
      * @param entity the entity to be updated
      * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity
@@ -105,21 +105,7 @@ public interface IEntityService {
      * @return the list of entities identified by the URL. Not found entities
      * will be null.
      */
-    List<IEntity> readEntities(List<String> entityURLs);
-
-    /**
-     * Creates an attribute of the specified attribute definition kind and fills
-     * it with the provided value.
-     *
-     * @param attrDef the attribute definition of the attribute to create
-     * @param value the value to set in the attribute. It must belong to
-     * supported types in {@link
-     *                package eu.trentorise.opendata.semantics.services.DataTypes} or be a
-     * Collection of supported values
-     *
-     * @return the attribute with the provided values
-     */
-    IAttribute createAttribute(IAttributeDef attrDef, Object value);
+    List<IEntity> readEntities(List<String> entityURLs);        
 
 
     /**
@@ -177,4 +163,5 @@ public interface IEntityService {
      * for deduplication purposes.
      */
     boolean isTemporaryURL(String temporaryEntityURL);
+            
 }

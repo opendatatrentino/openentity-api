@@ -16,7 +16,6 @@
 package eu.trentorise.opendata.semantics.model.entity;
 
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -27,38 +26,25 @@ import javax.annotation.Nullable;
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author Ivan Tankoyeu <tankoyeui@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
-
+ *
  */
 public interface IEntityType {
 
     /**
      * Gets the name of the entity type
      *
-     * @return the name of the entity type in the default languages if available. Returned dict can be empty.
+     * @return the name of the entity type in the default languages if
+     * available. Returned dict can be empty.
      */
     Dict getName();
-
-    /**
-     * Gets the concept of the entity type
-     * @deprecated Use {@link #getConceptURL()}} or {@link eu.trentorise.opendata.semantics.services.IKnowledgeService#getConcept(String)} instead.
-     * @return the concept of the entity type
-     */
-    IConcept getConcept();
+ 
 
     /**
      * Gets the concept URL of the entity type
+     *
      * @return the concept URL of the entity type
      */
-    String getConceptURL();
-
-
-    /**
-     * Sets the concept of the entity type
-     *
-     * @deprecated we don't need methods to change objects
-     * @param concept the concept of the entity type
-     */
-    void setConcept(IConcept concept);
+    String getConceptUrl();
 
     /**
      * Gets the attribute definitions for the entity type
@@ -67,14 +53,12 @@ public interface IEntityType {
      */
     List<IAttributeDef> getAttributeDefs();
 
-
     /**
      * Gets the unique indexes
      *
      * @return the unique indexes
      */
     List<IUniqueIndex> getUniqueIndexes();
-
 
     /**
      * Gets the URL of the entity type
@@ -87,28 +71,28 @@ public interface IEntityType {
      * Returns the attribute def used for name.
      *
      * @return the attribute def used for name if the entity type represents an
-     * entity. If it represents a structure, returns null.
-     */
+     * entity. If it represents a structure, throws exception.     
+     */  
     @Nullable
     IAttributeDef getNameAttrDef();
 
     /**
      * Returns the attribute def used for description.
      *
-     * @return the attribute def used for description if the entity type represents an
-     * entity. If it represents a structure, returns null.
-     */
+     * @return the attribute def used for description if the entity type
+     * represents an entity.  If it represents a structure, throws exception.
+     * @throws eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException 
+     */    
     @Nullable
     IAttributeDef getDescriptionAttrDef();
-
 
     /**
      * Returns the attribute def indicated by the provided URL.
      *
-     * @return Returns the attribute def indicated by the provided URL if it exists, null otherwise.
+     * @return Returns the attribute def indicated by the provided URL if it
+     * exists, throws exceprion otherwise.
+     * 
+     * @throws eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException if attribute is not found.
      */
-    @Nullable
     IAttributeDef getAttrDef(String URL);
 }
-
-

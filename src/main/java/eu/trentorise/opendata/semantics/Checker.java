@@ -91,7 +91,7 @@ public final class Checker {
 
         checkNotNull(etype.getName(), "Invalid etype name!");
 
-        checkNotDirtyUrl(etype.getConceptURL(), "Found invalid concept for etype " + etype.getURL());
+        checkNotDirtyUrl(etype.getConceptUrl(), "Found invalid concept for etype " + etype.getURL());
 
         /**
          * not supported for now if (etype.getUniqueIndexes() == null){ throw
@@ -334,11 +334,11 @@ public final class Checker {
 
         checkArgument(etype.getURL().equals(structure.getEtypeURL()), "Provided etype " + etype.getURL() + " is not the one referenced by the structure, which is " + structure.getEtypeURL());
 
-        if (structure.getStructureAttributes() == null) {
+        if (structure.getAttributes() == null) {
             throw new IllegalArgumentException("Found null attributes in structure " + structure.getUrl());
         }
 
-        for (IAttribute attr : structure.getStructureAttributes()) {
+        for (IAttribute attr : structure.getAttributes()) {
             try {
                 checkAttribute(attr,  synthetic);
             }

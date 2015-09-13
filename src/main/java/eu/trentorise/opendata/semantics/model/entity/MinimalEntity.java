@@ -102,7 +102,7 @@ public class MinimalEntity implements IEntity {
     }
 
     @Override
-    public List<IAttribute> getStructureAttributes() {
+    public List<IAttribute> getAttributes() {
         return new ArrayList();
     }
       

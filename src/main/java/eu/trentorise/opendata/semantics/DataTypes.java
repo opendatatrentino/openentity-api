@@ -15,6 +15,7 @@
  */
 package eu.trentorise.opendata.semantics;
 
+import eu.trentorise.opendata.commons.LocalizedString;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.semantics.model.entity.IStructure;
@@ -29,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Class to model data types. <br/>
+ * Class to model Open Entity data types. <br/>
  * <br/>
  * Primitive datatypes are a subset of <a
  * target="_blank" href="http://www.w3.org/TR/2004/REC-rdf-mt-20040210/">
@@ -47,6 +48,9 @@ import java.util.Set;
  * LONG : {@link java.lang.Long} <br/>
  * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept}
  * <br/>
+ * LOCALIZED_STRING : {@link eu.trentorise.opendata.commons.LocalizedString}
+ * <br/>
+ * DICT : {@link eu.trentorise.opendata.commons.Dict} <br/>
  * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semtext.SemText} <br/>
  * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} A
  * convenient implementation for entities which are values of other entities
@@ -66,13 +70,12 @@ public final class DataTypes {
     public static final String OPEN_ENTITY_PREFIX = "oe:";
     public static final String OPEN_ENTITY_URL = "https://github.com/opendatatrentino/openentity-api/1.0/";
 
-    
- /**
+    /**
      * every value inhibits this one, null included.
      */
     public static final String ANY_TYPE = OPEN_ENTITY_PREFIX + "any-type";
     public static final AttrType TS_ANY_TYPE = AttrType.of(ANY_TYPE);
-    
+
     public static final String STRING = "xsd:string";
     public static final String BOOLEAN = "xsd:boolean";
     public static final String DATE = "xsd:dateTime";
@@ -80,14 +83,15 @@ public final class DataTypes {
     public static final String FLOAT = "xsd:float";
     public static final String LONG = "xsd:long";
     public static final String CONCEPT = OPEN_ENTITY_PREFIX + "concept";
+    public static final String LOCALIZED_STRING = OPEN_ENTITY_PREFIX + "localized-string";
+    public static final String DICT = OPEN_ENTITY_PREFIX + "dict";
     public static final String SEMANTIC_TEXT = OPEN_ENTITY_PREFIX + "semantic-text";
     public static final String STRUCTURE = OPEN_ENTITY_PREFIX + "structure";
     public static final String ENTITY = OPEN_ENTITY_PREFIX + "entity";
 
-    public static final String ATTRDEF = "oe:attrdef";
-    public static final String ETYPE = "oe:etype";
-    
-    
+    public static final String ATTRDEF = OPEN_ENTITY_PREFIX + "attrdef";
+    public static final String ETYPE = OPEN_ENTITY_PREFIX + "etype";
+
     public static final AttrType AT_STRING = AttrType.of(DataTypes.STRING);
     public static final AttrType AT_BOOLEAN = AttrType.of(DataTypes.BOOLEAN);
     public static final AttrType AT_DATE = AttrType.of(DataTypes.DATE);
@@ -95,11 +99,12 @@ public final class DataTypes {
     public static final AttrType AT_FLOAT = AttrType.of(DataTypes.FLOAT);
     public static final AttrType AT_LONG = AttrType.of(DataTypes.LONG);
     public static final AttrType AT_CONCEPT = AttrType.of(DataTypes.CONCEPT);
+    public static final AttrType AT_LOCALIZED_STRING = AttrType.of(DataTypes.LOCALIZED_STRING);
+    public static final AttrType AT_DICT = AttrType.of(DataTypes.DICT);
     public static final AttrType AT_SEMANTIC_TEXT = AttrType.of(DataTypes.SEMANTIC_TEXT);
+
     // gives error on init public static final AttrType AT_STRUCTURE = AttrType.of(DataTypes.STRUCTURE);
     // gives error on init public static final AttrType AT_ENTITY = AttrType.of(DataTypes.ENTITY);
-    
-
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap();
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap();
     private static final Map<Locale, Map<String, String>> DATATYPE_PRETTY_NAMES_MAP = new HashMap();
@@ -114,6 +119,8 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(FLOAT, "Single precision number");
         DATATYPE_PRETTY_NAMES_EN.put(LONG, "Long integer");
         DATATYPE_PRETTY_NAMES_EN.put(CONCEPT, "Concept");
+        DATATYPE_PRETTY_NAMES_EN.put(LOCALIZED_STRING, "Localized string");
+        DATATYPE_PRETTY_NAMES_EN.put(DICT, "Dictionary");
         DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Semantic text");
         DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
@@ -126,6 +133,8 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_IT.put(FLOAT, "Numero a precisione singola");
         DATATYPE_PRETTY_NAMES_IT.put(LONG, "Intero grande");
         DATATYPE_PRETTY_NAMES_IT.put(CONCEPT, "Concetto");
+        DATATYPE_PRETTY_NAMES_EN.put(LOCALIZED_STRING, "Stringa localizzata");
+        DATATYPE_PRETTY_NAMES_EN.put(DICT, "Dictionary");
         DATATYPE_PRETTY_NAMES_IT.put(SEMANTIC_TEXT, "Testo semantico");
         DATATYPE_PRETTY_NAMES_IT.put(STRUCTURE, "Struttura");
         DATATYPE_PRETTY_NAMES_IT.put(ENTITY, "Entità");
@@ -138,6 +147,7 @@ public final class DataTypes {
         JAVA_DATATYPES.put(FLOAT, Float.class);
         JAVA_DATATYPES.put(LONG, Long.class);
         JAVA_DATATYPES.put(CONCEPT, IConcept.class);
+        JAVA_DATATYPES.put(LOCALIZED_STRING, LocalizedString.class);
         JAVA_DATATYPES.put(SEMANTIC_TEXT, SemText.class);
         JAVA_DATATYPES.put(ENTITY, IEntity.class);
         JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
@@ -201,10 +211,10 @@ public final class DataTypes {
         }
         throw new IllegalArgumentException("Tried to get a MeaningKind from an unsupported datatype url! Found url: " + datatypeUrl);
     }
-    
+
     /**
-     * todo here we don't consider structures to be enricheable, even if
-     * they _might_ contain relations and names in subfields.
+     * todo here we don't consider structures to be enricheable, even if they
+     * _might_ contain relations and names in subfields.
      */
     public static boolean isNlpProcessable(String dataType) {
         return DataTypes.ENTITY.equals(dataType)
@@ -215,8 +225,8 @@ public final class DataTypes {
     /**
      * Only
      * {@link package eu.trentorise.opendata.semantics.services.DataTypes.ENTITY ENTITY}
-     * are considered relational. todo 0.3 here we don't consider structures
-     * to be relational, even if they _might_ contain relations in subfields.
+     * are considered relational. todo 0.3 here we don't consider structures to
+     * be relational, even if they _might_ contain relations in subfields.
      */
     public static boolean isRelationalDatatype(String dataType) {
         return DataTypes.ENTITY.equals(dataType);
@@ -227,5 +237,5 @@ public final class DataTypes {
      */
     public boolean isRelationalDataType(AttrType AttrType) {
         return AttrType.isRelational();
-    }    
+    }
 }
