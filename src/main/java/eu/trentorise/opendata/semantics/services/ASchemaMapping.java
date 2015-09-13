@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.EntityType;
-import eu.trentorise.opendata.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.semantics.model.entity.EntityType;
 import java.util.List;
 import org.immutables.value.Value;
 
@@ -45,8 +45,8 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
      * Returns the target entity type
      */
     @Value.Default
-    public IEntityType getTargetEtype() {
-        return new EntityType();
+    public EntityType getTargetEtype() {
+        return EntityType.of();
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
 
     }
 
-    public static SchemaMapping of(Iterable<? extends AttributeMapping> mappings, IEntityType targetEtype, double score) {
+    public static SchemaMapping of(Iterable<? extends AttributeMapping> mappings, EntityType targetEtype, double score) {
         return SchemaMapping.builder().addAllMappings(mappings).setTargetEtype(targetEtype).setScore(score).build();
     }
 

@@ -15,10 +15,9 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.IAttribute;
-import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.entity.IValue;
+import eu.trentorise.opendata.semantics.model.entity.Attribute;
+import eu.trentorise.opendata.semantics.model.entity.Entity;
+import eu.trentorise.opendata.semantics.model.entity.Val;
 
 import java.io.Writer;
 import java.util.List;
@@ -46,10 +45,10 @@ public interface IEntityService {
      * method.
      * @return the GUID of the newly created entity
      * @deprecated use
-     * {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)}
+     * {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.Entity)}
      * instead
      */
-    Long createEntity(IEntity entity);
+    Long createEntity(Entity entity);
 
     /**
      * Creates an entity
@@ -60,7 +59,7 @@ public interface IEntityService {
      * created. All linked entities must exist on the server.
      * @return the URL of the newly created entity
      */
-    String createEntityURL(IEntity entity);
+    String createEntityURL(Entity entity);
 
     /**
      * Updates an entity. For values of type Dict, translations provided in
@@ -71,7 +70,7 @@ public interface IEntityService {
      * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity
      * doesn't exists
      */
-    void updateEntity(IEntity entity);
+    void updateEntity(Entity entity);
 
     /**
      * Deletes an entity
@@ -96,7 +95,7 @@ public interface IEntityService {
      * @return the entity identified by this URL, or null if not found
      */
     @Nullable
-    IEntity readEntity(String URL);
+    Entity readEntity(String URL);
 
     /**
      * Reads an entities given their URLs
@@ -105,7 +104,7 @@ public interface IEntityService {
      * @return the list of entities identified by the URL. Not found entities
      * will be null.
      */
-    List<IEntity> readEntities(List<String> entityURLs);        
+    List<Entity> readEntities(List<String> entityURLs);        
 
 
     /**
@@ -117,8 +116,8 @@ public interface IEntityService {
      * @throws eu.trentorise.opendata.semantics.NotFoundException if the
      * provided entity or attribute don't exist
      */
-    void updateAttributeValue(IEntity entity, IAttribute attribute,
-            IValue newValue);
+    void updateAttributeValue(Entity entity, Attribute attribute,
+            Val newValue);
 
     /**
      * Writes the given entities in rdf format into the provided writer.

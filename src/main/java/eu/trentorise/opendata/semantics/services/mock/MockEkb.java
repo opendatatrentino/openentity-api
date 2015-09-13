@@ -65,14 +65,14 @@ public class MockEkb implements IEkb {
 
     /**
      * This is a transitional prefix ONLY for values ID, to be removed when
-     * IValue will have getURL() instead of getlocalID()
+     * Val will have getURL() instead of getlocalID()
      */
     public static final String FOREIGN_VALUE_PREFIX = FOREIGN_PREFIX + "value/";
 
     /**
      * This is a transitional prefix ONLY for attributes ID, to be removed when
-     * IAttribute will have getURL() instead of getlocalID() - or when we get
-     * read of IAttribute alltogether
+     * Attribute will have getURL() instead of getlocalID() - or when we get
+     * read of Attribute alltogether
      */
     public static final String FOREIGN_ATTRIBUTE_PREFIX = FOREIGN_PREFIX + "attribute/";
 
@@ -80,11 +80,11 @@ public class MockEkb implements IEkb {
 
     
 
-    public static final String TEST_ROAT_STRUCTURE = ETYPE_PREFIX + "test-root-structure";
+    public static final String TEST_ROOT_STRUCTURE = ETYPE_PREFIX + "test-root-structure";
 
-    public static final String ROAT_ETYPE = ETYPE_PREFIX + "test-root-etype";
-    public static final String ROAT_NAME_ATTR = ATTR_DEF_PREFIX + "test-root-name";
-    public static final String ROAT_DESCR_ATTR = ATTR_DEF_PREFIX + "test-root-description";
+    public static final String ROOT_ETYPE = ETYPE_PREFIX + "test-root-etype";
+    public static final String ROOT_NAME_ATTR = ATTR_DEF_PREFIX + "test-root-name";
+    public static final String ROOT_DESCR_ATTR = ATTR_DEF_PREFIX + "test-root-description";
 
     /**
      * Simple entity type with 4 attributes, name, description, test-attr-def-1,
@@ -117,11 +117,11 @@ public class MockEkb implements IEkb {
     public static final long TEST_SENSE_1_ID = 1L;
     public static final long TEST_SENSE_2_ID = 2L;
 
-    public static final String ROAT_CONCEPT = CONCEPT_PREFIX + "test-root-concept";
-    public static final String ROAT_CONCEPT_IT_NAME = "concetto radice di test";
-    public static final String ROAT_CONCEPT_EN_NAME = "test root concept";
-    public static final String ROAT_CONCEPT_IT_DESCR = "Descrizione del concetto radice di test";
-    public static final String ROAT_CONCEPT_EN_DESCR = "Description of test root concept";
+    public static final String ROOT_CONCEPT = CONCEPT_PREFIX + "test-root-concept";
+    public static final String ROOT_CONCEPT_IT_NAME = "concetto radice di test";
+    public static final String ROOT_CONCEPT_EN_NAME = "test root concept";
+    public static final String ROOT_CONCEPT_IT_DESCR = "Descrizione del concetto radice di test";
+    public static final String ROOT_CONCEPT_EN_DESCR = "Description of test root concept";
 
     public static final String COMPLEX_NAME = ETYPE_PREFIX + "complex-name";
     public static final String COMPLEX_NAME_NAME_ATTR = ATTR_DEF_PREFIX + "complex-name-name";

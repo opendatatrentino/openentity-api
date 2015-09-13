@@ -17,11 +17,11 @@ package eu.trentorise.opendata.semantics;
 
 import eu.trentorise.opendata.commons.LocalizedString;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.entity.IStructure;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.model.entity.Entity;
+import eu.trentorise.opendata.semantics.model.entity.Structure;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.semtext.SemText;
+import eu.trentorise.opendata.traceprov.types.Concept;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,18 +46,18 @@ import java.util.Set;
  * INTEGER : {@link java.lang.Integer} <br/>
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
- * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.IConcept}
+ * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.Concept}
  * <br/>
  * LOCALIZED_STRING : {@link eu.trentorise.opendata.commons.LocalizedString}
  * <br/>
  * DICT : {@link eu.trentorise.opendata.commons.Dict} <br/>
  * SEMANTIC_TEXT : {@link eu.trentorise.opendata.semtext.SemText} <br/>
- * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.IEntity} A
+ * ENTITY : {@link eu.trentorise.opendata.semantics.model.entity.Entity} A
  * convenient implementation for entities which are values of other entities
  * (like in part-of relations) may be found in the
  * {@link eu.trentorise.opendata.semantics.impl.model.entity.MinimalEntity}
  * class <br/>
- * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.IStructure}
+ * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.Structure}
  * <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
@@ -146,11 +146,11 @@ public final class DataTypes {
         JAVA_DATATYPES.put(INTEGER, Integer.class);
         JAVA_DATATYPES.put(FLOAT, Float.class);
         JAVA_DATATYPES.put(LONG, Long.class);
-        JAVA_DATATYPES.put(CONCEPT, IConcept.class);
+        JAVA_DATATYPES.put(CONCEPT, Concept.class);
         JAVA_DATATYPES.put(LOCALIZED_STRING, LocalizedString.class);
         JAVA_DATATYPES.put(SEMANTIC_TEXT, SemText.class);
-        JAVA_DATATYPES.put(ENTITY, IEntity.class);
-        JAVA_DATATYPES.put(STRUCTURE, IStructure.class);
+        JAVA_DATATYPES.put(ENTITY, Entity.class);
+        JAVA_DATATYPES.put(STRUCTURE, Structure.class);
 
     }
 

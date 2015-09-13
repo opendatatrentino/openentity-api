@@ -1,10 +1,10 @@
 package eu.trentorise.opendata.semantics.services.mock;
 
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.semantics.services.IKnowledgeService;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import static eu.trentorise.opendata.semantics.services.mock.MockEkb.*;
+import eu.trentorise.opendata.traceprov.types.Concept;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class MockKnowledgeService implements IKnowledgeService {
 
-    private Map<String, IConcept> registeredConcepts;
+    private Map<String, Concept> registeredConcepts;
     private static final Logger LOG = Logger.getLogger(MockKnowledgeService.class.getName());
 
     
@@ -28,56 +28,56 @@ public class MockKnowledgeService implements IKnowledgeService {
         registeredConcepts = new HashMap();
 
         { // skilift 
-            MockConcept mc = new MockConcept();
+            Concept.Builder cb =  Concept.builder();
 
             Dict nameDict = Dict.of(Locale.ENGLISH, SKILIFT_CONCEPT_EN_NAME)
                     .with(Locale.ITALIAN, SKILIFT_CONCEPT_IT_NAME);
-            mc.setName(nameDict);
+            cb.setName(nameDict);
 
             Dict descrDict = Dict.of(Locale.ENGLISH, SKILIFT_CONCEPT_EN_DESCR)
                     .with(Locale.ITALIAN, SKILIFT_CONCEPT_IT_DESCR);
-            mc.setDescription(descrDict);
-            mc.setURL(MockEkb.SKILIFT_CONCEPT);
-            registeredConcepts.put(MockEkb.SKILIFT_CONCEPT, mc);
+            cb.setDescription(descrDict);
+            cb.setId(MockEkb.SKILIFT_CONCEPT);
+            registeredConcepts.put(MockEkb.SKILIFT_CONCEPT, cb.build());
         }
 
         { // facility
-            MockConcept mc = new MockConcept();
+            Concept.Builder cb = Concept.builder();
 
             Dict nameDict = Dict.of(Locale.ENGLISH, FACILITY_CONCEPT_EN_NAME)
                     .with(Locale.ITALIAN, FACILITY_CONCEPT_IT_NAME);
-            mc.setName(nameDict);
+            cb.setName(nameDict);
 
             Dict descrDict = Dict.of(Locale.ENGLISH, FACILITY_CONCEPT_EN_DESCR)
                     .with(Locale.ITALIAN, FACILITY_CONCEPT_IT_DESCR);
-            mc.setDescription(descrDict);
-            mc.setURL(MockEkb.FACILITY_CONCEPT);
-            registeredConcepts.put(MockEkb.FACILITY_CONCEPT, mc);
+            cb.setDescription(descrDict);
+            cb.setId(MockEkb.FACILITY_CONCEPT);
+            registeredConcepts.put(MockEkb.FACILITY_CONCEPT, cb.build());
         }
 
         { // root test concept
-            MockConcept mc = new MockConcept();
+            Concept.Builder cb = Concept.builder();
 
-            Dict nameDict = Dict.of(Locale.ENGLISH, ROAT_CONCEPT_EN_NAME)
-                    .with(Locale.ITALIAN, ROAT_CONCEPT_IT_NAME);
-            mc.setName(nameDict);
+            Dict nameDict = Dict.of(Locale.ENGLISH, ROOT_CONCEPT_EN_NAME)
+                    .with(Locale.ITALIAN, ROOT_CONCEPT_IT_NAME);
+            cb.setName(nameDict);
 
-            Dict descrDict = Dict.of(Locale.ENGLISH, ROAT_CONCEPT_EN_DESCR)
-                    .with(Locale.ITALIAN, ROAT_CONCEPT_IT_DESCR);
-            mc.setDescription(descrDict);
-            mc.setURL(MockEkb.ROAT_CONCEPT);
-            registeredConcepts.put(MockEkb.ROAT_CONCEPT, mc);
+            Dict descrDict = Dict.of(Locale.ENGLISH, ROOT_CONCEPT_EN_DESCR)
+                    .with(Locale.ITALIAN, ROOT_CONCEPT_IT_DESCR);
+            cb.setDescription(descrDict);
+            cb.setId(MockEkb.ROOT_CONCEPT);
+            registeredConcepts.put(MockEkb.ROOT_CONCEPT, cb.build());
         }
 
     }
 
     @Override
-    public List<IConcept> readConcepts(List<String> URLs) {
+    public List<Concept> readConcepts(List<String> URLs) {
 
-        List<IConcept> concepts = new ArrayList();
+        List<Concept> concepts = new ArrayList();
 
         for (String URL : URLs) {
-            IConcept concept = registeredConcepts.get(URL);
+            Concept concept = registeredConcepts.get(URL);
             if (concept == null) {
                 LOG.log(Level.WARNING, "Couldn''t find registered concept with URL {0}", URL);
                 concepts.add(null);
@@ -90,8 +90,8 @@ public class MockKnowledgeService implements IKnowledgeService {
     }
 
     @Override
-    public IConcept readConcept(String URL) {
-        IConcept concept = registeredConcepts.get(URL);
+    public Concept readConcept(String URL) {
+        Concept concept = registeredConcepts.get(URL);
         if (concept == null) {
             LOG.log(Level.WARNING, "Couldn''t find registered concept with URL {0}", URL);
         }
@@ -99,17 +99,17 @@ public class MockKnowledgeService implements IKnowledgeService {
     }
 
     @Override
-    public IConcept readRootConcept() {
-        return registeredConcepts.get(MockEkb.ROAT_CONCEPT);
+    public Concept readRootConcept() {
+        return registeredConcepts.get(MockEkb.ROOT_CONCEPT);
     }
 
     @Override
     public List<SearchResult> searchConcepts(String partialName, Locale locale) {
         List<SearchResult> ret = new ArrayList();
 
-        for (IConcept concept : registeredConcepts.values()) {
+        for (Concept concept : registeredConcepts.values()) {
             if (concept.getName().contains(partialName)) {
-                SearchResult es = SearchResult.of(concept.getURL(), concept.getName());
+                SearchResult es = SearchResult.of(concept.getId(), concept.getName());
                 ret.add(es);
             }
         }

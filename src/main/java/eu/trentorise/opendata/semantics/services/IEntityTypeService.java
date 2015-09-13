@@ -15,8 +15,8 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
-import eu.trentorise.opendata.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.semantics.model.entity.AttributeDef;
+import eu.trentorise.opendata.semantics.model.entity.EntityType;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +38,7 @@ public interface IEntityTypeService {
      *
      * @return list of all entity types in the system
      */
-    List<IEntityType> readAllEntityTypes();
+    List<EntityType> readAllEntityTypes();
 
     /**
      * Returns the entity types with the given URLs
@@ -47,7 +47,7 @@ public interface IEntityTypeService {
      * @return the entity types. For entity types that were not found, the
      * corresponding item in the list will contain null.
      */
-    List<IEntityType> readEntityTypes(Iterable<String> URLs);
+    List<EntityType> readEntityTypes(Iterable<String> URLs);
 
     /**
      * Returns a list of possible entity types with name similar to provided
@@ -67,7 +67,7 @@ public interface IEntityTypeService {
      * @return the entity type, null if not found.
      */
     @Nullable
-    IEntityType readEntityType(String URL);
+    EntityType readEntityType(String URL);
 
     /**
      * Return the attribute definition by the given URL
@@ -76,7 +76,7 @@ public interface IEntityTypeService {
      * @return the attribute definition, null if not found.
      */
     @Nullable
-    public IAttributeDef readAttrDef(String url);
+    public AttributeDef readAttrDef(String url);
 
 
     /**
@@ -85,7 +85,7 @@ public interface IEntityTypeService {
      * @return the parent of all structures
      * @see #getRootEtype()
      */
-    IEntityType readRootStructure();
+    EntityType readRootStructure();
 
 
     /**
@@ -95,6 +95,6 @@ public interface IEntityTypeService {
      * {@link #getRootStructure()}
      * @see #getRootStructure()
      */
-    IEntityType readRootEtype();
+    EntityType readRootEtype();
 
 }

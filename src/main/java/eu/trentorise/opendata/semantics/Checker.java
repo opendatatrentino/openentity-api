@@ -19,17 +19,18 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import eu.trentorise.opendata.commons.validation.Preconditions;
 import static eu.trentorise.opendata.commons.OdtUtils.checkNotDirtyUrl;
-import eu.trentorise.opendata.semantics.model.entity.IAttribute;
-import eu.trentorise.opendata.semantics.model.entity.IAttributeDef;
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.semantics.model.entity.IStructure;
-import eu.trentorise.opendata.semantics.model.entity.IValue;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.model.entity.AStructure;
+import eu.trentorise.opendata.semantics.model.entity.Attribute;
+import eu.trentorise.opendata.semantics.model.entity.AttributeDef;
+import eu.trentorise.opendata.semantics.model.entity.Entity;
+import eu.trentorise.opendata.semantics.model.entity.EntityType;
+import eu.trentorise.opendata.semantics.model.entity.Structure;
+import eu.trentorise.opendata.semantics.model.entity.Val;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import eu.trentorise.opendata.semantics.services.AssignmentResult;
 import eu.trentorise.opendata.semantics.services.IIDResult;
+import eu.trentorise.opendata.traceprov.types.Concept;
 
 /**
  * Class to collect checkers for implementations of Open Entity API interfaces.
@@ -83,7 +84,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided etype is not conformant to
      * OpenEntity specs.
      */
-    public void checkEtype(IEntityType etype) {
+    public void checkEtype(EntityType etype) {
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
         }
@@ -98,7 +99,7 @@ public final class Checker {
          * new IllegalArgumentException("Found null unique indexes for etype " +
          * etype.getURL()); }
          */
-        for (IAttributeDef attrDef : etype.getAttributeDefs()) {
+        for (AttributeDef attrDef : etype.getAttrDefs().values()) {
             try {
                 checkAttributeDef(attrDef);
             }
@@ -108,14 +109,14 @@ public final class Checker {
         }
 
         try {
-            etype.getNameAttrDef();
+            etype.nameAttrDef();
         }
         catch (Exception ex) {
             throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
         }
 
         try {
-            etype.getDescriptionAttrDef();
+            etype.descrAttrDef();
         }
         catch (Exception ex) {
             throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
@@ -130,7 +131,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided attrDef is not conformant to
      * OpenEntity specs.
      */
-    public void checkAttributeDef(IAttributeDef attrDef) {
+    public void checkAttributeDef(AttributeDef attrDef) {
         if (attrDef == null) {
             throw new IllegalArgumentException("Found null attribute def!");
         }
@@ -144,15 +145,14 @@ public final class Checker {
         if (attrDef.getName() == null) {
             throw new IllegalArgumentException("Found null name dict for attribute def " + attrDef.getURL());
         }
+     
 
-        checkNotDirtyUrl(attrDef.getEtypeURL(), "Found invalid etype URL for attribute def " + attrDef.getURL());
-
-        if (attrDef.getDatatype() == null) {
+        if (attrDef.getAttrType().getDatatype() == null) {
             throw new IllegalArgumentException("Found null datatype for attribute def " + attrDef.getURL());
         }
-        if ((attrDef.getDatatype().equals(DataTypes.STRUCTURE) || attrDef.getDatatype().equals(DataTypes.ENTITY))) {
+        if ((attrDef.getAttrType().getDatatype().equals(DataTypes.STRUCTURE) || attrDef.getAttrType().getDatatype().equals(DataTypes.ENTITY))) {
 
-            checkNotDirtyUrl(attrDef.getRangeEtypeURL(), "Attribute def " + attrDef.getURL() + " with parent etype " + attrDef.getEtypeURL() + " is of datatype " + attrDef.getDatatype() + ", but is has invalid getRangeEtypeURL()");
+            checkNotDirtyUrl(attrDef.getAttrType().etypeURL(), "Attribute def " + attrDef.getURL() + " is of datatype " + attrDef.getAttrType().getDatatype() + ", but is has invalid range Etype URL()");
 
         }
 
@@ -206,7 +206,7 @@ public final class Checker {
 
             checkNotDirtyUrl(idResult.getURL(), "Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult);
 
-            for (IEntity entity : idResult.getEntities()) {
+            for (Entity entity : idResult.getEntities()) {
                 try {                    
                     checkEntity(entity);
                 }
@@ -244,7 +244,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided entity is not conformant to
      * OpenEntity specs.
      */
-    public void checkEntity(IEntity entity) {
+    public void checkEntity(Entity entity) {
 
         checkEntity(entity, false);
     }
@@ -259,13 +259,13 @@ public final class Checker {
      * @throws IllegalArgumentException if provided entity is not conformant to
      * OpenEntity specs.
      */
-    public void checkEntity(IEntity entity, boolean synthetic) {
+    public void checkEntity(Entity entity, boolean synthetic) {
 
         if (entity == null) {
             throw new IllegalArgumentException("Found null entity!");
         }
 
-        IEntityType etype = ekb.getEntityTypeService().readEntityType(entity.getEtypeURL());
+        EntityType etype = ekb.getEntityTypeService().readEntityType(entity.getEtypeURL());
         
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
@@ -305,7 +305,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided structure is not conformant
      * to OpenEntity specs.
      */
-    public void checkStructure(IStructure structure) {
+    public void checkStructure(Structure structure) {
 
         checkStructure(structure,  false);
 
@@ -319,12 +319,12 @@ public final class Checker {
      * @param synthetic if true URLs and local ids of attributes and values will
      * not be checked. The URL of the structure is not checked anyway.
      */
-    public void checkStructure(IStructure structure, boolean synthetic) {
+    public void checkStructure(AStructure structure, boolean synthetic) {
         if (structure == null) {
             throw new IllegalArgumentException("Found null structure!");
         }
 
-        IEntityType etype = ekb.getEntityTypeService().readEntityType(structure.getEtypeURL());
+        EntityType etype = ekb.getEntityTypeService().readEntityType(structure.getEtypeURL());
         
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
@@ -338,7 +338,7 @@ public final class Checker {
             throw new IllegalArgumentException("Found null attributes in structure " + structure.getUrl());
         }
 
-        for (IAttribute attr : structure.getAttributes()) {
+        for (Attribute attr : structure.getAttributes().values()) {
             try {
                 checkAttribute(attr,  synthetic);
             }
@@ -357,19 +357,19 @@ public final class Checker {
      * @throws IllegalArgumentException if provided attribute is not conformant
      * to OpenEntity specs.
      */
-    public void checkAttribute(IAttribute attribute, boolean synthetic) {
+    public void checkAttribute(Attribute attribute, boolean synthetic) {
         if (attribute == null) {
             throw new IllegalArgumentException("Found null attribute!");
         }
 
-        IAttributeDef attrDef = ekb.getEntityTypeService().readAttrDef(attribute.getAttrDefUrl());
+        AttributeDef attrDef = ekb.getEntityTypeService().readAttrDef(attribute.getAttrDefUrl());
 
         if (attrDef == null) {
             throw new IllegalArgumentException("Found null attr def!");
         }
 
-        if (!synthetic && attribute.getLocalID() == null) {
-            throw new IllegalArgumentException("Found null local ID in attribute " + attribute);
+        if (!synthetic && attribute.getLocalID() < 0) {
+            throw new IllegalArgumentException("Found negative local ID in attribute " + attribute);
         }
 
         if (attribute.getAttrDefUrl() == null) {
@@ -380,11 +380,8 @@ public final class Checker {
             throw new IllegalArgumentException("Found null values list in attribute " + attribute.getLocalID());
         }
 
-        if (attribute.getValuesCount() != attribute.getValues().size()) {
-            throw new IllegalArgumentException("Found inconsistent values count in attribute " + attribute.getLocalID() + ". ValuesCount = " + attribute.getValuesCount() + ". attr.getValues.().size() = " + attribute.getValues().size());
-        }
 
-        for (IValue val : attribute.getValues()) {
+        for (Val val : attribute.getValues()) {
             try {
                 checkValue(val, attrDef,  synthetic);
             }
@@ -402,7 +399,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided attribute is not conformant
      * to OpenEntity specs.
      */
-    public void checkAttribute(IAttribute attribute) {
+    public void checkAttribute(Attribute attribute) {
         checkAttribute(attribute, false);
 
     }
@@ -414,7 +411,7 @@ public final class Checker {
      * @throws IllegalArgumentException if provided value is not conformant to
      * OpenEntity specs.
      */
-    public void checkValue(IValue value, IAttributeDef attrDef) {
+    public void checkValue(Val value, AttributeDef attrDef) {
         checkValue(value, attrDef, false);
     }
 
@@ -425,43 +422,43 @@ public final class Checker {
      * @throws IllegalArgumentException if provided value is not conformant to
      * OpenEntity specs.
      */
-    public void checkValue(IValue value, IAttributeDef attrDef, boolean synthetic) {
+    public void checkValue(Val value, AttributeDef attrDef, boolean synthetic) {
 
         checkNotNull(attrDef);
         
-        String datatype = attrDef.getDatatype();
+        String datatype = attrDef.getAttrType().getDatatype();
 
         if (value == null) {
             throw new IllegalArgumentException("Found null value!");
         }
 
-        if (!synthetic && value.getLocalID() == null) {
-            throw new IllegalArgumentException("Found null local ID in value " + value);
+        if (!synthetic && value.getLocalID() < 0 ) {
+            throw new IllegalArgumentException("Found negative local ID in value " + value);
         }
 
-        if (value.getValue() == null) {
+        if (value.getObj() == null) {
             throw new IllegalArgumentException("Found null object in value " + value.getLocalID());
         }
 //here
         if (DataTypes.getDataTypes().get(datatype) == null) {
-            throw new IllegalArgumentException("Found unsupported datatype " + datatype + " in value " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
+            throw new IllegalArgumentException("Found unsupported datatype " + datatype + " in value " + value.getObj() + ". Its class is " + value.getObj().getClass().getName());
         }
 
-        if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getValue()))) {
-            throw new IllegalArgumentException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getValue() + ". Its class is " + value.getValue().getClass().getName());
+        if (!(DataTypes.getDataTypes().get(datatype).isInstance(value.getObj()))) {
+            throw new IllegalArgumentException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getObj() + ". Its class is " + value.getObj().getClass().getName());
         }
 
         if (DataTypes.STRUCTURE.equals(datatype)) { // for structures we do deep check
-            IStructure s = (IStructure) value.getValue();
-            if (!attrDef.getRangeEtypeURL().equals(s.getEtypeURL())) {
+            Structure s = (Structure) value.getObj();
+            if (!attrDef.getAttrType().getEtypeURL().equals(s.getEtypeURL())) {
                 throw new IllegalArgumentException("Found structure value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
-                        + "\nStructure etype URL: " + s.getEtypeURL() + "\nAttribute rangeEtypeURL: " + attrDef.getRangeEtypeURL());
+                        + "\nStructure etype URL: " + s.getEtypeURL() + "\nAttribute rangeEtypeURL: " + attrDef.getAttrType().getEtypeURL());
             }
             checkStructure(s, synthetic);
         }
 
         if (DataTypes.ENTITY.equals(datatype)) { // for entities we only check URL and name            
-            IEntity entity = (IEntity) value.getValue();
+            Entity entity = (Entity) value.getObj();
             if (!synthetic) {
 
                 checkNotDirtyUrl(entity.getUrl(), "Found invalid URL in entity inside value with local ID: " + value.getLocalID());
@@ -481,25 +478,25 @@ public final class Checker {
      * @throws IllegalArgumentException if provided concept is not conformant to
      * OpenEntity specs.
      */
-    public void checkConcept(IConcept concept) {
+    public void checkConcept(Concept concept) {
         if (concept == null) {
             throw new IllegalArgumentException("Found null concept!");
         }
 
-        checkNotDirtyUrl(concept.getURL(), "Found invalid URL in concept " + concept);
+        checkNotDirtyUrl(concept.getId(), "Found invalid URL in concept " + concept);
 
         try {
             checkNotNull(concept.getDescription());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid description in concept " + concept.getURL(), ex);
+            throw new IllegalArgumentException("Found invalid description in concept " + concept.getId(), ex);
         }
 
         try {
             checkNotNull(concept.getName());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid name in concept " + concept.getURL(), ex);
+            throw new IllegalArgumentException("Found invalid name in concept " + concept.getId(), ex);
         }
 
     }

@@ -29,7 +29,7 @@ public class MockSchemaMatchingService implements ISchemaMatchingService {
 
             EntityTypeController facilityEtype = etsc.readEntityType(MockEkb.FACILITY);
             
-            List<IAttributeCorrespondence> acl = new ArrayList<IAttributeCorrespondence>();
+            List<AttributeCorrespondence> acl = new ArrayList<AttributeCorrespondence>();
 
             acl.add(new MockAttributeCorrespondence(0, etsc.getAttributeDef(MockEkb.FACILITY_NAME_ATTR).getOriginal()));
             acl.add(new MockAttributeCorrespondence(1, etsc.getAttributeDef(MockEkb.FACILITY_OPENING_HOURS_ATTR).getOriginal()));
@@ -48,7 +48,7 @@ public class MockSchemaMatchingService implements ISchemaMatchingService {
 
             EntityTypeController certifiedProductEtype = etsc.readEntityType(MockEkb.CERTIFIED_PRODUCT);
             
-            List<IAttributeCorrespondence> acl = new ArrayList<IAttributeCorrespondence>();
+            List<AttributeCorrespondence> acl = new ArrayList<AttributeCorrespondence>();
 
             acl.add(new MockAttributeCorrespondence(0, etsc.getAttributeDef(MockEkb.CERTIFIED_PRODUCT_NAME_ATTR).getOriginal()));
 

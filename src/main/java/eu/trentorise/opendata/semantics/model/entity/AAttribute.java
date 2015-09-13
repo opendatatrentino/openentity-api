@@ -15,8 +15,13 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
-import javax.annotation.Nullable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
+import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import org.immutables.value.Value;
 
 /**
  * An attribute is used in entities. It holds one or more values. null values
@@ -27,43 +32,61 @@ import java.util.List;
  * @author David Leoni <david.leoni@unitn.it>
  *
  */
-public interface IAttribute {
+@Value.Immutable
+@BuilderStylePublic
+@JsonSerialize(as = Attribute.class)
+@JsonDeserialize(as = Attribute.class)
+abstract class AAttribute {
 
     /**
      * The local identifier represented as Long. May be null for synthetic
-     * attributes.
+     * attributes. By default it's -1.
      */
-    @Nullable
-    Long getLocalID();
+    @Value.Default    
+    public long getLocalID() {
+        return -1;
+    }
 
     /**
      * The attribute definition URL of the attribute
      *
      */
-    String getAttrDefUrl();
-
+    @Value.Default
+    public String getAttrDefUrl(){
+        return "";
+    }
 
     /**
      * Returns all the value of the attribute
      *
      * @return immutable list of all values of the attribute. It can be empty.
      * Null values are not allowed.
-     */
-    List<IValue> getValues();
+     */    
+    public abstract List<Val> getValues();
 
     /**
      * Gets the first value of the attribute
      *
      * @return the first value of the attribute
      *
-     * @throws java.util.NoSuchElementException if no value is present
+     * @throws eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException if no value is present
+     */    
+    public Val firstValue(){
+        if (getValues().isEmpty()){
+            throw new OpenEntityNotFoundException("Tried to get first value from attribute, but there is none!");
+        }
+        return getValues().get(0);
+    }
+    
+        /**
+     * 
+     * @return  a list of objects contained inside provided attribute values. 
      */
-    IValue getFirstValue();
-
-    /**
-     * Gets the number of values in the attribute. Can be zero.
-     *
-     * @return the number of values in the attribute
-     */
-    Long getValuesCount();
+    public List asRawObjectList(){
+        List rawValues = new ArrayList();
+        for (Val val : getValues()){
+            rawValues.add(val.getObj());
+        }
+        return rawValues;
+    }
 }

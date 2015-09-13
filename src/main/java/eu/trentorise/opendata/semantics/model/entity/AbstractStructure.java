@@ -1,5 +1,5 @@
-/* 
- * Copyright 2015 TrentoRISE   (trentorise.eu).
+/*
+ * Copyright 2015 Trento Rise.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,20 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
+import org.immutables.value.Value;
 
 /**
- * The unique indexes are a set of attribute definitions to be used in entity
- * matching
- * 
+ *
+ * @author David Leoni
  */
-public interface IUniqueIndex {
+@Value.Immutable
+@BuilderStylePublic
+@JsonSerialize(as = Structure.class)
+@JsonDeserialize(as = Structure.class)
+abstract class AbstractStructure extends AStructure {
 
-    /**
-     * Gets the URL of the unique index
-     *
-     * @return a string that holds the URL of the unique index
-     */
-    String getURL();
-
-    /**
-     * Gets the attribute definitions for the unique index
-     *
-     * @return the attribute definitions for the unique index
-     */
-    List<String> getAttributeDefURLs();
-
-
+    
 }

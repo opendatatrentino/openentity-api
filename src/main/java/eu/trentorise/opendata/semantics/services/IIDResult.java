@@ -15,7 +15,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semantics.services.AssignmentResult;
 import java.util.Set;
 import javax.annotation.Nullable;
@@ -46,11 +46,11 @@ public interface IIDResult {
      * of the original entity is returned containing an assigned URL. This new
      * entity will not be stored on the server, though. In order to store it,
      * call
-     * {@link eu.trentorise.opendata.semantics.services.IEntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.IEntity)}
+     * {@link eu.trentorise.opendata.semantics.services.EntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.Entity)}
      * with the new entity.
      */
     @Nullable
-    IEntity getResultEntity();
+    Entity getResultEntity();
 
     /**
      * Gets a set of possible suggested entities.
@@ -59,7 +59,7 @@ public interface IIDResult {
      * REUSE. If assignment result is NEW, returns a set containing only one new
      * entity with newly assigned url. Otherwise, returns an empty set.
      */
-    Set<IEntity> getEntities();
+    Set<Entity> getEntities();
 
     /**
      * Gets a global ID of the matched entity

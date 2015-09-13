@@ -1,8 +1,7 @@
 package eu.trentorise.opendata.semantics.services.mock;
 
 
-import eu.trentorise.opendata.semantics.model.entity.IEntity;
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
+import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.semtext.MeaningStatus;
 import eu.trentorise.opendata.semtext.Meaning;
@@ -12,6 +11,7 @@ import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.INLPService;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
 import eu.trentorise.opendata.semtext.SemText;
+import eu.trentorise.opendata.traceprov.types.Concept;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -155,8 +155,8 @@ public class MockNlpService implements INLPService {
     public List<TermSearchResult> freeSearch(String partialName, Locale locale) {
         ArrayList<TermSearchResult> ret = new ArrayList();
         
-        IEntity entity = ekb.getEntityService().readEntity(MockEkb.TEST_ENTITY_1);
-        IConcept concept = ekb.getKnowledgeService().readConcept(MockEkb.SKILIFT_CONCEPT);
+        Entity entity = ekb.getEntityService().readEntity(MockEkb.TEST_ENTITY_1);
+        Concept concept = ekb.getKnowledgeService().readConcept(MockEkb.SKILIFT_CONCEPT);
         
         ret.add(TermSearchResult.of(MockEkb.TEST_ENTITY_1, entity.getName(), MeaningKind.ENTITY));
         ret.add(TermSearchResult.of(MockEkb.SKILIFT_CONCEPT, concept.getName(), MeaningKind.CONCEPT));

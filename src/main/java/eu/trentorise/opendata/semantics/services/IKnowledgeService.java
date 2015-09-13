@@ -15,8 +15,8 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.semantics.model.knowledge.IConcept;
 
+import eu.trentorise.opendata.traceprov.types.Concept;
 import javax.annotation.Nullable;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public interface IKnowledgeService {
      * @return the list of concepts. If a given concept is not found, null is
      * returned at the corresponding position in the list.
      */
-    List<IConcept> readConcepts(List<String> URLs);
+    List<Concept> readConcepts(List<String> URLs);
 
     /**
      * Returns the concepts with the given URLs
@@ -48,7 +48,7 @@ public interface IKnowledgeService {
      * @return The concept. Returns null if the concept is not found.
      */
     @Nullable
-    IConcept readConcept(String URL);
+    Concept readConcept(String URL);
 
     /**
      * Returns the parent of all concepts
@@ -57,7 +57,7 @@ public interface IKnowledgeService {
      * @throws UnsupportedOperationException if concepts are not supported by
      * the Ekb.
      */
-    IConcept readRootConcept();
+    Concept readRootConcept();
 
     /**
      * Returns a list of possible concepts with name similar to provided partial

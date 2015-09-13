@@ -17,8 +17,8 @@ package eu.trentorise.opendata.semantics.test;
 
 import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.Checker;
-import eu.trentorise.opendata.semantics.services.mock.MockConcept;
 import eu.trentorise.opendata.semantics.services.mock.MockEkb;
+import eu.trentorise.opendata.traceprov.types.Concept;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,7 +37,7 @@ public class TestChecker {
     
     @Test
     public void testChecker(){
-        checker.checkConcept(new MockConcept("bla", Dict.of(), Dict.of()));
+        checker.checkConcept(Concept.builder().setId("bla").setName(Dict.of()).setDescription(Dict.of()).build());
         
     }
 }

@@ -15,37 +15,48 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
-import javax.annotation.Nullable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
+import org.immutables.value.Value;
 
 /**
- * Represents an attribute value. Java objects that can be stored in an IValue
+ * Represents an attribute value. Java objects that can be stored in an Val
  * are reported in
  * {@link package eu.trentorise.opendata.semantics.services.DataTypes} class.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@unitn.it>
- * 
- * 
  *
  */
-public interface IValue {
+@Value.Immutable
+@BuilderStylePublic
+@JsonSerialize(as = Value.class)
+@JsonDeserialize(as = Value.class)
+abstract class AVal {
 
     /**
-     * Gets the local ID of the value. 
+     * Gets the local ID of the value.
      *
-     * @return the ID of the value. It is null for synthetic values
+     * @return the ID of the value. It is -1 for synthetic values
      */
-    @Nullable
-    Long getLocalID();
+    @Value.Default
+    public long getLocalID() {
+        return -1;
+    }
 
     /**
      * Gets the value.
      *
-     * @return the value as an Object. Can't be null. Java objects that can be returned are
-     * reported in
-     * {@link package eu.trentorise.opendata.semantics.services.DataTypes} class.
+     * @return the value as an Object. Can't be null. Java objects that can be
+     * returned are reported in
+     * {@link package eu.trentorise.opendata.semantics.services.DataTypes}
+     * class. Defaults to empty string.
      */
-    Object getValue();
+    @Value.Default
+    Object getObj() {
+        return "";
+    }
 
 }
