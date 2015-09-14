@@ -17,6 +17,7 @@ package eu.trentorise.opendata.semantics.model.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
 import java.util.ArrayList;
@@ -82,11 +83,11 @@ abstract class AAttr {
      * 
      * @return  a list of objects contained inside provided attribute values. 
      */
-    public List asRawObjectList(){
+    public ImmutableList asRawObjectList(){
         List rawValues = new ArrayList();
         for (Val val : getValues()){
             rawValues.add(val.getObj());
         }
-        return rawValues;
+        return ImmutableList.copyOf(rawValues);
     }
 }

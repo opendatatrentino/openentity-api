@@ -15,8 +15,12 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.commons.Dict;
+import eu.trentorise.opendata.semantics.model.entity.AStructure;
 import eu.trentorise.opendata.semantics.model.entity.Attr;
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.model.entity.Val;
 
 import java.io.Writer;
@@ -37,6 +41,17 @@ import javax.annotation.Nullable;
  *
  */
 public interface IEntityService {
+
+    /**
+     * Express provided structure as a {@code Dict} of human readable strings.
+     * This is especially useful for displaying entity names stored as Structure.
+     *
+     * @param structure a structure to
+     * @param attrDef the attribute definition of the attribute holding the provided structure. 
+     * @param etype the etype of the structure
+     * @return
+     */
+    Dict structToDict(AStructure structure, AttrDef attrDef);
 
     /**
      * Creates an entity
@@ -62,9 +77,9 @@ public interface IEntityService {
     String createEntityURL(Entity entity);
 
     /**
-     * Updates an entity. For values of type Dict, translations provided in
-     * this entity are going to be merged with translations already present in
-     * the Ekb. TODO need to specify MUCH better
+     * Updates an entity. For values of type Dict, translations provided in this
+     * entity are going to be merged with translations already present in the
+     * Ekb. TODO need to specify MUCH better
      *
      * @param entity the entity to be updated
      * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity
@@ -104,8 +119,7 @@ public interface IEntityService {
      * @return the list of entities identified by the URL. Not found entities
      * will be null.
      */
-    List<Entity> readEntities(List<String> entityURLs);        
-
+    List<Entity> readEntities(List<String> entityURLs);
 
     /**
      * Updates an attribute value in an attribute in an entity
@@ -122,7 +136,8 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
+     * @param entityURLs the URLs of the entities to export. If list is empty,
+     * an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated rdf
      */
     void exportToRdf(List<String> entityURLs, Writer writer);
@@ -130,7 +145,8 @@ public interface IEntityService {
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty, an IllegalArgumentException is thrown.
+     * @param entityURLs the URLs of the entities to export. If list is empty,
+     * an IllegalArgumentException is thrown.
      * @param writer A writer to store the generated jsonld
      */
     void exportToJsonLd(List<String> entityURLs, Writer writer);
@@ -162,5 +178,5 @@ public interface IEntityService {
      * for deduplication purposes.
      */
     boolean isTemporaryURL(String temporaryEntityURL);
-            
+
 }

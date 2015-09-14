@@ -15,10 +15,14 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.services.AssignmentResult;
+import eu.trentorise.opendata.semantics.model.entity.Etype;
 import java.util.Set;
 import javax.annotation.Nullable;
+import org.immutables.value.Value;
 
 /**
  * A reconciliation result, expressed as a set of candidate entities or a new
@@ -28,14 +32,21 @@ import javax.annotation.Nullable;
  * @author David Leoni <david.leoni@unitn.it>
  * 
  */
-public interface IIDResult {
+@Value.Immutable
+@BuilderStylePublic
+@JsonSerialize(as = IdResult.class)
+@JsonDeserialize(as = IdResult.class)
+abstract class AIdResult {
 
     /**
-     * Gets the result of the id matching.
+     * Gets the result of the id matching. By default it's {@link AssignmentResult#INVALID}
      *
      * @return the assignment result.
      */
-    AssignmentResult getAssignmentResult();
+    @Value.Default
+    public  AssignmentResult getAssignmentResult(){
+        return AssignmentResult.INVALID;
+    }
 
     /**
      * Gets the selected entity.
@@ -50,24 +61,17 @@ public interface IIDResult {
      * with the new entity.
      */
     @Nullable
-    Entity getResultEntity();
+    public abstract Entity getResultEntity();
 
     /**
-     * Gets a set of possible suggested entities.
+     * A set of possible suggested entities with same iteration order as insertion order.
      *
      * @return a set of possible suggested entities if getAssignmentResult is
      * REUSE. If assignment result is NEW, returns a set containing only one new
      * entity with newly assigned url. Otherwise, returns an empty set.
      */
-    Set<Entity> getEntities();
+    public abstract Set<Entity> getEntities();
 
-    /**
-     * Gets a global ID of the matched entity
-     *
-     * @deprecated use getURL instead
-     * @return global identifier of the entity
-     */
-    Long getGUID();
 
     /**
      * Gets the URL of the matched entity
@@ -77,6 +81,6 @@ public interface IIDResult {
      * entity is not stored on the server.
      */
     @Nullable
-    String getURL();
+    public abstract String getURL();
 
 }

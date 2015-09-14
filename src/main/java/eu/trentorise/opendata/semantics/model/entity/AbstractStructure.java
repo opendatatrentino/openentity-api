@@ -21,7 +21,7 @@ import eu.trentorise.opendata.commons.BuilderStylePublic;
 import org.immutables.value.Value;
 
 /**
- *
+ * This class is needed to generate implementation of structure
  * @author David Leoni
  */
 @Value.Immutable

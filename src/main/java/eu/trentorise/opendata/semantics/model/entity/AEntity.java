@@ -36,7 +36,10 @@ import org.immutables.value.Value;
 abstract class AEntity extends AStructure {
 
     /**
-     * Gets the name of the entity.
+     * The name of the entity. Notice this field is totally decoupled from the
+     * eventual name value present in {@link #getAttrs()} and applications
+     * should use this field only if they don't know how to process relative
+     * attribute.
      *
      * @return the name of the entity in the default languages if available.
      * Returned dict can be empty.
@@ -47,7 +50,10 @@ abstract class AEntity extends AStructure {
     }
 
     /**
-     * Gets the description on the entity in the given language
+     * The description of an entity. Notice this field is totally decoupled from
+     * the eventual description value present in {@link #getAttrs()} and
+     * applications should use this field only if they don't know how to process
+     * relative attribute.
      *
      * @return the description of the entity in the default languages if
      * available. Returned dict can be empty.
@@ -56,7 +62,5 @@ abstract class AEntity extends AStructure {
     public Dict getDescription() {
         return Dict.of();
     }
-
-   
 
 }

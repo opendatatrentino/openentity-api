@@ -29,7 +29,7 @@ import eu.trentorise.opendata.semantics.model.entity.Val;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import eu.trentorise.opendata.semantics.services.AssignmentResult;
-import eu.trentorise.opendata.semantics.services.IIDResult;
+import eu.trentorise.opendata.semantics.services.IdResult;
 import eu.trentorise.opendata.traceprov.types.Concept;
 
 /**
@@ -187,7 +187,7 @@ public final class Checker {
         }
     }
 
-    public void checkIDResult(IIDResult idResult) {
+    public void checkIDResult(IdResult idResult) {
 
         if (idResult == null) {
             throw new IllegalArgumentException("Found null idResult!");

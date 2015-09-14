@@ -43,9 +43,8 @@ public abstract class AStructure {
     }
 
     /**
-     * Gets the external identifier of the structure
-     *
-     * @return a string representing the external identifier of the structure
+     * A map of attribute definition url to the corresponding attribute.
+     * Iteration order is predictable and repsects insertion order.
      */
     public abstract Map<String, Attr> getAttrs();
 

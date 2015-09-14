@@ -16,7 +16,6 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.services.IIDResult;
 import java.util.List;
 
 /**
@@ -40,5 +39,5 @@ public interface IIdentityService {
      * entity to match
      * @return a list of reconciliation results, one for each input entity.
      */
-    List<? extends IIDResult> assignURL(List<? extends Entity> entities, int numCandidates);
+    List<IdResult> assignURL(List<? extends Entity> entities, int numCandidates);
 }
