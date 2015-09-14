@@ -147,12 +147,12 @@ public final class Checker {
         }
      
 
-        if (attrDef.getAttrType().getDatatype() == null) {
+        if (attrDef.getType().getDatatype() == null) {
             throw new IllegalArgumentException("Found null datatype for attribute def " + attrDef.getURL());
         }
-        if ((attrDef.getAttrType().getDatatype().equals(DataTypes.STRUCTURE) || attrDef.getAttrType().getDatatype().equals(DataTypes.ENTITY))) {
+        if ((attrDef.getType().getDatatype().equals(DataTypes.STRUCTURE) || attrDef.getType().getDatatype().equals(DataTypes.ENTITY))) {
 
-            checkNotDirtyUrl(attrDef.getAttrType().etypeURL(), "Attr def " + attrDef.getURL() + " is of datatype " + attrDef.getAttrType().getDatatype() + ", but is has invalid range Etype URL()");
+            checkNotDirtyUrl(attrDef.getType().etypeURL(), "Attr def " + attrDef.getURL() + " is of datatype " + attrDef.getType().getDatatype() + ", but is has invalid range Etype URL()");
 
         }
 
@@ -426,7 +426,7 @@ public final class Checker {
 
         checkNotNull(attrDef);
         
-        String datatype = attrDef.getAttrType().getDatatype();
+        String datatype = attrDef.getType().getDatatype();
 
         if (value == null) {
             throw new IllegalArgumentException("Found null value!");
@@ -450,9 +450,9 @@ public final class Checker {
 
         if (DataTypes.STRUCTURE.equals(datatype)) { // for structs we do deep check
             Struct s = (Struct) value.getObj();
-            if (!attrDef.getAttrType().getEtypeURL().equals(s.getEtypeURL())) {
+            if (!attrDef.getType().getEtypeURL().equals(s.getEtypeURL())) {
                 throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
-                        + "\nStruct etype URL: " + s.getEtypeURL() + "\nAttr rangeEtypeURL: " + attrDef.getAttrType().getEtypeURL());
+                        + "\nStruct etype URL: " + s.getEtypeURL() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeURL());
             }
             checkStruct(s, synthetic);
         }

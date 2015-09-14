@@ -169,7 +169,7 @@ public class MockEtypeService implements IEtypeService {
         return AttrDef.builder()
                 .setURL(URL)
                 .setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build())
-                .setAttrType(attrType)
+                .setType(attrType)
                 .build();
     }
  

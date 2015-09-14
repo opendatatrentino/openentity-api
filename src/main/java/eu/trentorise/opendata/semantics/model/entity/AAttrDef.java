@@ -52,7 +52,7 @@ abstract class AAttrDef {
      * @since 0.27
      */
     @Value.Default
-    public AttrType getAttrType() {
+    public AttrType getType() {
         return AttrType.of();
     }
 
@@ -65,6 +65,16 @@ abstract class AAttrDef {
     public Dict getName() {
         return Dict.of();
     }
+    
+    /**
+     * The attribute description in the given language
+     *
+     * @return the attribute description in the default languages if available
+     */
+    @Value.Default
+    public Dict getDescription() {
+        return Dict.of();
+    }    
 
     /**
      * The concept URL of the attribute definition

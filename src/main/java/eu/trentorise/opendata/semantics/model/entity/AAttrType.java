@@ -125,7 +125,7 @@ abstract class AAttrType {
     }
 
     public static AttrType of(AttrDef attrDef) {
-        return of(attrDef.getAttrType().getDatatype(), attrDef.getAttrType().isList(), attrDef.getAttrType().getEtypeURL());
+        return of(attrDef.getType().getDatatype(), attrDef.getType().isList(), attrDef.getType().getEtypeURL());
     }
 
     /**
