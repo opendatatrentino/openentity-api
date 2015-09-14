@@ -38,7 +38,7 @@ public class MockEtypeService implements IEtypeService {
         this.registeredETypes = new HashMap();
         this.registeredAttrDefs = new HashMap();
                 
-        storeStructureType(TEST_ROOT_STRUCTURE, "test root structure", "struttura radice di test");
+        storeStructType(TEST_ROOT_STRUCTURE, "test root struct", "struttura radice di test");
         
         storeNameDescr(ROOT_NAME_ATTR, ROOT_DESCR_ATTR, ROOT_ETYPE);
         storeEType(ROOT_ETYPE, "test root etype", "etype radice di test", ROOT_CONCEPT,
@@ -59,8 +59,8 @@ public class MockEtypeService implements IEtypeService {
                    TEST_ATTR_DEF_3);
         
         // recursive stuff begin
-        storeAttrDef(TEST_REC_ATTR_DEF, "test rec attr 1 in recursive structure", "Attributo di test in struttura ricorsiva", AttrType.of(DataTypes.STRUCTURE, false, TEST_REC_STRUCTURE));
-        storeStructureType(TEST_REC_STRUCTURE, "test rec structure", "struttura ricorsiva di test", TEST_REC_ATTR_DEF);
+        storeAttrDef(TEST_REC_ATTR_DEF, "test rec attr 1 in recursive struct", "Attributo di test in struttura ricorsiva", AttrType.of(DataTypes.STRUCTURE, false, TEST_REC_STRUCTURE));
+        storeStructType(TEST_REC_STRUCTURE, "test rec struct", "struttura ricorsiva di test", TEST_REC_ATTR_DEF);
         
         
         storeAttrDef(TEST_REC_OUTER_ATTR_DEF, "test rec struct attr 1", "Attr di test per struttura ricorsiva", AttrType.of(DataTypes.STRUCTURE, false, TEST_REC_STRUCTURE));
@@ -75,7 +75,7 @@ public class MockEtypeService implements IEtypeService {
 
         storeAttrDef(ADDRESS_MUNICIPALITY_ATTR, "Municipality", "Comune", AttrType.of(DataTypes.ENTITY, false, LOCATION));        
 
-        storeStructureType(ADDRESS, "Address", "Indirizzo", 
+        storeStructType(ADDRESS, "Address", "Indirizzo", 
                            ADDRESS_MUNICIPALITY_ATTR);                
         
         storeNameDescr(LOCATION_NAME_ATTR, LOCATION_DESCR_ATTR, LOCATION);
@@ -103,7 +103,7 @@ public class MockEtypeService implements IEtypeService {
         storeAttrDef(OPENING_TIME_ATTR, "Opening time", "Orario di apertura", AT_STRING);
         storeAttrDef(CLOSING_TIME_ATTR, "Closing time", "Orario di chiusura", AT_STRING);
 
-        storeStructureType(OPENING_HOURS, "Opening Hours", "Orario di apertura",
+        storeStructType(OPENING_HOURS, "Opening Hours", "Orario di apertura",
                 OPENING_TIME_ATTR,
                 CLOSING_TIME_ATTR);
 
@@ -112,7 +112,7 @@ public class MockEtypeService implements IEtypeService {
         storeAttrDef(FACILITY_OPENING_HOURS_ATTR, "Opening hours", "Orari", AttrType.of(DataTypes.STRUCTURE, false, OPENING_HOURS));
         storeAttrDef(FACILITY_CLASS_ATTR, "Class", "Classe", AT_CONCEPT);   
         storeAttrDef(COMPLEX_NAME_NAME_ATTR, "Name", "Nome", AttrType.of(DataTypes.STRING,true));
-        storeStructureType(COMPLEX_NAME, "NameType", "Tipo nome", COMPLEX_NAME_NAME_ATTR);        
+        storeStructType(COMPLEX_NAME, "NameType", "Tipo nome", COMPLEX_NAME_NAME_ATTR);        
         
         storeAttrDef(FACILITY_NAME_ATTR, "Name", "Nome", AttrType.of(DataTypes.STRUCTURE, true, COMPLEX_NAME));
         storeAttrDef(FACILITY_DESCR_ATTR, "Description", "Descrizione", AttrType.of(DataTypes.SEMANTIC_TEXT,true));         
@@ -129,7 +129,7 @@ public class MockEtypeService implements IEtypeService {
 
     }
 
-    private void storeStructureType(String URL, String engName, String itName, String... attrsURLs) {
+    private void storeStructType(String URL, String engName, String itName, String... attrsURLs) {
         List<AttrDef> attrs = new ArrayList();
         for (String au : attrsURLs) {
             attrs.add(registeredAttrDefs.get(au));
@@ -232,7 +232,7 @@ public class MockEtypeService implements IEtypeService {
     }
 
     @Override
-    public Etype readRootStructure() {
+    public Etype readRootStruct() {
         return registeredETypes.get(MockEkb.TEST_ROOT_STRUCTURE);    }
 
     @Override

@@ -21,14 +21,14 @@ import eu.trentorise.opendata.commons.BuilderStylePublic;
 import org.immutables.value.Value;
 
 /**
- * This class is needed to generate implementation of structure
+ * This class is needed to generate implementation of struct
  * @author David Leoni
  */
 @Value.Immutable
 @BuilderStylePublic
-@JsonSerialize(as = Structure.class)
-@JsonDeserialize(as = Structure.class)
-abstract class AbstractStructure extends AStructure {
+@JsonSerialize(as = Struct.class)
+@JsonDeserialize(as = Struct.class)
+abstract class AbstractStruct extends AStruct {
 
     
 }

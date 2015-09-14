@@ -18,7 +18,7 @@ package eu.trentorise.opendata.semantics;
 import eu.trentorise.opendata.commons.LocalizedString;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.model.entity.Structure;
+import eu.trentorise.opendata.semantics.model.entity.Struct;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.semtext.SemText;
 import eu.trentorise.opendata.traceprov.types.Concept;
@@ -35,7 +35,7 @@ import java.util.Set;
  * Primitive datatypes are a subset of <a
  * target="_blank" href="http://www.w3.org/TR/2004/REC-rdf-mt-20040210/">
  * RDF Semantics, XSD datatypes section</a>. Complex types such as
- * <i>oe:structure</i>
+ * <i>oe:struct</i>
  * and <i>oe:entity</i> are newly defined. <br/>
  * <br/>
  * Datatypes are mapped to Java objects according to the following scheme: <br/>
@@ -57,7 +57,7 @@ import java.util.Set;
  * (like in part-of relations) may be found in the
  * {@link eu.trentorise.opendata.semantics.impl.model.entity.MinimalEntity}
  * class <br/>
- * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.Structure}
+ * STRUCTURE : {@link eu.trentorise.opendata.semantics.model.entity.Struct}
  * <br/>
  *
  * @author Ivan Tankoyeu <tankoyeu@disi.unitn.it>
@@ -86,7 +86,7 @@ public final class DataTypes {
     public static final String LOCALIZED_STRING = OPEN_ENTITY_PREFIX + "localized-string";
     public static final String DICT = OPEN_ENTITY_PREFIX + "dict";
     public static final String SEMANTIC_TEXT = OPEN_ENTITY_PREFIX + "semantic-text";
-    public static final String STRUCTURE = OPEN_ENTITY_PREFIX + "structure";
+    public static final String STRUCTURE = OPEN_ENTITY_PREFIX + "struct";
     public static final String ENTITY = OPEN_ENTITY_PREFIX + "entity";
 
     public static final String ATTRDEF = OPEN_ENTITY_PREFIX + "attrdef";
@@ -122,7 +122,7 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(LOCALIZED_STRING, "Localized string");
         DATATYPE_PRETTY_NAMES_EN.put(DICT, "Dictionary");
         DATATYPE_PRETTY_NAMES_EN.put(SEMANTIC_TEXT, "Semantic text");
-        DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Structure");
+        DATATYPE_PRETTY_NAMES_EN.put(STRUCTURE, "Struct");
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);
 
@@ -150,7 +150,7 @@ public final class DataTypes {
         JAVA_DATATYPES.put(LOCALIZED_STRING, LocalizedString.class);
         JAVA_DATATYPES.put(SEMANTIC_TEXT, SemText.class);
         JAVA_DATATYPES.put(ENTITY, Entity.class);
-        JAVA_DATATYPES.put(STRUCTURE, Structure.class);
+        JAVA_DATATYPES.put(STRUCTURE, Struct.class);
 
     }
 
@@ -213,7 +213,7 @@ public final class DataTypes {
     }
 
     /**
-     * todo here we don't consider structures to be enricheable, even if they
+     * todo here we don't consider structs to be enricheable, even if they
      * _might_ contain relations and names in subfields.
      */
     public static boolean isNlpProcessable(String dataType) {
@@ -225,7 +225,7 @@ public final class DataTypes {
     /**
      * Only
      * {@link package eu.trentorise.opendata.semantics.services.DataTypes.ENTITY ENTITY}
-     * are considered relational. todo 0.3 here we don't consider structures to
+     * are considered relational. todo 0.3 here we don't consider structs to
      * be relational, even if they _might_ contain relations in subfields.
      */
     public static boolean isRelationalDatatype(String dataType) {

@@ -264,9 +264,9 @@ abstract class AAttrType {
 
     /**
      * Returns the entity type URL for the range, when the datatype is
-     * oe:structure or oe:entity
+     * oe:struct or oe:entity
      *
-     * @return the entity type URL if the data type is oe:structure or
+     * @return the entity type URL if the data type is oe:struct or
      * oe:entity, empty string otherwise
      * @throws IllegalStateException if dataType is not STRUCTURE nor ENTITY
      */

@@ -22,7 +22,7 @@ import org.immutables.value.Value;
 
 /**
  *
- * A complex structure that is represented by the set of attribute.
+ * A complex struct that is represented by the set of attribute.
  *
  * todo think about specializations: Name DateTime Interval Duration Location
  *
@@ -30,7 +30,7 @@ import org.immutables.value.Value;
  * @author David Leoni <david.leoni@unitn.it>
  *
  */
-public abstract class AStructure {
+public abstract class AStruct {
 
     /**
      * Gets the URL of the object
@@ -49,9 +49,9 @@ public abstract class AStructure {
     public abstract Map<String, Attr> getAttrs();
 
     /**
-     * Gets the structure type
+     * Gets the struct type
      *
-     * @return the structure type URL
+     * @return the struct type URL
      *
      */
     @Value.Default
@@ -60,7 +60,7 @@ public abstract class AStructure {
     }
 
     /**
-     * Gets an attribute from the structure.
+     * Gets an attribute from the struct.
      *
      * @param attrDefURL the URL of the attribute definition corresponding to
      * the desired attribute.
@@ -75,7 +75,7 @@ public abstract class AStructure {
 
         Attr ret = getAttrs().get(attrDefURL);
         if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in structure with URL " + getUrl());
+            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in struct with URL " + getUrl());
         } else {
             return ret;
         }

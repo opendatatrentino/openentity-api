@@ -33,7 +33,7 @@ import org.immutables.value.Value;
 @BuilderStylePublic
 @JsonSerialize(as = Entity.class)
 @JsonDeserialize(as = Entity.class)
-abstract class AEntity extends AStructure {
+abstract class AEntity extends AStruct {
 
     /**
      * The name of the entity. Notice this field is totally decoupled from the

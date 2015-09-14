@@ -54,7 +54,7 @@ public class MockEkb implements IEkb {
     /**
      * ID prefix for entities created in mockekb
      */
-    public static final String STRUCTURE_PREFIX = LOCAL_ID_PREFIX + "structure/";
+    public static final String STRUCTURE_PREFIX = LOCAL_ID_PREFIX + "struct/";
 
     /**
      * This is a transitional prefix ONLY for objects created outside ODR having
@@ -80,7 +80,7 @@ public class MockEkb implements IEkb {
 
     
 
-    public static final String TEST_ROOT_STRUCTURE = ETYPE_PREFIX + "test-root-structure";
+    public static final String TEST_ROOT_STRUCTURE = ETYPE_PREFIX + "test-root-struct";
 
     public static final String ROOT_ETYPE = ETYPE_PREFIX + "test-root-etype";
     public static final String ROOT_NAME_ATTR = ATTR_DEF_PREFIX + "test-root-name";
@@ -169,7 +169,7 @@ public class MockEkb implements IEkb {
     public static final String FACILITY_CONCEPT_IT_NAME = "Infrastruttura";
     public static final String FACILITY_CONCEPT_EN_NAME = "Facility";
     public static final String FACILITY_CONCEPT_IT_DESCR = "Uno o la serie di elementi strutturati che intermedia i rapporti tra i vari componenti di una struttura ";
-    public static final String FACILITY_CONCEPT_EN_DESCR = "Infrastructure is the basic physical and organizational structure needed for the operation of a society or enterprise";
+    public static final String FACILITY_CONCEPT_EN_DESCR = "Infrastruct is the basic physical and organizational struct needed for the operation of a society or enterprise";
 
     private MockNlpService NLPService;
     private MockKnowledgeService knowledgeService;
@@ -277,7 +277,7 @@ public class MockEkb implements IEkb {
     /**
      * generates a new local entity URL
      */
-    static synchronized public String makeNewLocalStructureURL() {
+    static synchronized public String makeNewLocalStructURL() {
         return STRUCTURE_PREFIX + makeNewLocalID();
     }
 

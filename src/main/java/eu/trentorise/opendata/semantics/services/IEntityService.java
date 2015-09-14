@@ -16,7 +16,7 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.model.entity.AStructure;
+import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.Attr;
 import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
@@ -43,15 +43,15 @@ import javax.annotation.Nullable;
 public interface IEntityService {
 
     /**
-     * Express provided structure as a {@code Dict} of human readable strings.
-     * This is especially useful for displaying entity names stored as Structure.
+     * Express provided struct as a {@code Dict} of human readable strings.
+     * This is especially useful for displaying entity names stored as Struct.
      *
-     * @param structure a structure to
-     * @param attrDef the attribute definition of the attribute holding the provided structure. 
-     * @param etype the etype of the structure
+     * @param struct a struct to
+     * @param attrDef the attribute definition of the attribute holding the provided struct. 
+     * @param etype the etype of the struct
      * @return
      */
-    Dict structToDict(AStructure structure, AttrDef attrDef);
+    Dict structToDict(AStruct struct, AttrDef attrDef);
 
     /**
      * Creates an entity

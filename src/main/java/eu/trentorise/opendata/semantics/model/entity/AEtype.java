@@ -54,6 +54,17 @@ abstract class AEtype {
     }
 
     /**
+     * The description of the entity type
+     *
+     * @return the description of the entity type in the default languages if
+     * available. Returned dict can be empty.
+     */
+    @Value.Default
+    public Dict getDescription() {
+        return Dict.of();
+    }
+
+    /**
      * The concept URL of the entity type
      *
      */
@@ -101,7 +112,7 @@ abstract class AEtype {
      * Returns the attribute def used for name.
      *
      * @return the attribute def used for name if the entity type represents an
-     * entity. If it represents a structure or it is not found, throws
+     * entity. If it represents a struct or it is not found, throws
      * {@link OpenEntityNotFoundException}.
      * @throws OpenEntityNotFoundException
      */
@@ -114,12 +125,21 @@ abstract class AEtype {
     }
 
     /**
+     * True if the etype represents just a struct, false if it represents
+     * entities. False by default.
+     */
+    @Value.Default
+    public boolean isStruct() {
+        return false;
+    }
+
+    /**
      * Returns the attribute def used for description.
      *
      * @return the attribute def used for description if the entity type
      * represents an entity. Returns the empty string otherwise.
-     * 
-     * @see #descrAttrDef() 
+     *
+     * @see #descrAttrDef()
      */
     @Value.Default
     public String getDescrAttrDefUrl() {
@@ -130,7 +150,7 @@ abstract class AEtype {
      * Returns the attribute def used for name.
      *
      * @return the attribute def used for name if the entity type represents an
-     * entity. If it represents a structure or it is not found, throws
+     * entity. If it represents a struct or it is not found, throws
      * {@link OpenEntityNotFoundException}.
      * @throws OpenEntityNotFoundException
      */
@@ -164,9 +184,9 @@ abstract class AEtype {
     }
 
     /**
-     * Creates a structure
+     * Creates a struct
      */
-    public static Etype ofStructure(String URL, String engName, String itName, List<AttrDef> attrs, String conceptURL) {
+    public static Etype ofStruct(String URL, String engName, String itName, List<AttrDef> attrs, String conceptURL) {
         Etype.Builder b = Etype.builder();
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
         b.setURL(URL);

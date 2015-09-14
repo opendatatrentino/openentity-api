@@ -19,12 +19,12 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import eu.trentorise.opendata.commons.validation.Preconditions;
 import static eu.trentorise.opendata.commons.OdtUtils.checkNotDirtyUrl;
-import eu.trentorise.opendata.semantics.model.entity.AStructure;
+import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.Attr;
 import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
-import eu.trentorise.opendata.semantics.model.entity.Structure;
+import eu.trentorise.opendata.semantics.model.entity.Struct;
 import eu.trentorise.opendata.semantics.model.entity.Val;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
@@ -272,7 +272,7 @@ public final class Checker {
         }
 
         try {
-            checkStructure(entity,  synthetic);
+            checkStruct(entity,  synthetic);
         }
         catch (Exception ex) {
             throw new IllegalArgumentException("Found invalid structural properties of entity " + entity.getUrl(), ex);
@@ -299,51 +299,51 @@ public final class Checker {
     }
 
     /**
-     * Checks if provided structure complies with open entity specs.
+     * Checks if provided struct complies with open entity specs.
      *
-     * @param structure to check
-     * @throws IllegalArgumentException if provided structure is not conformant
+     * @param struct to check
+     * @throws IllegalArgumentException if provided struct is not conformant
      * to OpenEntity specs.
      */
-    public void checkStructure(Structure structure) {
+    public void checkStruct(Struct struct) {
 
-        checkStructure(structure,  false);
+        checkStruct(struct,  false);
 
     }
 
     /**
-     * Checks if provided structure complies with open entity specs. For
-     * synthetic structures some checks will be skipped.
+     * Checks if provided struct complies with open entity specs. For
+     * synthetic structs some checks will be skipped.
      *
-     * @param structure the structure to check
+     * @param struct the struct to check
      * @param synthetic if true URLs and local ids of attributes and values will
-     * not be checked. The URL of the structure is not checked anyway.
+     * not be checked. The URL of the struct is not checked anyway.
      */
-    public void checkStructure(AStructure structure, boolean synthetic) {
-        if (structure == null) {
-            throw new IllegalArgumentException("Found null structure!");
+    public void checkStruct(AStruct struct, boolean synthetic) {
+        if (struct == null) {
+            throw new IllegalArgumentException("Found null struct!");
         }
 
-        Etype etype = ekb.getEtypeService().readEtype(structure.getEtypeURL());
+        Etype etype = ekb.getEtypeService().readEtype(struct.getEtypeURL());
         
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
         }
 
-        checkNotDirtyUrl(structure.getEtypeURL(), "Found invalid entity type URL in structure " + structure.getUrl());
+        checkNotDirtyUrl(struct.getEtypeURL(), "Found invalid entity type URL in struct " + struct.getUrl());
 
-        checkArgument(etype.getURL().equals(structure.getEtypeURL()), "Provided etype " + etype.getURL() + " is not the one referenced by the structure, which is " + structure.getEtypeURL());
+        checkArgument(etype.getURL().equals(struct.getEtypeURL()), "Provided etype " + etype.getURL() + " is not the one referenced by the struct, which is " + struct.getEtypeURL());
 
-        if (structure.getAttrs() == null) {
-            throw new IllegalArgumentException("Found null attributes in structure " + structure.getUrl());
+        if (struct.getAttrs() == null) {
+            throw new IllegalArgumentException("Found null attributes in struct " + struct.getUrl());
         }
 
-        for (Attr attr : structure.getAttrs().values()) {
+        for (Attr attr : struct.getAttrs().values()) {
             try {
                 checkAttr(attr,  synthetic);
             }
             catch (Exception ex) {
-                throw new IllegalArgumentException("Found invalid attribute in structure " + structure.getUrl(), ex);
+                throw new IllegalArgumentException("Found invalid attribute in struct " + struct.getUrl(), ex);
             }
         }
     }
@@ -448,13 +448,13 @@ public final class Checker {
             throw new IllegalArgumentException("Found value not corresponding to its datatype " + datatype + ". Value is " + value.getObj() + ". Its class is " + value.getObj().getClass().getName());
         }
 
-        if (DataTypes.STRUCTURE.equals(datatype)) { // for structures we do deep check
-            Structure s = (Structure) value.getObj();
+        if (DataTypes.STRUCTURE.equals(datatype)) { // for structs we do deep check
+            Struct s = (Struct) value.getObj();
             if (!attrDef.getAttrType().getEtypeURL().equals(s.getEtypeURL())) {
-                throw new IllegalArgumentException("Found structure value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
-                        + "\nStructure etype URL: " + s.getEtypeURL() + "\nAttr rangeEtypeURL: " + attrDef.getAttrType().getEtypeURL());
+                throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
+                        + "\nStruct etype URL: " + s.getEtypeURL() + "\nAttr rangeEtypeURL: " + attrDef.getAttrType().getEtypeURL());
             }
-            checkStructure(s, synthetic);
+            checkStruct(s, synthetic);
         }
 
         if (DataTypes.ENTITY.equals(datatype)) { // for entities we only check URL and name            

@@ -80,20 +80,20 @@ public interface IEtypeService {
 
 
     /**
-     * Returns the parent of all structures
+     * Returns the parent of all structs
      *
-     * @return the parent of all structures
+     * @return the parent of all structs
      * @see #getRootEtype()
      */
-    Etype readRootStructure();
+    Etype readRootStruct();
 
 
     /**
      * Returns the parent of all etypes.
      *
      * @return the parent of all etypes. Must inherit from value returned by
-     * {@link #getRootStructure()}
-     * @see #getRootStructure()
+     * {@link #getRootStruct()}
+     * @see #getRootStruct()
      */
     Etype readRootEtype();
 
