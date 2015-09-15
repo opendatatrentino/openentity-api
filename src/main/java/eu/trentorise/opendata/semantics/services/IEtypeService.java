@@ -44,8 +44,8 @@ public interface IEtypeService {
      * Returns the entity types with the given URLs
      *
      * @param URLs a list of URLs for entity types
-     * @return the entity types. For entity types that were not found, the
-     * corresponding item in the list will contain null.
+     * @return the entity types. 
+     * @throws OpenEntityNotFoundException if any of the etypes was not found.
      */
     List<Etype> readEtypes(Iterable<String> URLs);
 
@@ -64,7 +64,7 @@ public interface IEtypeService {
      * Return the entity type by the given URL
      *
      * @param URL The URL of the entity type
-     * @return the entity type, null if not found.
+     * @throws OpenEntityNotFoundException if the etype does not exists.
      */
     @Nullable
     Etype readEtype(String URL);
@@ -73,7 +73,8 @@ public interface IEtypeService {
      * Return the attribute definition by the given URL
      *
      * @param URL The URL of the attribute definition
-     * @return the attribute definition, null if not found.
+     * @return the attribute definition
+     * @throws OpenEntityNotFoundException if the attribute definitions does not exists.
      */
     @Nullable
     public AttrDef readAttrDef(String url);
@@ -84,6 +85,7 @@ public interface IEtypeService {
      *
      * @return the parent of all structs
      * @see #getRootEtype()
+     * @throws OpenEntityNotFoundException if the etype does not exist.
      */
     Etype readRootStruct();
 
@@ -94,6 +96,7 @@ public interface IEtypeService {
      * @return the parent of all etypes. Must inherit from value returned by
      * {@link #getRootStruct()}
      * @see #getRootStruct()
+     * @throws OpenEntityNotFoundException if the struct does not exist.
      */
     Etype readRootEtype();
 

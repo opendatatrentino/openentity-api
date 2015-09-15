@@ -42,6 +42,10 @@ public interface INLPService {
      * @param domainURL Either null, an entity type URL or a concept URL. 
      * @return the list of enriched strings, one for each of the provided texts.
      * Each enriched string will be a semantic text of only one word.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if nlp is not supported by the Ekb
+
      */
     List<SemText> runNLP(Iterable<String> texts, @Nullable String domainURL);
 
@@ -58,6 +62,9 @@ public interface INLPService {
     /**
      * Detects the language of a series of strings.
      * @return the language of the input strings, or {@link Locale#ROOT} if locale can't be detected.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if language detection is not supported by the Ekb
      */
     Locale detectLanguage(Iterable<String> strings);
 }

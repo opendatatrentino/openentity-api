@@ -15,13 +15,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.semantics.model.entity.AStruct;
-import eu.trentorise.opendata.semantics.model.entity.Attr;
-import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.model.entity.Etype;
-import eu.trentorise.opendata.semantics.model.entity.Val;
 
 import java.io.Writer;
 import java.util.List;
@@ -43,25 +37,13 @@ import javax.annotation.Nullable;
 public interface IEntityService {
 
     /**
-     * Express provided struct as a {@code Dict} of human readable strings.
-     * This is especially useful for displaying entity names stored as Struct.
-     *
-     * @param struct a struct to
-     * @param attrDef the attribute definition of the attribute holding the provided struct. 
-     * @param etype the etype of the struct
-     * @return
-     */
-    Dict structToDict(AStruct struct, AttrDef attrDef);
-
-    
-    /**
      * Creates an entity
      *
      * @param entity the entity to be created. Will not be changed by the
      * method. URL of the provided entity will be ignored. If an equal entity is
      * already present in the server, a duplicate with different URL will be
      * created. All linked entities must exist on the server.
-     * @return a new entity with newly assigned URL 
+     * @return a new entity with newly assigned URL
      */
     Entity createEntity(Entity entity);
 
@@ -77,18 +59,10 @@ public interface IEntityService {
     void updateEntity(Entity entity);
 
     /**
-     * Deletes an entity
+     * Deletes an entity.
      *
-     * @param entityID the local ID of the entity to be deleted
-     * @deprecated use deleteEntity(String) instead
-     */
-    void deleteEntity(long entityID);
-
-    /**
-     * Deletes an entity
-     *
-     * @param URL the URL of the entity to delete. If the entity is not present,
-     * the method silently exits.
+     * @param URL the URL of the entity to delete.
+     * @throws OpenEntityNotFoundException if the entity does not exists.
      */
     void deleteEntity(String URL);
 
@@ -96,49 +70,37 @@ public interface IEntityService {
      * Reads an entity given its URL
      *
      * @param URL the URL of the entity to read
-     * @return the entity identified by this URL, or null if not found
+     * @return the entity identified by this URL
+     * @throws OpenEntityNotFoundException if the entity does not exists.
      */
-    @Nullable
     Entity readEntity(String URL);
 
     /**
      * Reads an entities given their URLs
      *
-     * @param entityURLs the URLs of the entity to read
-     * @return the list of entities identified by the URL. Not found entities
-     * will be null.
+     * @param entityIds the URLs of the entity to read
+     * @return the list of entities identified by the URL.
+     * @throws OpenEntityNotFoundException if any of the entities is not found.
      */
-    List<Entity> readEntities(List<String> entityURLs);
-
-    /**
-     * Updates an attribute value in an attribute in an entity
-     *
-     * @param entity the entity which owns the attribute
-     * @param attribute the attribute that owns the value
-     * @param newValue the value to be updated
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the
-     * provided entity or attribute don't exist
-     */
-    void updateAttrValue(Entity entity, Attr attribute,
-            Val newValue);
+    List<Entity> readEntities(List<String> entityIds);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty,
-     * an IllegalArgumentException is thrown.
+     * @param entityIds the URLs of the entities to export. If list is empty, an
+     * IllegalArgumentException is thrown.
      * @param writer A writer to store the generated rdf
      */
-    void exportToRdf(List<String> entityURLs, Writer writer);
+    void exportToRdf(List<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty,
-     * an IllegalArgumentException is thrown.
+     * @param entityIds the URLs of the entities to export. If list is empty, an
+     * IllegalArgumentException is thrown.
      * @param writer A writer to store the generated jsonld
      */
-    void exportToJsonLd(List<String> entityURLs, Writer writer);
+    void exportToJsonLd(List<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.

@@ -38,6 +38,10 @@ public interface IIdentityService {
      * @param numCandidates maximum number of candidates to return for each
      * entity to match
      * @return a list of reconciliation results, one for each input entity.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if id service is not supported by the ekb.
+
      */
     List<IdResult> assignURL(List<Entity> entities, int numCandidates);
 }

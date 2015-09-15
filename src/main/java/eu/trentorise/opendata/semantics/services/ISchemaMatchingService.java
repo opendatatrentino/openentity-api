@@ -45,6 +45,10 @@ public interface ISchemaMatchingService {
      * @throws
      * eu.trentorise.opendata.semantics.exceptions.UnsupportedSchemaException if
      * the input schema cannot be processed.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if schema matching is not supported by the Ekb
+
      */
     List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, @Nullable Object data);
 }

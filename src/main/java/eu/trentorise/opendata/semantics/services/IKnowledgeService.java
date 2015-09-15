@@ -15,9 +15,7 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
-
 import eu.trentorise.opendata.traceprov.types.Concept;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,8 +34,12 @@ public interface IKnowledgeService {
      * Returns the concepts with the given URLs
      *
      * @param URLs a list of URLs for concepts
-     * @return the list of concepts. If a given concept is not found, null is
-     * returned at the corresponding position in the list.
+     * @return the list of concepts. 
+     * @throws eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
+     * if any of the concepts do not exist.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if concepts are not supported by the Ekb
      */
     List<Concept> readConcepts(List<String> URLs);
 
@@ -45,17 +47,26 @@ public interface IKnowledgeService {
      * Returns the concepts with the given URLs
      *
      * @param URL the URL of a concept
-     * @return The concept. Returns null if the concept is not found.
+     * @return The concept.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
+     * if the concept does not exist.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if concepts are not supported by the Ekb.
      */
-    @Nullable
     Concept readConcept(String URL);
 
     /**
      * Returns the parent of all concepts
      *
      * @return the parent of all concepts.
-     * @throws UnsupportedOperationException if concepts are not supported by
-     * the Ekb.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
+     * if the concept does not exist.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if concepts are not supported by the Ekb.
      */
     Concept readRootConcept();
 
@@ -67,6 +78,9 @@ public interface IKnowledgeService {
      * provided locale.
      * @return a list of candidate entities, ordered by probability. The first
      * one is the most probable.
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if concepts are not supported by the Ekb
      */
     List<SearchResult> searchConcepts(String partialName, Locale locale);
 
@@ -78,6 +92,9 @@ public interface IKnowledgeService {
      * @param sourceUrl source concept url
      * @param targetUrl target concept url
      * @return the distance between two provided concepts
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.UnsupportedFeatureException
+     * if concepts are not supported by the Ekb
      */
     double getConceptsDistance(String sourceUrl, String targetUrl);
 }
