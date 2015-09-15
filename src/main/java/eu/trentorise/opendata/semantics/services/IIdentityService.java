@@ -39,5 +39,5 @@ public interface IIdentityService {
      * entity to match
      * @return a list of reconciliation results, one for each input entity.
      */
-    List<IdResult> assignURL(List<? extends Entity> entities, int numCandidates);
+    List<IdResult> assignURL(List<Entity> entities, int numCandidates);
 }

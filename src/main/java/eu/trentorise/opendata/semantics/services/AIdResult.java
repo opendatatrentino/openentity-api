@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.model.entity.Etype;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.immutables.value.Value;
@@ -78,9 +77,9 @@ abstract class AIdResult {
      *
      * @return the URL of the matched entity if getAssignmentResult is NEW or
      * REUSE, null otherwise. Notice that if the assignment result is NEW the
-     * entity is not stored on the server.
+     * entity is not yet stored on the server.
      */
     @Nullable
-    public abstract String getURL();
+    public abstract String getId();
 
 }

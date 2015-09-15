@@ -38,7 +38,7 @@ public abstract class AStruct {
      * @return a string that holds the URL of the object
      */
     @Value.Default
-    public String getUrl() {
+    public String getId() {
         return "";
     }
 
@@ -55,7 +55,7 @@ public abstract class AStruct {
      *
      */
     @Value.Default
-    public String getEtypeURL() {
+    public String getEtypeId() {
         return "";
     }
 
@@ -75,7 +75,7 @@ public abstract class AStruct {
 
         Attr ret = getAttrs().get(attrDefURL);
         if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in struct with URL " + getUrl());
+            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in struct with URL " + getId());
         } else {
             return ret;
         }

@@ -41,7 +41,7 @@ abstract class AAttrDef {
      *
      */
     @Value.Default
-    public String getURL() {
+    public String getId() {
         return "";
     }
 
@@ -80,7 +80,7 @@ abstract class AAttrDef {
      * The concept URL of the attribute definition
      */
     @Value.Default
-    public String getConceptURL() {
+    public String getConceptId() {
         return "";
     }
  

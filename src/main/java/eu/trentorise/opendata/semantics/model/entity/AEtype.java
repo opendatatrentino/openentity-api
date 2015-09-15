@@ -69,7 +69,7 @@ abstract class AEtype {
      *
      */
     @Value.Default
-    public String getConceptUrl() {
+    public String getConceptId() {
         return "";
     }
 
@@ -92,7 +92,7 @@ abstract class AEtype {
      * @return the URL of the entity type
      */
     @Value.Default
-    public String getURL() {
+    public String getId() {
         return "";
     }
 
@@ -104,7 +104,7 @@ abstract class AEtype {
      * @see #nameAttrDef()
      */
     @Value.Default
-    public String getNameAttrDefUrl() {
+    public String getNameAttrDefId() {
         return "";
     }
 
@@ -117,9 +117,9 @@ abstract class AEtype {
      * @throws OpenEntityNotFoundException
      */
     public AttrDef nameAttrDef() {
-        AttrDef ret = getAttrDefs().get(getNameAttrDefUrl());
+        AttrDef ret = getAttrDefs().get(getNameAttrDefId());
         if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find name attr def with URL " + getNameAttrDefUrl() + " in etype " + getURL());
+            throw new OpenEntityNotFoundException("Couldn't find name attr def with URL " + getNameAttrDefId() + " in etype " + getId());
         }
         return ret;
     }
@@ -142,7 +142,7 @@ abstract class AEtype {
      * @see #descrAttrDef()
      */
     @Value.Default
-    public String getDescrAttrDefUrl() {
+    public String getDescrAttrDefId() {
         return "";
     }
 
@@ -155,9 +155,9 @@ abstract class AEtype {
      * @throws OpenEntityNotFoundException
      */
     public AttrDef descrAttrDef() {
-        AttrDef ret = getAttrDefs().get(getDescrAttrDefUrl());
+        AttrDef ret = getAttrDefs().get(getDescrAttrDefId());
         if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find description attr def with URL " + getDescrAttrDefUrl() + " in etype " + getURL());
+            throw new OpenEntityNotFoundException("Couldn't find description attr def with URL " + getDescrAttrDefId() + " in etype " + getId());
         }
         return ret;
     }
@@ -177,7 +177,7 @@ abstract class AEtype {
 
         AttrDef ret = getAttrDefs().get(URL);
         if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find attribute definition with URL " + URL + " in etype with URL " + getURL());
+            throw new OpenEntityNotFoundException("Couldn't find attribute definition with URL " + URL + " in etype with URL " + getId());
         } else {
             return ret;
         }
@@ -189,13 +189,13 @@ abstract class AEtype {
     public static Etype ofStruct(String URL, String engName, String itName, List<AttrDef> attrs, String conceptURL) {
         Etype.Builder b = Etype.builder();
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
-        b.setURL(URL);
+        b.setId(URL);
 
         for (AttrDef ad : attrs) {
-            b.putAttrDefs(ad.getURL(), ad);
+            b.putAttrDefs(ad.getId(), ad);
         }
 
-        b.setConceptUrl(conceptURL);
+        b.setConceptId(conceptURL);
         return b.build();
     }
 
@@ -203,14 +203,14 @@ abstract class AEtype {
 
         Etype.Builder b = Etype.builder();
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
-        b.setURL(URL);
+        b.setId(URL);
         for (AttrDef ad : attrs) {
-            b.putAttrDefs(ad.getURL(), ad);
+            b.putAttrDefs(ad.getId(), ad);
         }
-        b.setNameAttrDefUrl(nameAttrDefURL);
-        b.setDescrAttrDefUrl(descrAttrDefURL);
+        b.setNameAttrDefId(nameAttrDefURL);
+        b.setDescrAttrDefId(descrAttrDefURL);
 
-        b.setConceptUrl(conceptURL);
+        b.setConceptId(conceptURL);
         return b.build();
     }
 

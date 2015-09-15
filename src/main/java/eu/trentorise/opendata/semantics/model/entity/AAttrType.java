@@ -75,10 +75,10 @@ abstract class AAttrType {
      * {@link DataTypes#STRUCTURE} or {@link DataTypes#ENTITY}. Otherwise it
      * must be empty.
      *
-     * @see #etypeURL()
+     * @see #etypeId()
      */
     @Value.Default
-    public String getEtypeURL() {
+    public String getEtypeId() {
         return "";
     }
 
@@ -125,7 +125,7 @@ abstract class AAttrType {
     }
 
     public static AttrType of(AttrDef attrDef) {
-        return of(attrDef.getType().getDatatype(), attrDef.getType().isList(), attrDef.getType().getEtypeURL());
+        return of(attrDef.getType().getDatatype(), attrDef.getType().isList(), attrDef.getType().getEtypeId());
     }
 
     /**
@@ -154,7 +154,7 @@ abstract class AAttrType {
         return AttrType.builder()
                 .setDatatype(datatype)
                 .setList(list)
-                .setEtypeURL(etypeURL)
+                .setEtypeId(etypeURL)
                 .setEtypeName(etypeName)
                 .build();
     } 
@@ -162,7 +162,7 @@ abstract class AAttrType {
     @Value.Check
     protected void check() {
         if ((getDatatype().equals(DataTypes.STRUCTURE) || getDatatype().equals(DataTypes.ENTITY))) {
-            checkNotDirtyUrl(getEtypeURL(), "Need a valid etypeURL when datatype is a STRUCTURE or ENTITY");
+            checkNotDirtyUrl(getEtypeId(), "Need a valid etypeURL when datatype is a STRUCTURE or ENTITY");
         }
     }
 
@@ -176,7 +176,7 @@ abstract class AAttrType {
         String candidateName;
 
         if (getDatatype().equals(DataTypes.STRUCTURE) || getDatatype().equals(DataTypes.ENTITY)) {
-            candidateName = getEtypeURL();
+            candidateName = getEtypeId();
         } else {
             candidateName = getDatatype();
         }
@@ -228,7 +228,7 @@ abstract class AAttrType {
         if (getDatatype().equals(DataTypes.STRUCTURE) || getDatatype().equals(DataTypes.ENTITY)) {
             String prettyString = getEtypeName().some(locales).str();
             if (prettyString.length() == 0) {
-                candidateName = getEtypeURL();
+                candidateName = getEtypeId();
             } else {
                 candidateName = prettyString;
             }
@@ -270,11 +270,11 @@ abstract class AAttrType {
      * oe:entity, empty string otherwise
      * @throws IllegalStateException if dataType is not STRUCTURE nor ENTITY
      */
-    public String etypeURL() {
+    public String etypeId() {
         if (!(getDatatype().equals(DataTypes.STRUCTURE) || getDatatype().equals(DataTypes.ENTITY))) {
             throw new IllegalStateException("Tried to get etypeURL for datatype " + getDatatype() + "!");
         }
-        return getEtypeURL();
+        return getEtypeId();
     }
 
 }

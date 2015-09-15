@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.immutables.value.Value;
 
@@ -43,7 +44,7 @@ abstract class AAttr {
      * The local identifier represented as Long. May be null for synthetic
      * attributes. By default it's -1.
      */
-    @Value.Default    
+    @Value.Default
     public long getLocalID() {
         return -1;
     }
@@ -53,7 +54,7 @@ abstract class AAttr {
      *
      */
     @Value.Default
-    public String getAttrDefUrl(){
+    public String getAttrDefId() {
         return "";
     }
 
@@ -62,7 +63,7 @@ abstract class AAttr {
      *
      * @return immutable list of all values of the attribute. It can be empty.
      * Null values are not allowed.
-     */    
+     */
     public abstract List<Val> getValues();
 
     /**
@@ -70,24 +71,48 @@ abstract class AAttr {
      *
      * @return the first value of the attribute
      *
-     * @throws eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException if no value is present
-     */    
-    public Val firstValue(){
-        if (getValues().isEmpty()){
+     * @throws
+     * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
+     * if no value is present
+     */
+    public Val firstValue() {
+        if (getValues().isEmpty()) {
             throw new OpenEntityNotFoundException("Tried to get first value from attribute, but there is none!");
         }
         return getValues().get(0);
     }
-    
-        /**
-     * 
-     * @return  a list of objects contained inside provided attribute values. 
+
+    /**
+     *
+     * @return a list of objects contained inside provided attribute values.
      */
-    public ImmutableList asRawObjectList(){
+    public ImmutableList asRawObjectList() {
         List rawValues = new ArrayList();
-        for (Val val : getValues()){
+        for (Val val : getValues()) {
             rawValues.add(val.getObj());
         }
         return ImmutableList.copyOf(rawValues);
+    }
+
+    /**
+     * Creates an Attr out of provided object(s).
+     *
+     * @param obj the object to store in Val. If it is a collection a new value
+     * for each object will be created.
+     */
+    public static Attr ofObject(AttrDef attrDef, Object obj) {
+
+        Attr.Builder b = Attr.builder();
+        b.setAttrDefId(attrDef.getId());
+
+        if (obj instanceof Collection) {
+
+            for (Object item : (Collection) obj) {
+                b.addValues(Val.builder().setObj(item).build());
+            }
+        } else {
+            b.setAttrDefId(attrDef.getId()).addValues(Val.builder().setObj(obj).build()).build();
+        }
+        return b.build();
     }
 }

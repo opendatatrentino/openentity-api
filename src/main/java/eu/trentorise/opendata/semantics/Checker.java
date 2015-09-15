@@ -88,11 +88,11 @@ public final class Checker {
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
         }
-        checkNotDirtyUrl(etype.getURL(), "Invalid etype URL!");
+        checkNotDirtyUrl(etype.getId(), "Invalid etype URL!");
 
         checkNotNull(etype.getName(), "Invalid etype name!");
 
-        checkNotDirtyUrl(etype.getConceptUrl(), "Found invalid concept for etype " + etype.getURL());
+        checkNotDirtyUrl(etype.getConceptId(), "Found invalid concept for etype " + etype.getId());
 
         /**
          * not supported for now if (etype.getUniqueIndexes() == null){ throw
@@ -104,7 +104,7 @@ public final class Checker {
                 checkAttrDef(attrDef);
             }
             catch (Exception ex) {
-                throw new IllegalArgumentException("Found invalid attr def in etype " + etype.getURL(), ex);
+                throw new IllegalArgumentException("Found invalid attr def in etype " + etype.getId(), ex);
             }
         }
 
@@ -112,14 +112,14 @@ public final class Checker {
             etype.nameAttrDef();
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
+            throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getId(), ex);
         }
 
         try {
             etype.descrAttrDef();
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getURL(), ex);
+            throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getId(), ex);
         }
 
     }
@@ -135,32 +135,32 @@ public final class Checker {
         if (attrDef == null) {
             throw new IllegalArgumentException("Found null attribute def!");
         }
-        if (attrDef.getURL() == null) {
+        if (attrDef.getId() == null) {
             throw new IllegalArgumentException("Found null URL for attribute def " + attrDef.getName());
         }
-        if (attrDef.getURL().length() == 0) {
+        if (attrDef.getId().length() == 0) {
             throw new IllegalArgumentException("Found empty URL for attribute def " + attrDef.getName());
         }
 
         if (attrDef.getName() == null) {
-            throw new IllegalArgumentException("Found null name dict for attribute def " + attrDef.getURL());
+            throw new IllegalArgumentException("Found null name dict for attribute def " + attrDef.getId());
         }
      
 
         if (attrDef.getType().getDatatype() == null) {
-            throw new IllegalArgumentException("Found null datatype for attribute def " + attrDef.getURL());
+            throw new IllegalArgumentException("Found null datatype for attribute def " + attrDef.getId());
         }
         if ((attrDef.getType().getDatatype().equals(DataTypes.STRUCTURE) || attrDef.getType().getDatatype().equals(DataTypes.ENTITY))) {
 
-            checkNotDirtyUrl(attrDef.getType().etypeURL(), "Attr def " + attrDef.getURL() + " is of datatype " + attrDef.getType().getDatatype() + ", but is has invalid range Etype URL()");
+            checkNotDirtyUrl(attrDef.getType().etypeId(), "Attr def " + attrDef.getId() + " is of datatype " + attrDef.getType().getDatatype() + ", but is has invalid range Etype URL()");
 
         }
 
         try {
-            checkNotNull(attrDef.getConceptURL());
+            checkNotNull(attrDef.getConceptId());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid concept for attr def " + attrDef.getURL(), ex);
+            throw new IllegalArgumentException("Found invalid concept for attr def " + attrDef.getId(), ex);
         }
 
     }
@@ -204,7 +204,7 @@ public final class Checker {
         if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())
                 || AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
 
-            checkNotDirtyUrl(idResult.getURL(), "Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult);
+            checkNotDirtyUrl(idResult.getId(), "Found invalid URL in idResult! AssignmentResult is " + idResult.getAssignmentResult() + " in idResult " + idResult);
 
             for (Entity entity : idResult.getEntities()) {
                 try {                    
@@ -265,7 +265,7 @@ public final class Checker {
             throw new IllegalArgumentException("Found null entity!");
         }
 
-        Etype etype = ekb.getEtypeService().readEtype(entity.getEtypeURL());
+        Etype etype = ekb.getEtypeService().readEtype(entity.getEtypeId());
         
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
@@ -275,25 +275,25 @@ public final class Checker {
             checkStruct(entity,  synthetic);
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid structural properties of entity " + entity.getUrl(), ex);
+            throw new IllegalArgumentException("Found invalid structural properties of entity " + entity.getId(), ex);
         }
 
         if (!synthetic) {
-            checkNotDirtyUrl(entity.getUrl(), "Found invalid URL in entity " + entity);
+            checkNotDirtyUrl(entity.getId(), "Found invalid URL in entity " + entity);
         }
 
         try {
             checkNotNull(entity.getName());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid name in entity " + entity.getUrl(), ex);
+            throw new IllegalArgumentException("Found invalid name in entity " + entity.getId(), ex);
         }
 
         try {
             checkNotNull(entity.getDescription());
         }
         catch (Exception ex) {
-            throw new IllegalArgumentException("Found invalid description in entity " + entity.getUrl(), ex);
+            throw new IllegalArgumentException("Found invalid description in entity " + entity.getId(), ex);
         }
 
     }
@@ -324,18 +324,18 @@ public final class Checker {
             throw new IllegalArgumentException("Found null struct!");
         }
 
-        Etype etype = ekb.getEtypeService().readEtype(struct.getEtypeURL());
+        Etype etype = ekb.getEtypeService().readEtype(struct.getEtypeId());
         
         if (etype == null) {
             throw new IllegalArgumentException("Found null etype!");
         }
 
-        checkNotDirtyUrl(struct.getEtypeURL(), "Found invalid entity type URL in struct " + struct.getUrl());
+        checkNotDirtyUrl(struct.getEtypeId(), "Found invalid entity type URL in struct " + struct.getId());
 
-        checkArgument(etype.getURL().equals(struct.getEtypeURL()), "Provided etype " + etype.getURL() + " is not the one referenced by the struct, which is " + struct.getEtypeURL());
+        checkArgument(etype.getId().equals(struct.getEtypeId()), "Provided etype " + etype.getId() + " is not the one referenced by the struct, which is " + struct.getEtypeId());
 
         if (struct.getAttrs() == null) {
-            throw new IllegalArgumentException("Found null attributes in struct " + struct.getUrl());
+            throw new IllegalArgumentException("Found null attributes in struct " + struct.getId());
         }
 
         for (Attr attr : struct.getAttrs().values()) {
@@ -343,7 +343,7 @@ public final class Checker {
                 checkAttr(attr,  synthetic);
             }
             catch (Exception ex) {
-                throw new IllegalArgumentException("Found invalid attribute in struct " + struct.getUrl(), ex);
+                throw new IllegalArgumentException("Found invalid attribute in struct " + struct.getId(), ex);
             }
         }
     }
@@ -362,7 +362,7 @@ public final class Checker {
             throw new IllegalArgumentException("Found null attribute!");
         }
 
-        AttrDef attrDef = ekb.getEtypeService().readAttrDef(attribute.getAttrDefUrl());
+        AttrDef attrDef = ekb.getEtypeService().readAttrDef(attribute.getAttrDefId());
 
         if (attrDef == null) {
             throw new IllegalArgumentException("Found null attr def!");
@@ -372,7 +372,7 @@ public final class Checker {
             throw new IllegalArgumentException("Found negative local ID in attribute " + attribute);
         }
 
-        if (attribute.getAttrDefUrl() == null) {
+        if (attribute.getAttrDefId() == null) {
             throw new IllegalArgumentException("Found null attribute definition in attribute " + attribute.getLocalID());
         }
 
@@ -450,9 +450,9 @@ public final class Checker {
 
         if (DataTypes.STRUCTURE.equals(datatype)) { // for structs we do deep check
             Struct s = (Struct) value.getObj();
-            if (!attrDef.getType().getEtypeURL().equals(s.getEtypeURL())) {
+            if (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
                 throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID() + " having etype URL different from its attribute rangeEtypeURL! "
-                        + "\nStruct etype URL: " + s.getEtypeURL() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeURL());
+                        + "\nStruct etype URL: " + s.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
             }
             checkStruct(s, synthetic);
         }
@@ -461,11 +461,11 @@ public final class Checker {
             Entity entity = (Entity) value.getObj();
             if (!synthetic) {
 
-                checkNotDirtyUrl(entity.getUrl(), "Found invalid URL in entity inside value with local ID: " + value.getLocalID());
+                checkNotDirtyUrl(entity.getId(), "Found invalid URL in entity inside value with local ID: " + value.getLocalID());
 
             }
 
-            checkNotNull(entity.getName(), "Found invalid name in entity with URL " + entity.getUrl() + " inside value with local ID: " + value.getLocalID());
+            checkNotNull(entity.getName(), "Found invalid name in entity with URL " + entity.getId() + " inside value with local ID: " + value.getLocalID());
 
         }
 

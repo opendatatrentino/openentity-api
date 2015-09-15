@@ -140,13 +140,13 @@ public class MockEtypeService implements IEtypeService {
     
     private Etype newEtype(String URL, String engName, String itName, List<AttrDef> attrs, String conceptUrl){
         Etype.Builder b = Etype.builder();
-        b.setURL(URL);
+        b.setId(URL);
         b.setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build());
         
         for (AttrDef attrDef : attrs){
-            b.putAttrDefs(attrDef.getURL(), attrDef);
+            b.putAttrDefs(attrDef.getId(), attrDef);
         }
-        b.setConceptUrl(conceptUrl);
+        b.setConceptId(conceptUrl);
         return b.build();                
     }
     
@@ -167,7 +167,7 @@ public class MockEtypeService implements IEtypeService {
     
     static AttrDef newAttrDef(String URL, String engName, String itName, AttrType attrType){
         return AttrDef.builder()
-                .setURL(URL)
+                .setId(URL)
                 .setName(Dict.builder().put(Locale.ENGLISH, engName).put(Locale.ITALIAN, itName).build())
                 .setType(attrType)
                 .build();
@@ -190,7 +190,7 @@ public class MockEtypeService implements IEtypeService {
     @Override
     public Etype readEtype(String URL) {
         for (Etype et : this.registeredETypes.values()) {
-            if (et.getURL().equals(URL)) {
+            if (et.getId().equals(URL)) {
                 return et;
             }
         }
@@ -218,7 +218,7 @@ public class MockEtypeService implements IEtypeService {
 
         for (Etype et : readAllEtypes()) {
             if (et.getName().contains(partialName)) {
-                SearchResult es = SearchResult.of(et.getURL(), et.getName());
+                SearchResult es = SearchResult.of(et.getId(), et.getName());
                 ret.add(es);
             }
         }

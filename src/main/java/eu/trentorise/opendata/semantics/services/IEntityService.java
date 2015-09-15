@@ -53,18 +53,7 @@ public interface IEntityService {
      */
     Dict structToDict(AStruct struct, AttrDef attrDef);
 
-    /**
-     * Creates an entity
-     *
-     * @param entity the entity to be created. Will not be changed by the
-     * method.
-     * @return the GUID of the newly created entity
-     * @deprecated use
-     * {@link #createEntityURL(eu.trentorise.opendata.semantics.model.entity.Entity)}
-     * instead
-     */
-    Long createEntity(Entity entity);
-
+    
     /**
      * Creates an entity
      *
@@ -72,9 +61,9 @@ public interface IEntityService {
      * method. URL of the provided entity will be ignored. If an equal entity is
      * already present in the server, a duplicate with different URL will be
      * created. All linked entities must exist on the server.
-     * @return the URL of the newly created entity
+     * @return a new entity with newly assigned URL 
      */
-    String createEntityURL(Entity entity);
+    Entity createEntity(Entity entity);
 
     /**
      * Updates an entity. For values of type Dict, translations provided in this
