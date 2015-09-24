@@ -45,7 +45,7 @@ public abstract class AStruct {
      */
     @Value.Default
     public String getId() {
-        return "";
+	return "";
     }
 
     /**
@@ -53,7 +53,6 @@ public abstract class AStruct {
      * Iteration order is predictable and repsects insertion order.
      */
     public abstract Map<String, Attr> getAttrs();
-
 
     /**
      * Retrieves attribute with given attribute definition locator in provided
@@ -64,12 +63,13 @@ public abstract class AStruct {
      * @param etype
      */
     public Attr attr(String attrDefLocator, Etype etype) {
-	
+
 	checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
 	checkNotNull(etype);
-	checkArgument(getEtypeId().equals(etype.getId()),
-		"entity etype id %s is different from provided etype %s!", getEtypeId(), etype.getId());
-
+	
+	checkArgument(getEtypeId().equals(etype.getId()), "entity etype id %s is different from provided etype %s!",
+		    getEtypeId(), etype.getId());
+	
 	Map<String, Attr> attrs = getAttrs();
 	Attr attr = attrs.get(attrDefLocator); // let's try it as url
 	if (attr == null) {
@@ -85,39 +85,54 @@ public abstract class AStruct {
 	    return attr;
 	}
 
-    }    
-    
+    }
+
     /**
-     * Gets the struct type
+     * Gets the struct type url.
      *
-     * @return the struct type URL
-     *
+     * @see #etypeId()
      */
     @Value.Default
     public String getEtypeId() {
-        return "";
+	return "";
+    }
+
+    /**
+     * Gets the struct type
+     *
+     * @see #getEtypeId()
+     * @throw OpenEntityNotFoundException if etype is not present
+     */
+    public String etypeId() {
+	if (getEtypeId().isEmpty()) {
+	    throw new OpenEntityNotFoundException("Tried to get unset etypeId from Struct!");
+	} else {
+	    return getEtypeId();
+	}
     }
 
     /**
      * Gets an attribute from the struct given its attribute definition id.
      *
-     * @param attrDefURL the URL of the attribute definition corresponding to
-     * the desired attribute.
+     * @param attrDefURL
+     *            the URL of the attribute definition corresponding to the
+     *            desired attribute.
      * @return the attribute corresponding to the given attribute def, if
-     * present.
-     * @throws
-     * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
-     * if not found.
+     *         present.
+     * @throws eu.trentorise.opendata.semantics.exceptions.
+     *             OpenEntityNotFoundException
+     *             if not found.
      */
     public Attr attr(String attrDefURL) {
-        checkNotEmpty(attrDefURL, "Invalid url!");
+	checkNotEmpty(attrDefURL, "Invalid url!");
 
-        Attr ret = getAttrs().get(attrDefURL);
-        if (ret == null) {
-            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL + " in struct with URL " + getId());
-        } else {
-            return ret;
-        }
+	Attr ret = getAttrs().get(attrDefURL);
+	if (ret == null) {
+	    throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL
+		    + " in struct with URL " + getId());
+	} else {
+	    return ret;
+	}
     }
 
     /**
@@ -127,15 +142,15 @@ public abstract class AStruct {
      *
      */
     public static abstract class Builder {
-	
+
 	public abstract Struct.Builder putAttrs(String key, Attr value);
-	
+
 	/**
 	 * Wraps the object into the hideous Attr and Val stuff
 	 */
-	public Struct.Builder putObj(AttrDef attrDef, Object obj){	    
+	public Struct.Builder putObj(AttrDef attrDef, Object obj) {
 	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
 	}
-    }    
-    
+    }
+
 }

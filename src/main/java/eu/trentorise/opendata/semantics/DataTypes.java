@@ -19,7 +19,6 @@ import eu.trentorise.opendata.commons.LocalizedString;
 import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
-import eu.trentorise.opendata.semantics.model.entity.Struct;
 import eu.trentorise.opendata.semtext.MeaningKind;
 import eu.trentorise.opendata.semtext.SemText;
 import eu.trentorise.opendata.traceprov.types.Concept;

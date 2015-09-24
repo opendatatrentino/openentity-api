@@ -110,11 +110,11 @@ abstract class AAttr {
         if (obj instanceof Collection) {
 
             for (Object subObj : (Collection) obj) {
-        	Checker.checkObj(subObj, attrDef.getType());
+        	Checker.checkObj(subObj, attrDef.getType(), true);
                 b.addValues(Val.builder().setObj(subObj).build());
             }
         } else {
-            Checker.checkObj(obj, attrDef.getType());
+            Checker.checkObj(obj, attrDef.getType(), true);
             b.setAttrDefId(attrDef.getId()).addValues(Val.builder().setObj(obj).build()).build();
         }
         return b.build();

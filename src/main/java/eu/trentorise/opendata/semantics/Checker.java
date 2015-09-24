@@ -419,9 +419,11 @@ public final class Checker {
 
     /**
      * 
-     * @param obj an object that can be stored inside a value. NOTE: in case it is a structure or entity, subvalues are *NOT* checked. 
+     * @param obj
+     *            an object that can be stored inside a value. NOTE: in case it
+     *            is a structure or entity, subvalues are *NOT* checked.
      */
-    public static void checkObj(Object obj, AttrType type) {
+    public static void checkObj(Object obj, AttrType type, boolean synthetic) {
 
 	if (obj == null) {
 	    throw new IllegalArgumentException("Found null object!");
@@ -430,15 +432,20 @@ public final class Checker {
 	    throw new IllegalArgumentException("Found null type!");
 	}
 
-	// here
 	if (DataTypes.getDataTypes().get(type.getDatatype()) == null) {
 	    throw new IllegalArgumentException("Found unsupported datatype " + type.getDatatype() + " in value " + obj
 		    + ". Its class is " + obj.getClass().getName());
 	}
 
 	if (!(DataTypes.getDataTypes().get(type.getDatatype()).isInstance(obj))) {
-	    throw new IllegalArgumentException("Found value not corresponding to its datatype " + type.getDatatype()
-		    + ". Value is " + obj + ". Its class is " + obj.getClass().getName());
+	    if (!synthetic
+		    && (type.getDatatype().equals(DataTypes.STRUCTURE) || type.getDatatype().equals(DataTypes.ENTITY))
+		    && obj instanceof String) {
+		checkNotDirtyUrl((String) obj, "Found invalid " + type.getDatatype() + " URL for referenced structure!!");
+	    } else {
+		throw new IllegalArgumentException("Found value not corresponding to its datatype " + type.getDatatype()
+			+ ". Value is " + obj + ". Its class is " + obj.getClass().getName());
+	    }
 	}
 
     }
@@ -467,37 +474,38 @@ public final class Checker {
 
 	AttrType type;
 	if (attrDef.getType().isList()) {
-	    type = AttrType.builder()
-		    .from(attrDef.getType())
-		    .setMandatory(false)
-		    .setList(false)
-		    .build();
+	    type = AttrType.builder().from(attrDef.getType()).setMandatory(false).setList(false).build();
 	} else {
 	    type = attrDef.getType();
 	}
-	checkObj(value.getObj(), attrDef.getType());
+	Object obj = value.getObj();
+	checkObj(obj, attrDef.getType(), synthetic);
 
-	if (DataTypes.STRUCTURE.equals(datatype)) { // for structs we do deep
-						    // check
-	    Struct s = (Struct) value.getObj();
-	    if (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
-		throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID()
-			+ " having etype URL different from its attribute rangeEtypeURL! " + "\nStruct etype URL: "
-			+ s.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
-	    }
-	    checkStruct(s, synthetic);
-	}
+	if (!(obj instanceof String)) {
+	    if (DataTypes.STRUCTURE.equals(datatype)) {
 
-	if (DataTypes.ENTITY.equals(datatype)) { // for entities we only check
-						 // URL and name
-	    Entity entity = (Entity) value.getObj();
-	    if (!synthetic) {
-		checkNotDirtyUrl(entity.getId(),
-			"Found invalid URL in entity inside value with local ID: " + value.getLocalID());
+		Struct s = (Struct) obj;
+		/* todo we can't verify inheritance of etypes!
+		   if (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
+		    throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID()
+			    + " having etype URL different from its attribute rangeEtypeURL! " + "\nStruct etype URL: "
+			    + s.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
+		} */
+		checkStruct(s, synthetic);
+
 	    }
 
-	    checkNotNull(entity.getName(), "Found invalid name in entity with URL " + entity.getId()
-		    + " inside value with local ID: " + value.getLocalID());
+	    if (DataTypes.ENTITY.equals(datatype)) {
+		Entity entity = (Entity) obj;
+		/* todo we can't verify inheritance of etypes!
+		   if (!attrDef.getType().getEtypeId().equals(entity.getEtypeId())) {
+		    throw new IllegalArgumentException("Found entity value with value ID " + value.getLocalID()
+			    + " having etype URL different from its attribute rangeEtypeURL! " + "\nStruct etype URL: "
+			    + entity.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
+		} */
+		checkEntity(entity, synthetic);
+	    }
+
 	}
 
     }
