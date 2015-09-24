@@ -30,5 +30,20 @@ import org.immutables.value.Value;
 @JsonDeserialize(as = Struct.class)
 abstract class AbstractStruct extends AStruct {
 
+    /**
+     * Creates immutable copy of {@link AStruct}.
+     * Uses accessors to get values to initialize immutable instance.
+     * If an instance is already immutable, it is returned as is.
+     * @param instance instance to copy
+     * @return copied immutable Struct instance
+     */
+    public static Struct copyOf(AStruct instance) {
+      if (instance instanceof Struct) {
+        return (Struct) instance;
+      }
+      return Struct.builder()
+          .from(instance)
+          .build();
+    }
     
 }

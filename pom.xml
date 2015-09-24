@@ -141,7 +141,7 @@
         
         <dependency>        
             <groupId>eu.trentorise.opendata.semtext</groupId>
-            <artifactId>semtext</artifactId>            
+            <artifactId>semtext-jackson</artifactId>            
         </dependency>        
 
         <dependency>

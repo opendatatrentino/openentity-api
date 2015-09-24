@@ -17,8 +17,12 @@ package eu.trentorise.opendata.semantics.model.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableMap;
+
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.commons.Dict;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
 import eu.trentorise.opendata.traceprov.types.UniqueIndex;
@@ -80,6 +84,41 @@ abstract class AEtype {
     public abstract Map<String, AttrDef> getAttrDefs();
 
     /**
+     * Retrieves attribute definition with given attribute definition locator in provided
+     * {@code entity}
+     *  
+     * @param attrDefLocator
+     *            either the id or the natural language name in any locale
+     * @param etype    
+     * @throws OpenEntityNotFoundException if not found. 
+     */    
+    public AttrDef attrDefByName(String attrDefLocator) {
+	checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
+	
+	
+	Map<String, AttrDef> attrDefs = getAttrDefs();
+	AttrDef selectedAttrDef = null;
+	for (AttrDef attrDef : attrDefs.values()) {
+	    if (attrDef.getName().contains(attrDefLocator)) {
+		if (selectedAttrDef == null) {
+		    selectedAttrDef = attrDef;
+		} else {
+		    throw new OpenEntityNotFoundException("Found two attribute definitions with the same name translation!! Choosing first one "
+			    + selectedAttrDef.getId() + " with name " + selectedAttrDef.getName() + " The other is "
+			    + attrDef + " in etype " + getId());
+		}
+	    }
+	}
+	if (selectedAttrDef == null) {
+	    throw new OpenEntityNotFoundException("Couldn't find any attribute definition in etype " + this.getId()
+		    + " for locator " + attrDefLocator + "!");
+	} else {
+	    return selectedAttrDef;
+	}
+    }
+    
+    
+    /**
      * Gets the unique indexes
      *
      * @return the unique indexes
@@ -99,8 +138,9 @@ abstract class AEtype {
     /**
      * Returns the attribute def used for name.
      *
-     * @return the attribute def used for name if the entity type represents an
-     * entity. Returns the empty string otherwise.
+     * @return the attribute def used for name if the etype represents an
+     * entity, or the default string field if the etype repreents a name-like
+     * structure. Returns the empty string otherwise.
      * @see #nameAttrDef()
      */
     @Value.Default
@@ -112,7 +152,7 @@ abstract class AEtype {
      * Returns the attribute def used for name.
      *
      * @return the attribute def used for name if the entity type represents an
-     * entity. If it represents a struct or it is not found, throws
+     * entity. If it represents a non-name struct or it is not found, throws
      * {@link OpenEntityNotFoundException}.
      * @throws OpenEntityNotFoundException
      */
@@ -172,7 +212,7 @@ abstract class AEtype {
      * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
      * if attribute is not found.
      */
-    public AttrDef getAttrDef(String URL) {
+    public AttrDef attrDefById(String URL) {
         checkNotEmpty(URL, "Invalid url!");
 
         AttrDef ret = getAttrDefs().get(URL);
@@ -214,4 +254,15 @@ abstract class AEtype {
         return b.build();
     }
 
+    /*
+     todo think about storint name etypes withn main etype...
+     @Value.Check
+     protected void check(){
+     if (!isStruct()){
+     AttrDef nameAttrDef = nameAttrDef();
+     AttrType type = nameAttrDef.getType();
+     if (type.)
+     }
+     }
+     */
 }

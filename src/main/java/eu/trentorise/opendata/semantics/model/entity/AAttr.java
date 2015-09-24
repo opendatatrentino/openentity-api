@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
+import eu.trentorise.opendata.semantics.Checker;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,8 +84,7 @@ abstract class AAttr {
     }
 
     /**
-     *
-     * @return a list of objects contained inside provided attribute values.
+     * Returns a list of objects contained inside provided attribute values.
      */
     public ImmutableList asRawObjectList() {
         List rawValues = new ArrayList();
@@ -98,19 +98,23 @@ abstract class AAttr {
      * Creates an Attr out of provided object(s).
      *
      * @param obj the object to store in Val. If it is a collection a new value
-     * for each object will be created.
+     * for each object will be created. Notice no other casts are done.
      */
     public static Attr ofObject(AttrDef attrDef, Object obj) {
-
+	
+	
+	
         Attr.Builder b = Attr.builder();
         b.setAttrDefId(attrDef.getId());
 
         if (obj instanceof Collection) {
 
-            for (Object item : (Collection) obj) {
-                b.addValues(Val.builder().setObj(item).build());
+            for (Object subObj : (Collection) obj) {
+        	Checker.checkObj(subObj, attrDef.getType());
+                b.addValues(Val.builder().setObj(subObj).build());
             }
         } else {
+            Checker.checkObj(obj, attrDef.getType());
             b.setAttrDefId(attrDef.getId()).addValues(Val.builder().setObj(obj).build()).build();
         }
         return b.build();

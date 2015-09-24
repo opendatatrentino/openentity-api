@@ -15,10 +15,16 @@
  */
 package eu.trentorise.opendata.semantics.model.entity;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
+
+import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
 import java.util.Map;
 import org.immutables.value.Value;
+
+import com.google.common.collect.ImmutableMap;
 
 /**
  *
@@ -48,6 +54,39 @@ public abstract class AStruct {
      */
     public abstract Map<String, Attr> getAttrs();
 
+
+    /**
+     * Retrieves attribute with given attribute definition locator in provided
+     * {@code entity}
+     * 
+     * @param attrDefLocator
+     *            either the id or the natural language name in any locale
+     * @param etype
+     */
+    public Attr attr(String attrDefLocator, Etype etype) {
+	
+	checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
+	checkNotNull(etype);
+	checkArgument(getEtypeId().equals(etype.getId()),
+		"entity etype id %s is different from provided etype %s!", getEtypeId(), etype.getId());
+
+	Map<String, Attr> attrs = getAttrs();
+	Attr attr = attrs.get(attrDefLocator); // let's try it as url
+	if (attr == null) {
+	    AttrDef selectedAttrDef = etype.attrDefByName(attrDefLocator);
+	    Attr attr2 = getAttrs().get(selectedAttrDef.getId());
+	    if (attr2 == null) {
+		throw new OpenEntityNotFoundException("Couldn't find any attribute for attribute definition "
+			+ selectedAttrDef + " searched with locator " + attrDefLocator + " in etype " + etype.getId());
+	    } else {
+		return attr2;
+	    }
+	} else {
+	    return attr;
+	}
+
+    }    
+    
     /**
      * Gets the struct type
      *
@@ -60,7 +99,7 @@ public abstract class AStruct {
     }
 
     /**
-     * Gets an attribute from the struct.
+     * Gets an attribute from the struct given its attribute definition id.
      *
      * @param attrDefURL the URL of the attribute definition corresponding to
      * the desired attribute.
@@ -70,7 +109,7 @@ public abstract class AStruct {
      * eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException
      * if not found.
      */
-    public Attr getAttr(String attrDefURL) {
+    public Attr attr(String attrDefURL) {
         checkNotEmpty(attrDefURL, "Invalid url!");
 
         Attr ret = getAttrs().get(attrDefURL);
@@ -80,4 +119,23 @@ public abstract class AStruct {
             return ret;
         }
     }
+
+    /**
+     * He who needs a custom builder is in trouble.
+     * 
+     * David Leoni
+     *
+     */
+    public static abstract class Builder {
+	
+	public abstract Struct.Builder putAttrs(String key, Attr value);
+	
+	/**
+	 * Wraps the object into the hideous Attr and Val stuff
+	 */
+	public Struct.Builder putObj(AttrDef attrDef, Object obj){	    
+	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
+	}
+    }    
+    
 }

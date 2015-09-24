@@ -65,8 +65,7 @@ public interface IEtypeService {
      *
      * @param URL The URL of the entity type
      * @throws OpenEntityNotFoundException if the etype does not exists.
-     */
-    @Nullable
+     */    
     Etype readEtype(String URL);
 
     /**
@@ -75,8 +74,7 @@ public interface IEtypeService {
      * @param URL The URL of the attribute definition
      * @return the attribute definition
      * @throws OpenEntityNotFoundException if the attribute definitions does not exists.
-     */
-    @Nullable
+     */    
     public AttrDef readAttrDef(String url);
 
 

@@ -16,6 +16,7 @@
 package eu.trentorise.opendata.semantics;
 
 import eu.trentorise.opendata.commons.LocalizedString;
+import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semantics.model.entity.Struct;
@@ -40,13 +41,14 @@ import java.util.Set;
  * <br/>
  * Datatypes are mapped to Java objects according to the following scheme: <br/>
  * <br/>
+ * ANY_TYPE : {@link java.lang.Object} <br/>
  * STRING : {@link java.lang.String} <br/>
  * BOOLEAN : {@link java.lang.Boolean} <br/>
  * DATE : {@link java.util.Date} <br/>
  * INTEGER : {@link java.lang.Integer} <br/>
  * FLOAT : {@link java.lang.Float} <br/>
  * LONG : {@link java.lang.Long} <br/>
- * CONCEPT : {@link eu.trentorise.opendata.semantics.model.knowledge.Concept}
+ * CONCEPT : {@link eu.trentorise.opendata.traceprov.types.Concept}
  * <br/>
  * LOCALIZED_STRING : {@link eu.trentorise.opendata.commons.LocalizedString}
  * <br/>
@@ -92,6 +94,7 @@ public final class DataTypes {
     public static final String ATTRDEF = OPEN_ENTITY_PREFIX + "attrdef";
     public static final String ETYPE = OPEN_ENTITY_PREFIX + "etype";
 
+    public static final AttrType AT_ANY_TYPE = AttrType.of(DataTypes.ANY_TYPE);
     public static final AttrType AT_STRING = AttrType.of(DataTypes.STRING);
     public static final AttrType AT_BOOLEAN = AttrType.of(DataTypes.BOOLEAN);
     public static final AttrType AT_DATE = AttrType.of(DataTypes.DATE);
@@ -108,10 +111,11 @@ public final class DataTypes {
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_IT = new HashMap();
     private static final Map<String, String> DATATYPE_PRETTY_NAMES_EN = new HashMap();
     private static final Map<Locale, Map<String, String>> DATATYPE_PRETTY_NAMES_MAP = new HashMap();
-    private static final Map JAVA_DATATYPES = new HashMap();
+    private static final Map<String,  Class> JAVA_DATATYPES = new HashMap();
 
     static {
 
+	DATATYPE_PRETTY_NAMES_EN.put(ANY_TYPE, "Any type");
         DATATYPE_PRETTY_NAMES_EN.put(STRING, "String");
         DATATYPE_PRETTY_NAMES_EN.put(BOOLEAN, "Boolean");
         DATATYPE_PRETTY_NAMES_EN.put(DATE, "Date");
@@ -126,6 +130,7 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_EN.put(ENTITY, "Entity");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ENGLISH, DATATYPE_PRETTY_NAMES_EN);
 
+        DATATYPE_PRETTY_NAMES_EN.put(ANY_TYPE, "Qualunque tipo");
         DATATYPE_PRETTY_NAMES_IT.put(STRING, "Stringa");
         DATATYPE_PRETTY_NAMES_IT.put(BOOLEAN, "Booleano");
         DATATYPE_PRETTY_NAMES_IT.put(DATE, "Data");
@@ -140,6 +145,7 @@ public final class DataTypes {
         DATATYPE_PRETTY_NAMES_IT.put(ENTITY, "Entità");
         DATATYPE_PRETTY_NAMES_MAP.put(Locale.ITALIAN, DATATYPE_PRETTY_NAMES_IT);
 
+        JAVA_DATATYPES.put(ANY_TYPE, Object.class);
         JAVA_DATATYPES.put(STRING, String.class);
         JAVA_DATATYPES.put(BOOLEAN, Boolean.class);
         JAVA_DATATYPES.put(DATE, Date.class);
@@ -150,7 +156,7 @@ public final class DataTypes {
         JAVA_DATATYPES.put(LOCALIZED_STRING, LocalizedString.class);
         JAVA_DATATYPES.put(SEMANTIC_TEXT, SemText.class);
         JAVA_DATATYPES.put(ENTITY, Entity.class);
-        JAVA_DATATYPES.put(STRUCTURE, Struct.class);
+        JAVA_DATATYPES.put(STRUCTURE, AStruct.class);
 
     }
 
@@ -238,4 +244,5 @@ public final class DataTypes {
     public boolean isRelationalDataType(AttrType AttrType) {
         return AttrType.isRelational();
     }
+    
 }

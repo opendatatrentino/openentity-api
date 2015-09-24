@@ -15,7 +15,9 @@
  */
 package eu.trentorise.opendata.semantics.services;
 
+import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
+import eu.trentorise.opendata.semantics.model.entity.Struct;
 
 import java.io.Writer;
 import java.util.List;
@@ -75,6 +77,26 @@ public interface IEntityService {
      */
     Entity readEntity(String URL);
 
+    
+    
+    /**
+     * Reads a structure given its URL
+     *
+     * @param URL the URL of the structure to read
+     * @return the structure identified by this URL
+     * @throws OpenEntityNotFoundException if the structure does not exists.
+     */
+    AStruct readStruct(String URL);
+
+    /**
+     * Reads structures given their URLs
+     *
+     * @param structIds the URLs of the structure to read
+     * @return the list of structures identified by the URL.
+     * @throws OpenEntityNotFoundException if any of the entities is not found.
+     */
+    List<? extends AStruct> readStructs(Iterable<String> structIds);
+    
     /**
      * Reads an entities given their URLs
      *
@@ -82,34 +104,37 @@ public interface IEntityService {
      * @return the list of entities identified by the URL.
      * @throws OpenEntityNotFoundException if any of the entities is not found.
      */
-    List<Entity> readEntities(List<String> entityIds);
+    List<Entity> readEntities(Iterable<String> entityIds);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityIds the URLs of the entities to export. If list is empty, an
-     * IllegalArgumentException is thrown.
+     * exception is thrown.
      * @param writer A writer to store the generated rdf
+     * @throws IllegalArgumentException if list is empty
      */
-    void exportToRdf(List<String> entityIds, Writer writer);
+    void exportToRdf(Iterable<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityIds the URLs of the entities to export. If list is empty, an
-     * IllegalArgumentException is thrown.
+     * exception is thrown.
      * @param writer A writer to store the generated jsonld
+     * @throws IllegalArgumentException if list is empty
      */
-    void exportToJsonLd(List<String> entityIds, Writer writer);
+    void exportToJsonLd(Iterable<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
      * @param entityURLs the URLs of the entities to export. If list is empty,
-     * an IllegalArgumentException is thrown.
+     * an exception is thrown.
      * @param writer A writer to store the generated csv
+     * @throws IllegalArgumentException if list is empty 
      */
-    void exportToCsv(List<String> entityURLs, Writer writer);
+    void exportToCsv(Iterable<String> entityURLs, Writer writer);
 
     /**
      * Returns a list of possible entities with name similar to provided partial

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Strings;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.commons.Dict;
-import static eu.trentorise.opendata.commons.OdtUtils.checkNotDirtyUrl;
+import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotDirtyUrl;
 import java.util.Locale;
 import org.immutables.value.Value;
 
@@ -83,7 +83,7 @@ abstract class AAttrType {
     }
 
     /**
-     * Returns the etype name, or {@link Dict#of()} if it was not provided
+     * Returns the etype name, or {@link Dict#of()} if it was not provided. 
      */
     @Value.Default
     public Dict getEtypeName() {

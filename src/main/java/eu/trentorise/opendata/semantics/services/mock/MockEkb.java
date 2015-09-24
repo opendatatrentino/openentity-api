@@ -185,12 +185,11 @@ public class MockEkb implements IEkb {
     public MockEkb() {
         this.NLPService = new MockNlpService(this);
         this.entityTypeService = new MockEtypeService();
-        this.knowledgeService = new MockKnowledgeService();
-        LOG.warning("NOT INITIALIZING ENTITY SERVICE, todo we need to import it from odr once cast is implmented in traceprov "); 
-        this.identityService = null; // new MockIdentityService();
+        this.knowledgeService = new MockKnowledgeService();        
+        this.identityService = new MockIdentityService(this);
         this.schemaMatchingService = new MockSchemaMatchingService();
-        LOG.warning("NOT INITIALIZING ENTITY SERVICE, todo we need to import it from odr once cast is implmented in traceprov "); 
-        this.entityService = null;  //new MockEntityService(this);
+       
+        this.entityService = new MockEntityService(this);
         this.defaultLocales = ImmutableList.of(Locale.ENGLISH);
     }
 

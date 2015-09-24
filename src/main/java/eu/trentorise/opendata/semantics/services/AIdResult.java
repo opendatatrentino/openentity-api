@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
+
+import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.immutables.value.Value;
@@ -38,48 +40,41 @@ import org.immutables.value.Value;
 abstract class AIdResult {
 
     /**
-     * Gets the result of the id matching. By default it's {@link AssignmentResult#INVALID}
+     * Gets the result of the id matching. By default it's
+     * {@link AssignmentResult#INVALID}
      *
      * @return the assignment result.
      */
     @Value.Default
-    public  AssignmentResult getAssignmentResult(){
-        return AssignmentResult.INVALID;
+    public AssignmentResult getAssignmentResult() {
+	return AssignmentResult.INVALID;
     }
 
     /**
      * Gets the selected entity.
      *
      * @return an entity if getAssignmentResult is REUSE or NEW, null otherwise.
-     * If getAssignmentResult is REUSE, returns the 'best' candidate among the
-     * possible matching entities. If the assignment result is NEW, a deep copy
-     * of the original entity is returned containing an assigned URL. This new
-     * entity will not be stored on the server, though. In order to store it,
-     * call
-     * {@link eu.trentorise.opendata.semantics.services.EntityService#createEntityURL(eu.trentorise.opendata.semantics.model.entity.Entity)}
-     * with the new entity.
+     *         If getAssignmentResult is REUSE, returns the 'best' candidate
+     *         among the possible matching entities. If the assignment result is
+     *         NEW, a deep copy of the original entity is returned containing an
+     *         assigned URL. This new entity shoudln't be stored on the server
+     *         by identity services, though. In order to store it, call
+     *         {@link eu.trentorise.opendata.semantics.services.EntityService#createEntity(eu.trentorise.opendata.semantics.model.entity.Entity)}
+     *         with the new entity.
      */
     @Nullable
     public abstract Entity getResultEntity();
 
     /**
-     * A set of possible suggested entities with same iteration order as insertion order.
+     * A set of possible suggested entities in order of preference, with the
+     * first one being the best match.
      *
-     * @return a set of possible suggested entities if getAssignmentResult is
-     * REUSE. If assignment result is NEW, returns a set containing only one new
-     * entity with newly assigned url. Otherwise, returns an empty set.
+     * @return a list of possible suggested entities if getAssignmentResult is
+     *         REUSE. If assignment result is NEW, returns a list containing
+     *         only one new entity with newly assigned url. Otherwise, returns
+     *         an empty list.
      */
-    public abstract Set<Entity> getEntities();
+    public abstract List<Entity> getEntities();
 
-
-    /**
-     * Gets the URL of the matched entity
-     *
-     * @return the URL of the matched entity if getAssignmentResult is NEW or
-     * REUSE, null otherwise. Notice that if the assignment result is NEW the
-     * entity is not yet stored on the server.
-     */
-    @Nullable
-    public abstract String getId();
 
 }
