@@ -98,7 +98,7 @@ abstract class AAttr {
      * Creates an Attr out of provided object(s).
      *
      * @param obj the object to store in Val. If it is a collection a new value
-     * for each object will be created. Notice no other casts are done.
+     * for each object will be created. *Notice no other casts are done*
      */
     public static Attr ofObject(AttrDef attrDef, Object obj) {
 	

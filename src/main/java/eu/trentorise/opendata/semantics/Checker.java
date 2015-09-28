@@ -112,18 +112,20 @@ public final class Checker {
 	    }
 	}
 
-	try {
-	    etype.nameAttrDef();
-	} catch (Exception ex) {
-	    throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getId(),
-		    ex);
-	}
+	if (!etype.isStruct()) {
+	    try {
+		etype.nameAttrDef();
+	    } catch (Exception ex) {
+		throw new IllegalArgumentException(
+			"Found problem in getNameAttrDef() for etype with URL " + etype.getId(), ex);
+	    }
 
-	try {
-	    etype.descrAttrDef();
-	} catch (Exception ex) {
-	    throw new IllegalArgumentException("Found problem in getNameAttrDef() for etype with URL " + etype.getId(),
-		    ex);
+	    try {
+		etype.descrAttrDef();
+	    } catch (Exception ex) {
+		throw new IllegalArgumentException(
+			"Found problem in getNameAttrDef() for etype with URL " + etype.getId(), ex);
+	    }
 	}
 
     }
@@ -360,7 +362,7 @@ public final class Checker {
     /**
      * Checks if provided attribute complies with open entity specs.
      *
-     * @param attribute
+     * @param attr
      *            to check
      * @param synthetic
      *            if true URL and local ids of attributes and values will not be
@@ -368,25 +370,20 @@ public final class Checker {
      * @throws IllegalArgumentException
      *             if provided attribute is not conformant to OpenEntity specs.
      */
-    public void checkAttr(Attr attribute, boolean synthetic, AttrDef attrDef) {
-	if (attribute == null) {
-	    throw new IllegalArgumentException("Found null attribute!");
-	}
+    public void checkAttr(Attr attr, boolean synthetic, AttrDef attrDef) {
+	checkNotNull(attr);
+	checkNotNull(attrDef);
+	checkArgument(attr.getAttrDefId().equals(attrDef.getId()), "Provided attribute def id %s is not the same as attrDefId %s in provided attr %s", attrDef.getId(), attr.getAttrDefId(), attr);
 
-	if (!synthetic && attribute.getLocalID() < 0) {
-	    throw new IllegalArgumentException("Found negative local ID in attribute " + attribute);
-	}
+	if (!synthetic && attr.getLocalID() < 0) {
+	    throw new IllegalArgumentException("Found negative local ID in attribute " + attr);
+	}	
 
-	if (attribute.getAttrDefId() == null) {
-	    throw new IllegalArgumentException(
-		    "Found null attribute definition in attribute " + attribute.getLocalID());
-	}
-
-	for (Val val : attribute.getValues()) {
+	for (Val val : attr.getValues()) {
 	    try {
 		checkValue(val, attrDef, synthetic);
 	    } catch (Exception ex) {
-		throw new IllegalArgumentException("Found invalid value in attribute " + attribute.getLocalID(), ex);
+		throw new IllegalArgumentException("Found invalid value in attribute " + attr.getLocalID(), ex);
 	    }
 	}
 
@@ -438,10 +435,11 @@ public final class Checker {
 	}
 
 	if (!(DataTypes.getDataTypes().get(type.getDatatype()).isInstance(obj))) {
-	    if (!synthetic
-		    && (type.getDatatype().equals(DataTypes.STRUCTURE) || type.getDatatype().equals(DataTypes.ENTITY))
+	    
+	    if ( (type.getDatatype().equals(DataTypes.STRUCTURE) || type.getDatatype().equals(DataTypes.ENTITY))
 		    && obj instanceof String) {
-		checkNotDirtyUrl((String) obj, "Found invalid " + type.getDatatype() + " URL for referenced structure!!");
+		checkNotDirtyUrl((String) obj,
+			"Found invalid " + type.getDatatype() + " URL for referenced structure!!");
 	    } else {
 		throw new IllegalArgumentException("Found value not corresponding to its datatype " + type.getDatatype()
 			+ ". Value is " + obj + ". Its class is " + obj.getClass().getName());
@@ -485,24 +483,30 @@ public final class Checker {
 	    if (DataTypes.STRUCTURE.equals(datatype)) {
 
 		Struct s = (Struct) obj;
-		/* todo we can't verify inheritance of etypes!
-		   if (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
-		    throw new IllegalArgumentException("Found struct value with value ID " + value.getLocalID()
-			    + " having etype URL different from its attribute rangeEtypeURL! " + "\nStruct etype URL: "
-			    + s.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
-		} */
+		/*
+		 * todo we can't verify inheritance of etypes! if
+		 * (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
+		 * throw new IllegalArgumentException(
+		 * "Found struct value with value ID " + value.getLocalID() +
+		 * " having etype URL different from its attribute rangeEtypeURL! "
+		 * + "\nStruct etype URL: " + s.getEtypeId() +
+		 * "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId()); }
+		 */
 		checkStruct(s, synthetic);
 
 	    }
 
 	    if (DataTypes.ENTITY.equals(datatype)) {
 		Entity entity = (Entity) obj;
-		/* todo we can't verify inheritance of etypes!
-		   if (!attrDef.getType().getEtypeId().equals(entity.getEtypeId())) {
-		    throw new IllegalArgumentException("Found entity value with value ID " + value.getLocalID()
-			    + " having etype URL different from its attribute rangeEtypeURL! " + "\nStruct etype URL: "
-			    + entity.getEtypeId() + "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId());
-		} */
+		/*
+		 * todo we can't verify inheritance of etypes! if
+		 * (!attrDef.getType().getEtypeId().equals(entity.getEtypeId()))
+		 * { throw new IllegalArgumentException(
+		 * "Found entity value with value ID " + value.getLocalID() +
+		 * " having etype URL different from its attribute rangeEtypeURL! "
+		 * + "\nStruct etype URL: " + entity.getEtypeId() +
+		 * "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId()); }
+		 */
 		checkEntity(entity, synthetic);
 	    }
 

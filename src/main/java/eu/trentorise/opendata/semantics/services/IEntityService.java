@@ -41,10 +41,12 @@ public interface IEntityService {
     /**
      * Creates an entity
      *
-     * @param entity the entity to be created. Will not be changed by the
-     * method. URL of the provided entity will be ignored. If an equal entity is
-     * already present in the server, a duplicate with different URL will be
-     * created. All linked entities must exist on the server.
+     * @param entity
+     *            the entity to be created. Will not be changed by the method.
+     *            URL of the provided entity will be ignored. If an equal entity
+     *            is already present in the server, a duplicate with different
+     *            URL will be created. All linked entities must exist on the
+     *            server.
      * @return a new entity with newly assigned URL
      */
     Entity createEntity(Entity entity);
@@ -54,85 +56,103 @@ public interface IEntityService {
      * entity are going to be merged with translations already present in the
      * Ekb. TODO need to specify MUCH better
      *
-     * @param entity the entity to be updated
-     * @throws eu.trentorise.opendata.semantics.NotFoundException if the entity
-     * doesn't exists
+     * @param entity
+     *            the entity to be updated
+     * @throws eu.trentorise.opendata.semantics.NotFoundException
+     *             if the entity doesn't exists
      */
     void updateEntity(Entity entity);
 
     /**
      * Deletes an entity.
      *
-     * @param URL the URL of the entity to delete.
-     * @throws OpenEntityNotFoundException if the entity does not exists.
+     * @param URL
+     *            the URL of the entity to delete.
+     * @throws OpenEntityNotFoundException
+     *             if the entity does not exists.
      */
     void deleteEntity(String URL);
 
     /**
      * Reads an entity given its URL
      *
-     * @param URL the URL of the entity to read
+     * @param URL
+     *            the URL of the entity to read
      * @return the entity identified by this URL
-     * @throws OpenEntityNotFoundException if the entity does not exists.
+     * @throws OpenEntityNotFoundException
+     *             if the entity does not exists.
      */
     Entity readEntity(String URL);
 
-    
-    
     /**
      * Reads a structure given its URL
      *
-     * @param URL the URL of the structure to read
+     * @param URL
+     *            the URL of the structure to read
      * @return the structure identified by this URL
-     * @throws OpenEntityNotFoundException if the structure does not exists.
+     * @throws OpenEntityNotFoundException
+     *             if the structure does not exists.
      */
     AStruct readStruct(String URL);
 
     /**
      * Reads structures given their URLs
      *
-     * @param structIds the URLs of the structure to read
+     * @param structIds
+     *            the URLs of the structure to read
      * @return the list of structures identified by the URL.
-     * @throws OpenEntityNotFoundException if any of the entities is not found.
+     * @throws OpenEntityNotFoundException
+     *             if any of the entities is not found.
      */
     List<? extends AStruct> readStructs(Iterable<String> structIds);
-    
+
     /**
      * Reads an entities given their URLs
      *
-     * @param entityIds the URLs of the entity to read
+     * @param entityIds
+     *            the URLs of the entity to read
      * @return the list of entities identified by the URL.
-     * @throws OpenEntityNotFoundException if any of the entities is not found.
+     * @throws OpenEntityNotFoundException
+     *             if any of the entities is not found.
      */
     List<Entity> readEntities(Iterable<String> entityIds);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityIds the URLs of the entities to export. If list is empty, an
-     * exception is thrown.
-     * @param writer A writer to store the generated rdf
-     * @throws IllegalArgumentException if list is empty
+     * @param entityIds
+     *            the URLs of the entities to export. If list is empty, an
+     *            exception is thrown.
+     * @param writer
+     *            A writer to store the generated rdf
+     * @throws IllegalArgumentException
+     *             if list is empty
      */
     void exportToRdf(Iterable<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityIds the URLs of the entities to export. If list is empty, an
-     * exception is thrown.
-     * @param writer A writer to store the generated jsonld
-     * @throws IllegalArgumentException if list is empty
+     * @param entityIds
+     *            the URLs of the entities to export. If list is empty, an
+     *            exception is thrown.
+     * @param writer
+     *            A writer to store the generated jsonld
+     * @throws IllegalArgumentException
+     *             if list is empty
      */
     void exportToJsonLd(Iterable<String> entityIds, Writer writer);
 
     /**
      * Writes the given entities in rdf format into the provided writer.
      *
-     * @param entityURLs the URLs of the entities to export. If list is empty,
-     * an exception is thrown.
-     * @param writer A writer to store the generated csv
-     * @throws IllegalArgumentException if list is empty 
+     * @param entityURLs
+     *            the URLs of the entities to export. If list is empty, an
+     *            exception is thrown.
+     * @param writer
+     *            A writer to store the generated csv
+     * @throws IllegalArgumentException
+     *             if list is empty
      */
     void exportToCsv(Iterable<String> entityURLs, Writer writer);
 
@@ -140,12 +160,16 @@ public interface IEntityService {
      * Returns a list of possible entities with name similar to provided partial
      * name. Returned entities will belong to provided etype, if any.
      *
-     * @param partialName a partial entity name. It is assumed to be in one of
-     * the default locales of the ekb.
-     * @param etypeURL The url of the entity type. Enities returned will be
-     * instances of that etype (or its descendants).
+     * @param partialName
+     *            a partial entity name. It is assumed to be in one of the
+     *            default locales of the ekb.
+     * @param etypeURL
+     *            The url of the entity type. Entities returned will be instances
+     *            of that etype (or its descendants). Use {@code null} for not 
+     *            filtering by etype.
+     * @param locale The language of the search string. If unknown use {@link Locale#ROOT}.
      * @return a list of candidate entities, ordered by probability. The first
-     * one is the most probable.
+     *         one is the most probable.
      */
     List<SearchResult> searchEntities(String partialName, @Nullable String eTypeURL, Locale locale);
 

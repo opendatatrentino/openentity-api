@@ -73,20 +73,24 @@ public abstract class AEntity extends AStruct {
 	return Dict.of();
     }
 
+    
+    
     /**
-     * He who needs a custom builder is in trouble.
+     * He who needs a custom builder is a man in trouble.
      * 
      * David Leoni
      *
      */
-    public static abstract class Builder {
+    public static abstract class Builder  {
 
 	public abstract Entity.Builder setName(Dict name);
+
 	public abstract Entity.Builder setDescription(Dict description);
+
 	public abstract Entity.Builder setEtypeId(String etypeId);
+
 	public abstract Entity.Builder putAttrs(String key, Attr value);
-	
-	
+
 	/**
 	 * Sets both description in attrs AND description dictionary property
 	 * 
@@ -96,7 +100,7 @@ public abstract class AEntity extends AStruct {
 	public Entity.Builder setDescrAttr(Dict descr, String etypeId, IEtypeService ets) {
 	    Map<String, Etype> etypes = Entities.resolveEtypes(etypeId, ets);
 	    Etype etype = etypes.get(etypeId);
-	    return setDescrAttr(descr, etype);	    
+	    return setDescrAttr(descr, etype);
 	}
 
 	/**
@@ -110,8 +114,7 @@ public abstract class AEntity extends AStruct {
 	    AttrDef descrAttrDef = etype.descrAttrDef();
 	    Object valueToCast = dictToTerminal(descr, descrAttrDef.getType());
 
-	    return setDescription(descr)
-	    .putAttrs(descrAttrDef.getId(), Attr.ofObject(descrAttrDef, valueToCast));	    
+	    return setDescription(descr).putAttrs(descrAttrDef.getId(), Attr.ofObject(descrAttrDef, valueToCast));
 	}
 
 	/**
@@ -141,8 +144,7 @@ public abstract class AEntity extends AStruct {
 	 * @param nameEtype
 	 *            the etype for the name in case the name is a structure.
 	 */
-	public Entity.Builder setNameAttr(Dict name, Etype etype,
-		@Nullable Etype nameEtype) {
+	public Entity.Builder setNameAttr(Dict name, Etype etype, @Nullable Etype nameEtype) {
 	    checkNotNull(name);
 	    checkNotNull(etype, "Need entity etype in the parameters, but found none!");
 
@@ -163,13 +165,10 @@ public abstract class AEntity extends AStruct {
 
 		// odr todo hardcoded english
 		// Dict -> (String | LocalizedString | Dict) []
-		Object nestedCastedValue = dictToTerminal(name, nestedNameAd.getType());// null;
-											// //((OdrDataTypes.cast(name,
-											// nestedNameAd.getType(),
-											// Locale.ENGLISH);
-
-		// nameStruct.setAttrAndValues(nestedNameAd, (List)
-		// nestedCastedValue);
+		Object nestedCastedValue = dictToTerminal(name, nestedNameAd.getType());
+											
+		nameStructB.setEtypeId(nameEtype.getId());									// nestedNameAd.getType(),
+											
 		nameStructB.putAttrs(nestedNameAd.getId(), Attr.ofObject(nestedNameAd, nestedCastedValue));
 		valueToCast = autobox(nameStructB.build(), attrType.isList());
 
@@ -178,16 +177,21 @@ public abstract class AEntity extends AStruct {
 	    }
 
 	    setName(name);
-	    return putAttrs(nameAttrDef.getId(), Attr.ofObject(nameAttrDef, valueToCast));	    
+	    return putAttrs(nameAttrDef.getId(), Attr.ofObject(nameAttrDef, valueToCast));
 	}
 
 	/**
 	 * Wraps the object into the hideous Attr and Val stuff
+	 * 
+	 * @param obj
+	 *            the object to store in Val. If it is a collection a new
+	 *            value for each object will be created. *Notice no other
+	 *            casts are done*
 	 */
-	public Entity.Builder putObj(AttrDef attrDef, Object obj){
+	public Entity.Builder putObj(AttrDef attrDef, Object obj) {
 	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
 	}
-	
+
 	private static Object autobox(Object obj, boolean isList) {
 	    if (isList) {
 		return Lists.newArrayList(obj);

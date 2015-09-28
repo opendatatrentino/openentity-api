@@ -66,10 +66,10 @@ public abstract class AStruct {
 
 	checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
 	checkNotNull(etype);
-	
+
 	checkArgument(getEtypeId().equals(etype.getId()), "entity etype id %s is different from provided etype %s!",
-		    getEtypeId(), etype.getId());
-	
+		getEtypeId(), etype.getId());
+
 	Map<String, Attr> attrs = getAttrs();
 	Attr attr = attrs.get(attrDefLocator); // let's try it as url
 	if (attr == null) {
@@ -120,8 +120,7 @@ public abstract class AStruct {
      * @return the attribute corresponding to the given attribute def, if
      *         present.
      * @throws eu.trentorise.opendata.semantics.exceptions.
-     *             OpenEntityNotFoundException
-     *             if not found.
+     *             OpenEntityNotFoundException if not found.
      */
     public Attr attr(String attrDefURL) {
 	checkNotEmpty(attrDefURL, "Invalid url!");
@@ -147,8 +146,13 @@ public abstract class AStruct {
 
 	/**
 	 * Wraps the object into the hideous Attr and Val stuff
+	 * 
+	 * @param obj
+	 *            the object to store in Val. If it is a collection a new
+	 *            value for each object will be created. *Notice no other
+	 *            casts are done*
 	 */
-	public Struct.Builder putObj(AttrDef attrDef, Object obj) {
+	 public Struct.Builder putObj(AttrDef attrDef, Object obj) {
 	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
 	}
     }
