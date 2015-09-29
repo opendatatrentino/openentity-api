@@ -21,6 +21,7 @@ abstract class AEntityQuery extends AQuery {
      * of the ekb. Defaults to empty string.
      * 
      */
+    @Value.Default
     public String getPartialName() {
 	return "";
     }
@@ -30,6 +31,7 @@ abstract class AEntityQuery extends AQuery {
      * {@link Locale#ROOT} and ekb default locales will be used instead.
      * 
      */
+    @Value.Default
     public Locale getLocale() {
 	return Locale.ROOT;
     }
@@ -39,6 +41,7 @@ abstract class AEntityQuery extends AQuery {
      * etype (or its descendants). Use the empty string for not filtering by
      * etype.
      */
+    @Value.Default
     public String getEtypeId() {
 	return "";
     }

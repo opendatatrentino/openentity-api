@@ -76,6 +76,7 @@ public interface IKnowledgeService {
      *
      * @param partialName a partial concept name. It is assumed to be in the
      * provided locale.
+     * @param locale the locale of the search. If unknown use {@link Locale#ROOT}. 
      * @return a list of candidate entities, ordered by probability. The first
      * one is the most probable.
      * @throws

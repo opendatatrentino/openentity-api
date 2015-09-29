@@ -105,6 +105,11 @@ public class MockKnowledgeService implements IKnowledgeService {
 
     @Override
     public List<SearchResult> searchConcepts(String partialName, Locale locale) {
+	
+	if (locale == null){
+	    throw new NullPointerException("Invalid locale. If unknown, use Locale.ROOT instead");
+	}
+	
         List<SearchResult> ret = new ArrayList();
 
         for (Concept concept : registeredConcepts.values()) {
