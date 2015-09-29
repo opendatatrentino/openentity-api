@@ -156,22 +156,8 @@ public interface IEntityService {
      */
     void exportToCsv(Iterable<String> entityURLs, Writer writer);
 
-    /**
-     * Returns a list of possible entities with name similar to provided partial
-     * name. Returned entities will belong to provided etype, if any.
-     *
-     * @param partialName
-     *            a partial entity name. It is assumed to be in one of the
-     *            default locales of the ekb.
-     * @param etypeURL
-     *            The url of the entity type. Entities returned will be instances
-     *            of that etype (or its descendants). Use {@code null} for not 
-     *            filtering by etype.
-     * @param locale The language of the search string. If unknown use {@link Locale#ROOT}.
-     * @return a list of candidate entities, ordered by probability. The first
-     *         one is the most probable.
-     */
-    List<SearchResult> searchEntities(String partialName, @Nullable String eTypeURL, Locale locale);
+    
+    List<SearchResult> searchEntities(EntityQuery query);
 
     /**
      * Returns whether or not the URL was generated during calls to assign URL

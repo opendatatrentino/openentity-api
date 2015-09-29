@@ -6,6 +6,7 @@ import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.Entity;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.model.entity.Struct;
+import eu.trentorise.opendata.semantics.services.EntityQuery;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.IEntityService;
 import eu.trentorise.opendata.semantics.services.SearchResult;
@@ -174,17 +175,17 @@ public class MockEntityService implements IEntityService {
     }
 
     @Override
-    public List<SearchResult> searchEntities(String partialName, @Nullable String etypeURL, Locale locale) {
+    public List<SearchResult> searchEntities(EntityQuery query) {
 	List<SearchResult> ret = new ArrayList();
 
 	List<Entity> entities = new ArrayList();
 
-	entities.add(readEntity("http://bla.org/test-entity-1", etypeURL));
-	entities.add(readEntity("http://bla.org/test-entity-2", etypeURL));
-	entities.add(readEntity("http://bla.org/test-entity-3", etypeURL));
+	entities.add(readEntity("http://bla.org/test-entity-1", query.getEtypeId()));
+	entities.add(readEntity("http://bla.org/test-entity-2", query.getEtypeId()));
+	entities.add(readEntity("http://bla.org/test-entity-3", query.getEtypeId()));
 
 	for (Entity ent : entities) {
-	    if (ent.getName().contains(partialName)) {
+	    if (ent.getName().contains(query.getPartialName())) {
 		ret.add(SearchResult.of(ent.getId(), ent.getName()));
 	    }
 	}
