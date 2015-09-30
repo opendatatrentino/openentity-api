@@ -53,12 +53,12 @@ abstract class AIdResult {
     /**
      * Gets the selected entity.
      *
-     * @return an entity if getAssignmentResult is REUSE or NEW, null otherwise.
-     *         If getAssignmentResult is REUSE, returns the 'best' candidate
+     * @return an entity if {@link #getAssignmentResult()} is REUSE or NEW, null otherwise.
+     *         If {@link #getAssignmentResult()} is REUSE, returns the 'best' candidate
      *         among the possible matching entities. If the assignment result is
      *         NEW, a deep copy of the original entity is returned containing an
      *         assigned URL. This new entity shoudln't be stored on the server
-     *         by identity services, though. In order to store it, call
+     *         by identity services when reconciling, though. In order to store it, call
      *         {@link eu.trentorise.opendata.semantics.services.EntityService#createEntity(eu.trentorise.opendata.semantics.model.entity.Entity)}
      *         with the new entity.
      */
@@ -69,10 +69,7 @@ abstract class AIdResult {
      * A set of possible suggested entities in order of preference, with the
      * first one being the best match.
      *
-     * @return a list of possible suggested entities if getAssignmentResult is
-     *         REUSE. If assignment result is NEW, returns a list containing
-     *         only one new entity with newly assigned url. Otherwise, returns
-     *         an empty list.
+     * @return a list of possible suggested entities.
      */
     public abstract List<Entity> getEntities();
 

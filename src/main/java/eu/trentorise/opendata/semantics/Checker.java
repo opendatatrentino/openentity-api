@@ -21,6 +21,12 @@ import eu.trentorise.opendata.commons.validation.Preconditions;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotDirtyUrl;
 
 import java.util.Collection;
+import java.util.Iterator;
+
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import eu.trentorise.opendata.semantics.model.entity.AStruct;
 import eu.trentorise.opendata.semantics.model.entity.Attr;
@@ -34,7 +40,9 @@ import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.IEtypeService;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import eu.trentorise.opendata.semantics.services.AssignmentResult;
+import eu.trentorise.opendata.semantics.services.AttrMapping;
 import eu.trentorise.opendata.semantics.services.IdResult;
+import eu.trentorise.opendata.semantics.services.Mappings;
 import eu.trentorise.opendata.traceprov.types.Concept;
 
 /**
@@ -79,6 +87,61 @@ public final class Checker {
 	} catch (Exception ex) {
 	    throw new IllegalArgumentException("Invalid etype in schema mapping!", ex);
 	}
+
+	for (AttrMapping attrMapping : schemaMapping.getMappings()) {
+	    checkAttrMapping(attrMapping);
+	}
+
+    }
+
+    /**
+     *
+     * Checks if provided path is valid
+     *
+     * @param prependedErrorMessage
+     *            the exception message to use if the check fails; will be
+     *            converted to a string using String.valueOf(Object) and
+     *            prepended to more specific error messages.
+     *
+     * @throws IllegalArgumentException
+     *             if provided path fails validation
+     *
+     * @return a valid immutable path
+     */
+    public static ImmutableList<String> checkSourcePath(Iterable<String> path, @Nullable Object prependedErrorMessage) {
+	Iterator<String> iter = path.iterator();
+	if (iter.hasNext()) {
+	    String selector = iter.next();
+	    switch (selector) {
+
+	    case Mappings.SCHEMA_SOURCE: {
+		return Mappings.schemaSourcePath(Iterables.skip(path, 1));
+	    }
+
+	    case Mappings.DCAT_METADATA_SOURCE: {
+		return Mappings.dcatPath(Iterables.skip(path, 1));
+	    }
+
+	    case Mappings.CUSTOM_SOURCE: {
+		return Mappings.customPath(Iterables.skip(path, 1));
+	    }
+	    default: {
+		throw new IllegalArgumentException(String.valueOf(prependedErrorMessage)
+			+ " -- Reason: Input path should have first element starting with one of "
+			+ Mappings.ALLOWED_SOURCES);
+	    }
+	    }
+
+	} else {
+	    return ImmutableList.of();
+	}
+
+    }
+
+    private void checkAttrMapping(AttrMapping attrMapping) {
+
+	checkSourcePath(attrMapping.getSourcePath(), "Invalid attribute mapping!");
+	// target path can be empty
     }
 
     /**
@@ -209,18 +272,13 @@ public final class Checker {
 	    throw new IllegalArgumentException("Found null result entities!  idResult is " + idResult);
 	}
 
-	if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())
-		|| AssignmentResult.NEW.equals(idResult.getAssignmentResult())) {
-
-	    for (Entity entity : idResult.getEntities()) {
-		try {
-		    checkEntity(entity);
-		} catch (Exception ex) {
-		    throw new IllegalArgumentException(
-			    "Failed integrity check on entity " + entity + " in idResult " + idResult, ex);
-		}
+	for (Entity entity : idResult.getEntities()) {
+	    try {
+		checkEntity(entity);
+	    } catch (Exception ex) {
+		throw new IllegalArgumentException(
+			"Failed integrity check on entity " + entity + " in idResult " + idResult, ex);
 	    }
-
 	}
 
 	if (AssignmentResult.REUSE.equals(idResult.getAssignmentResult())) {
@@ -229,7 +287,7 @@ public final class Checker {
 
 	    if (idResult.getEntities().isEmpty()) {
 		throw new IllegalArgumentException(
-			"Found empty entities in idResult with REUSE. idResult is " + idResult);
+			"Found empty entities in idResult with "+idResult.getAssignmentResult()+". idResult is " + idResult);
 	    }
 	}
 
@@ -237,10 +295,11 @@ public final class Checker {
 
 	    checkEntity(idResult.getResultEntity(), true);
 
-	    if (!idResult.getEntities().isEmpty()) {
+	    if (idResult.getEntities().isEmpty()) {
 		throw new IllegalArgumentException(
-			"Found non-empty entities in idResult with NEW. idResult is " + idResult);
-	    }
+			"Found empty entities in idResult with "+idResult.getAssignmentResult()+". idResult is " + idResult);
+	    }	    
+	    
 	}
 
     }
@@ -373,11 +432,13 @@ public final class Checker {
     public void checkAttr(Attr attr, boolean synthetic, AttrDef attrDef) {
 	checkNotNull(attr);
 	checkNotNull(attrDef);
-	checkArgument(attr.getAttrDefId().equals(attrDef.getId()), "Provided attribute def id %s is not the same as attrDefId %s in provided attr %s", attrDef.getId(), attr.getAttrDefId(), attr);
+	checkArgument(attr.getAttrDefId().equals(attrDef.getId()),
+		"Provided attribute def id %s is not the same as attrDefId %s in provided attr %s", attrDef.getId(),
+		attr.getAttrDefId(), attr);
 
 	if (!synthetic && attr.getLocalID() < 0) {
 	    throw new IllegalArgumentException("Found negative local ID in attribute " + attr);
-	}	
+	}
 
 	for (Val val : attr.getValues()) {
 	    try {
@@ -435,8 +496,8 @@ public final class Checker {
 	}
 
 	if (!(DataTypes.getDataTypes().get(type.getDatatype()).isInstance(obj))) {
-	    
-	    if ( (type.getDatatype().equals(DataTypes.STRUCTURE) || type.getDatatype().equals(DataTypes.ENTITY))
+
+	    if ((type.getDatatype().equals(DataTypes.STRUCTURE) || type.getDatatype().equals(DataTypes.ENTITY))
 		    && obj instanceof String) {
 		checkNotDirtyUrl((String) obj,
 			"Found invalid " + type.getDatatype() + " URL for referenced structure!!");

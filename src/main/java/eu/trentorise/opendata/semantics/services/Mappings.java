@@ -40,9 +40,12 @@ public class Mappings {
             ImmutableList.of(SCHEMA_SOURCE, DCAT_METADATA_SOURCE, CUSTOM_SOURCE);
     
     
-    private static ImmutableList<String> buildPath(String kind, Iterable<String> path){
-        checkNotEmpty(path, "Invalid id path!");
+    private static ImmutableList<String> buildPath(String kind, Iterable<String> path){	       
         checkArgument(ALLOWED_SOURCES.contains(kind), "path kind must be one of %s, found instead: '%s'", ALLOWED_SOURCES, kind);
+        if (!SCHEMA_SOURCE.equals(kind)){
+            checkNotEmpty(path, "Invalid id path!");    
+        };
+                
         ImmutableList.Builder<String> builder = ImmutableList.builder();
         builder.add(kind);
         for (String property : path){
@@ -91,44 +94,5 @@ public class Mappings {
         return buildPath(CUSTOM_SOURCE, propertyPath);
     }    
     
-    /**
-     *
-     * Checks if provided path is valid
-     *
-     * @param prependedErrorMessage the exception message to use if the check
-     * fails; will be converted to a string using String.valueOf(Object) and
-     * prepended to more specific error messages.
-     *
-     * @throws IllegalArgumentException if provided path fails validation
-     *
-     * @return a valid immutable path
-     */
-    public static ImmutableList<String> checkSourcePath(Iterable<String> path, @Nullable Object prependedErrorMessage){
-        Iterator<String> iter = path.iterator();
-        if (iter.hasNext()){
-            String selector = iter.next();
-            switch (selector){
-                
-                case SCHEMA_SOURCE: {
-                    return schemaSourcePath(Iterables.skip(path, 1));                    
-                }
-                
-                case DCAT_METADATA_SOURCE: {
-                    return dcatPath(Iterables.skip(path, 1));                    
-                }
-                
-                case CUSTOM_SOURCE: {
-                    return customPath(Iterables.skip(path, 1));
-                }
-                default : {
-                    throw new IllegalArgumentException(String.valueOf(prependedErrorMessage) + " -- Reason: Input path should have first element starting with one of " + ALLOWED_SOURCES);
-                }
-            }
-            
-        } else {
-            return ImmutableList.of();
-        }
-       
-    } 
-    
+     
 }
