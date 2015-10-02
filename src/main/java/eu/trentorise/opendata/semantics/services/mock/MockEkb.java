@@ -65,13 +65,13 @@ public class MockEkb implements IEkb {
 
     /**
      * This is a transitional prefix ONLY for values ID, to be removed when
-     * Val will have getURL() instead of getlocalID()
+     * Val will have getURL() instead of getlocalId()
      */
     public static final String FOREIGN_VALUE_PREFIX = FOREIGN_PREFIX + "value/";
 
     /**
      * This is a transitional prefix ONLY for attributes ID, to be removed when
-     * Attr will have getURL() instead of getlocalID() - or when we get
+     * Attr will have getURL() instead of getlocalId() - or when we get
      * read of Attr alltogether
      */
     public static final String FOREIGN_ATTRIBUTE_PREFIX = FOREIGN_PREFIX + "attribute/";
@@ -261,7 +261,7 @@ public class MockEkb implements IEkb {
         /**
      * generates a new local ID
      */
-    static synchronized private long makeNewLocalID() {
+    static synchronized private long makeNewLocalId() {
         guidCounter += 1;
         return guidCounter;
     }
@@ -270,14 +270,14 @@ public class MockEkb implements IEkb {
      * generates a new local entity URL
      */
     static synchronized public String makeNewLocalEntityURL() {
-        return ENTITY_PREFIX + makeNewLocalID();
+        return ENTITY_PREFIX + makeNewLocalId();
     }
 
     /**
      * generates a new local entity URL
      */
     static synchronized public String makeNewLocalStructURL() {
-        return STRUCTURE_PREFIX + makeNewLocalID();
+        return STRUCTURE_PREFIX + makeNewLocalId();
     }
 
 }

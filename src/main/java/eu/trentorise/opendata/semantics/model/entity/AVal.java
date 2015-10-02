@@ -42,7 +42,7 @@ abstract class AVal {
      * @return the ID of the value. It is -1 for synthetic values
      */
     @Value.Default
-    public long getLocalID() {
+    public long getLocalId() {
         return -1;
     }
 

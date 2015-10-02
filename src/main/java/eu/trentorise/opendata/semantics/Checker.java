@@ -37,6 +37,7 @@ import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.model.entity.Struct;
 import eu.trentorise.opendata.semantics.model.entity.Val;
 import eu.trentorise.opendata.semantics.services.IEkb;
+import eu.trentorise.opendata.semantics.services.IEntityService;
 import eu.trentorise.opendata.semantics.services.IEtypeService;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import eu.trentorise.opendata.semantics.services.AssignmentResult;
@@ -264,17 +265,15 @@ public final class Checker {
 	    throw new IllegalArgumentException("Found null idResult!");
 	}
 
-	if (idResult.getAssignmentResult() == null) {
-	    throw new IllegalArgumentException("Found null assignment result in idResult: " + idResult);
-	}
-
-	if (idResult.getEntities() == null) {
-	    throw new IllegalArgumentException("Found null result entities!  idResult is " + idResult);
-	}
 
 	for (Entity entity : idResult.getEntities()) {
-	    try {
-		checkEntity(entity);
+	    try {		
+		if (ekb.getEntityService().isTemporaryURL(entity.getId())){
+		    checkEntity(entity, true);    
+		} else {
+		    checkEntity(entity, false);
+		}
+		
 	    } catch (Exception ex) {
 		throw new IllegalArgumentException(
 			"Failed integrity check on entity " + entity + " in idResult " + idResult, ex);
@@ -436,7 +435,7 @@ public final class Checker {
 		"Provided attribute def id %s is not the same as attrDefId %s in provided attr %s", attrDef.getId(),
 		attr.getAttrDefId(), attr);
 
-	if (!synthetic && attr.getLocalID() < 0) {
+	if (!synthetic && attr.getLocalId() < 0) {
 	    throw new IllegalArgumentException("Found negative local ID in attribute " + attr);
 	}
 
@@ -444,7 +443,7 @@ public final class Checker {
 	    try {
 		checkValue(val, attrDef, synthetic);
 	    } catch (Exception ex) {
-		throw new IllegalArgumentException("Found invalid value in attribute " + attr.getLocalID(), ex);
+		throw new IllegalArgumentException("Found invalid value in attribute " + attr.getLocalId(), ex);
 	    }
 	}
 
@@ -527,7 +526,7 @@ public final class Checker {
 	    throw new IllegalArgumentException("Found null value!");
 	}
 
-	if (!synthetic && value.getLocalID() < 0) {
+	if (!synthetic && value.getLocalId() < 0) {
 	    throw new IllegalArgumentException("Found negative local ID in value " + value);
 	}
 
@@ -548,7 +547,7 @@ public final class Checker {
 		 * todo we can't verify inheritance of etypes! if
 		 * (!attrDef.getType().getEtypeId().equals(s.getEtypeId())) {
 		 * throw new IllegalArgumentException(
-		 * "Found struct value with value ID " + value.getLocalID() +
+		 * "Found struct value with value ID " + value.getLocalId() +
 		 * " having etype URL different from its attribute rangeEtypeURL! "
 		 * + "\nStruct etype URL: " + s.getEtypeId() +
 		 * "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId()); }
@@ -563,7 +562,7 @@ public final class Checker {
 		 * todo we can't verify inheritance of etypes! if
 		 * (!attrDef.getType().getEtypeId().equals(entity.getEtypeId()))
 		 * { throw new IllegalArgumentException(
-		 * "Found entity value with value ID " + value.getLocalID() +
+		 * "Found entity value with value ID " + value.getLocalId() +
 		 * " having etype URL different from its attribute rangeEtypeURL! "
 		 * + "\nStruct etype URL: " + entity.getEtypeId() +
 		 * "\nAttr rangeEtypeURL: " + attrDef.getType().getEtypeId()); }

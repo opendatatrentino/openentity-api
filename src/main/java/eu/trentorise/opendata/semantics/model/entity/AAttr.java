@@ -46,7 +46,7 @@ abstract class AAttr {
      * attributes. By default it's -1.
      */
     @Value.Default
-    public long getLocalID() {
+    public long getLocalId() {
         return -1;
     }
 
