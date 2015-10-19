@@ -7,7 +7,7 @@ RELEASE DOCS ARE ON THE <a href="http://opendatatrentino.github.io/openentity-ap
 
 Java interfaces to represent a generic knowledge base, with interfaces for 
 
-* entities CRUD,and reconciliation
+* entities CRUD and reconciliation
 * concepts read and search
 * schema matching
 * nlp with <a href="https://github.com/opendatatrentino/semtext" target="_blank">SemText data model</a>
