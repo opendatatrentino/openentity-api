@@ -2,7 +2,7 @@ package eu.trentorise.opendata.semantics.services.mock;
 
 import eu.trentorise.opendata.semantics.services.ISchemaMatchingService;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
-import eu.trentorise.opendata.traceprov.types.Type;
+import eu.trentorise.opendata.traceprov.types.TraceType;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class MockSchemaMatchingService implements ISchemaMatchingService {
     }
 
     @Override
-    public List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, Object data) {
+    public List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, TraceType schema, Object data) {
         throw new UnsupportedOperationException("TODO IMPLEMENT ME!");
         /*
         Ekb ekb = OdrPlugin.getEkb();

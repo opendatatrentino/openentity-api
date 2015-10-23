@@ -46,4 +46,27 @@ abstract class AbstractStruct extends AStruct {
           .build();
     }
     
+    /**
+     * He who needs a custom builder is in trouble.
+     * 
+     * David Leoni
+     *
+     */
+    public static abstract class Builder {
+
+	public abstract Struct.Builder putAttrs(String key, Attr value);
+
+	/**
+	 * Wraps the object into the hideous Attr and Val stuff
+	 * 
+	 * @param obj
+	 *            the object to store in Val. If it is a collection a new
+	 *            value for each object will be created. *Notice no other
+	 *            casts are done*
+	 */
+	 public Struct.Builder putObj(AttrDef attrDef, Object obj) {
+	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
+	}
+    }    
+    
 }

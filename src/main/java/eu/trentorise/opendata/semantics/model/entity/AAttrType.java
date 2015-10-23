@@ -16,7 +16,7 @@ import org.immutables.value.Value;
  *
  * Descriptor of complex types in Open entity, such as arrays of base types.
  * Note this is a temporary solution until we transition to the generic
- * TraceProv {@link eu.trentorise.opendata.traceprov.types.Type}
+ * TraceProv {@link eu.trentorise.opendata.traceprov.types.TraceType}
  *
  * May seem redundant given we have AttrDef and 'primitive' dataType but
  * sometimes is handy.

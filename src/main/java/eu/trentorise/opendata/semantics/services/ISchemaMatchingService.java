@@ -16,7 +16,7 @@
 package eu.trentorise.opendata.semantics.services;
 
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
-import eu.trentorise.opendata.traceprov.types.Type;
+import eu.trentorise.opendata.traceprov.types.TraceType;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -50,5 +50,5 @@ public interface ISchemaMatchingService {
      * if schema matching is not supported by the Ekb
 
      */
-    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, Type schema, @Nullable Object data);
+    List<SchemaMapping> matchSchemas(DcatMetadata dcatMetadata, TraceType schema, @Nullable Object data);
 }

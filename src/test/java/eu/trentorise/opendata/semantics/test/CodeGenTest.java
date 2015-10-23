@@ -22,7 +22,7 @@ import eu.trentorise.opendata.commons.validation.Ref;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
 import eu.trentorise.opendata.semtext.MeaningKind;
-import eu.trentorise.opendata.traceprov.data.ProvFile;
+import eu.trentorise.opendata.traceprov.data.TraceFile;
 import eu.trentorise.opendata.traceprov.data.PropertyMapping;
 
 
@@ -48,9 +48,9 @@ public class CodeGenTest {
         
         assertEquals("a", TermSearchResult.of("a", Dict.of(), MeaningKind.UNKNOWN).getId());
         
-        assertEquals(ProvFile.of().getMappings(), ImmutableList.of());
+        assertEquals(TraceFile.of().getMappings(), ImmutableList.of());
 
-        ProvFile.builder().setMappings(
+        TraceFile.builder().setMappings(
                 ImmutableList.of(PropertyMapping.of(Ref.of(), ImmutableList.of("a", "b"))));        
                 
     }

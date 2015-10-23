@@ -45,7 +45,7 @@ abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
     /**
      * A reference to a property path in the source schema, which is intended to
      * be in common tree format - see
-     * {@link eu.trentorise.opendata.traceprov.data.ProvFile}. For allowed
+     * {@link eu.trentorise.opendata.traceprov.data.TraceFile}. For allowed
      * source properties see {@link Mappings#ALLOWED_SOURCES}.
      *
      */

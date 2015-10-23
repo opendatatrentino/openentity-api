@@ -20,7 +20,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
-import eu.trentorise.opendata.traceprov.types.ProvRefs;
+import eu.trentorise.opendata.traceprov.types.TraceRefs;
 
 import java.util.Iterator;
 import javax.annotation.Nullable;
@@ -81,7 +81,7 @@ public class Mappings {
      * @return a path prepended with 'dcatMetadata'
      */
     public static ImmutableList<String> dcatPath(Iterable<String> propertyPath) {
-        ProvRefs.propertyRef(DcatMetadata.class, propertyPath);
+        TraceRefs.propertyRef(DcatMetadata.class, propertyPath);
         return buildPath(DCAT_METADATA_SOURCE, propertyPath);
     }
 
