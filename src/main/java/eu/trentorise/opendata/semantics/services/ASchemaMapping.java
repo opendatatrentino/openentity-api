@@ -53,7 +53,7 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
      * Gets the score assigned to the mapping. It ranges from 0.0 (worst score)
      * to 1.0 (best score). By default returns 1.0.
      *
-     * @see #OdtUtils#TOLERANCE
+     * @see #TodUtils#TOLERANCE
      */
     @Value.Default
     public double getScore() {

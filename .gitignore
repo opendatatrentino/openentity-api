@@ -7,6 +7,9 @@
 
 target/
 
+/release.properties
+/pom.xml.releaseBackup
+
 
 ##### INTELLIJ
 
@@ -54,3 +57,4 @@ local.properties
  
 # PDT-specific
 .buildpath
+

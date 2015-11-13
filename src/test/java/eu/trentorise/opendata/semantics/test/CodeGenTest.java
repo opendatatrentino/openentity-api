@@ -17,7 +17,7 @@ package eu.trentorise.opendata.semantics.test;
 
 import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.Dict;
-import eu.trentorise.opendata.commons.OdtConfig;
+import eu.trentorise.opendata.commons.TodConfig;
 import eu.trentorise.opendata.commons.validation.Ref;
 import eu.trentorise.opendata.semantics.services.SearchResult;
 import eu.trentorise.opendata.semantics.services.TermSearchResult;
@@ -38,7 +38,7 @@ public class CodeGenTest {
 
     @BeforeClass
     public static void setUpClass() {
-        OdtConfig.init(CodeGenTest.class);
+        TodConfig.init(CodeGenTest.class);
     }
 
 

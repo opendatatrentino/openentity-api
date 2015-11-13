@@ -88,7 +88,7 @@ public interface IKnowledgeService {
     /**
      * Returns the distance between two concepts, in the range of [0.0, 1.0].
      * Two concepts are considered as equal if their absolute distance is less
-     * than {@link OdtUtils#TOLERANCE}.
+     * than {@link TodUtils#TOLERANCE}.
      *
      * @param sourceUrl source concept url
      * @param targetUrl target concept url

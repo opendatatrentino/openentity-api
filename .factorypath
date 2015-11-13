@@ -1,6 +1,6 @@
 <factorypath>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/immutables/value/2.0.21/value-2.0.21.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/eu/trentorise/opendata/commons/odt-commons-jackson/1.1.0-SNAPSHOT/odt-commons-jackson-1.1.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/eu/trentorise/opendata/commons/tod-commons-jackson/1.1.0-SNAPSHOT/tod-commons-jackson-1.1.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/findbugs/annotations/3.0.0/annotations-3.0.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.6.0/jackson-core-2.6.0.jar" enabled="true" runInBatchMode="false"/>

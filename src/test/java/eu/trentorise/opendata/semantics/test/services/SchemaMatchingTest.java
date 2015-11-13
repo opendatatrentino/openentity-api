@@ -16,7 +16,7 @@
 package eu.trentorise.opendata.semantics.test.services;
 
 import com.google.common.collect.ImmutableList;
-import eu.trentorise.opendata.commons.OdtConfig;
+import eu.trentorise.opendata.commons.TodConfig;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.services.AttrMapping;
 import eu.trentorise.opendata.semantics.services.SchemaMapping;
@@ -32,7 +32,7 @@ public class SchemaMatchingTest {
 
     @BeforeClass
     public static void setUpClass() {
-        OdtConfig.init(SchemaMatchingTest.class);
+        TodConfig.init(SchemaMatchingTest.class);
     }
     
     @Test

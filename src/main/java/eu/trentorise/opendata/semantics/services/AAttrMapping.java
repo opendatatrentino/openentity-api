@@ -18,7 +18,7 @@ package eu.trentorise.opendata.semantics.services;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
-import eu.trentorise.opendata.commons.OdtUtils;
+import eu.trentorise.opendata.commons.TodUtils;
 import eu.trentorise.opendata.semantics.Checker;
 
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
@@ -66,7 +66,7 @@ abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
 
     /**
      * The optional confidence for the mapping in the range [0,1] with tolerance
-     * {@link OdtUtils#TOLERANCE}. By default it's 1.0
+     * {@link TodUtils#TOLERANCE}. By default it's 1.0
      */
     @Value.Default
     public double getScore() {
