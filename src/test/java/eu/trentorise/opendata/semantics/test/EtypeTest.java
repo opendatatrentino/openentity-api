@@ -7,11 +7,11 @@ import org.junit.Test;
 import eu.trentorise.opendata.commons.TodConfig;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 
-public class TestEtype {
+public class EtypeTest {
 
     @BeforeClass
     public static void setUpClass() {
-        TodConfig.init(TestEtype.class);
+        TodConfig.init(EtypeTest.class);
     }
     
     @Test

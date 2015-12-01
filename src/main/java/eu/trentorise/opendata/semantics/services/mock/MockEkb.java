@@ -2,6 +2,7 @@ package eu.trentorise.opendata.semantics.services.mock;
 
 import com.google.common.collect.ImmutableList;
 
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.services.IEkb;
 import eu.trentorise.opendata.semantics.services.IEntityService;
 import eu.trentorise.opendata.semantics.services.IEtypeService;
@@ -91,12 +92,12 @@ public class MockEkb implements IEkb {
      * test-attr-def-2 and test-attr-def-3
      */
     public static final String TEST_ENTITY_TYPE = ETYPE_PREFIX + "test-etype";
-    public static final String TEST_NAME_ATTR = ATTR_DEF_PREFIX + "test-name";
-    public static final String TEST_DESCR_ATTR = ATTR_DEF_PREFIX + "test-description";
-
-    public static final String TEST_ATTR_DEF_1 = ATTR_DEF_PREFIX + "test-attr-def-1";
-    public static final String TEST_ATTR_DEF_2 = ATTR_DEF_PREFIX + "test-attr-def-2";
-    public static final String TEST_ATTR_DEF_3 = ATTR_DEF_PREFIX + "test-attr-def-3";
+    public static final String TEST_NAME_ATTR_ID = ATTR_DEF_PREFIX + "test-name";
+    public static final String TEST_DESCR_ATTR_ID = ATTR_DEF_PREFIX + "test-description";
+    
+    public static final String TEST_ATTR_DEF_1_ID = ATTR_DEF_PREFIX + "test-attr-def-1";
+    public static final String TEST_ATTR_DEF_2_ID = ATTR_DEF_PREFIX + "test-attr-def-2";
+    public static final String TEST_ATTR_DEF_3_ID = ATTR_DEF_PREFIX + "test-attr-def-3";
 
     static public final String TEST_ATTR_DEF_1_EN_NAME = "test attr 1";
     static public final String TEST_ATTR_DEF_2_EN_NAME = "test attr 2";

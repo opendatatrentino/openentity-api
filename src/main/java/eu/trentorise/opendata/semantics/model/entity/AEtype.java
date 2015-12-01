@@ -24,7 +24,10 @@ import eu.trentorise.opendata.commons.Dict;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
+
+import eu.trentorise.opendata.semantics.exceptions.AmbiguousIdentifierException;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
+import eu.trentorise.opendata.semantics.model.entity.Etype.Builder;
 import eu.trentorise.opendata.traceprov.types.UniqueIndex;
 import java.util.List;
 import java.util.Locale;
@@ -86,9 +89,8 @@ abstract class AEtype {
     /**
      * Retrieves attribute definition with given concept id.
      * 
-     * @param attrDefLocator
-     *            either the id or the natural language name in any locale
-     * @param etype
+     * @param conceptId
+     *            the id of the concept
      * @throws OpenEntityNotFoundException
      *             if not found.
      */
@@ -123,33 +125,42 @@ abstract class AEtype {
      * Retrieves attribute definition with given attribute definition locator in
      * provided {@code entity}
      * 
-     * @param attrDefLocator
+     * @param idOrName
      *            either the id or the natural language name in any locale
      * @param etype
      * @throws OpenEntityNotFoundException
      *             if not found.
      */
-    public AttrDef attrDefByName(String attrDefLocator) {
-        checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
+    public AttrDef attrDefByIdOrName(String idOrName) {
+        checkNotEmpty(idOrName, "Invalid attribute definition locator!");
 
         Map<String, AttrDef> attrDefs = getAttrDefs();
         AttrDef selectedAttrDef = null;
+
+        selectedAttrDef = getAttrDefs().get(idOrName);
+
+        if (selectedAttrDef != null) {
+            return selectedAttrDef;
+        }
+
+        // let's fallback to names
         for (AttrDef attrDef : attrDefs.values()) {
             if (attrDef.getName()
-                       .contains(attrDefLocator)) {
+                       .contains(idOrName)) {
                 if (selectedAttrDef == null) {
                     selectedAttrDef = attrDef;
                 } else {
-                    throw new OpenEntityNotFoundException(
-                            "Found two attribute definitions with the same name translation!! Choosing first one "
+                    throw new AmbiguousIdentifierException(
+                            "Found two attribute definitions with the same name translation!! "
                                     + selectedAttrDef.getId() + " with name " + selectedAttrDef.getName()
-                                    + " The other is " + attrDef + " in etype " + getId());
+                                    + " The other is " + attrDef + " in etype " + getId(),
+                            idOrName);
                 }
             }
         }
         if (selectedAttrDef == null) {
             throw new OpenEntityNotFoundException("Couldn't find any attribute definition in etype " + this.getId()
-                    + " for locator " + attrDefLocator + "!");
+                    + " for locator " + idOrName + "!");
         } else {
             return selectedAttrDef;
         }
@@ -248,8 +259,7 @@ abstract class AEtype {
      *         exists, throws exception otherwise.
      *
      * @throws eu.trentorise.opendata.semantics.exceptions.
-     *             OpenEntityNotFoundException
-     *             if attribute is not found.
+     *             OpenEntityNotFoundException if attribute is not found.
      */
     public AttrDef attrDefById(String URL) {
         checkNotEmpty(URL, "Invalid url!");
@@ -307,5 +317,14 @@ abstract class AEtype {
      * @Value.Check protected void check(){ if (!isStruct()){ AttrDef
      * nameAttrDef = nameAttrDef(); AttrType type = nameAttrDef.getType(); if
      * (type.) } }
-     */
+     */    
+    
+    public static abstract class Builder  {
+        
+        public abstract Etype.Builder putAttrDefs(String key, AttrDef value);
+                
+        public Etype.Builder putAttrDef(AttrDef attrDef){
+            return putAttrDefs(attrDef.getId(), attrDef);
+        }
+    }
 }

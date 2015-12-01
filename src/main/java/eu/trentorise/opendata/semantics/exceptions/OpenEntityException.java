@@ -19,7 +19,12 @@ package eu.trentorise.opendata.semantics.exceptions;
  * Common exception for errors raised in OpenEntity library. 
  * @author David Leoni
  */
-public class OpenEntityException extends RuntimeException {    
+public class OpenEntityException extends RuntimeException {   
+    
+    protected OpenEntityException(){
+        super();
+    }
+    
     public OpenEntityException(String s){
         super(s);
     }

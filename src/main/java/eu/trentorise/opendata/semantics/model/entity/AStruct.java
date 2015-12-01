@@ -45,7 +45,7 @@ public abstract class AStruct {
      */
     @Value.Default
     public String getId() {
-	return "";
+        return "";
     }
 
     /**
@@ -58,32 +58,32 @@ public abstract class AStruct {
      * Retrieves attribute with given attribute definition locator in provided
      * {@code entity}
      * 
-     * @param attrDefLocator
+     * @param attrDefIdOrName
      *            either the id or the natural language name in any locale
      * @param etype
      */
-    public Attr attr(String attrDefLocator, Etype etype) {
+    public Attr attr(String attrDefIdOrName, Etype etype) {
 
-	checkNotEmpty(attrDefLocator, "Invalid attribute definition locator!");
-	checkNotNull(etype);
+        checkNotEmpty(attrDefIdOrName, "Invalid attribute definition locator!");
+        checkNotNull(etype);
 
-	checkArgument(getEtypeId().equals(etype.getId()), "entity etype id %s is different from provided etype %s!",
-		getEtypeId(), etype.getId());
+        checkArgument(getEtypeId().equals(etype.getId()), "entity etype id %s is different from provided etype %s!",
+                getEtypeId(), etype.getId());
 
-	Map<String, Attr> attrs = getAttrs();
-	Attr attr = attrs.get(attrDefLocator); // let's try it as url
-	if (attr == null) {
-	    AttrDef selectedAttrDef = etype.attrDefByName(attrDefLocator);
-	    Attr attr2 = getAttrs().get(selectedAttrDef.getId());
-	    if (attr2 == null) {
-		throw new OpenEntityNotFoundException("Couldn't find any attribute for attribute definition "
-			+ selectedAttrDef + " searched with locator " + attrDefLocator + " in etype " + etype.getId());
-	    } else {
-		return attr2;
-	    }
-	} else {
-	    return attr;
-	}
+        Map<String, Attr> attrs = getAttrs();
+        Attr attr = attrs.get(attrDefIdOrName); // let's try it as url
+        if (attr == null) {
+            AttrDef selectedAttrDef = etype.attrDefByIdOrName(attrDefIdOrName);
+            Attr attr2 = getAttrs().get(selectedAttrDef.getId());
+            if (attr2 == null) {
+                throw new OpenEntityNotFoundException("Couldn't find any attribute for attribute definition "
+                        + selectedAttrDef + " searched with locator " + attrDefIdOrName + " in etype " + etype.getId());
+            } else {
+                return attr2;
+            }
+        } else {
+            return attr;
+        }
 
     }
 
@@ -94,7 +94,7 @@ public abstract class AStruct {
      */
     @Value.Default
     public String getEtypeId() {
-	return "";
+        return "";
     }
 
     /**
@@ -104,11 +104,11 @@ public abstract class AStruct {
      * @throw OpenEntityNotFoundException if etype is not present
      */
     public String etypeId() {
-	if (getEtypeId().isEmpty()) {
-	    throw new OpenEntityNotFoundException("Tried to get unset etypeId from Struct!");
-	} else {
-	    return getEtypeId();
-	}
+        if (getEtypeId().isEmpty()) {
+            throw new OpenEntityNotFoundException("Tried to get unset etypeId from Struct!");
+        } else {
+            return getEtypeId();
+        }
     }
 
     /**
@@ -123,17 +123,15 @@ public abstract class AStruct {
      *             OpenEntityNotFoundException if not found.
      */
     public Attr attr(String attrDefURL) {
-	checkNotEmpty(attrDefURL, "Invalid url!");
+        checkNotEmpty(attrDefURL, "Invalid url!");
 
-	Attr ret = getAttrs().get(attrDefURL);
-	if (ret == null) {
-	    throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL
-		    + " in struct with URL " + getId());
-	} else {
-	    return ret;
-	}
+        Attr ret = getAttrs().get(attrDefURL);
+        if (ret == null) {
+            throw new OpenEntityNotFoundException("Couldn't find attribute with attribute definition URL " + attrDefURL
+                    + " in struct with URL " + getId());
+        } else {
+            return ret;
+        }
     }
-
-
 
 }

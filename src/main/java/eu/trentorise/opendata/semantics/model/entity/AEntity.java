@@ -83,150 +83,150 @@ public abstract class AEntity extends AStruct {
      */
     public static abstract class Builder  {
 
-	public abstract Entity.Builder setName(Dict name);
-
-	public abstract Entity.Builder setDescription(Dict description);
-
-	public abstract Entity.Builder setEtypeId(String etypeId);
-
-	public abstract Entity.Builder putAttrs(String key, Attr value);
-
-	/**
-	 * Sets both description in attrs AND description dictionary property
-	 * 
-	 * @param etypeId
-	 *            the id of the entity's etype
-	 */
-	public Entity.Builder setDescrAttr(Dict descr, String etypeId, IEtypeService ets) {
-	    Map<String, Etype> etypes = Entities.resolveEtypes(etypeId, ets);
-	    Etype etype = etypes.get(etypeId);
-	    return setDescrAttr(descr, etype);
-	}
-
-	/**
-	 * Sets both description in attrs AND description dictionary property
-	 * 
-	 * @param etype
-	 *            the entity etype of the entity
-	 */
-	public Entity.Builder setDescrAttr(Dict descr, Etype etype) {
-	    checkNotNull(etype);
-	    AttrDef descrAttrDef = etype.descrAttrDef();
-	    Object valueToCast = dictToTerminal(descr, descrAttrDef.getType());
-
-	    return setDescription(descr).putAttrs(descrAttrDef.getId(), Attr.ofObject(descrAttrDef, valueToCast));
-	}
-
-	/**
-	 * Sets both descrption in attrs AND name dictionary property
-	 * 
-	 * @param etypeId
-	 *            the entity etype.
-	 */
-	public Entity.Builder setNameAttr(Dict name, String etypeId, IEtypeService ets) {
-	    Map<String, Etype> etypes = Entities.resolveEtypes(etypeId, ets);
-	    Etype etype = etypes.get(etypeId);
-	    checkNotNull(etype);
-	    AttrDef nameAttrDef = etype.nameAttrDef();
-	    Etype nameEtype = null;
-	    if (DataTypes.STRUCTURE.equals(nameAttrDef.getType().getDatatype())) {
-		nameEtype = ets.readEtype(nameAttrDef.getType().etypeId());
-	    }
-	    return setNameAttr(name, etype, nameEtype);
-
-	}
-
-	/**
-	 * Sets both name in attrs AND name dictionary property
-	 * 
-	 * @param etype
-	 *            the entity etype.
-	 * @param nameEtype
-	 *            the etype for the name in case the name is a structure.
-	 */
-	public Entity.Builder setNameAttr(Dict name, Etype etype, @Nullable Etype nameEtype) {
-	    checkNotNull(name);
-	    checkNotNull(etype, "Need entity etype in the parameters, but found none!");
-
-	    setEtypeId(etype.getId());
-
-	    AttrDef nameAttrDef = etype.nameAttrDef();
-	    AttrType attrType = nameAttrDef.getType();
-	    Object valueToCast;
-
-	    if (DataTypes.STRUCTURE.equals(attrType.getDatatype())) {
-
-		checkNotNull(nameEtype,
-			"Need entity etype " + attrType.getEtypeId() + " in the parameters, but found none!");
-		AttrDef nestedNameAd = nameEtype.nameAttrDef();
-
-		Struct.Builder nameStructB = Struct.builder();
-		// new MockStructure(MockEkb.makeURL(), nameEtype);
-
-		// odr todo hardcoded english
-		// Dict -> (String | LocalizedString | Dict) []
-		Object nestedCastedValue = dictToTerminal(name, nestedNameAd.getType());
-											
-		nameStructB.setEtypeId(nameEtype.getId());									// nestedNameAd.getType(),
-											
-		nameStructB.putAttrs(nestedNameAd.getId(), Attr.ofObject(nestedNameAd, nestedCastedValue));
-		valueToCast = autobox(nameStructB.build(), attrType.isList());
-
-	    } else {
-		valueToCast = dictToTerminal(name, attrType);
-	    }
-
-	    setName(name);
-	    return putAttrs(nameAttrDef.getId(), Attr.ofObject(nameAttrDef, valueToCast));
-	}
-
-	/**
-	 * Wraps the object into the hideous Attr and Val stuff
-	 * 
-	 * @param obj
-	 *            the object to store in Val. If it is a collection a new
-	 *            value for each object will be created. *Notice no other
-	 *            casts are done*
-	 */
-	public Entity.Builder putObj(AttrDef attrDef, Object obj) {
-	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
-	}
-
-	private static Object autobox(Object obj, boolean isList) {
-	    if (isList) {
-		return Lists.newArrayList(obj);
-	    } else {
-		return obj;
-	    }
-	}
-
-	/**
-	 * Casts dict to terminal type (which may be a list but not a structure)
-	 * todo better define terminal types
-	 */
-	private static Object dictToTerminal(Dict dict, AttrType targetType) {
-
-	    String nestedDatatype = targetType.getDatatype();
-
-	    boolean isList = targetType.isList();
-	    if (nestedDatatype.equals(DataTypes.DICT)) {
-		return autobox(dict, isList);
-	    } else if (nestedDatatype.equals(DataTypes.STRING)) {
-		return autobox(dict.some().str(), isList);
-	    } else if (nestedDatatype.equals(DataTypes.LOCALIZED_STRING)) {
-		if (isList) {
-		    return dict.asLocalizedStrings();
-		} else {
-		    return dict.some();
-		}
-	    } else if (nestedDatatype.equals(DataTypes.SEMANTIC_TEXT)) {
-		return autobox(SemText.of(dict), isList);
-	    } else {
-		throw new CastException(dict, targetType, Locale.ROOT,
-			"Unsupported target datatype: " + targetType.getDatatype());
-	    }
-
-	}
+    	public abstract Entity.Builder setName(Dict name);
+    
+    	public abstract Entity.Builder setDescription(Dict description);
+    
+    	public abstract Entity.Builder setEtypeId(String etypeId);
+    
+    	public abstract Entity.Builder putAttrs(String key, Attr value);
+    
+    	/**
+    	 * Sets both description in attrs AND description dictionary property
+    	 * 
+    	 * @param etypeId
+    	 *            the id of the entity's etype
+    	 */
+    	public Entity.Builder setDescrAttr(Dict descr, String etypeId, IEtypeService ets) {
+    	    Map<String, Etype> etypes = Entities.resolveEtypes(etypeId, ets);
+    	    Etype etype = etypes.get(etypeId);
+    	    return setDescrAttr(descr, etype);
+    	}
+    
+    	/**
+    	 * Sets both description in attrs AND description dictionary property
+    	 * 
+    	 * @param etype
+    	 *            the entity etype of the entity
+    	 */
+    	public Entity.Builder setDescrAttr(Dict descr, Etype etype) {
+    	    checkNotNull(etype);
+    	    AttrDef descrAttrDef = etype.descrAttrDef();
+    	    Object valueToCast = dictToTerminal(descr, descrAttrDef.getType());
+    
+    	    return setDescription(descr).putAttrs(descrAttrDef.getId(), Attr.ofObject(descrAttrDef, valueToCast));
+    	}
+    
+    	/**
+    	 * Sets both descrption in attrs AND name dictionary property
+    	 * 
+    	 * @param etypeId
+    	 *            the entity etype.
+    	 */
+    	public Entity.Builder setNameAttr(Dict name, String etypeId, IEtypeService ets) {
+    	    Map<String, Etype> etypes = Entities.resolveEtypes(etypeId, ets);
+    	    Etype etype = etypes.get(etypeId);
+    	    checkNotNull(etype);
+    	    AttrDef nameAttrDef = etype.nameAttrDef();
+    	    Etype nameEtype = null;
+    	    if (DataTypes.STRUCTURE.equals(nameAttrDef.getType().getDatatype())) {
+    		nameEtype = ets.readEtype(nameAttrDef.getType().etypeId());
+    	    }
+    	    return setNameAttr(name, etype, nameEtype);
+    
+    	}
+    
+    	/**
+    	 * Sets both name in attrs AND name dictionary property
+    	 * 
+    	 * @param etype
+    	 *            the entity etype.
+    	 * @param nameEtype
+    	 *            the etype for the name in case the name is a structure.
+    	 */
+    	public Entity.Builder setNameAttr(Dict name, Etype etype, @Nullable Etype nameEtype) {
+    	    checkNotNull(name);
+    	    checkNotNull(etype, "Need entity etype in the parameters, but found none!");
+    
+    	    setEtypeId(etype.getId());
+    
+    	    AttrDef nameAttrDef = etype.nameAttrDef();
+    	    AttrType attrType = nameAttrDef.getType();
+    	    Object valueToCast;
+    
+    	    if (DataTypes.STRUCTURE.equals(attrType.getDatatype())) {
+    
+    		checkNotNull(nameEtype,
+    			"Need entity etype " + attrType.getEtypeId() + " in the parameters, but found none!");
+    		AttrDef nestedNameAd = nameEtype.nameAttrDef();
+    
+    		Struct.Builder nameStructB = Struct.builder();
+    		// new MockStructure(MockEkb.makeURL(), nameEtype);
+    
+    		// odr todo hardcoded english
+    		// Dict -> (String | LocalizedString | Dict) []
+    		Object nestedCastedValue = dictToTerminal(name, nestedNameAd.getType());
+    											
+    		nameStructB.setEtypeId(nameEtype.getId());									// nestedNameAd.getType(),
+    											
+    		nameStructB.putAttrs(nestedNameAd.getId(), Attr.ofObject(nestedNameAd, nestedCastedValue));
+    		valueToCast = autobox(nameStructB.build(), attrType.isList());
+    
+    	    } else {
+    		valueToCast = dictToTerminal(name, attrType);
+    	    }
+    
+    	    setName(name);
+    	    return putAttrs(nameAttrDef.getId(), Attr.ofObject(nameAttrDef, valueToCast));
+    	}
+    
+    	/**
+    	 * Wraps the object into the hideous Attr and Val stuff
+    	 * 
+    	 * @param obj
+    	 *            the object to store in Val. If it is a collection a new
+    	 *            value for each object will be created. *Notice no other
+    	 *            casts are done*
+    	 */
+    	public Entity.Builder putObj(AttrDef attrDef, Object obj) {
+    	    return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
+    	}
+    
+    	private static Object autobox(Object obj, boolean isList) {
+    	    if (isList) {
+    		return Lists.newArrayList(obj);
+    	    } else {
+    		return obj;
+    	    }
+    	}
+    
+    	/**
+    	 * Casts dict to terminal type (which may be a list but not a structure)
+    	 * todo better define terminal types
+    	 */
+    	private static Object dictToTerminal(Dict dict, AttrType targetType) {
+    
+    	    String nestedDatatype = targetType.getDatatype();
+    
+    	    boolean isList = targetType.isList();
+    	    if (nestedDatatype.equals(DataTypes.DICT)) {
+    		return autobox(dict, isList);
+    	    } else if (nestedDatatype.equals(DataTypes.STRING)) {
+    		return autobox(dict.some().str(), isList);
+    	    } else if (nestedDatatype.equals(DataTypes.LOCALIZED_STRING)) {
+    		if (isList) {
+    		    return dict.asLocalizedStrings();
+    		} else {
+    		    return dict.some();
+    		}
+    	    } else if (nestedDatatype.equals(DataTypes.SEMANTIC_TEXT)) {
+    		return autobox(SemText.of(dict), isList);
+    	    } else {
+    		throw new CastException(dict, targetType, Locale.ROOT,
+    			"Unsupported target datatype: " + targetType.getDatatype());
+    	    }
+    
+    	}
     }
 
     /**

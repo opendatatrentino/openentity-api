@@ -114,7 +114,7 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>                
             <plugin>
-                <groupId>eu.trentorise.opendata.josman</groupId>
+                <groupId>eu.trentorise.opendata</groupId>
                 <artifactId>josman-maven-plugin</artifactId>              
             </plugin>    
             <plugin>

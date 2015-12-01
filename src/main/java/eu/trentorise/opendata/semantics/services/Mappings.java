@@ -21,6 +21,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
 
+import eu.trentorise.opendata.semantics.DataTypes;
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
 import eu.trentorise.opendata.traceprov.path.TracePaths;
@@ -105,21 +107,33 @@ public class Mappings {
     }
 
     /**
-     * Returns the attribute id . May fetch etypes from the server.
+     * Returns the attribute definition id indicated by provided attribute path.
+     * May fetch etypes from the server.
+     * 
+     * @path Attribute definition path made either by attr ids (preferred) or
+     *       natural language names todo decide excepion to throw on error
      */
-    public static String resolveAttrPath(List<String> path, String etypeId, IEtypeService ets){
-        
+    public static AttrDef resolveAttrPath(List<String> path, String etypeId, IEtypeService ets) {
+
         checkNotEmpty(etypeId, "Invalid etypeId!");
         checkNotEmpty(path, "Invalid attribute path!");
-        checkNotNull(ets);               
-        
+        checkNotNull(ets);
+
         Etype curEtype = ets.readEtype(etypeId);
-        
-        for (String element : path){
+        AttrDef curAttrDef = null;
+
+        for (String element : path) {
+
             checkNotEmpty(element, "Invalid element in attribute path!");
-            
-            curEtype.attrDefByName(attrDefLocator)
-            ets.readEtype(URL)
+
+            curAttrDef = curEtype.attrDefByIdOrName(element);
+            String datatype = curAttrDef.getType()
+                                        .getDatatype();
+            if (datatype.equals(DataTypes.STRUCTURE) || datatype.equals(DataTypes.ENTITY)) {
+                curEtype = ets.readEtype(curAttrDef.getType()
+                                                   .etypeId());
+            }
         }
+        return curAttrDef;
     }
 }

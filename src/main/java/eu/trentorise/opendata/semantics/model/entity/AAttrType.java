@@ -197,11 +197,11 @@ abstract class AAttrType {
 
     /**
      * @see
-     * OdrDataTypes#isRelationalDataType(eu.trentorise.opendata.opendatarise.types.OdrType)
+     * DataTypes#isRelationalDataType(AttrType)
      */
     public boolean isRelational() {
         return DataTypes.isRelationalDatatype(getDatatype());
-    }
+    }       
 
     /**
      * @see OdrDataTypes#isNlpProcessable(java.lang.String)
