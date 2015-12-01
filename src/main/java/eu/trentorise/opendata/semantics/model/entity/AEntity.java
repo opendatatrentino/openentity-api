@@ -81,7 +81,7 @@ public abstract class AEntity extends AStruct {
      * David Leoni
      *
      */
-    public static abstract class Builder  {
+    public static abstract class Builder extends AStruct.Builder<Entity.Builder> {
 
     	public abstract Entity.Builder setName(Dict name);
     

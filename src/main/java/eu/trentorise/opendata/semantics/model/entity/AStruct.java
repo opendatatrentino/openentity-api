@@ -21,6 +21,8 @@ import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEm
 
 import eu.trentorise.opendata.commons.Dict;
 import eu.trentorise.opendata.semantics.exceptions.OpenEntityNotFoundException;
+
+import java.util.Arrays;
 import java.util.Map;
 import org.immutables.value.Value;
 
@@ -133,5 +135,33 @@ public abstract class AStruct {
             return ret;
         }
     }
-
+    
+    public static abstract class Builder<T extends Builder> {
+        
+        public abstract T putAttrs(String key, Attr value);
+        
+        /**
+         * Wraps the object into the hideous Attr and Val stuff
+         * 
+         * @param obj
+         *            the object to store in Val. If it is a collection a new
+         *            value for each object will be created. *Notice no other
+         *            casts are done*
+         */
+         public T putObj(AttrDef attrDef, Object obj) {
+            return putAttrs(attrDef.getId(), Attr.ofObject(attrDef, obj));
+         }
+         
+         public T putAttrs(Iterable<Attr> attrs){
+             for (Attr attr : attrs){
+                 this.putAttrs(attr.getAttrDefId(), attr);
+             }
+             return (T) this;
+         }
+         
+         public T putAttrs(Attr... attrs){
+             return putAttrs(Arrays.asList(attrs));
+         }
+    
+    }
 }

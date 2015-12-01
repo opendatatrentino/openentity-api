@@ -21,6 +21,11 @@ import java.util.Locale;
  */
 public class MockNlpService implements INLPService {
 
+
+    public static final long TEST_SENSE_1_ID = 1L;
+    public static final long TEST_SENSE_2_ID = 2L;
+
+    
     /**
      * number of words tagged by the runNLP method
      */
@@ -92,16 +97,16 @@ public class MockNlpService implements INLPService {
                 List<Sentence> sentences = new ArrayList();
                 List<Term> words = new ArrayList();
                 words.add(markWord(CONCETTO_1,
-                        Meaning.of(MockEkb.SKILIFT_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
+                        Meaning.of(MockKnowledgeService.SKILIFT_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
                         MOCK_TEXT));
                 words.add(markWord(CONCETTO_2,
-                        Meaning.of(MockEkb.FACILITY_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
+                        Meaning.of(MockKnowledgeService.FACILITY_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
                         MOCK_TEXT));
                 words.add(markWord(ENTITA_1,
-                        Meaning.of(MockEkb.TEST_ENTITY_1, MeaningKind.ENTITY, 1.0 / 6.0),
+                        Meaning.of(MockEntityService.TEST_ENTITY_1, MeaningKind.ENTITY, 1.0 / 6.0),
                         MOCK_TEXT));
                 words.add(markWord(ENTITA_2,
-                        Meaning.of(MockEkb.TEST_ENTITY_2, MeaningKind.ENTITY, 1.0 / 6.0),
+                        Meaning.of(MockEntityService.TEST_ENTITY_2, MeaningKind.ENTITY, 1.0 / 6.0),
                         MOCK_TEXT));
 
                 Sentence sentence = Sentence.of(0, MOCK_TEXT.length(), words);
@@ -112,15 +117,15 @@ public class MockNlpService implements INLPService {
 
         }
 
-        if (domainURL.contains(MockEkb.CONCEPT_PREFIX)) {
+        if (domainURL.contains(MockKnowledgeService.CONCEPT_PREFIX)) {
             for (String text : texts) {
 
                 List<Term> terms = new ArrayList();
                 terms.add(markWord(CONCETTO_1,
-                        Meaning.of(MockEkb.SKILIFT_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
+                        Meaning.of(MockKnowledgeService.SKILIFT_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
                         MOCK_TEXT));
                 terms.add(markWord(CONCETTO_2,
-                        Meaning.of(MockEkb.FACILITY_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
+                        Meaning.of(MockKnowledgeService.FACILITY_CONCEPT, MeaningKind.CONCEPT, 1.0 / 6.0),
                         MOCK_TEXT));
 
                 ret.add(SemText.of(Locale.ITALIAN, MOCK_TEXT, Sentence.of(0, MOCK_TEXT.length(), terms)));
@@ -129,15 +134,15 @@ public class MockNlpService implements INLPService {
 
         }
 
-        if (domainURL.contains(MockEkb.ETYPE_PREFIX)) {
+        if (domainURL.contains(MockEtypeService.ETYPE_PREFIX)) {
             for (String text : texts) {
                 
                 List<Term> terms = new ArrayList();
                 terms.add(markWord(ENTITA_1,
-                        Meaning.of(MockEkb.TEST_ENTITY_1, MeaningKind.ENTITY, 1.0 / 6.0),
+                        Meaning.of(MockEntityService.TEST_ENTITY_1, MeaningKind.ENTITY, 1.0 / 6.0),
                         MOCK_TEXT));
                 terms.add(markWord(ENTITA_2,
-                        Meaning.of(MockEkb.TEST_ENTITY_2,  MeaningKind.ENTITY, 1.0 / 6.0),
+                        Meaning.of(MockEntityService.TEST_ENTITY_2,  MeaningKind.ENTITY, 1.0 / 6.0),
                         MOCK_TEXT));
 
                 
@@ -155,11 +160,11 @@ public class MockNlpService implements INLPService {
     public List<TermSearchResult> freeSearch(String partialName, Locale locale) {
         ArrayList<TermSearchResult> ret = new ArrayList();
         
-        Entity entity = ekb.getEntityService().readEntity(MockEkb.TEST_ENTITY_1);
-        Concept concept = ekb.getKnowledgeService().readConcept(MockEkb.SKILIFT_CONCEPT);
+        Entity entity = ekb.getEntityService().readEntity(MockEntityService.TEST_ENTITY_1);
+        Concept concept = ekb.getKnowledgeService().readConcept(MockKnowledgeService.SKILIFT_CONCEPT);
         
-        ret.add(TermSearchResult.of(MockEkb.TEST_ENTITY_1, entity.getName(), MeaningKind.ENTITY));
-        ret.add(TermSearchResult.of(MockEkb.SKILIFT_CONCEPT, concept.getName(), MeaningKind.CONCEPT));
+        ret.add(TermSearchResult.of(MockEntityService.TEST_ENTITY_1, entity.getName(), MeaningKind.ENTITY));
+        ret.add(TermSearchResult.of(MockKnowledgeService.SKILIFT_CONCEPT, concept.getName(), MeaningKind.CONCEPT));
         return ret;
 
     }

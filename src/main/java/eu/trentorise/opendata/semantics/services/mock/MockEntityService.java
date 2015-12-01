@@ -27,6 +27,31 @@ import com.google.common.collect.Iterables;
  */
 public class MockEntityService implements IEntityService {
 
+    /**
+     * ID prefix for entities created in mockekb
+     */
+    public static final String ENTITY_PREFIX = MockEkb.LOCAL_ID_PREFIX + "entity/";
+
+    /**
+     * ID prefix for values created in mockekb
+     */
+    public static final String VALUE_PREFIX = MockEkb.LOCAL_ID_PREFIX + "value/";
+
+    /**
+     * ID prefix for attributes created in mockekb
+     */
+    public static final String ATTRIBUTE_PREFIX = MockEkb.LOCAL_ID_PREFIX + "attribute/";
+
+    /**
+     * ID prefix for entities created in mockekb
+     */
+    public static final String STRUCTURE_PREFIX = MockEkb.LOCAL_ID_PREFIX + "struct/";
+
+    
+    public static String TEST_ENTITY_1 = ENTITY_PREFIX + "test-entity-1";
+    public static String TEST_ENTITY_2 = ENTITY_PREFIX + "test-entity-2";
+
+    
     private static final Logger LOG = Logger.getLogger(MockEntityService.class.getName());
 
     private IEkb ekb;

@@ -18,6 +18,7 @@ package eu.trentorise.opendata.semantics.services;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
+import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import java.util.List;
@@ -99,4 +100,6 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
                             .build();
     }
 
+    
+        
 }

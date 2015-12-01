@@ -10,7 +10,7 @@ import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.semantics.services.IEtypeService;
 import eu.trentorise.opendata.semantics.services.SearchResult;
-import static eu.trentorise.opendata.semantics.services.mock.MockEkb.*;
+import static eu.trentorise.opendata.semantics.services.mock.MockKnowledgeService.ROOT_CONCEPT;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,6 +25,89 @@ import javax.annotation.Nullable;
  */
 public class MockEtypeService implements IEtypeService {
 
+    public static final String ATTR_DEF_PREFIX = "oetest:ad/";
+    public static final String ETYPE_PREFIX = "oetest:et/";
+    
+    public static final String TEST_ROOT_STRUCTURE = ETYPE_PREFIX + "test-root-struct";
+
+    public static final String TEST_ROOT_ETYPE = ETYPE_PREFIX + "test-root-etype";
+    public static final String TEST_ROOT_NAME_ATTR = ATTR_DEF_PREFIX + "test-root-name";
+    public static final String TEST_ROOT_DESCR_ATTR = ATTR_DEF_PREFIX + "test-root-description";
+
+
+    public static final String COMPLEX_NAME = ETYPE_PREFIX + "complex-name";
+    public static final String COMPLEX_NAME_NAME_ATTR = ATTR_DEF_PREFIX + "complex-name-name";
+
+    public static final String LOCATION = ETYPE_PREFIX + "location";
+    public static final String LOCATION_NAME_ATTR = ATTR_DEF_PREFIX + "location-name";
+    public static final String LOCATION_DESCR_ATTR = ATTR_DEF_PREFIX + "location-description";
+
+    public static final String FARMFED_PRODUCER = ETYPE_PREFIX + "farmfed-producer";
+    public static final String FARMFED_PROD_NAME_ATTR = ATTR_DEF_PREFIX + "farmfed-prod-name";
+    public static final String FARMFED_PROD_DESCR_ATTR = ATTR_DEF_PREFIX + "farmfed-prod-description";
+
+    public static final String CERTIFIED_PRODUCT = ETYPE_PREFIX + "certified-product";
+    public static final String CERTIFIED_PRODUCT_NAME_ATTR = ATTR_DEF_PREFIX + "cert-prod-name";
+    public static final String CERTIFIED_PRODUCT_DESCR_ATTR = ATTR_DEF_PREFIX + "cert-prod-descr";
+    public static final String CERTIFIED_PRODUCT_CERTIFICATE_ATTR = ATTR_DEF_PREFIX + "cert-prod-certificate";
+    public static final String CERTIFIED_PRODUCT_REGULATIONS_ATTR = ATTR_DEF_PREFIX + "cert-prod-regulations";
+    public static final String CERTIFIED_PRODUCT_PRODUCTION_SITE_ATTR = ATTR_DEF_PREFIX + "cert-prod-production-site";
+    public static final String CERTIFIED_PRODUCT_PRODUCER_ATTR = ATTR_DEF_PREFIX + "cert-prod-producer";
+    public static final String CERTIFIED_PRODUCT_WEBSITE_ATTR = ATTR_DEF_PREFIX + "cert-prod-website";
+
+    public static final String FACILITY = ETYPE_PREFIX + "facility";
+    public static final String FACILITY_NAME_ATTR = ATTR_DEF_PREFIX + "facility-name";
+    public static final String FACILITY_DESCR_ATTR = ATTR_DEF_PREFIX + "facility-description";
+    public static final String FACILITY_LATITUDE_ATTR = ATTR_DEF_PREFIX + "facility-latitude";
+    public static final String FACILITY_LONGITUDE_ATTR = ATTR_DEF_PREFIX + "facility-longitude";
+    public static final String FACILITY_OPENING_HOURS_ATTR = ATTR_DEF_PREFIX + "facility-opening-hours";
+    public static final String FACILITY_CLASS_ATTR = ATTR_DEF_PREFIX + "class";
+    public static final String FACILITY_ADDRESS_ATTR = ATTR_DEF_PREFIX + "address";
+
+    public static final String OPENING_HOURS = ETYPE_PREFIX + "opening-hours";
+    public static final String OPENING_TIME_ATTR = ATTR_DEF_PREFIX + "opening-time";
+    public static final String CLOSING_TIME_ATTR = ATTR_DEF_PREFIX + "closing-time";
+
+    public static final String ADDRESS = ETYPE_PREFIX + "address";
+    public static final String ADDRESS_MUNICIPALITY_ATTR = ATTR_DEF_PREFIX + "address-municipality";
+
+    
+    
+    /**
+     * Simple entity type with 4 attributes, name, description, test-attr-def-1,
+     * test-attr-def-2 and test-attr-def-3
+     */
+    public static final String TEST_ENTITY_TYPE = ETYPE_PREFIX + "test-etype";
+    public static final String TEST_NAME_ATTR_ID = ATTR_DEF_PREFIX + "test-name";
+    public static final String TEST_DESCR_ATTR_ID = ATTR_DEF_PREFIX + "test-description";
+    
+    public static final String TEST_ATTR_DEF_1_ID = ATTR_DEF_PREFIX + "test-attr-def-1";
+    public static final String TEST_ATTR_DEF_2_ID = ATTR_DEF_PREFIX + "test-attr-def-2";
+    public static final String TEST_ATTR_DEF_3_ID = ATTR_DEF_PREFIX + "test-attr-def-3";
+
+    static public final String TEST_ATTR_DEF_1_EN_NAME = "test attr 1";
+    static public final String TEST_ATTR_DEF_2_EN_NAME = "test attr 2";
+    static public final String TEST_ATTR_DEF_3_EN_NAME = "test attr 3";
+
+    static public final String TEST_ATTR_DEF_1_IT_NAME = "Attributo di test 1";
+    static public final String TEST_ATTR_DEF_2_IT_NAME = "Attributo di test 2";
+    static public final String TEST_ATTR_DEF_3_IT_NAME = "Attributo di test 3";
+
+    public static final String TEST_REC_STRUCTURE = ETYPE_PREFIX + "rec-et";
+    public static final String TEST_REC_ATTR_DEF = ETYPE_PREFIX + "rec-attr-def";
+
+    public static final String TEST_REC_NAME_ATTR = ATTR_DEF_PREFIX + "rec-et-name";
+    public static final String TEST_REC_DESCR_ATTR = ATTR_DEF_PREFIX + "rec-et-descr";
+    public static final String TEST_REC_ENTITY_TYPE = ETYPE_PREFIX + "rec-et";
+    public static final String TEST_REC_OUTER_ATTR_DEF = ATTR_DEF_PREFIX + "rec-struct";
+    
+    
+    public static final AttrDef TEST_ATTR_DEF_1 = newAttrDef(
+            TEST_ATTR_DEF_1_ID, 
+            TEST_ATTR_DEF_1_EN_NAME,
+            TEST_ATTR_DEF_1_IT_NAME, 
+            AT_STRING);
+    
     private final Map<String, Etype> registeredETypes;
     private final Map<String, AttrDef> registeredAttrDefs;
 
@@ -43,14 +126,17 @@ public class MockEtypeService implements IEtypeService {
 
         registerStructType(TEST_ROOT_STRUCTURE, "test root struct", "struttura radice di test");
 
-        registerNameDescr(ROOT_NAME_ATTR, ROOT_DESCR_ATTR, ROOT_ETYPE);
-        registerEtype(ROOT_ETYPE, "test root etype", "etype radice di test", ROOT_CONCEPT, ROOT_NAME_ATTR,
-                ROOT_DESCR_ATTR);
+        registerNameDescr(TEST_ROOT_NAME_ATTR, TEST_ROOT_DESCR_ATTR, TEST_ROOT_ETYPE);
+        registerEtype(TEST_ROOT_ETYPE, "test root etype", "etype radice di test",
+                MockKnowledgeService.ROOT_CONCEPT, 
+                TEST_ROOT_NAME_ATTR,
+                TEST_ROOT_DESCR_ATTR);
 
+                
         registerAttrDef(TEST_ATTR_DEF_1_ID, TEST_ATTR_DEF_1_EN_NAME, TEST_ATTR_DEF_1_IT_NAME, AT_STRING);
         registerAttrDef(TEST_ATTR_DEF_2_ID, TEST_ATTR_DEF_2_EN_NAME, TEST_ATTR_DEF_2_IT_NAME, AT_STRING);
-        registerAttrDef(TEST_ATTR_DEF_3_ID, TEST_ATTR_DEF_3_EN_NAME, TEST_ATTR_DEF_3_IT_NAME, AT_STRING);
-
+        registerAttrDef(TEST_ATTR_DEF_3_ID, TEST_ATTR_DEF_3_EN_NAME, TEST_ATTR_DEF_3_IT_NAME, AT_STRING);        
+        
         registerNameDescr(TEST_NAME_ATTR_ID, TEST_DESCR_ATTR_ID, TEST_ENTITY_TYPE);
         registerEtype(TEST_ENTITY_TYPE, "test etype", "etype di test", ROOT_CONCEPT, TEST_NAME_ATTR_ID, TEST_DESCR_ATTR_ID,
                 TEST_ATTR_DEF_1_ID, TEST_ATTR_DEF_2_ID, TEST_ATTR_DEF_3_ID);
@@ -112,7 +198,7 @@ public class MockEtypeService implements IEtypeService {
         registerAttrDef(FACILITY_DESCR_ATTR, "Description", "Descrizione", AttrType.of(DataTypes.SEMANTIC_TEXT, true));
         registerAttrDef(FACILITY_ADDRESS_ATTR, "Address", "Indirizzo", AttrType.of(DataTypes.STRUCTURE, false, ADDRESS));
 
-        registerEtype(FACILITY, "Facility", "Infrastruttura", FACILITY_CONCEPT, FACILITY_NAME_ATTR, FACILITY_DESCR_ATTR,
+        registerEtype(FACILITY, "Facility", "Infrastruttura", MockKnowledgeService.FACILITY_CONCEPT, FACILITY_NAME_ATTR, FACILITY_DESCR_ATTR,
                 FACILITY_LATITUDE_ATTR, FACILITY_LONGITUDE_ATTR, FACILITY_OPENING_HOURS_ATTR, FACILITY_CLASS_ATTR,
                 FACILITY_ADDRESS_ATTR);
 
@@ -124,7 +210,7 @@ public class MockEtypeService implements IEtypeService {
             attrs.add(registeredAttrDefs.get(au));
         }
 
-        Etype ret = newEtype(URL, engName, itName, attrs, ROOT_CONCEPT);
+        Etype ret = newEtype(URL, engName, itName, attrs, MockKnowledgeService.ROOT_CONCEPT);
         registeredETypes.put(URL, ret);
         return ret;
     }
@@ -158,7 +244,7 @@ public class MockEtypeService implements IEtypeService {
         registeredETypes.put(URL, ret);
         return ret;
     }
-
+        
     public AttrDef registerAttrDef(String URL, String engName, String itName, AttrType attrType) {
         AttrDef ret = newAttrDef(URL, engName, itName, attrType);
         registeredAttrDefs.put(URL, ret);
@@ -231,12 +317,12 @@ public class MockEtypeService implements IEtypeService {
 
     @Override
     public Etype readRootEtype() {
-        return registeredETypes.get(MockEkb.ROOT_ETYPE);
+        return registeredETypes.get(TEST_ROOT_ETYPE);
     }
 
     @Override
     public Etype readRootStruct() {
-        return registeredETypes.get(MockEkb.TEST_ROOT_STRUCTURE);
+        return registeredETypes.get(TEST_ROOT_STRUCTURE);
     }
 
     @Override

@@ -19,6 +19,27 @@ import java.util.logging.Logger;
  */
 public class MockKnowledgeService implements IKnowledgeService {
 
+    public static final String CONCEPT_PREFIX = "oetest:cc/";
+
+    public static final String ROOT_CONCEPT = CONCEPT_PREFIX + "test-root-concept";
+    public static final String ROOT_CONCEPT_IT_NAME = "concetto radice di test";
+    public static final String ROOT_CONCEPT_EN_NAME = "test root concept";
+    public static final String ROOT_CONCEPT_IT_DESCR = "Descrizione del concetto radice di test";
+    public static final String ROOT_CONCEPT_EN_DESCR = "Description of test root concept";   
+    
+    public static final String SKILIFT_CONCEPT = MockKnowledgeService.CONCEPT_PREFIX + "skilift";
+    public static final String SKILIFT_CONCEPT_IT_NAME = "Impianto di risalita";
+    public static final String SKILIFT_CONCEPT_EN_NAME = "Chairlift";
+    public static final String SKILIFT_CONCEPT_IT_DESCR = "Tipo di impianto di risalita, adibito al trasporto di persone in zone di difficile accesso e con grandi dislivelli altimetrici.";
+    public static final String SKILIFT_CONCEPT_EN_DESCR = "Type of aerial lift, which consists of a continuously circulating steel cable loop strung between two end terminals";
+
+    public static final String FACILITY_CONCEPT = MockKnowledgeService.CONCEPT_PREFIX + "facility";
+    public static final String FACILITY_CONCEPT_IT_NAME = "Infrastruttura";
+    public static final String FACILITY_CONCEPT_EN_NAME = "Facility";
+    public static final String FACILITY_CONCEPT_IT_DESCR = "Uno o la serie di elementi strutturati che intermedia i rapporti tra i vari componenti di una struttura ";
+    public static final String FACILITY_CONCEPT_EN_DESCR = "Infrastruct is the basic physical and organizational struct needed for the operation of a society or enterprise";
+
+    
     private Map<String, Concept> registeredConcepts;
     private static final Logger LOG = Logger.getLogger(MockKnowledgeService.class.getName());
 
@@ -37,8 +58,8 @@ public class MockKnowledgeService implements IKnowledgeService {
             Dict descrDict = Dict.of(Locale.ENGLISH, SKILIFT_CONCEPT_EN_DESCR)
                     .with(Locale.ITALIAN, SKILIFT_CONCEPT_IT_DESCR);
             cb.setDescription(descrDict);
-            cb.setId(MockEkb.SKILIFT_CONCEPT);
-            registeredConcepts.put(MockEkb.SKILIFT_CONCEPT, cb.build());
+            cb.setId(SKILIFT_CONCEPT);
+            registeredConcepts.put(SKILIFT_CONCEPT, cb.build());
         }
 
         { // facility
@@ -51,8 +72,8 @@ public class MockKnowledgeService implements IKnowledgeService {
             Dict descrDict = Dict.of(Locale.ENGLISH, FACILITY_CONCEPT_EN_DESCR)
                     .with(Locale.ITALIAN, FACILITY_CONCEPT_IT_DESCR);
             cb.setDescription(descrDict);
-            cb.setId(MockEkb.FACILITY_CONCEPT);
-            registeredConcepts.put(MockEkb.FACILITY_CONCEPT, cb.build());
+            cb.setId(FACILITY_CONCEPT);
+            registeredConcepts.put(FACILITY_CONCEPT, cb.build());
         }
 
         { // root test concept
@@ -65,8 +86,8 @@ public class MockKnowledgeService implements IKnowledgeService {
             Dict descrDict = Dict.of(Locale.ENGLISH, ROOT_CONCEPT_EN_DESCR)
                     .with(Locale.ITALIAN, ROOT_CONCEPT_IT_DESCR);
             cb.setDescription(descrDict);
-            cb.setId(MockEkb.ROOT_CONCEPT);
-            registeredConcepts.put(MockEkb.ROOT_CONCEPT, cb.build());
+            cb.setId(ROOT_CONCEPT);
+            registeredConcepts.put(ROOT_CONCEPT, cb.build());
         }
 
     }
@@ -100,7 +121,7 @@ public class MockKnowledgeService implements IKnowledgeService {
 
     @Override
     public Concept readRootConcept() {
-        return registeredConcepts.get(MockEkb.ROOT_CONCEPT);
+        return registeredConcepts.get(ROOT_CONCEPT);
     }
 
     @Override
