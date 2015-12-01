@@ -24,7 +24,9 @@ import java.util.List;
 import org.immutables.value.Value;
 
 /**
- *
+ * A weighted mapping between a source schema (todo common tree format schema?)
+ * and a target etype
+ * 
  * @author David Leoni
  */
 @Value.Immutable
@@ -70,13 +72,17 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
                 return -1;
             }
         }
-        int diff2 = getMappings().toString().compareTo(other.getMappings().toString());
+        int diff2 = getMappings().toString()
+                                 .compareTo(other.getMappings()
+                                                 .toString());
         if (diff2 != 0) {
             return diff2;
         }
 
         if (getTargetEtype() != null) {
-            int diff3 = getTargetEtype().toString().compareTo(other.getTargetEtype().toString());
+            int diff3 = getTargetEtype().toString()
+                                        .compareTo(other.getTargetEtype()
+                                                        .toString());
             if (diff3 != 0) {
                 return diff3;
             }
@@ -86,7 +92,11 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
     }
 
     public static SchemaMapping of(Iterable<? extends AttrMapping> mappings, Etype targetEtype, double score) {
-        return SchemaMapping.builder().addAllMappings(mappings).setTargetEtype(targetEtype).setScore(score).build();
+        return SchemaMapping.builder()
+                            .addAllMappings(mappings)
+                            .setTargetEtype(targetEtype)
+                            .setScore(score)
+                            .build();
     }
 
 }

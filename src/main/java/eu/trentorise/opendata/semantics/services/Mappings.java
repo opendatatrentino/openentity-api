@@ -16,83 +16,110 @@
 package eu.trentorise.opendata.semantics.services;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkNotEmpty;
+
+import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
+import eu.trentorise.opendata.traceprov.path.TracePaths;
 import eu.trentorise.opendata.traceprov.types.TraceRefs;
 
 import java.util.Iterator;
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 /**
  * Holds builders for various source paths for {@link AttrMapping}
+ * 
  * @author David Leoni
  */
 public class Mappings {
-    
+
     public static final String SCHEMA_SOURCE = "schema";
-    public static final String DCAT_METADATA_SOURCE = "dcatMetadata";
+    public static final String DCAT_METADATA_SOURCE = "dcat";
     public static final String CUSTOM_SOURCE = "custom";
-    
-   
-    public static final ImmutableList<String> ALLOWED_SOURCES = 
-            ImmutableList.of(SCHEMA_SOURCE, DCAT_METADATA_SOURCE, CUSTOM_SOURCE);
-    
-    
-    private static ImmutableList<String> buildPath(String kind, Iterable<String> path){	       
-        checkArgument(ALLOWED_SOURCES.contains(kind), "path kind must be one of %s, found instead: '%s'", ALLOWED_SOURCES, kind);
-        if (!SCHEMA_SOURCE.equals(kind)){
-            checkNotEmpty(path, "Invalid id path!");    
-        };
-                
+
+    public static final ImmutableList<String> ALLOWED_SOURCES = ImmutableList.of(SCHEMA_SOURCE, DCAT_METADATA_SOURCE,
+            CUSTOM_SOURCE);
+
+    private static ImmutableList<String> buildPath(String kind, Iterable<String> path) {
+        checkArgument(ALLOWED_SOURCES.contains(kind), "path kind must be one of %s, found instead: '%s'",
+                ALLOWED_SOURCES, kind);
+        if (!SCHEMA_SOURCE.equals(kind)) {
+            checkNotEmpty(path, "Invalid id path!");
+
+        }
+
+        if (DCAT_METADATA_SOURCE.equals(kind)) {
+            TracePaths.propertyPath(DcatMetadata.class, path);
+        }
+
         ImmutableList.Builder<String> builder = ImmutableList.builder();
         builder.add(kind);
-        for (String property : path){
+        for (String property : path) {
             checkNotEmpty(property, "Invalid property in path %s", path);
         }
         builder.addAll(path);
         return builder.build();
     }
-    
+
     /**
      * Returns a path of property ids of a given source schema
+     * 
      * @param idPath
-     * @return 
+     * @return
      */
-    
+
     public static ImmutableList<String> schemaSourcePath(Iterable<String> idPath) {
-        /* todo
-        for (String propertyId : idPath){
-            for (PropertyDef propertyDef : schema.getPropertyDefs()){
-                if (propertyDef.getId().equals());
-            }            
-        }*/
+        /*
+         * todo for (String propertyId : idPath){ for (PropertyDef propertyDef :
+         * schema.getPropertyDefs()){ if (propertyDef.getId().equals()); } }
+         */
         return buildPath(SCHEMA_SOURCE, idPath);
-    }    
+    }
 
     /**
      * Returns the property path for a field in a
      * {@link eu.trentorise.opendata.traceprov.data.DcatMetadata} metadata
      * object.
      *
-     * @param propertyPath a path of property names like "dataset", "themes",
-     * "uri"
+     * @param propertyPath
+     *            a path of property names like "dataset", "themes", "uri"
      * @return a path prepended with 'dcatMetadata'
      */
     public static ImmutableList<String> dcatPath(Iterable<String> propertyPath) {
-        TraceRefs.propertyRef(DcatMetadata.class, propertyPath);
         return buildPath(DCAT_METADATA_SOURCE, propertyPath);
     }
 
     /**
      * Returns a property path for a custom source.
      *
-     * @param id An identifier of the referenced source.
+     * @param id
+     *            An identifier of the referenced source.
      */
     public static ImmutableList<String> customPath(Iterable<String> propertyPath) {
         return buildPath(CUSTOM_SOURCE, propertyPath);
-    }    
-    
-     
+    }
+
+    /**
+     * Returns the attribute id . May fetch etypes from the server.
+     */
+    public static String resolveAttrPath(List<String> path, String etypeId, IEtypeService ets){
+        
+        checkNotEmpty(etypeId, "Invalid etypeId!");
+        checkNotEmpty(path, "Invalid attribute path!");
+        checkNotNull(ets);               
+        
+        Etype curEtype = ets.readEtype(etypeId);
+        
+        for (String element : path){
+            checkNotEmpty(element, "Invalid element in attribute path!");
+            
+            curEtype.attrDefByName(attrDefLocator)
+            ets.readEtype(URL)
+        }
+    }
 }
