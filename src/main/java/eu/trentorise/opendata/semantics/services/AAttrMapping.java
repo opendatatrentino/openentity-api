@@ -17,9 +17,12 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableList;
+
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.commons.TodUtils;
 import eu.trentorise.opendata.semantics.Checker;
+import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
 
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
 
@@ -46,14 +49,16 @@ abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
      * A reference to a property path in the source schema, which is intended to
      * be in common tree format - see
      * {@link eu.trentorise.opendata.traceprov.data.TraceFile}. For allowed
-     * source properties see {@link Mappings#ALLOWED_SOURCES}.
+     * root source properties see {@link Schemas#ALLOWED_SOURCES}.
+     *s     
      *
-     */
+     */    
     public abstract List<String> getSourcePath();
 
     /**
-     * A reference to a target etype attribute path made of attribute names in
-     * canonical format, i.e. ["workingPlace","address","zip"] . Can be empty.
+     * A reference to a target etype attribute path made of attribute names
+     * preferably in canonical format, i.e. ["workingPlace","address","zip"] .
+     * Can be empty.
      */
     public abstract List<String> getTargetPath();
 
@@ -61,7 +66,11 @@ abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
      * todo javadoc
      */
     public static AttrMapping of(Iterable<String> sourcePath, Iterable<String> targetPath, double score) {
-	return AttrMapping.builder().addAllSourcePath(sourcePath).addAllTargetPath(targetPath).setScore(score).build();
+        return AttrMapping.builder()
+                          .addAllSourcePath(sourcePath)
+                          .addAllTargetPath(targetPath)
+                          .setScore(score)
+                          .build();
     }
 
     /**
@@ -70,37 +79,40 @@ abstract class AAttrMapping implements Serializable, Comparable<AttrMapping> {
      */
     @Value.Default
     public double getScore() {
-	return 1.0;
+        return 1.0;
     }
 
     @Value.Check
     protected void check() {
-	checkScore(getScore(), "Invalid attribute mapping!");
-	Checker.checkSourcePath(getSourcePath(), "Invalid attribute mapping!");
+        checkScore(getScore(), "Invalid attribute mapping!");
+        Schemas.checkSourcePath(getSourcePath(), "Invalid attribute mapping!");
     }
 
     @Override
     public int compareTo(AttrMapping other) {
-	double diff1 = this.getScore() - other.getScore();
-	if (diff1 != 0.0) {
-	    if (diff1 > 0) {
-		return +1;
-	    } else {
-		return -1;
-	    }
-	}
-	int diff2 = getSourcePath().toString().compareTo(other.getSourcePath().toString());
-	if (diff2 != 0) {
-	    return diff2;
-	}
+        double diff1 = this.getScore() - other.getScore();
+        if (diff1 != 0.0) {
+            if (diff1 > 0) {
+                return +1;
+            } else {
+                return -1;
+            }
+        }
+        int diff2 = getSourcePath().toString()
+                                   .compareTo(other.getSourcePath()
+                                                   .toString());
+        if (diff2 != 0) {
+            return diff2;
+        }
 
-	int diff3 = getTargetPath().toString().compareTo(other.getTargetPath().toString());
-	if (diff3 != 0) {
-	    return diff3;
-	} else {
-	    return 0;
-	}
+        int diff3 = getTargetPath().toString()
+                                   .compareTo(other.getTargetPath()
+                                                   .toString());
+        if (diff3 != 0) {
+            return diff3;
+        } else {
+            return 0;
+        }
     }
 
-    
 }

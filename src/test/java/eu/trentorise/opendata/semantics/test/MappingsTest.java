@@ -14,7 +14,7 @@ import eu.trentorise.opendata.semantics.DataTypes;
 import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.AttrType;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
-import eu.trentorise.opendata.semantics.services.Mappings;
+import eu.trentorise.opendata.semantics.services.Schemas;
 import eu.trentorise.opendata.semantics.services.mock.MockEkb;
 import eu.trentorise.opendata.semantics.services.mock.MockEntityService;
 import eu.trentorise.opendata.semantics.services.mock.MockEtypeService;
@@ -54,7 +54,7 @@ public class MappingsTest {
                 attrA.getId());
         
         try {
-            Mappings.resolveAttrPath(ImmutableList.<String>of(), "a", ets);
+            Schemas.resolveAttrPath(ImmutableList.<String>of(), "a", ets);
             Assert.fail("Shouldn't arrive here!");
         } catch (Exception ex){ // todo define better exception
             
@@ -62,17 +62,17 @@ public class MappingsTest {
         
         
         assertEquals(attrA,   
-                     Mappings.resolveAttrPath(ImmutableList.of(attrA.getId()), "etypeA", ets));
+                     Schemas.resolveAttrPath(ImmutableList.of(attrA.getId()), "etypeA", ets));
         
         assertEquals(attrA,   
-                Mappings.resolveAttrPath(ImmutableList.of("Attribute A"), "etypeA", ets));
+                Schemas.resolveAttrPath(ImmutableList.of("Attribute A"), "etypeA", ets));
 
         
         assertEquals(attrB,   
-                Mappings.resolveAttrPath(ImmutableList.of(attrA.getId(), attrB.getId()), etypeA.getId(), ets));
+                Schemas.resolveAttrPath(ImmutableList.of(attrA.getId(), attrB.getId()), etypeA.getId(), ets));
        
         try {            
-            Mappings.resolveAttrPath(ImmutableList.of("attrA", "attr666"), "etypeA", ets);
+            Schemas.resolveAttrPath(ImmutableList.of("attrA", "attr666"), "etypeA", ets);
             Assert.fail("Shouldn't arrive here!");
         } catch (Exception ex){ // todo define better exception
             

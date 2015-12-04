@@ -17,10 +17,12 @@ package eu.trentorise.opendata.semantics.services;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
+
 import eu.trentorise.opendata.commons.BuilderStylePublic;
-import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
-import eu.trentorise.opendata.semantics.model.entity.Etype;
+import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
 import java.util.List;
 import org.immutables.value.Value;
 
@@ -92,6 +94,19 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
 
     }
 
+    /**
+     * Returns a map from targets attribute paths to their origin paths.
+     */
+    public SetMultimap<PropertyPath, PropertyPath> mergeMap() {
+        LinkedHashMultimap<PropertyPath, PropertyPath> res = LinkedHashMultimap.create();
+
+        for (AttrMapping m : getMappings()) {
+            res.put(PropertyPath.of(m.getTargetPath()),
+                    PropertyPath.of(m.getSourcePath()));
+        }
+        return res;
+    }
+
     public static SchemaMapping of(Iterable<? extends AttrMapping> mappings, Etype targetEtype, double score) {
         return SchemaMapping.builder()
                             .addAllMappings(mappings)
@@ -100,6 +115,4 @@ abstract class ASchemaMapping implements Comparable<SchemaMapping> {
                             .build();
     }
 
-    
-        
 }
