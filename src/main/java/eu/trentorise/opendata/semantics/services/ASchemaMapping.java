@@ -22,7 +22,7 @@ import com.google.common.collect.SetMultimap;
 
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
-import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
+import eu.trentorise.opendata.traceprov.tracel.java.PropertyPath;
 import java.util.List;
 import org.immutables.value.Value;
 

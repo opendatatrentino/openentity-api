@@ -26,9 +26,9 @@ import eu.trentorise.opendata.semantics.DataTypes;
 import eu.trentorise.opendata.semantics.model.entity.AttrDef;
 import eu.trentorise.opendata.semantics.model.entity.Etype;
 import eu.trentorise.opendata.traceprov.data.DcatMetadata;
-import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
-import eu.trentorise.opendata.traceprov.tracel.TraceQueries;
-import eu.trentorise.opendata.traceprov.tracel.Tracel;
+//import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
+//import eu.trentorise.opendata.traceprov.tracel.Tracel;
+import eu.trentorise.opendata.traceprov.tracel.java.TraceQueries;
 import eu.trentorise.opendata.traceprov.types.TraceRefs;
 
 import java.util.Iterator;
@@ -170,7 +170,9 @@ public class Schemas {
         }
 
         if (DCAT_SOURCE.equals(kind)) {
-            Tracel.checkPathFromClass(DcatMetadata.class, PropertyPath.of(path));
+            
+           throw new UnsupportedOperationException("Todo implement me!");
+           //Tracel.checkPathFromClass(DcatMetadata.class, PropertyPath.parse(path));
         }
 
         for (String property : path) {

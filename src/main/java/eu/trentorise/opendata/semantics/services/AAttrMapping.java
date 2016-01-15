@@ -22,7 +22,6 @@ import com.google.common.collect.ImmutableList;
 import eu.trentorise.opendata.commons.BuilderStylePublic;
 import eu.trentorise.opendata.commons.TodUtils;
 import eu.trentorise.opendata.semantics.Checker;
-import eu.trentorise.opendata.traceprov.tracel.PropertyPath;
 
 import static eu.trentorise.opendata.commons.validation.Preconditions.checkScore;
 
