@@ -201,7 +201,7 @@ public class Dict implements IDict {
 
     @Nullable
     public String getString(Locale locale) {
-        List<String> as = translations.get(locale);
+        List<String> as = translations.get(sanitizeLocale(locale));
         if (as == null) {
             return null;
         }
@@ -230,14 +230,14 @@ public class Dict implements IDict {
     @Nullable
     public String getValidTranslation(Locale locale) {
         if (translations.containsKey(locale)) {
-            List<String> as = translations.get(locale);
+            List<String> as = translations.get(sanitizeLocale(locale));
             if (as == null) {
                 return null;
             }
             if (as.isEmpty()) {
                 return null;
             } else {
-                for (String s : translations.get(locale)) {
+                for (String s : translations.get(sanitizeLocale(locale))) {
                     if (isValid(s)) {
                         return s;
                     }
@@ -250,7 +250,7 @@ public class Dict implements IDict {
 
     public List<String> getStrings(Locale locale) {
         if (translations.containsKey(locale)) {
-            return translations.get(locale);
+            return translations.get(sanitizeLocale(locale));
         } else {
             return new ArrayList<String>();
         }
