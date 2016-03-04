@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -39,6 +41,8 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public class Dict implements IDict {
 
+	private static final Logger LOG = Logger.getLogger(Dict.class.getName());
+	
     private Map<Locale, List<String>> translations;
 
     public Dict() {
@@ -53,7 +57,7 @@ public class Dict implements IDict {
                 for (String s : dict.getStrings(loc)) {
                     names.add(s);
                 }
-                this.translations.put(loc, Collections.unmodifiableList(names));
+                this.translations.put(sanitizeLocale(loc), Collections.unmodifiableList(names));
             }
         }
     }
@@ -94,13 +98,27 @@ public class Dict implements IDict {
         }    */
             
         
-        translations.put(locale, new ArrayList() {
+        translations.put(sanitizeLocale(locale), new ArrayList() {
             {
                 add(text);
             }
         });
     }
 
+    /**
+     * Concerts null locale to {@link Locale#ROOT}
+     * @since 0.26.3
+     * @param locale
+     */
+    private Locale sanitizeLocale(@Nullable Locale locale){
+    	if (locale == null){
+    		LOG.warning("Found null locale, converting it to Locale.ROOT (the corresponding language tag is the empty string)");
+    		return Locale.ROOT;
+    	} else {
+    		return locale;
+    	}
+    }
+    
     /**
      * Sets translations to provided locale
      */
@@ -113,9 +131,8 @@ public class Dict implements IDict {
                 throw new IllegalArgumentException("null texts are not allowed in a " + Dict.class.getSimpleName());
             }
             ts.add(s);
-        }
-        // todo put null check on locale, see https://github.com/opendatatrentino/openentity-api/issues/7
-        this.translations.put(locale, texts);
+        }        
+        this.translations.put(sanitizeLocale(locale), texts);
     }
 
     public Set<Locale> getLocales() {
@@ -154,8 +171,8 @@ public class Dict implements IDict {
             newTranslations.put(loc, translations.get(loc));
         }
         
-        // todo check null locale https://github.com/opendatatrentino/openentity-api/issues/7
-        newTranslations.put(locale, Collections.unmodifiableList(lst));
+        // todo check null locale https://github.com/opendatatrentino/openentity-api/issues/7    
+        newTranslations.put(sanitizeLocale(locale), Collections.unmodifiableList(lst));
                         
         return new Dict(newTranslations);
     }
@@ -177,7 +194,7 @@ public class Dict implements IDict {
         for (Locale loc : translations.keySet()) {
             newTranslations.put(loc, translations.get(loc));
         }
-        newTranslations.put(locale, Collections.unmodifiableList(lst));
+        newTranslations.put(sanitizeLocale(locale), Collections.unmodifiableList(lst));
 
         return new Dict(newTranslations);
     }
@@ -279,14 +296,15 @@ public class Dict implements IDict {
     public Dict merge(IDict dict) {
         Dict ret = new Dict(this);
         for (Locale locale : dict.getLocales()) {
-            if (ret.translations.containsKey(locale)) {
+        	Locale sanitizedlocale = sanitizeLocale(locale);
+            if (ret.translations.containsKey(sanitizedlocale)) {
                 for (String t : dict.getStrings(locale)) {
-                    if (!ret.translations.get(locale).contains(t)) {
-                        ret.translations.get(locale).add(t);
+                    if (!ret.translations.get(sanitizedlocale).contains(t)) {
+                        ret.translations.get(sanitizedlocale).add(t);
                     }
                 }
             } else {
-                ret.translations.put(locale, dict.getStrings(locale));
+                ret.translations.put(sanitizedlocale, dict.getStrings(locale));
             }
         }
         return ret;
